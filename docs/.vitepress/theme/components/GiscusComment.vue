@@ -2,7 +2,7 @@
   <div style="margin-top: 24px">
     <Giscus
       id="comments"
-      repo="haovei/site"
+      repo="ALVIN-YANG/ylqMemoryBackup"
       repoid="R_kgDOLx5gaw"
       category="General"
       categoryid="DIC_kwDOLx5ga84Cf7S3"

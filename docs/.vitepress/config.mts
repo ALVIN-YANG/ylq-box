@@ -30,7 +30,7 @@ export default defineConfig({
             items: [
               {
                 text: "基础数据类型与封装类",
-                link: "/java/语言基础/基础类型与封装类",
+                link: "/java/语言基础/基础数据类型与封装类",
               },
             ],
           },

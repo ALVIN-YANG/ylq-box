@@ -19,7 +19,7 @@ export default defineConfig({
     search: {
       provider: "local",
     },
-    lastUpdatedText: "最后更新",
+    lastUpdated: { text: "最后更新"},
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       {
@@ -30,7 +30,7 @@ export default defineConfig({
             items: [
               {
                 text: "基础数据类型与封装类",
-                link: "/java/语言基础/基础数据类型与封装类",
+                link: "/java/1-base/基础数据类型与封装类",
               },
             ],
           },
@@ -40,9 +40,15 @@ export default defineConfig({
         text: "运维",
         items: [
           {
-            text: "网络",
+            text: "1-网络",
             items: [
-              { text: "获取用户真实IP", link: "/ops/network/获取用户真实IP" },
+              { text: "获取用户真实IP", link: "/ops/1-network/1-获取用户真实IP" },
+            ],
+          },
+          {
+            text: "2-k8s",
+            items: [
+              { text: "k8s作用与架构", link: "/ops/2-k8s/1-k8s作用与架构" },
             ],
           },
         ],

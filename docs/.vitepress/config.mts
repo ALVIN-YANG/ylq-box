@@ -16,6 +16,7 @@ export default defineConfig({
     lineNumbers: true,
   },
   themeConfig: {
+    displayAllHeaders: true,
     search: {
       provider: "local",
     },
@@ -46,24 +47,29 @@ export default defineConfig({
             ],
           },
           {
-            text: "2-k8s",
+            text: "DevOps工具",
             items: [
-              { text: "k8s作用与架构", link: "/ops/2-k8s/1-k8s作用与架构" },
+              {text: "k8s", link: '/ops/2-k8s/1-k8s概览与相关索引'}
             ],
           },
         ],
       },
     ],
 
-    // sidebar: [
-    //   {
-    //     text: 'Examples',
-    //     items: [
-    //       { text: 'Markdown Examples', link: '/markdown-examples' },
-    //       { text: 'Runtime API Examples', link: '/api-examples' }
-    //     ]
-    //   }
-    // ],
+    sidebar: {
+      '/ops/2-k8s/': [
+        {
+          text: '1-k8s概览与相关索引',
+          link: '/ops/2-k8s/1-k8s概览与相关索引',
+        },
+        {
+          text: '2-k8s资源对象定义',
+          items: [
+            {text: 'k8s资源对象定义', link: '/ops/2-k8s/2-k8s资源对象定义/2-k8s资源对象定义'}
+          ]
+        }
+      ],
+    },
 
     outline: {
       level: "deep",

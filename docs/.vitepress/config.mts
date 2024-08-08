@@ -20,7 +20,7 @@ export default defineConfig({
     search: {
       provider: "local",
     },
-    lastUpdated: { text: "最后更新"},
+    lastUpdated: { text: "最后更新" },
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       {
@@ -35,6 +35,15 @@ export default defineConfig({
               },
             ],
           },
+          {
+            text: "SpringBoot",
+            items: [
+              {
+                text: "SpringBoot Relaxed Binding",
+                link: "/java/2-SpringBoot/SpringBoot Relaxed Binding",
+              },
+            ],
+          },
         ],
       },
       {
@@ -44,13 +53,13 @@ export default defineConfig({
             text: "1-网络",
             items: [
               { text: "获取用户真实IP", link: "/ops/1-network/1-获取用户真实IP" },
-              { text: "IPv4地址范围与作用", link: "/ops/1-network/2-IPv4地址范围与作用"}
+              { text: "IPv4地址范围与作用", link: "/ops/1-network/2-IPv4地址范围与作用" }
             ],
           },
           {
             text: "DevOps工具",
             items: [
-              {text: "k8s", link: '/ops/2-k8s/1-k8s概览与相关索引'}
+              { text: "k8s", link: '/ops/2-k8s/1-k8s概览与相关索引' }
             ],
           },
         ],
@@ -66,7 +75,7 @@ export default defineConfig({
         {
           text: '2-k8s资源对象定义',
           items: [
-            {text: 'k8s资源对象定义', link: '/ops/2-k8s/2-k8s资源对象定义/2-k8s资源对象定义'}
+            { text: 'k8s资源对象定义', link: '/ops/2-k8s/2-k8s资源对象定义/2-k8s资源对象定义' }
           ]
         }
       ],

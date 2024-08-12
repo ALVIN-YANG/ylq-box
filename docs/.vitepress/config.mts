@@ -75,7 +75,8 @@ export default defineConfig({
         {
           text: '2-k8s资源对象定义',
           items: [
-            { text: 'k8s资源对象定义', link: '/ops/2-k8s/2-k8s资源对象定义/2-k8s资源对象定义' }
+            { text: 'k8s资源对象定义', link: '/ops/2-k8s/2-k8s资源对象定义/2-k8s资源对象定义' },
+            { text: 'k8s资源对象定义', link: '/ops/2-k8s/2-k8s资源对象定义/2-配置imagePullSecrets拉取私有库镜像' }
           ]
         }
       ],

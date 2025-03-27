@@ -9,7 +9,7 @@ const config: Config = {
   tagline: 'Memery Backup',
   favicon: 'img/favicon.ico',
 
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://ylq-memory-backup.netlify.app',
   baseUrl: '/',
 
   organizationName: 'luqing.yang', // Usually your GitHub org/user name.
@@ -22,20 +22,11 @@ const config: Config = {
   },
   plugins: [
     "docusaurus-plugin-sass",
-    [
-      "@docusaurus/plugin-ideal-image",
-      {
-        quality: 85,
-        max: 2000,
-        min: 500,
-        steps: 4,
-        disableInDev: false,
-      },
-    ],
+    // 移除 ideal-image 插件
   ],
   i18n: {
-    defaultLocale: "zh-CN",
-    locales: ["zh-CN"],
+    defaultLocale: "en",
+    locales: ["en"],
   },
 
   presets: [
@@ -48,8 +39,6 @@ const config: Config = {
           path: 'docs',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         theme: {
           customCss: './src/css/custom.scss',

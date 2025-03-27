@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from "react";
 import clsx from "clsx";
-import Image from "@theme/IdealImage";
 import styles from "./AboutMe.module.scss";
 
 export interface AboutMeProps {
@@ -19,7 +18,7 @@ export const AboutMe: FunctionComponent<AboutMeProps> = ({
         <div className="col col--6">{descriptionComponent}</div>
         <div className={clsx("col col--5", styles.avatarContainer)}>
           <div className={styles.avatar}>
-            <Image img={avatar} />
+            <img src={avatar} alt="avatar" />
           </div>
         </div>
       </div>

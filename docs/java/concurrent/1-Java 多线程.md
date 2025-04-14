@@ -1,12 +1,3 @@
----
-id: java-concurrent
-title: Java 多线程
-description: 多线程。
-keywords:
-  - java
-  - 多线程
----
-
 # Java 多线程
 
 ## 引言

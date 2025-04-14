@@ -66,6 +66,11 @@ const config: Config = {
           position: "left",
           to: "docs/ops/k8s/k8s-overview",
         },
+        {
+          label: "网络",
+          position: "left",
+          to: "docs/network/IPv4地址范围与作用",
+        },
       ],
     },
     footer: {

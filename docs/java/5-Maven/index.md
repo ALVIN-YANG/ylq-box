@@ -79,57 +79,6 @@ export PATH=${PATH}:${M3_HOME}
 <url>http://www.example.com</url>
 ```
 
-### 模块管理 modules
-
-- `<modules>` 模块是一个列表，包含项目的子模块名称。
-- 每个子模块通常是一个独立的 Maven 项目，有自己的 pom.xml 文件。
-- 父模块的 pom.xml 文件通过 `<modules>` 模块声明这些子模块。
-
-目录
-
-```plain
-parent-project/
-├── pom.xml           # 父模块的 pom.xml
-├── only4fun-api/
-│   └── pom.xml       # 子模块1的 pom.xml
-└── only4fun-web/
-    └── pom.xml       # 子模块2的 pom.xml
-```
-
-父模块
-
-- 父模块的 `<packaging>` 必须是 pom，父模块本身不生成任何可执行的工件，只用于管理子模块
-- 父模块 执行了 `mvn install` 安装在本地，才会被子模块找到坐标
-
-```xml
-<!-- 父模块中声明子模块 -->
-<modules>
-    <module>only4fun-api</module>
-    <module>only4fun-web</module>
-</modules>
-```
-
-子模块
-
-- 子模块的 pom.xml 文件中需要通过 `<parent>` 模块声明其父模块
-- `<parent>` 模块中需要指定父模块的 groupId、artifactId 和 version
-- 子模块可以依赖其他子模块，Maven 会根据依赖关系自动调整构建顺序。
-- 子模块可以继承父模块中的配置，如依赖管理、插件配置等。
-- 子模块可以独立构建和部署，便于团队协作。
-  - 子模块独立打包命令：`mvn package -pl [子模块名称] -am`
-    - pl 子模块名称：指定要打包的子模块名称。
-    - am：自动构建依赖的模块。
-
-```xml
-<!-- 继承父模块 -->
-<parent>
-    <!-- 坐标信息与父模块的坐标一致 -->
-    <groupId>com.example</groupId>
-    <artifactId>parent-project</artifactId>
-    <version>1.0.0</version>
-</parent>
-```
-
 ### 定义引用属性 properties
 
 - `<properties>` 模块允许你定义一些键值对，这些键值对可以在项目的任何地方被引用。属性的值可以是任何字符串，包括版本号、文件路径、配置参数等。
@@ -196,7 +145,58 @@ parent-project/
 </dependency>
 ```
 
-#### 继承父模块中的依赖
+### 模块管理 modules
+
+- `<modules>` 模块是一个列表，包含项目的子模块名称。
+- 每个子模块通常是一个独立的 Maven 项目，有自己的 pom.xml 文件。
+- 父模块的 pom.xml 文件通过 `<modules>` 模块声明这些子模块。
+
+目录
+
+```plain
+parent-project/
+├── pom.xml           # 父模块的 pom.xml
+├── only4fun-api/
+│   └── pom.xml       # 子模块1的 pom.xml
+└── only4fun-web/
+    └── pom.xml       # 子模块2的 pom.xml
+```
+
+父模块
+
+- 父模块的 `<packaging>` 必须是 pom，父模块本身不生成任何可执行的工件，只用于管理子模块
+- 父模块 执行了 `mvn install` 安装在本地，才会被子模块找到坐标
+
+```xml
+<!-- 父模块中声明子模块 -->
+<modules>
+    <module>only4fun-api</module>
+    <module>only4fun-web</module>
+</modules>
+```
+
+子模块
+
+- 子模块的 pom.xml 文件中需要通过 `<parent>` 模块声明其父模块
+- `<parent>` 模块中需要指定父模块的 groupId、artifactId 和 version
+- 子模块可以依赖其他子模块，Maven 会根据依赖关系自动调整构建顺序。
+- 子模块可以继承父模块中的配置，如依赖管理、插件配置等。
+- 子模块可以独立构建和部署，便于团队协作。
+  - 子模块独立打包命令：`mvn package -pl [子模块名称] -am`
+    - pl 子模块名称：指定要打包的子模块名称。
+    - am：自动构建依赖的模块。
+
+```xml
+<!-- 继承父模块 -->
+<parent>
+    <!-- 坐标信息与父模块的坐标一致 -->
+    <groupId>com.example</groupId>
+    <artifactId>parent-project</artifactId>
+    <version>1.0.0</version>
+</parent>
+```
+
+### 继承父模块中的依赖
 
 父模块
 

@@ -278,7 +278,7 @@ public interface OrderMapper {
 
 ```
 
-#### 模糊查询
+### 模糊查询
 
 `CONCAT('%', #{name}, '%')`
 
@@ -289,7 +289,7 @@ public interface OrderMapper {
 </select>
 ```
 
-#### 手动分页查询
+### 手动分页查询
 
 ```xml
 <select id="selectUsersByPage" resultType="User">
@@ -305,7 +305,7 @@ List<User> selectUsersByPage(
 );
 ```
 
-#### 使用 PageHelper 分页查询
+### 使用 PageHelper 分页查询
 
 文档： [PageHelper](https://github.com/pagehelper/Mybatis-PageHelper)
 
@@ -337,7 +337,7 @@ pagehelper:
 
 - [在代码中使用](https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.md#3-%E5%A6%82%E4%BD%95%E5%9C%A8%E4%BB%A3%E7%A0%81%E4%B8%AD%E4%BD%BF%E7%94%A8)
 
-#### 动态 SQL
+### 动态 SQL
 
 `<where>`条件判断
 

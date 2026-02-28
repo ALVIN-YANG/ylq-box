@@ -9,7 +9,7 @@ const config: Config = {
   tagline: 'Memery Backup',
   favicon: 'img/favicon.ico',
 
-  url: 'https://ylq-memory-backup.netlify.app',
+  url: 'https://ilovestudy.club',
   baseUrl: '/',
 
   organizationName: 'luqing.yang', // Usually your GitHub org/user name.

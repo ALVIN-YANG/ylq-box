@@ -94,30 +94,38 @@ async function callLLM(systemPrompt, userContent) {
   const baseUrl = (process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1').replace(/\/+$/, '');
   const model = process.env.OPENAI_MODEL || 'gpt-4o-mini';
 
-  const res = await fetch(`${baseUrl}/chat/completions`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model,
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userContent },
-      ],
-      temperature: 0.3,
-    }),
-    signal: AbortSignal.timeout(60000),
-  });
+  try {
+    const res = await fetch(`${baseUrl}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userContent },
+        ],
+        temperature: 0.3,
+      }),
+      signal: AbortSignal.timeout(60000),
+    });
 
-  if (!res.ok) {
-    const body = await res.text();
-    throw new Error(`LLM API error ${res.status}: ${body}`);
+    if (!res.ok) {
+      const body = await res.text();
+      console.warn(`⚠ LLM API 调用失败（${res.status}），改用 RSS 原始列表。`);
+      console.warn(`⚠ 失败详情：${body}`);
+      console.warn('⚠ 请检查 OPENAI_BASE_URL 与 OPENAI_MODEL 是否匹配当前服务商的模型命名规则。');
+      return null;
+    }
+
+    const data = await res.json();
+    return data?.choices?.[0]?.message?.content || null;
+  } catch (err) {
+    console.warn(`⚠ LLM 调用异常：${err.message}，改用 RSS 原始列表。`);
+    return null;
   }
-
-  const data = await res.json();
-  return data.choices[0].message.content;
 }
 
 // ── 每日速递 ──
@@ -235,7 +243,7 @@ async function generateWeekly(force = false) {
   if (llmResult) {
     content = llmResult;
   } else {
-    content = `> 本周自动总结需要配置 OPENAI_API_KEY，以下为原始内容合并。\n\n${dailyContents}`;
+    content = `> 本周自动总结未启用或调用失败，以下为原始内容合并。\n\n${dailyContents}`;
   }
 
   const md = `---

@@ -51,6 +51,7 @@ npm run preview    # 本地预览构建结果
 ## 内容编写
 
 在 `src/content/docs/` 下对应目录中添加 `.md` 或 `.mdx` 文件，Starlight 会自动生成路由和侧边栏。
+首页 `src/content/docs/index.mdx` 使用 Splash 模板，标题下方快捷入口当前指向 `AI` 与 `AI News`。
 
 每篇文档需要包含 frontmatter：
 
@@ -71,6 +72,7 @@ description: 简短描述（可选，用于 SEO 和卡片展示）
    - `OPENAI_API_KEY`（必须）—— OpenAI API Key
    - `OPENAI_BASE_URL`（可选）—— 自定义 API 地址，支持代理或兼容接口（如 DeepSeek）
    - `OPENAI_MODEL`（可选）—— 模型名称，默认 `gpt-4o-mini`
+   - 注意：`OPENAI_MODEL` 的命名需要和 `OPENAI_BASE_URL` 对应服务商保持一致，否则可能出现 `unexpected model name format`（400）
 
 2. 推送代码后，GitHub Actions 会自动：
    - **每天 08:00（北京时间）**：生成每日速递
@@ -98,6 +100,7 @@ node scripts/fetch-ai-news.mjs --weekly --force
 ```
 
 不设置 `OPENAI_API_KEY` 时，脚本会降级为直接输出 RSS 原始列表（不经过 LLM 总结）。
+当 LLM 接口调用失败（例如模型名格式不匹配、网关超时）时，脚本同样会自动降级输出原始列表，不会导致任务整体失败。
 每日速递和周报正文开头会包含“生成时间”（北京时间 + UTC），便于核对重跑结果。
 
 ## 部署

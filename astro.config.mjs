@@ -12,9 +12,13 @@ export default defineConfig({
         // Path to your custom CSS file
         './src/styles/custom.css',
       ],
-      social: {
-        github: 'https://github.com/ALVIN-YANG/ylq-box',
-      },
+      social: [
+        {
+          label: 'GitHub',
+          href: 'https://github.com/ALVIN-YANG/ylq-box',
+          icon: 'github'
+        }
+      ],
       sidebar: [
         {
           label: 'Java',

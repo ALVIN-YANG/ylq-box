@@ -1,3 +1,6 @@
+---
+title: 上传项目到 Maven 中心仓
+---
 # 上传项目到 Maven 中心仓
 
 ## Central Portal

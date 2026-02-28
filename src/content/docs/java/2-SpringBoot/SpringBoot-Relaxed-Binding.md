@@ -1,3 +1,6 @@
+---
+title: SpringBoot Relaxed Binding
+---
 # SpringBoot Relaxed Binding
 
 - Spring Boot 的 Relaxed Binding 特性是为了提供灵活性，允许你在不同配置源（如环境变量、命令行参数、属性文件等）中使用不同风格的属性键命名，而 Spring Boot 会自动将它们统一为 Java 代码中的属性键格式。

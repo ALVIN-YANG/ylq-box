@@ -1,3 +1,6 @@
+---
+title: MyBatis
+---
 # MyBatis
 
 官方文档：[https://mybatis.org/mybatis-3/zh_CN/index.html](https://mybatis.org/mybatis-3/zh_CN/index.html)

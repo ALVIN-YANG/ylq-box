@@ -1,0 +1,50 @@
+/* Deep Space Theme - Starlight Edition */
+:root {
+	--sl-color-accent-low: #1e1b4b;
+	--sl-color-accent: #6366f1;
+	--sl-color-accent-high: #c7d2fe;
+	--sl-color-white: #ffffff;
+	--sl-color-gray-1: #eef2ff;
+	--sl-color-gray-2: #c7d2fe;
+	--sl-color-gray-3: #a5b4fc;
+	--sl-color-gray-4: #818cf8;
+	--sl-color-gray-5: #6366f1;
+	--sl-color-gray-6: #4f46e5;
+	--sl-color-black: #0f172a;
+}
+
+[data-theme='dark'] {
+	/* Deep Space Void Background */
+	--sl-color-bg-nav: #0b0c15;
+	--sl-color-bg: #0b0c15;
+	--sl-color-bg-sidebar: #0f101c;
+	--sl-color-bg-footer: #0f101c;
+
+	/* Holographic Text Gradients */
+	--sl-text-accent: #a78bfa;
+}
+
+/* Glassmorphism Navbar */
+.site-title {
+	font-weight: 800;
+	letter-spacing: -0.02em;
+	background: linear-gradient(to right, #a78bfa, #38bdf8);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+/* Content Cards */
+.card {
+	background: rgba(255, 255, 255, 0.03);
+	border: 1px solid rgba(255, 255, 255, 0.05);
+	backdrop-filter: blur(12px);
+}
+
+/* Typography */
+body {
+	font-family: 'Inter', system-ui, sans-serif;
+}
+
+code {
+	font-family: 'JetBrains Mono', monospace;
+}

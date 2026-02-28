@@ -22,6 +22,17 @@ const RSS_FEEDS = [
   { name: 'TechCrunch AI', url: 'https://techcrunch.com/category/artificial-intelligence/feed/' },
 ];
 
+function getGeneratedAt() {
+  const now = new Date();
+  return {
+    iso: now.toISOString(),
+    cn: now.toLocaleString('zh-CN', {
+      timeZone: 'Asia/Shanghai',
+      hour12: false,
+    }),
+  };
+}
+
 // ── RSS 解析（轻量实现，不依赖第三方库） ──
 
 async function fetchRSS(feedUrl) {
@@ -111,15 +122,19 @@ async function callLLM(systemPrompt, userContent) {
 
 // ── 每日速递 ──
 
-async function generateDaily() {
+async function generateDaily(force = false) {
   const today = new Date();
   const dateStr = today.toISOString().split('T')[0]; // YYYY-MM-DD
   const filename = `${dateStr}-daily.md`;
   const filepath = join(DOCS_DIR, filename);
+  const generatedAt = getGeneratedAt();
 
-  if (existsSync(filepath)) {
+  if (existsSync(filepath) && !force) {
     console.log(`⏭ ${filename} 已存在，跳过`);
     return;
+  }
+  if (existsSync(filepath) && force) {
+    console.log(`♻ ${filename} 已存在，强制覆盖`);
   }
 
   console.log(`\n📰 抓取 AI 新闻 (${dateStr})...\n`);
@@ -158,6 +173,8 @@ title: "AI 速递 ${dateStr}"
 description: "${dateStr} AI 行业新闻速递"
 ---
 
+> 生成时间：${generatedAt.cn}（UTC: ${generatedAt.iso}）
+
 ${content}
 `;
 
@@ -167,7 +184,7 @@ ${content}
 
 // ── 每周总结 ──
 
-async function generateWeekly() {
+async function generateWeekly(force = false) {
   const today = new Date();
   const weekStart = new Date(today);
   weekStart.setDate(today.getDate() - today.getDay() - 6); // 上周一
@@ -178,10 +195,14 @@ async function generateWeekly() {
   const endStr = weekEnd.toISOString().split('T')[0];
   const filename = `${startStr}-weekly.md`;
   const filepath = join(DOCS_DIR, filename);
+  const generatedAt = getGeneratedAt();
 
-  if (existsSync(filepath)) {
+  if (existsSync(filepath) && !force) {
     console.log(`⏭ ${filename} 已存在，跳过`);
     return;
+  }
+  if (existsSync(filepath) && force) {
+    console.log(`♻ ${filename} 已存在，强制覆盖`);
   }
 
   console.log(`\n📋 生成周报 (${startStr} ~ ${endStr})...\n`);
@@ -222,6 +243,8 @@ title: "周报 ${startStr} ~ ${endStr}"
 description: "${startStr} 至 ${endStr} AI 行业周报"
 ---
 
+> 生成时间：${generatedAt.cn}（UTC: ${generatedAt.iso}）
+
 ${content}
 `;
 
@@ -231,16 +254,20 @@ ${content}
 
 // ── 入口 ──
 
-const mode = process.argv[2];
+const args = process.argv.slice(2);
+const mode = args.find(arg => arg === '--daily' || arg === '--weekly');
+const force = args.includes('--force');
 
 if (mode === '--daily') {
-  generateDaily().catch(err => { console.error(err); process.exit(1); });
+  generateDaily(force).catch(err => { console.error(err); process.exit(1); });
 } else if (mode === '--weekly') {
-  generateWeekly().catch(err => { console.error(err); process.exit(1); });
+  generateWeekly(force).catch(err => { console.error(err); process.exit(1); });
 } else {
   console.log(`用法：
   node scripts/fetch-ai-news.mjs --daily    生成每日速递
   node scripts/fetch-ai-news.mjs --weekly   生成每周总结
+  node scripts/fetch-ai-news.mjs --daily --force    强制覆盖当日文件
+  node scripts/fetch-ai-news.mjs --weekly --force   强制覆盖当周文件
 
 环境变量：
   OPENAI_API_KEY   - OpenAI API Key（必须，用于 LLM 总结）

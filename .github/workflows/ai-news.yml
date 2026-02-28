@@ -16,6 +16,11 @@ on:
         options:
           - daily
           - weekly
+      force:
+        description: '是否强制覆盖已存在文件'
+        required: true
+        default: false
+        type: boolean
 
 jobs:
   generate:
@@ -36,7 +41,8 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
-        run: node scripts/fetch-ai-news.mjs --daily
+          FORCE_REGENERATE: ${{ inputs.force && 'true' || 'false' }}
+        run: node scripts/fetch-ai-news.mjs --daily ${{ env.FORCE_REGENERATE == 'true' && '--force' || '' }}
 
       - name: Generate weekly summary
         if: github.event.schedule == '0 1 * * 0' || inputs.mode == 'weekly'
@@ -44,7 +50,8 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
-        run: node scripts/fetch-ai-news.mjs --weekly
+          FORCE_REGENERATE: ${{ inputs.force && 'true' || 'false' }}
+        run: node scripts/fetch-ai-news.mjs --weekly ${{ env.FORCE_REGENERATE == 'true' && '--force' || '' }}
 
       - name: Commit and push
         run: |

@@ -76,7 +76,9 @@ description: 简短描述（可选，用于 SEO 和卡片展示）
    - **每天 08:00（北京时间）**：生成每日速递
    - **每周日 09:00（北京时间）**：生成每周总结
 
-3. 也可以在 GitHub Actions 页面手动触发（workflow_dispatch）
+3. 也可以在 GitHub Actions 页面手动触发（workflow_dispatch）：
+   - `mode`: 选择 `daily` 或 `weekly`
+   - `force`: 选择 `true` 时，会强制覆盖已存在的当日/当周文件（不会再跳过）
 
 ### 本地手动运行
 
@@ -89,9 +91,14 @@ npm run news:daily
 
 # 生成本周周报
 npm run news:weekly
+
+# 强制覆盖已存在文件（用于重跑）
+node scripts/fetch-ai-news.mjs --daily --force
+node scripts/fetch-ai-news.mjs --weekly --force
 ```
 
 不设置 `OPENAI_API_KEY` 时，脚本会降级为直接输出 RSS 原始列表（不经过 LLM 总结）。
+每日速递和周报正文开头会包含“生成时间”（北京时间 + UTC），便于核对重跑结果。
 
 ## 部署
 

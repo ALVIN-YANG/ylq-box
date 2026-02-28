@@ -1,7 +1,9 @@
 ---
 title: 分布式事务方案选型
+description: 从 CAP 理论出发，对比本地消息表、RocketMQ 事务消息、Seata AT/TCC/SAGA、2PC/XA 等分布式事务方案的适用场景
+sidebar:
+  label: 分布式事务选型
 ---
-# 分布式事务方案选型
 
 ## 前置知识点
 

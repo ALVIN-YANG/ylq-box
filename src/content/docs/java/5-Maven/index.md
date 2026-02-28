@@ -1,7 +1,9 @@
 ---
 title: Maven 依赖管理
+description: Maven 环境配置、pom.xml 标签详解、依赖范围与传递、版本冲突解决、模块管理、私服 Nexus 搭建
+sidebar:
+  label: Maven 依赖管理
 ---
-# Maven 依赖管理
 
 ## 环境准备
 

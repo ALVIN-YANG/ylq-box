@@ -7,7 +7,7 @@ export default defineConfig({
   site: 'https://ilovestudy.club',
   integrations: [
     starlight({
-      title: 'YLQ Box 2.0',
+      title: 'YLQ Box',
       customCss: [
         // Path to your custom CSS file
         './src/styles/custom.css',
@@ -24,12 +24,24 @@ export default defineConfig({
       },
       sidebar: [
         {
+          label: 'AI',
+          autogenerate: { directory: 'ai' },
+        },
+        {
+          label: 'AI News',
+          autogenerate: { directory: 'ai-news' },
+        },
+        {
           label: 'Java',
           autogenerate: { directory: 'java' },
         },
         {
           label: 'Ops',
           autogenerate: { directory: 'ops' },
+        },
+        {
+          label: 'Network',
+          autogenerate: { directory: 'network' },
         },
         {
           label: 'Blog',

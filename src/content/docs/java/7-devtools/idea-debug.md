@@ -1,12 +1,8 @@
 ---
-id: java-debug-with-idea
 title: 使用 IDEA 调试
-
-description: 调试是软件开发过程中不可或缺的一环，通过调试可以发现并修复代码中的问题，提高代码质量和程序的稳定性。
-keywords:
-  - java
-  - IDEA
-  - 调试
+description: IntelliJ IDEA 调试全指南：断点、条件断点、变量查看、线程调试、远程调试配置
+sidebar:
+  label: IDEA 调试
 ---
 
 ## 调试前的准备

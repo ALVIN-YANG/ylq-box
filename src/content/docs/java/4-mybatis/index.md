@@ -1,7 +1,9 @@
 ---
 title: MyBatis
+description: MyBatis 持久层框架全面指南：SpringBoot 集成、XML Mapper、动态 SQL、缓存、TypeHandler、连接池选型
+sidebar:
+  label: MyBatis
 ---
-# MyBatis
 
 官方文档：[https://mybatis.org/mybatis-3/zh_CN/index.html](https://mybatis.org/mybatis-3/zh_CN/index.html)
 

@@ -1,10 +1,17 @@
 ---
 import type { Props } from '@astrojs/starlight/props';
-import Search from '@astrojs/starlight/components/Search.astro';
 import SiteTitle from '@astrojs/starlight/components/SiteTitle.astro';
 import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
-import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
+import Search from '@astrojs/starlight/components/Search.astro';
 
+const navLinks = [
+  { label: 'AI', href: '/ai/mcp原理/' },
+  { label: 'AI News', href: '/ai-news/' },
+  { label: 'Java', href: '/java/1-language/optional/' },
+  { label: 'Ops', href: '/ops/k8s/1-k8s-overview/' },
+  { label: 'Network', href: '/network/1-ipv4地址范围与作用/' },
+  { label: 'Blog', href: '/blog/2026-02-28-mola-intro/' },
+];
 ---
 
 <div class="header sl-flex">
@@ -12,16 +19,16 @@ import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
     <SiteTitle {...Astro.props} />
   </div>
   <div class="sl-flex spacer"></div>
-  <div class="sl-flex links">
-    <a href="/java/springboot/springboot-relaxed-binding/">Java</a>
-    <a href="/ops/k8s/1-k8s-overview/">Ops</a>
-    <a href="/blog/mola-intro/">Blog</a>
-  </div>
+  <nav class="sl-flex nav-links">
+    {navLinks.map(link => (
+      <a href={link.href}>{link.label}</a>
+    ))}
+  </nav>
   <div class="sl-hidden md:sl-flex right-group">
+    <Search {...Astro.props} />
     <div class="sl-flex social-icons">
       <SocialIcons {...Astro.props} />
     </div>
-    <LanguageSelect {...Astro.props} />
   </div>
 </div>
 
@@ -33,7 +40,6 @@ import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
     height: 100%;
   }
   .title-wrapper {
-    /* Prevent long titles from overflowing */
     overflow: hidden;
   }
   .right-group {
@@ -44,27 +50,27 @@ import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
     gap: 1rem;
     align-items: center;
   }
-  .links {
-    gap: 2rem;
+  .nav-links {
+    gap: 1.5rem;
     align-items: center;
     display: none;
   }
   @media (min-width: 50rem) {
-    .links {
+    .nav-links {
       display: flex;
     }
   }
-  .links a {
+  .nav-links a {
     text-decoration: none;
-    color: var(--sl-color-white);
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.5rem;
-    transition: background-color 0.2s, color 0.2s;
+    color: var(--sl-color-gray-2);
+    font-weight: 500;
+    font-size: 0.875rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: 0.375rem;
+    transition: color 0.2s ease, background-color 0.2s ease;
   }
-  .links a:hover {
-    color: var(--sl-color-text-accent);
+  .nav-links a:hover {
+    color: var(--sl-color-white);
     background-color: var(--sl-color-gray-6);
   }
 </style>

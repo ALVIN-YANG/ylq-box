@@ -1,0 +1,56 @@
+name: AI News
+
+on:
+  schedule:
+    # 每天 UTC 00:00（北京时间 08:00）生成每日速递
+    - cron: '0 0 * * *'
+    # 每周日 UTC 01:00（北京时间 09:00）生成周报
+    - cron: '0 1 * * 0'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: '运行模式'
+        required: true
+        default: 'daily'
+        type: choice
+        options:
+          - daily
+          - weekly
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Generate daily news
+        if: github.event.schedule == '0 0 * * *' || inputs.mode == 'daily'
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
+          OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
+        run: node scripts/fetch-ai-news.mjs --daily
+
+      - name: Generate weekly summary
+        if: github.event.schedule == '0 1 * * 0' || inputs.mode == 'weekly'
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
+          OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
+        run: node scripts/fetch-ai-news.mjs --weekly
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/content/docs/ai-news/
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "chore(ai-news): auto-generate $(date -u +%Y-%m-%d)"
+          git push

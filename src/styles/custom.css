@@ -1,73 +1,102 @@
-/* Blackboard Theme - Mitchell H Inspired */
-:root {
-	/* Force Dark Mode Colors */
-	--sl-color-bg-nav: #1a1a1a;
-	--sl-color-bg: #1a1a1a;
-	--sl-color-bg-sidebar: #1a1a1a;
-	--sl-color-bg-footer: #1a1a1a;
+/*
+ * Slate Dark Theme
+ * All grays share a consistent 220° blue undertone for visual harmony.
+ * Layered surfaces create depth; soft blue accent adds personality.
+ */
 
-	--sl-color-white: #f5f5f5;
-	--sl-color-gray-1: #e5e5e5;
-	--sl-color-gray-2: #d4d4d4;
-	--sl-color-gray-3: #a3a3a3;
-	--sl-color-gray-4: #737373;
-	--sl-color-gray-5: #525252;
-	--sl-color-gray-6: #404040;
-	--sl-color-black: #1a1a1a;
-	
-	--sl-color-accent-low: #262626;
-	--sl-color-accent: #ffffff; /* Minimalist accent - White */
-	--sl-color-accent-high: #e5e5e5;
-	
-	--sl-text-accent: #ffffff;
-}
+:root,
+[data-theme='light'],
+[data-theme='dark'] {
+	/* Surface layers — subtle elevation differences for depth */
+	--sl-color-bg: #0f1219;
+	--sl-color-bg-nav: #171c26;
+	--sl-color-bg-sidebar: #0f1219;
+	--sl-color-bg-footer: #0f1219;
 
-/* Hide any light mode overrides if they exist */
-[data-theme='light'] {
-	--sl-color-bg-nav: #1a1a1a;
-	--sl-color-bg: #1a1a1a;
-	--sl-color-bg-sidebar: #1a1a1a;
-	--sl-color-bg-footer: #1a1a1a;
-	--sl-color-accent: #ffffff;
-	--sl-text-accent: #ffffff;
-    --sl-color-white: #f5f5f5;
-    --sl-color-gray-1: #e5e5e5;
-    --sl-color-gray-2: #d4d4d4;
-    --sl-color-gray-3: #a3a3a3;
-    --sl-color-gray-4: #737373;
-    --sl-color-gray-5: #525252;
-    --sl-color-black: #1a1a1a;
+	/* Gray scale — unified blue undertone, evenly spaced brightness */
+	--sl-color-white: #e8ecf2;
+	--sl-color-gray-1: #ccd2dc;
+	--sl-color-gray-2: #a8b0be;
+	--sl-color-gray-3: #7e8899;
+	--sl-color-gray-4: #5e6878;
+	--sl-color-gray-5: #3f4758;
+	--sl-color-gray-6: #262e3c;
+	--sl-color-black: #0f1219;
+
+	/* Accent — soft blue, three tonal levels */
+	--sl-color-accent-low: #18253a;
+	--sl-color-accent: #5ba3f5;
+	--sl-color-accent-high: #c0d6f3;
+	--sl-color-text-accent: #7ab8f8;
 }
 
 /* Typography */
 body {
-	font-family: 'Inter', system-ui, sans-serif;
-	color: #e5e5e5;
+	font-family: 'Inter', system-ui, -apple-system, sans-serif;
+	color: var(--sl-color-white);
 }
 
 code {
-	font-family: 'JetBrains Mono', monospace;
+	font-family: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
-/* Navbar Tweaks */
+/* Site title */
 .site-title {
 	font-weight: 800;
 	letter-spacing: -0.02em;
-	color: #ffffff !important;
 }
 
-/* Card Styling - Minimal Flat */
+/* Cards — elevated surface with smooth border transition */
 .card {
-	background: #222222;
-	border: 1px solid #333333;
+	background: #161b25;
+	border: 1px solid var(--sl-color-gray-6);
 	box-shadow: none;
+	transition: border-color 0.25s ease;
 }
 
 .card:hover {
-	border-color: #555555;
+	border-color: var(--sl-color-gray-5);
 }
 
-/* Link underline style for "Mitchell" vibe */
+/* Links */
 a {
 	text-decoration-thickness: 1px;
+	text-underline-offset: 0.15em;
+}
+
+/* Starlight link-cards: harmonize with theme */
+starlight-link-card a {
+	border-color: var(--sl-color-gray-6) !important;
+	background: #161b25 !important;
+	transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+starlight-link-card a:hover {
+	border-color: var(--sl-color-accent) !important;
+	background: var(--sl-color-accent-low) !important;
+}
+
+/* Sidebar active item highlight */
+[data-current='true'] > a,
+[aria-current='page'] {
+	color: var(--sl-color-accent) !important;
+}
+
+/* Scrollbar — subtle, matches theme */
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--sl-color-gray-5);
+	border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--sl-color-gray-4);
 }

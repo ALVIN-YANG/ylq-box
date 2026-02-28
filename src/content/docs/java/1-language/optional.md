@@ -1,7 +1,9 @@
 ---
 title: Optional 的用法
+description: Java 8 引入的 Optional 容器类，用于优雅地处理空值判断，避免多层嵌套 null 检查
+sidebar:
+  label: Optional 用法
 ---
-# Optional 的用法
 
 ## 使用 Optional 的目的
 

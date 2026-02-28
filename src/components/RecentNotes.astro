@@ -4,21 +4,30 @@ import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 
 const allDocs = await getCollection('docs');
 
-// Filter out index pages if any, and pick 4 recent ones
 const recentDocs = allDocs
   .filter(doc => {
-    const slug = doc.slug || doc.id;
-    return slug && !slug.endsWith('index') && !slug.includes('_category_');
+    const id = doc.id;
+    return id
+      && !id.endsWith('index')
+      && !id.includes('_category_')
+      && id !== 'index.mdx'
+      && !id.startsWith('guides/')
+      && !id.startsWith('reference/');
   })
-  .slice(0, 4);
+  .sort((a, b) => {
+    const dateA = a.data.lastUpdated || a.data.date || new Date(0);
+    const dateB = b.data.lastUpdated || b.data.date || new Date(0);
+    return new Date(dateB).getTime() - new Date(dateA).getTime();
+  })
+  .slice(0, 6);
 ---
 
 <CardGrid stagger>
   {recentDocs.map(doc => (
     <LinkCard
       title={doc.data.title}
-      description={doc.data.description || 'Click to read more...'}
-      href={`/${doc.slug || doc.id}/`}
+      description={doc.data.description || ''}
+      href={`/${doc.id.replace(/\.mdx?$/, '').replace(/\/index$/, '/')}/`}
     />
   ))}
 </CardGrid>

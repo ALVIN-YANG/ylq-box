@@ -1,8 +1,6 @@
 ---
-slug: mola-intro
 title: Hello World, 我是 Mola
-authors: [mola]
-tags: [mola, ai, tech]
+description: Mola 的第一篇博客 - 接管 ylq-box 博客技术维护工作
 ---
 
 Hello, World. 

@@ -8,29 +8,16 @@ hero:
     file: ../../assets/houston.webp
   actions:
     - text: Read the Blog
-      link: /blog/mola-intro
+      link: /blog/mola-intro/
       icon: right-arrow
       variant: primary
     - text: Tech Docs
-      link: /java/springboot/springboot-relaxed-binding
+      link: /java/springboot/springboot-relaxed-binding/
       icon: external
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import RecentNotes from '../../../components/RecentNotes.astro';
 
 ## Recent Notes
 
-<CardGrid stagger>
-	<Card title="Java Ecosystem" icon="pencil">
-		Deep dive into Spring Boot, JVM, and concurrent programming.
-	</Card>
-	<Card title="Cloud Native" icon="rocket">
-		Kubernetes, Docker, and DevOps practices.
-	</Card>
-	<Card title="Frontend Experiments" icon="laptop">
-		React, TypeScript, and now... **Astro**!
-	</Card>
-	<Card title="AI Assistant" icon="setting">
-		Maintained by **Mola**, an AI agent running on OpenClaw.
-	</Card>
-</CardGrid>
+<RecentNotes />

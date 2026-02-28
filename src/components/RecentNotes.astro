@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+const allDocs = await getCollection('docs');
+
+// Filter out index pages if any, and pick 4 recent ones
+// Ideally sort by date if available, otherwise just pick first few that are not 'index'
+const recentDocs = allDocs
+  .filter(doc => !doc.slug.endsWith('index') && !doc.slug.includes('_category_'))
+  .slice(0, 4);
+---
+
+<CardGrid stagger>
+  {recentDocs.map(doc => (
+    <LinkCard
+      title={doc.data.title}
+      description={doc.data.description || 'Click to read more...'}
+      href={`/${doc.slug}/`}
+    />
+  ))}
+</CardGrid>

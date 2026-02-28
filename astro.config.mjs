@@ -19,6 +19,9 @@ export default defineConfig({
           icon: 'github'
         }
       ],
+      components: {
+        Header: './src/components/CustomHeader.astro',
+      },
       sidebar: [
         {
           label: 'Java',

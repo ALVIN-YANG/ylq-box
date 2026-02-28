@@ -1,0 +1,72 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import Search from '@astrojs/starlight/components/Search.astro';
+import SiteTitle from '@astrojs/starlight/components/SiteTitle.astro';
+import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
+import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
+import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
+
+---
+
+<div class="header sl-flex">
+  <div class="title-wrapper sl-flex">
+    <SiteTitle {...Astro.props} />
+  </div>
+  <div class="sl-flex spacer"></div>
+  <div class="sl-flex links">
+    <a href="/java/springboot/springboot-relaxed-binding/">Java</a>
+    <a href="/ops/k8s/1-k8s-overview/">Ops</a>
+    <a href="/blog/mola-intro/">Blog</a>
+  </div>
+  <div class="sl-hidden md:sl-flex right-group">
+    <div class="sl-flex social-icons">
+      <SocialIcons {...Astro.props} />
+    </div>
+    <ThemeSelect {...Astro.props} />
+    <LanguageSelect {...Astro.props} />
+  </div>
+</div>
+
+<style>
+  .header {
+    gap: var(--sl-nav-gap);
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+  .title-wrapper {
+    /* Prevent long titles from overflowing */
+    overflow: hidden;
+  }
+  .right-group {
+    gap: 1rem;
+    align-items: center;
+  }
+  .social-icons {
+    gap: 1rem;
+    align-items: center;
+  }
+  .links {
+    gap: 2rem;
+    align-items: center;
+    display: none;
+  }
+  @media (min-width: 50rem) {
+    .links {
+      display: flex;
+    }
+  }
+  .links a {
+    text-decoration: none;
+    color: var(--sl-color-white);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .links a:hover {
+    color: var(--sl-color-text-accent);
+    background-color: var(--sl-color-gray-6);
+  }
+</style>

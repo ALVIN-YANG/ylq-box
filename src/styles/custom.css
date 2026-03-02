@@ -4,7 +4,7 @@
  * Layered surfaces, generous whitespace, refined typography.
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&family=Noto+Sans+SC:wght@300;400;500&family=Space+Grotesk:wght@300;400;500&display=swap');
 
 /* ─── Theme Tokens ─── */
 
@@ -38,7 +38,7 @@
 	--sl-line-height: 1.8;
 
 	/* Font stacks */
-	--sl-font: 'Inter', system-ui, -apple-system, sans-serif;
+	--sl-font: 'Inter', 'Noto Sans SC', system-ui, sans-serif;
 	--sl-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
@@ -63,16 +63,26 @@ code {
 	color: var(--sl-color-white) !important;
 }
 
+/* ─── Page Title ─── */
+
+#_top {
+	font-size: 1.8rem !important;
+	font-weight: 400 !important;
+	letter-spacing: -0.02em;
+}
+
 /* ─── Headings ─── */
 
 .sl-markdown-content h1 {
-	font-weight: 600;
+	font-size: 1.35rem;
+	font-weight: 400;
 	letter-spacing: -0.02em;
 	margin-top: 0;
 }
 
 .sl-markdown-content h2 {
-	font-weight: 600;
+	font-size: 1.1rem;
+	font-weight: 400;
 	letter-spacing: -0.015em;
 	margin-top: 2.5em;
 	padding-bottom: 0.35em;
@@ -80,17 +90,25 @@ code {
 }
 
 .sl-markdown-content h3 {
-	font-weight: 600;
+	font-size: 1rem;
+	font-weight: 400;
 	letter-spacing: -0.01em;
 	margin-top: 2em;
 }
 
 .sl-markdown-content h4 {
-	font-weight: 600;
+	font-size: 0.95rem;
+	font-weight: 400;
 	margin-top: 1.5em;
 }
 
 /* ─── Paragraphs & Prose ─── */
+
+.sl-markdown-content {
+	font-size: 0.92rem;
+	font-weight: 300;
+	line-height: 1.85;
+}
 
 .sl-markdown-content p {
 	margin-bottom: 1.25em;
@@ -192,7 +210,9 @@ a {
 
 [data-current='true'] > a,
 [aria-current='page'] {
-	color: var(--sl-color-accent) !important;
+	color: var(--sl-color-white) !important;
+	background: var(--sl-color-accent-low) !important;
+	border-radius: 6px;
 }
 
 /* ─── Scrollbar ─── */
@@ -311,4 +331,15 @@ main {
 	flex: 1;
 	height: 1px;
 	background: linear-gradient(to right, transparent, var(--sl-color-gray-5), transparent);
+}
+
+/* ─── Pagination Links ─── */
+
+.pagination-links a {
+	padding: 0.75rem !important;
+}
+
+.pagination-links .link-title {
+	font-size: 0.9rem !important;
+	font-weight: 400 !important;
 }

@@ -1,7 +1,7 @@
 ---
 title: RAG 原理与实践：让 LLM 用上「你的知识」
 description: 检索增强生成（RAG）是什么、为什么能减幻觉、典型流程（切块、向量化、检索、拼进 Prompt），以及实践中的切块策略与检索要点
-slug: rag-primer
+slug: ai/rag-primer
 ---
 
 大模型的训练数据有截止日期，也不知道你公司文档、你的代码库、你的知识库。**RAG（Retrieval-Augmented Generation，检索增强生成）** 就是在回答前，先从你的数据里查出相关内容，再塞进提示词里让模型「基于这些材料」生成答案，从而减少瞎编、并支持引用来源。

@@ -1,0 +1,59 @@
+---
+import DefaultHero from '@astrojs/starlight/components/Hero.astro';
+import HeroAnimation from './HeroAnimation.astro';
+
+const isHomePage = Astro.locals.starlightRoute?.entry?.data?.template === 'splash';
+---
+
+{isHomePage ? (
+  <div class="hero-backdrop">
+    <div class="hero-canvas-layer">
+      <HeroAnimation />
+    </div>
+    <div class="hero-content-layer">
+      <DefaultHero {...Astro.props} />
+    </div>
+  </div>
+) : (
+  <DefaultHero {...Astro.props} />
+)}
+
+<style>
+  .hero-backdrop {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-canvas-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-content-layer {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-content-layer :global(.hero) {
+    display: flex !important;
+    grid-template-columns: none !important;
+    padding-block: clamp(3rem, calc(1rem + 10vmin), 8rem) !important;
+  }
+
+  .hero-content-layer :global(.stack) {
+    text-align: center !important;
+  }
+
+  .hero-content-layer :global(.copy) {
+    align-items: center !important;
+  }
+
+  .hero-content-layer :global(.copy > *) {
+    max-width: 70ch !important;
+  }
+
+  .hero-content-layer :global(.actions) {
+    justify-content: center !important;
+  }
+</style>

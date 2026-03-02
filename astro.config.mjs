@@ -23,6 +23,7 @@ export default defineConfig({
         Header: './src/components/CustomHeader.astro',
         Footer: './src/components/Footer.astro',
         Sidebar: './src/components/Sidebar.astro',
+        Hero: './src/components/Hero.astro',
       },
       sidebar: [
         {

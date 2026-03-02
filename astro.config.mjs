@@ -7,7 +7,7 @@ export default defineConfig({
   site: 'https://ilovestudy.club',
   integrations: [
     starlight({
-      title: 'YLQ Box',
+      title: 'Alvin Yang',
       customCss: [
         // Path to your custom CSS file
         './src/styles/custom.css',
@@ -21,11 +21,17 @@ export default defineConfig({
       ],
       components: {
         Header: './src/components/CustomHeader.astro',
+        Footer: './src/components/Footer.astro',
+        Sidebar: './src/components/Sidebar.astro',
       },
       sidebar: [
         {
           label: 'AI',
           autogenerate: { directory: 'ai' },
+        },
+        {
+          label: 'Architecture',
+          autogenerate: { directory: 'architecture' },
         },
         {
           label: 'AI News',
@@ -34,18 +40,22 @@ export default defineConfig({
         {
           label: 'Java',
           autogenerate: { directory: 'java' },
+          collapsed: true,
         },
         {
           label: 'Ops',
           autogenerate: { directory: 'ops' },
+          collapsed: true,
         },
         {
           label: 'Network',
           autogenerate: { directory: 'network' },
+          collapsed: true,
         },
         {
           label: 'Blog',
           autogenerate: { directory: 'blog' },
+          collapsed: true,
         },
       ],
     }),

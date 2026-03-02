@@ -1,0 +1,85 @@
+---
+import MobileMenuFooter from 'virtual:starlight/components/MobileMenuFooter';
+import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.astro';
+import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
+
+const { sidebar } = Astro.locals.starlightRoute;
+const currentPath = Astro.url.pathname;
+
+const groupPrefixes: Record<string, string> = {
+  'AI': '/ai/',
+  'Architecture': '/architecture/',
+  'AI News': '/ai-news/',
+  'Java': '/java/',
+  'Ops': '/ops/',
+  'Network': '/network/',
+  'Blog': '/blog/',
+};
+
+function extractDate(href: string): string {
+  const match = href.match(/(\d{4}-\d{2}-\d{2})/);
+  return match ? match[1] : '0000-00-00';
+}
+
+function sortByDateDesc(a: any, b: any): number {
+  return extractDate(b.href).localeCompare(extractDate(a.href));
+}
+
+function splitAiNews(group: any): any {
+  const links = group.entries.filter((e: any) => e.type === 'link');
+  const weekly = links
+    .filter((e: any) => e.href.includes('-weekly'))
+    .sort(sortByDateDesc);
+  const daily = links
+    .filter((e: any) => e.href.includes('-daily'))
+    .sort(sortByDateDesc);
+  const other = links
+    .filter((e: any) => !e.href.includes('-weekly') && !e.href.includes('-daily'));
+
+  const entries: any[] = [];
+  if (other.length) entries.push(...other);
+  if (weekly.length) {
+    entries.push({
+      type: 'group',
+      label: '周报',
+      entries: weekly,
+      collapsed: false,
+      badge: undefined,
+    });
+  }
+  if (daily.length) {
+    entries.push({
+      type: 'group',
+      label: '日报',
+      entries: daily,
+      collapsed: false,
+      badge: undefined,
+    });
+  }
+  return { ...group, entries };
+}
+
+let filteredSidebar = sidebar;
+
+for (const entry of sidebar) {
+  if (entry.type === 'group') {
+    const prefix = groupPrefixes[entry.label];
+    if (prefix && currentPath.startsWith(prefix)) {
+      if (entry.label === 'AI News') {
+        filteredSidebar = [splitAiNews(entry)];
+      } else {
+        filteredSidebar = [entry];
+      }
+      break;
+    }
+  }
+}
+---
+
+<SidebarPersister>
+  <SidebarSublist sublist={filteredSidebar} />
+</SidebarPersister>
+
+<div class="md:sl-hidden">
+  <MobileMenuFooter />
+</div>

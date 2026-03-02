@@ -1,6 +1,6 @@
-# YLQ Box
+# Alvin Yang
 
-基于 [Astro](https://astro.build) + [Starlight](https://starlight.astro.build) 的个人技术文档站点，用于记录和分享技术笔记与博客。
+基于 [Astro](https://astro.build) + [Starlight](https://starlight.astro.build) 的个人技术站点，聚焦 AI Agent 开发、云原生与全栈工程实践。
 
 **站点地址**：https://ilovestudy.club
 
@@ -9,15 +9,17 @@
 - **框架**：Astro 5 + Starlight
 - **语言**：TypeScript / Markdown
 - **部署**：Netlify（CI/CD 自动构建）
-- **样式**：自定义 Slate 暗色主题（Inter + JetBrains Mono 字体）
+- **样式**：自定义 Elegant Dark 暗色主题（Inter + JetBrains Mono 字体，Google Fonts 加载）
 
 ## 项目结构
 
 ```
 src/
 ├── components/
-│   ├── CustomHeader.astro   # 自定义导航栏（搜索、分类链接、社交图标）
-│   └── RecentNotes.astro    # 首页最近笔记卡片
+│   ├── CustomHeader.astro   # 自定义导航栏（毛玻璃背景、当前页高亮、移动端汉堡菜单）
+│   ├── Sidebar.astro        # 自定义侧边栏（按栏目过滤、AI News 周报/日报分组）
+│   ├── RecentNotes.astro    # 首页最近笔记卡片（AI 内容优先、分类标签、hover 微动效）
+│   └── Footer.astro         # 自定义页脚（版权信息、Starlight 致谢）
 ├── content/
 │   └── docs/
 │       ├── index.mdx        # 站点首页（Splash 布局）
@@ -31,11 +33,11 @@ src/
 │       │   └── 7-devtools/      # 开发工具（IDEA 调试）
 │       ├── ops/             # 运维（Kubernetes）
 │       ├── network/         # 网络（IP、Git 配置等）
-│       ├── ai/              # AI（Function Call、Agent、MCP 原理等）
-│       ├── ai-news/         # AI News（每日速递 + 每周总结，自动生成）
+│       ├── ai/              # AI 核心内容（Function Call、Agent、MCP 原理等）
+│       ├── ai-news/         # AI News（每日速递 + 每周总结，GitHub Actions + LLM 自动生成）
 │       └── blog/            # 博客文章
 ├── styles/
-│   └── custom.css       # 全局 Slate 暗色主题
+│   └── custom.css       # 全局 Elegant Dark 暗色主题（配色、排版、动画、内容页精修）
 └── content.config.ts    # Starlight 内容集合配置
 ```
 
@@ -51,7 +53,7 @@ npm run preview    # 本地预览构建结果
 ## 内容编写
 
 在 `src/content/docs/` 下对应目录中添加 `.md` 或 `.mdx` 文件，Starlight 会自动生成路由和侧边栏。
-首页 `src/content/docs/index.mdx` 使用 Splash 模板，标题下方快捷入口当前指向 `AI` 与 `AI News`。
+首页 `src/content/docs/index.mdx` 使用 Splash 模板，Hero 区突出 AI Agent 方向定位，下方展示最近笔记卡片（AI 内容优先）。
 
 每篇文档需要包含 frontmatter：
 

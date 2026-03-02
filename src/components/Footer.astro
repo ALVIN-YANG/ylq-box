@@ -1,0 +1,58 @@
+---
+import EditLink from 'virtual:starlight/components/EditLink';
+import LastUpdated from 'virtual:starlight/components/LastUpdated';
+import Pagination from 'virtual:starlight/components/Pagination';
+---
+
+<footer class="sl-flex">
+  <div class="meta sl-flex">
+    <EditLink />
+    <LastUpdated />
+  </div>
+  <Pagination />
+  <div class="custom-footer">
+    <span>Built by Alvin Yang</span>
+    <span class="sep">&middot;</span>
+    <span>Powered by <a href="https://astro.build" target="_blank" rel="noopener">Astro</a> & <a href="https://starlight.astro.build" target="_blank" rel="noopener">Starlight</a></span>
+  </div>
+</footer>
+
+<style>
+  footer {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .meta {
+    gap: 0.75rem 3rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-3);
+  }
+  .meta > :global(p:only-child) {
+    margin-inline-start: auto;
+  }
+  .custom-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1.5rem 0 0.5rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--sl-color-gray-6);
+    font-size: 0.78rem;
+    color: var(--sl-color-gray-3);
+  }
+  .custom-footer .sep {
+    color: var(--sl-color-gray-5);
+  }
+  .custom-footer a {
+    color: var(--sl-color-gray-2);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .custom-footer a:hover {
+    color: var(--sl-color-accent);
+  }
+</style>

@@ -1,19 +1,23 @@
 /*
- * Slate Dark Theme
- * All grays share a consistent 220° blue undertone for visual harmony.
- * Layered surfaces create depth; soft blue accent adds personality.
+ * Elegant Dark Theme
+ * 220° blue undertone across all grays for visual harmony.
+ * Layered surfaces, generous whitespace, refined typography.
  */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap');
+
+/* ─── Theme Tokens ─── */
 
 :root,
 [data-theme='light'],
 [data-theme='dark'] {
-	/* Surface layers — subtle elevation differences for depth */
-	--sl-color-bg: #0f1219;
-	--sl-color-bg-nav: #171c26;
-	--sl-color-bg-sidebar: #0f1219;
-	--sl-color-bg-footer: #0f1219;
+	/* Surfaces */
+	--sl-color-bg: #10131a;
+	--sl-color-bg-nav: rgba(16, 19, 26, 0.75);
+	--sl-color-bg-sidebar: #10131a;
+	--sl-color-bg-footer: #10131a;
 
-	/* Gray scale — unified blue undertone, evenly spaced brightness */
+	/* Gray scale */
 	--sl-color-white: #e8ecf2;
 	--sl-color-gray-1: #ccd2dc;
 	--sl-color-gray-2: #a8b0be;
@@ -21,68 +25,175 @@
 	--sl-color-gray-4: #5e6878;
 	--sl-color-gray-5: #3f4758;
 	--sl-color-gray-6: #262e3c;
-	--sl-color-black: #0f1219;
+	--sl-color-black: #10131a;
 
-	/* Accent — soft blue, three tonal levels */
-	--sl-color-accent-low: #18253a;
-	--sl-color-accent: #5ba3f5;
-	--sl-color-accent-high: #c0d6f3;
-	--sl-color-text-accent: #7ab8f8;
+	/* Accent — slightly purple-shifted blue */
+	--sl-color-accent-low: #172340;
+	--sl-color-accent: #6b9cf7;
+	--sl-color-accent-high: #c4d8f6;
+	--sl-color-text-accent: #82aff8;
+
+	/* Layout */
+	--sl-content-width: 50rem;
+	--sl-line-height: 1.8;
+
+	/* Font stacks */
+	--sl-font: 'Inter', system-ui, -apple-system, sans-serif;
+	--sl-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
-/* Typography */
+/* ─── Typography ─── */
+
 body {
-	font-family: 'Inter', system-ui, -apple-system, sans-serif;
+	font-family: var(--sl-font);
 	color: var(--sl-color-white);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 code {
-	font-family: 'JetBrains Mono', 'Fira Code', monospace;
+	font-family: var(--sl-font-mono);
 }
 
-/* Site title */
 .site-title {
-	font-weight: 800;
-	letter-spacing: -0.02em;
+	font-weight: 700;
+	letter-spacing: -0.025em;
 }
 
-/* Cards — elevated surface with smooth border transition */
+/* ─── Headings ─── */
+
+.sl-markdown-content h1 {
+	font-weight: 600;
+	letter-spacing: -0.02em;
+	margin-top: 0;
+}
+
+.sl-markdown-content h2 {
+	font-weight: 600;
+	letter-spacing: -0.015em;
+	margin-top: 2.5em;
+	padding-bottom: 0.35em;
+	border-bottom: 1px solid var(--sl-color-gray-6);
+}
+
+.sl-markdown-content h3 {
+	font-weight: 600;
+	letter-spacing: -0.01em;
+	margin-top: 2em;
+}
+
+.sl-markdown-content h4 {
+	font-weight: 600;
+	margin-top: 1.5em;
+}
+
+/* ─── Paragraphs & Prose ─── */
+
+.sl-markdown-content p {
+	margin-bottom: 1.25em;
+}
+
+/* ─── Blockquotes ─── */
+
+.sl-markdown-content blockquote {
+	border-left: 3px solid var(--sl-color-accent);
+	background: var(--sl-color-accent-low);
+	padding: 0.85em 1.25em;
+	margin: 1.5em 0;
+	border-radius: 0 6px 6px 0;
+	color: var(--sl-color-gray-1);
+}
+
+.sl-markdown-content blockquote p {
+	margin-bottom: 0;
+}
+
+/* ─── Inline Code ─── */
+
+.sl-markdown-content :not(pre) > code {
+	background: var(--sl-color-gray-6);
+	padding: 0.15em 0.4em;
+	border-radius: 3px;
+	font-size: 0.875em;
+}
+
+/* ─── Tables ─── */
+
+.sl-markdown-content table {
+	border-collapse: collapse;
+	width: 100%;
+	margin: 1.5em 0;
+}
+
+.sl-markdown-content th {
+	background: var(--sl-color-gray-6);
+	font-weight: 600;
+	text-align: left;
+	padding: 0.6em 1em;
+	border: 1px solid var(--sl-color-gray-5);
+}
+
+.sl-markdown-content td {
+	padding: 0.6em 1em;
+	border: 1px solid var(--sl-color-gray-6);
+}
+
+.sl-markdown-content tr:nth-child(even) td {
+	background: rgba(38, 46, 60, 0.35);
+}
+
+/* ─── Horizontal Rules ─── */
+
+.sl-markdown-content hr {
+	border: none;
+	height: 1px;
+	background: linear-gradient(to right, var(--sl-color-gray-6), transparent);
+	margin: 2.5em 0;
+}
+
+/* ─── Cards ─── */
+
 .card {
-	background: #161b25;
+	background: #151a24;
 	border: 1px solid var(--sl-color-gray-6);
 	box-shadow: none;
-	transition: border-color 0.25s ease;
+	transition: border-color 0.25s ease, transform 0.25s ease;
 }
 
 .card:hover {
 	border-color: var(--sl-color-gray-5);
 }
 
-/* Links */
-a {
-	text-decoration-thickness: 1px;
-	text-underline-offset: 0.15em;
-}
+/* ─── Starlight Link Cards ─── */
 
-/* Starlight link-cards: harmonize with theme */
 starlight-link-card a {
 	border-color: var(--sl-color-gray-6) !important;
-	background: #161b25 !important;
-	transition: border-color 0.25s ease, background-color 0.25s ease;
+	background: #151a24 !important;
+	transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
 }
 
 starlight-link-card a:hover {
 	border-color: var(--sl-color-accent) !important;
 	background: var(--sl-color-accent-low) !important;
+	transform: translateY(-2px);
 }
 
-/* Sidebar active item highlight */
+/* ─── Links ─── */
+
+a {
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.15em;
+}
+
+/* ─── Sidebar ─── */
+
 [data-current='true'] > a,
 [aria-current='page'] {
 	color: var(--sl-color-accent) !important;
 }
 
-/* Scrollbar — subtle, matches theme */
+/* ─── Scrollbar ─── */
+
 ::-webkit-scrollbar {
 	width: 6px;
 	height: 6px;
@@ -99,4 +210,70 @@ starlight-link-card a:hover {
 
 ::-webkit-scrollbar-thumb:hover {
 	background: var(--sl-color-gray-4);
+}
+
+/* ─── Entrance Animations ─── */
+
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.sl-markdown-content,
+main {
+	animation: fadeInUp 0.4s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.sl-markdown-content,
+	main {
+		animation: none;
+	}
+}
+
+/* ─── Hero Refinements (splash page) ─── */
+
+[data-page-type='splash'] .hero {
+	padding-block: 4rem;
+}
+
+[data-page-type='splash'] .hero h1 {
+	font-size: clamp(2rem, 5vw, 3rem);
+	font-weight: 700;
+	letter-spacing: -0.03em;
+}
+
+[data-page-type='splash'] .hero .tagline {
+	font-size: 1.125rem;
+	color: var(--sl-color-gray-2);
+	max-width: 36rem;
+	line-height: 1.7;
+}
+
+/* ─── Section Divider ─── */
+
+.section-divider {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin: 3rem 0 1.5rem;
+	color: var(--sl-color-gray-3);
+	font-size: 0.8rem;
+	font-weight: 500;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.section-divider::before,
+.section-divider::after {
+	content: '';
+	flex: 1;
+	height: 1px;
+	background: linear-gradient(to right, transparent, var(--sl-color-gray-5), transparent);
 }

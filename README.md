@@ -33,7 +33,7 @@ src/
 │       │   └── 7-devtools/      # 开发工具（IDEA 调试）
 │       ├── ops/             # 运维（Kubernetes）
 │       ├── network/         # 网络（IP、Git 配置等）
-│       ├── ai/              # AI 核心内容（Function Call、Agent、MCP 原理等）
+│       ├── ai/              # AI（提示词工程、RAG、Function Call/Agent 等）
 │       ├── ai-news/         # AI News（每日速递 + 每周总结，GitHub Actions + LLM 自动生成）
 │       └── blog/            # 博客文章
 ├── styles/

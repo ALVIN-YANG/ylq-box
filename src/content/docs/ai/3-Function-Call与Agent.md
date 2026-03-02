@@ -1,6 +1,7 @@
 ---
 title: AI 能力体系：从 Function Call 到 Agent
 description: 全面解析 LLM 与外部世界交互的核心机制：Function Call 工具调用、Agent 智能体、MCP 协议、Skill 技能系统的原理与协作关系
+slug: function-call-agent
 ---
 
 大语言模型（LLM）本质上是一个文本生成器——输入文本，输出文本。它无法查数据库、调接口、读文件。要让 AI 真正「做事」，就需要一套让它与外部世界交互的机制。
@@ -164,7 +165,7 @@ Function Call 只解决了「一步调用」的问题。但真实任务通常需
 ### 典型 Agent 实现
 
 | 产品 | 场景 | 工具集 |
-|------|------|--------|
+|------|------|------|
 | Cursor Agent | 代码编辑 | 读写文件、搜索代码、运行终端、浏览器 |
 | Claude Code | CLI 编程 | Shell、文件系统、Git |
 | ChatGPT + Code Interpreter | 数据分析 | Python 执行、文件上传下载 |

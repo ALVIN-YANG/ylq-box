@@ -1,0 +1,536 @@
+{
+  "updatedAt": "2026/3/3 15:26:09",
+  "updatedAtISO": "2026-03-03T07:26:09.331Z",
+  "arena": {
+    "text": [
+      {
+        "rank": 1,
+        "name": "claude-opus-4-6-thinking",
+        "rating": 1503.45,
+        "ci": "7.6 / 7.6",
+        "votes": 6583,
+        "org": "Anthropic"
+      },
+      {
+        "rank": 2,
+        "name": "claude-opus-4-6",
+        "rating": 1502.91,
+        "ci": "7.3 / 7.3",
+        "votes": 7454,
+        "org": "Anthropic"
+      },
+      {
+        "rank": 3,
+        "name": "gemini-3.1-pro-preview",
+        "rating": 1500.36,
+        "ci": "9.2 / 9.3",
+        "votes": 4052,
+        "org": "Google"
+      },
+      {
+        "rank": 4,
+        "name": "grok-4.20-beta1",
+        "rating": 1495.42,
+        "ci": "9.6 / 9.6",
+        "votes": 3818,
+        "org": "xAI"
+      },
+      {
+        "rank": 5,
+        "name": "gemini-3-pro",
+        "rating": 1486.23,
+        "ci": "4.1 / 4.1",
+        "votes": 38248,
+        "org": "Google"
+      },
+      {
+        "rank": 6,
+        "name": "gpt-5.2-chat-latest-20260210",
+        "rating": 1481.31,
+        "ci": "10.1 / 10.1",
+        "votes": 3605,
+        "org": "OpenAI"
+      },
+      {
+        "rank": 7,
+        "name": "gemini-3-flash",
+        "rating": 1473.23,
+        "ci": "4.6 / 4.6",
+        "votes": 29334,
+        "org": "Google"
+      },
+      {
+        "rank": 8,
+        "name": "grok-4.1-thinking",
+        "rating": 1472.97,
+        "ci": "4.2 / 4.2",
+        "votes": 37474,
+        "org": "xAI"
+      },
+      {
+        "rank": 9,
+        "name": "claude-opus-4-5-20251101-thinking-32k",
+        "rating": 1470.96,
+        "ci": "4.4 / 4.4",
+        "votes": 30541,
+        "org": "Anthropic"
+      },
+      {
+        "rank": 10,
+        "name": "dola-seed-2.0-preview",
+        "rating": 1469.86,
+        "ci": "8.8 / 8.8",
+        "votes": 4620,
+        "org": "Bytedance"
+      }
+    ],
+    "code": [
+      {
+        "rank": 1,
+        "name": "claude-opus-4-6",
+        "rating": 1560.47,
+        "ci": "13.4 / 13.4",
+        "votes": 2845,
+        "org": "Anthropic"
+      },
+      {
+        "rank": 2,
+        "name": "claude-opus-4-6-thinking",
+        "rating": 1553.08,
+        "ci": "14.8 / 14.8",
+        "votes": 2182,
+        "org": "Anthropic"
+      },
+      {
+        "rank": 3,
+        "name": "claude-sonnet-4-6",
+        "rating": 1530.86,
+        "ci": "15.5 / 15.5",
+        "votes": 1839,
+        "org": "Anthropic"
+      },
+      {
+        "rank": 4,
+        "name": "claude-opus-4-5-20251101-thinking-32k",
+        "rating": 1498.64,
+        "ci": "7.8 / 7.9",
+        "votes": 11149,
+        "org": "Anthropic"
+      },
+      {
+        "rank": 5,
+        "name": "gpt-5.2-high",
+        "rating": 1470.76,
+        "ci": "16.2 / 16.2",
+        "votes": 1696,
+        "org": "OpenAI"
+      },
+      {
+        "rank": 6,
+        "name": "claude-opus-4-5-20251101",
+        "rating": 1470.5,
+        "ci": "7.7 / 7.7",
+        "votes": 11239,
+        "org": "Anthropic"
+      },
+      {
+        "rank": 7,
+        "name": "gemini-3.1-pro-preview",
+        "rating": 1460.6,
+        "ci": "15.1 / 15.1",
+        "votes": 1826,
+        "org": "Google"
+      },
+      {
+        "rank": 8,
+        "name": "glm-5",
+        "rating": 1450.83,
+        "ci": "12.6 / 12.5",
+        "votes": 2621,
+        "org": "Z.ai"
+      },
+      {
+        "rank": 9,
+        "name": "gemini-3-pro",
+        "rating": 1443.05,
+        "ci": "7.2 / 7.2",
+        "votes": 17027,
+        "org": "Google"
+      },
+      {
+        "rank": 10,
+        "name": "gemini-3-flash",
+        "rating": 1440.55,
+        "ci": "7.4 / 7.4",
+        "votes": 12934,
+        "org": "Google"
+      }
+    ],
+    "vision": [
+      {
+        "rank": 1,
+        "name": "gemini-3-pro",
+        "rating": 1288.4,
+        "ci": "8.3 / 8.3",
+        "votes": 12595,
+        "org": "Google"
+      },
+      {
+        "rank": 2,
+        "name": "gemini-3.1-pro-preview",
+        "rating": 1278.17,
+        "ci": "11.8 / 11.8",
+        "votes": 3483,
+        "org": "Google"
+      },
+      {
+        "rank": 3,
+        "name": "gemini-3-flash",
+        "rating": 1276.25,
+        "ci": "8.7 / 8.7",
+        "votes": 11557,
+        "org": "Google"
+      },
+      {
+        "rank": 4,
+        "name": "gpt-5.2-chat-latest-20260210",
+        "rating": 1271.28,
+        "ci": "17.5 / 17.5",
+        "votes": 1442,
+        "org": "OpenAI"
+      },
+      {
+        "rank": 5,
+        "name": "gemini-3-flash (thinking-minimal)",
+        "rating": 1260.24,
+        "ci": "9.3 / 9.3",
+        "votes": 9609,
+        "org": "Google"
+      },
+      {
+        "rank": 6,
+        "name": "dola-seed-2.0-preview",
+        "rating": 1260.19,
+        "ci": "14.3 / 14.3",
+        "votes": 1989,
+        "org": "Bytedance"
+      },
+      {
+        "rank": 7,
+        "name": "gpt-5.1-high",
+        "rating": 1249.38,
+        "ci": "8.7 / 8.7",
+        "votes": 9246,
+        "org": "OpenAI"
+      },
+      {
+        "rank": 8,
+        "name": "kimi-k2.5-thinking",
+        "rating": 1248.37,
+        "ci": "10.6 / 10.6",
+        "votes": 5181,
+        "org": "Moonshot"
+      },
+      {
+        "rank": 9,
+        "name": "gemini-2.5-pro",
+        "rating": 1247.52,
+        "ci": "6.1 / 6.1",
+        "votes": 81050,
+        "org": "Google"
+      },
+      {
+        "rank": 10,
+        "name": "gpt-5.2-high",
+        "rating": 1247.36,
+        "ci": "10.8 / 10.8",
+        "votes": 5078,
+        "org": "OpenAI"
+      }
+    ]
+  },
+  "pricing": [
+    {
+      "model": "GPT-4.1 Nano",
+      "provider": "OpenAI",
+      "input": 0.1,
+      "output": 0.4,
+      "context": "1M",
+      "maxOutput": "16K"
+    },
+    {
+      "model": "Qwen 3.5 Flash",
+      "provider": "Alibaba",
+      "input": 0.1,
+      "output": 0.4,
+      "context": "1M",
+      "maxOutput": "8K"
+    },
+    {
+      "model": "Gemini 2.5 Flash",
+      "provider": "Google",
+      "input": 0.15,
+      "output": 0.6,
+      "context": "1M",
+      "maxOutput": "64K"
+    },
+    {
+      "model": "Llama 4 Maverick",
+      "provider": "Meta (via API)",
+      "input": 0.2,
+      "output": 0.6,
+      "context": "1M",
+      "maxOutput": "16K"
+    },
+    {
+      "model": "GPT-5 Mini",
+      "provider": "OpenAI",
+      "input": 0.25,
+      "output": 2,
+      "context": "128K",
+      "maxOutput": "16K"
+    },
+    {
+      "model": "DeepSeek V3.2",
+      "provider": "DeepSeek",
+      "input": 0.25,
+      "output": 0.4,
+      "context": "128K",
+      "maxOutput": "16K"
+    },
+    {
+      "model": "Grok 3 Mini",
+      "provider": "xAI",
+      "input": 0.3,
+      "output": 0.5,
+      "context": "128K",
+      "maxOutput": "16K"
+    },
+    {
+      "model": "GPT-4.1 Mini",
+      "provider": "OpenAI",
+      "input": 0.4,
+      "output": 1.6,
+      "context": "1M",
+      "maxOutput": "16K"
+    },
+    {
+      "model": "DeepSeek R1",
+      "provider": "DeepSeek",
+      "input": 0.55,
+      "output": 2.19,
+      "context": "128K",
+      "maxOutput": "16K"
+    },
+    {
+      "model": "Claude Haiku 3.5",
+      "provider": "Anthropic",
+      "input": 0.8,
+      "output": 4,
+      "context": "200K",
+      "maxOutput": "8K"
+    },
+    {
+      "model": "o4-mini",
+      "provider": "OpenAI",
+      "input": 1.1,
+      "output": 4.4,
+      "context": "200K",
+      "maxOutput": "100K"
+    },
+    {
+      "model": "GPT-5",
+      "provider": "OpenAI",
+      "input": 1.25,
+      "output": 10,
+      "context": "128K",
+      "maxOutput": "16K"
+    },
+    {
+      "model": "Gemini 3.1 Pro",
+      "provider": "Google",
+      "input": 1.25,
+      "output": 10,
+      "context": "1M",
+      "maxOutput": "64K"
+    },
+    {
+      "model": "Gemini 2.5 Pro",
+      "provider": "Google",
+      "input": 1.25,
+      "output": 10,
+      "context": "1M",
+      "maxOutput": "64K"
+    },
+    {
+      "model": "GPT-5.2",
+      "provider": "OpenAI",
+      "input": 1.75,
+      "output": 14,
+      "context": "400K",
+      "maxOutput": "32K"
+    },
+    {
+      "model": "GPT-4.1",
+      "provider": "OpenAI",
+      "input": 2,
+      "output": 8,
+      "context": "1M",
+      "maxOutput": "32K"
+    },
+    {
+      "model": "o3",
+      "provider": "OpenAI",
+      "input": 2,
+      "output": 8,
+      "context": "200K",
+      "maxOutput": "100K"
+    },
+    {
+      "model": "Claude Sonnet 4.6",
+      "provider": "Anthropic",
+      "input": 3,
+      "output": 15,
+      "context": "200K",
+      "maxOutput": "64K"
+    },
+    {
+      "model": "Grok 3",
+      "provider": "xAI",
+      "input": 3,
+      "output": 15,
+      "context": "128K",
+      "maxOutput": "16K"
+    },
+    {
+      "model": "Claude Opus 4.6",
+      "provider": "Anthropic",
+      "input": 5,
+      "output": 25,
+      "context": "200K",
+      "maxOutput": "32K"
+    }
+  ],
+  "releases": [
+    {
+      "date": "2026-02-19",
+      "model": "Gemini 3.1 Pro",
+      "provider": "Google",
+      "highlights": "推理能力提升 2x，ARC-AGI-2 得分 77.1%，2M 上下文窗口"
+    },
+    {
+      "date": "2026-02-17",
+      "model": "Claude Sonnet 4.6",
+      "provider": "Anthropic",
+      "highlights": "200K 上下文，编码与 Agent 能力显著提升"
+    },
+    {
+      "date": "2026-02-11",
+      "model": "DeepSeek V3.2",
+      "provider": "DeepSeek",
+      "highlights": "1M+ 上下文窗口，MIT 开源，671B MoE"
+    },
+    {
+      "date": "2026-02-11",
+      "model": "GLM-5",
+      "provider": "智谱 AI",
+      "highlights": "首个不使用 NVIDIA GPU 训练的前沿模型"
+    },
+    {
+      "date": "2026-02-05",
+      "model": "Claude Opus 4.6",
+      "provider": "Anthropic",
+      "highlights": "Agent 团队协作能力，1M 上下文窗口"
+    },
+    {
+      "date": "2026-02-05",
+      "model": "GPT-5.3 Codex",
+      "provider": "OpenAI",
+      "highlights": "比 5.2-Codex 快 25%，专注代码生成"
+    },
+    {
+      "date": "2026-01-20",
+      "model": "Kimi K2",
+      "provider": "Moonshot AI",
+      "highlights": "1.04T 参数开源模型，LMSYS Arena 首个开源 #1"
+    },
+    {
+      "date": "2025-12-18",
+      "model": "GPT-5.2 Codex",
+      "provider": "OpenAI",
+      "highlights": "专注代码生成和 Agent 任务"
+    },
+    {
+      "date": "2025-12-11",
+      "model": "GPT-5.2",
+      "provider": "OpenAI",
+      "highlights": "AIME 2025 满分，SWE-bench 80%，400K 上下文"
+    },
+    {
+      "date": "2025-12-11",
+      "model": "Gemini 3 Pro",
+      "provider": "Google",
+      "highlights": "与 GPT-5.2 同日发布，多模态推理提升"
+    },
+    {
+      "date": "2025-12-02",
+      "model": "Mistral Large 3",
+      "provider": "Mistral AI",
+      "highlights": "256K 上下文窗口，多语言优化"
+    },
+    {
+      "date": "2025-11-01",
+      "model": "Claude 4.5 Opus",
+      "provider": "Anthropic",
+      "highlights": "SWE-bench 80.9%，最强编码模型之一"
+    },
+    {
+      "date": "2025-09-01",
+      "model": "Claude 4.5 Haiku/Sonnet",
+      "provider": "Anthropic",
+      "highlights": "Claude 4.5 系列首发，速度与质量平衡"
+    },
+    {
+      "date": "2025-07-18",
+      "model": "Llama 4 Maverick",
+      "provider": "Meta",
+      "highlights": "1M 上下文，开源 MoE 架构"
+    },
+    {
+      "date": "2025-04-14",
+      "model": "GPT-4.1 / Mini / Nano",
+      "provider": "OpenAI",
+      "highlights": "1M 上下文，指令遵循优化，Nano 极低成本"
+    },
+    {
+      "date": "2025-03-25",
+      "model": "Gemini 2.5 Pro",
+      "provider": "Google",
+      "highlights": "1M 上下文 + 思考模式，代码和推理显著提升"
+    },
+    {
+      "date": "2025-01-20",
+      "model": "DeepSeek R1",
+      "provider": "DeepSeek",
+      "highlights": "开源推理模型，达到 o1 水平，MIT 协议"
+    },
+    {
+      "date": "2025-01-17",
+      "model": "o3-mini",
+      "provider": "OpenAI",
+      "highlights": "轻量推理模型，性价比极高"
+    },
+    {
+      "date": "2024-12-20",
+      "model": "o3",
+      "provider": "OpenAI",
+      "highlights": "ARC-AGI 突破性得分 87.5%"
+    },
+    {
+      "date": "2024-09-12",
+      "model": "o1",
+      "provider": "OpenAI",
+      "highlights": "首个推理模型系列，链式思考"
+    }
+  ]
+}

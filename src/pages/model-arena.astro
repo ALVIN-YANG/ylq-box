@@ -1,0 +1,331 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import data from '../data/model-arena.json';
+---
+
+<StarlightPage frontmatter={{ title: 'Model Arena', description: 'AI 模型综合对比仪表盘', template: 'splash' }} sidebar={[]}>
+  <div class="arena-dashboard">
+    <header class="hero">
+      <h1>Model Arena</h1>
+      <p class="subtitle">AI 模型综合对比仪表盘</p>
+      <p class="updated">数据更新：{data.updatedAt} · Arena 数据来源 <a href="https://lmarena.ai/leaderboard" target="_blank">lmarena.ai</a></p>
+    </header>
+
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-target="arena">Arena 排名</button>
+      <button class="tab" data-target="pricing">API 定价</button>
+      <button class="tab" data-target="timeline">发布时间线</button>
+    </div>
+
+    <!-- Arena Rankings -->
+    <section class="panel active" id="arena">
+      <div class="card-grid">
+        <div class="card">
+          <h2>综合对话 <span class="badge">Text</span></h2>
+          <table>
+            <thead><tr><th>#</th><th>模型</th><th>Rating</th><th>组织</th><th>投票</th></tr></thead>
+            <tbody>
+              {data.arena.text.map((m, i) => (
+                <tr>
+                  <td class="rank">{i + 1}</td>
+                  <td class="model-name">{m.name}</td>
+                  <td class="num">{m.rating.toFixed(1)}</td>
+                  <td class="org">{m.org}</td>
+                  <td class="num">{m.votes.toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h2>代码 / Web 开发 <span class="badge">Code</span></h2>
+          <table>
+            <thead><tr><th>#</th><th>模型</th><th>Rating</th><th>组织</th><th>投票</th></tr></thead>
+            <tbody>
+              {data.arena.code.map((m, i) => (
+                <tr>
+                  <td class="rank">{i + 1}</td>
+                  <td class="model-name">{m.name}</td>
+                  <td class="num">{m.rating.toFixed(1)}</td>
+                  <td class="org">{m.org}</td>
+                  <td class="num">{m.votes.toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h2>视觉理解 <span class="badge">Vision</span></h2>
+          <table>
+            <thead><tr><th>#</th><th>模型</th><th>Rating</th><th>组织</th><th>投票</th></tr></thead>
+            <tbody>
+              {data.arena.vision.map((m, i) => (
+                <tr>
+                  <td class="rank">{i + 1}</td>
+                  <td class="model-name">{m.name}</td>
+                  <td class="num">{m.rating.toFixed(1)}</td>
+                  <td class="org">{m.org}</td>
+                  <td class="num">{m.votes.toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- API Pricing -->
+    <section class="panel" id="pricing">
+      <div class="card full-width">
+        <h2>API 定价对比 <span class="hint">单位：$ / 1M tokens</span></h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>模型</th>
+                <th>提供商</th>
+                <th>输入</th>
+                <th>输出</th>
+                <th>上下文</th>
+                <th>最大输出</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.pricing.map(p => (
+                <tr>
+                  <td class="model-name">{p.model}</td>
+                  <td class="org">{p.provider}</td>
+                  <td class="num price">${p.input.toFixed(2)}</td>
+                  <td class="num price">${p.output.toFixed(2)}</td>
+                  <td class="num">{p.context}</td>
+                  <td class="num">{p.maxOutput}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Release Timeline -->
+    <section class="panel" id="timeline">
+      <div class="card full-width">
+        <h2>模型发布时间线</h2>
+        <div class="timeline-list">
+          {data.releases.map(r => (
+            <div class="timeline-item">
+              <div class="tl-date">{r.date}</div>
+              <div class="tl-dot"></div>
+              <div class="tl-content">
+                <div class="tl-model">{r.model} <span class="tl-provider">{r.provider}</span></div>
+                <div class="tl-highlights">{r.highlights}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline>
+    document.querySelectorAll('.tab').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.tab').forEach(function(b) { b.classList.remove('active'); });
+        document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
+        btn.classList.add('active');
+        var target = btn.getAttribute('data-target');
+        if (target) document.getElementById(target).classList.add('active');
+      });
+    });
+
+  </script>
+</StarlightPage>
+
+<style>
+  .arena-dashboard {
+    --bg-card: var(--sl-color-surface, #211f1d);
+    --text-dim: var(--sl-color-gray-2, #a9a29a);
+    --border: var(--sl-color-gray-5, #433d38);
+    --accent: var(--sl-color-accent, #d4a55a);
+    --accent-low: var(--sl-color-accent-low, rgba(212, 165, 90, 0.1));
+    --mono: var(--sl-font-mono, 'JetBrains Mono', monospace);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 0 3rem;
+  }
+
+  .hero { text-align: center; padding: 1rem 0 1.5rem; }
+  .hero h1 { display: none; }
+  .subtitle { color: var(--text-dim); font-size: 0.95rem; }
+  .updated { color: var(--text-dim); font-size: 0.78rem; margin-top: 0.4rem; opacity: 0.7; }
+
+  /* ── Tabs ── */
+  .tabs {
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .tab {
+    all: unset;
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .tab:hover { color: var(--sl-color-white); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ── Panels ── */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ── Cards ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  @media (min-width: 900px) {
+    .card-grid { grid-template-columns: 1fr 1fr; }
+    .card-grid > :first-child { grid-column: 1 / -1; }
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem;
+    overflow: hidden;
+  }
+  .card.full-width { width: 100%; }
+
+  .card h2 {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    background: var(--accent-low);
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .hint {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-dim);
+  }
+
+  /* ── Tables ── */
+  .table-scroll { overflow-x: auto; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+  thead th {
+    text-align: left;
+    font-weight: 500;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-dim);
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 0.45rem 0.6rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+    vertical-align: middle;
+  }
+  tbody tr:hover { background: var(--accent-low); }
+
+  .rank { font-weight: 600; color: var(--accent); width: 2rem; text-align: center; }
+  .model-name { font-family: var(--mono); font-size: 0.78rem; white-space: nowrap; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: 0.78rem; }
+  .org { color: var(--text-dim); font-size: 0.78rem; }
+  .price { font-weight: 500; }
+
+  /* ── Timeline ── */
+  .timeline-list {
+    position: relative;
+    padding-left: 1rem;
+  }
+  .timeline-list::before {
+    content: '';
+    position: absolute;
+    left: 4.5rem;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+  .timeline-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0.6rem 0;
+    position: relative;
+  }
+  .tl-date {
+    width: 5.5rem;
+    flex-shrink: 0;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    text-align: right;
+    padding-top: 0.15rem;
+  }
+  .tl-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    margin-top: 0.35rem;
+    position: relative;
+    z-index: 1;
+  }
+  .tl-content { flex: 1; min-width: 0; }
+  .tl-model { font-weight: 500; font-size: 0.88rem; }
+  .tl-provider {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    font-weight: 400;
+    margin-left: 0.3rem;
+  }
+  .tl-highlights {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 0.15rem;
+    line-height: 1.5;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 600px) {
+    .arena-dashboard { padding: 0 0 2rem; }
+    .card { padding: 0.8rem; }
+    table { font-size: 0.75rem; }
+    .timeline-list::before { left: 3.5rem; }
+    .tl-date { width: 4.5rem; font-size: 0.7rem; }
+  }
+</style>

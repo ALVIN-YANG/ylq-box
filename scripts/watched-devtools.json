@@ -1,0 +1,7 @@
+[
+  { "repo": "getcursor/cursor", "alias": "Cursor" },
+  { "repo": "paul-gauthier/aider", "alias": "Aider" },
+  { "repo": "continuedev/continue", "alias": "Continue" },
+  { "repo": "block/goose", "alias": "Goose" },
+  { "repo": "openai/codex", "alias": "OpenAI Codex CLI" }
+]

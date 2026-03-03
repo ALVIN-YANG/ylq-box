@@ -1,0 +1,9 @@
+[
+  { "repo": "openclaw/OpenClaw", "alias": "OpenClaw" },
+  { "repo": "langchain-ai/langchain", "alias": "LangChain" },
+  { "repo": "vllm-project/vllm", "alias": "vLLM" },
+  { "repo": "ollama/ollama", "alias": "Ollama" },
+  { "repo": "run-llama/llama_index", "alias": "LlamaIndex" },
+  { "repo": "modelcontextprotocol/servers", "alias": "MCP Servers" },
+  { "repo": "crewAIInc/crewAI", "alias": "CrewAI" }
+]

@@ -28,26 +28,27 @@ src/
 │   └── docs/
 │       ├── index.mdx        # 站点首页（Splash 布局）
 │       ├── java/            # Java 技术栈
-│       │   ├── 1-language/      # Java 语言基础（Optional）
-│       │   ├── 2-concurrent/    # 并发编程（多线程）
-│       │   ├── 3-springboot/    # Spring Boot
-│       │   ├── 4-mybatis/       # MyBatis 持久层
-│       │   ├── 5-maven/         # Maven 构建与发布
-│       │   ├── 6-architecture/  # 架构设计（分布式事务）
-│       │   └── 7-devtools/      # 开发工具（IDEA 调试）
 │       ├── ops/             # 运维（Kubernetes）
 │       ├── network/         # 网络（IP、Git 配置等）
 │       ├── ai/              # AI（提示词工程、RAG、Function Call/Agent 等）
-│       ├── ai-news/         # AI News（每日速递 + 每周总结，GitHub Actions + LLM 自动生成）
+│       ├── architecture/    # 架构设计（分布式事务）
+│       ├── ai-news/         # AI 技术日报（Trending + 论文 + Release + Devtools + RSS，自动生成）
+│       ├── model-arena/     # Model Arena 仪表盘（Arena 排名 + 定价 + 时间线，自动生成）
 │       └── blog/            # 博客文章
 ├── styles/
-│   └── custom.css       # 全局双主题样式（暗色暖灰 + 亮色奶白，排版、动画、内容页精修）
+│   └── custom.css           # 全局双主题样式（暗色暖灰 + 亮色奶白）
+scripts/
+├── fetch-ai-news.mjs       # AI News 自动生成脚本（五数据源采集 + LLM 总结）
+├── fetch-model-arena.mjs   # Model Arena 仪表盘生成脚本（lmarena.ai 排名 + 配置数据）
+├── watched-repos.json       # 可配置的 AI 框架 Release 追踪项目列表
+├── watched-devtools.json    # 可配置的 AI 开发者工具 Release 追踪列表
+├── model-pricing.json       # 主流模型 API 定价数据
+└── model-releases.json      # 模型发布时间线数据
 public/
-├── favicon.svg            # 站点图标（SVG）
-├── pwa-192x192.png        # PWA 图标 192×192
-├── pwa-512x512.png        # PWA 图标 512×512
-└── apple-touch-icon.png   # iOS 主屏幕图标 180×180
-└── content.config.ts    # Starlight 内容集合配置
+├── favicon.svg              # 站点图标（SVG）
+├── pwa-192x192.png          # PWA 图标 192×192
+├── pwa-512x512.png          # PWA 图标 512×512
+└── apple-touch-icon.png     # iOS 主屏幕图标 180×180
 ```
 
 ## 本地开发
@@ -75,7 +76,36 @@ description: 简短描述（可选，用于 SEO 和卡片展示）
 
 ## AI News 自动化
 
-通过 GitHub Actions 定时抓取 AI 领域 RSS 新闻，调用 LLM API 自动总结并生成文章。
+面向 AI 工程师的技术日报，通过 GitHub Actions 定时采集五类数据源，LLM 自动总结生成。
+
+### 数据源
+
+| 模块 | 来源 | 说明 |
+|------|------|------|
+| Trendshift | [trendshift.io](https://trendshift.io/) 数据解析 | 每日社区热门 AI 开源项目，基于参与度评分算法 |
+| HF Daily Papers | [Hugging Face Daily Papers API](https://huggingface.co/papers) | 社区投票筛选的高质量 AI 论文，按 upvotes 排序 |
+| Release Watchlist | GitHub API | AI 框架项目列表（`scripts/watched-repos.json`），追踪 48h 内新版本 |
+| Devtools Watchlist | GitHub API | AI 开发者工具列表（`scripts/watched-devtools.json`），追踪 48h 内新版本 |
+| RSS Feeds | HN AI、TechCrunch AI、HF Blog、Simon Willison、Cursor Blog | 行业动态 + 技术博客 |
+
+### 输出栏目
+
+- **开源热门** — GitHub Trending AI 项目（3~5 个）
+- **论文精选** — 当日高票 AI 论文，重点关注 Agent/RAG/推理方向（3~5 篇）
+- **版本更新** — AI 框架关注列表中的新 Release（无更新时省略）
+- **开发者工具** — AI 编码工具的版本更新（无更新时省略）
+- **行业动态** — 筛选后的行业新闻与技术博文（5~8 条）
+
+### 管理关注项目
+
+编辑 `scripts/watched-repos.json`（AI 框架）和 `scripts/watched-devtools.json`（开发者工具）即可增减追踪的项目：
+
+```json
+[
+  { "repo": "openclaw/OpenClaw", "alias": "OpenClaw" },
+  { "repo": "langchain-ai/langchain", "alias": "LangChain" }
+]
+```
 
 ### 设置步骤
 
@@ -83,36 +113,45 @@ description: 简短描述（可选，用于 SEO 和卡片展示）
    - `OPENAI_API_KEY`（必须）—— OpenAI API Key
    - `OPENAI_BASE_URL`（可选）—— 自定义 API 地址，支持代理或兼容接口（如 DeepSeek）
    - `OPENAI_MODEL`（可选）—— 模型名称，默认 `gpt-4o-mini`
-   - 注意：`OPENAI_MODEL` 的命名需要和 `OPENAI_BASE_URL` 对应服务商保持一致，否则可能出现 `unexpected model name format`（400）
+   - `GITHUB_TOKEN` 由 Actions 自动提供，无需手动配置
 
 2. 推送代码后，GitHub Actions 会自动：
-   - **每天 08:00（北京时间）**：生成每日速递
-   - **每周日 09:00（北京时间）**：生成每周总结
+   - **每天 08:00（北京时间）**：生成每日技术速递
+   - **每周日 09:00（北京时间）**：生成每周深度周报
 
-3. 也可以在 GitHub Actions 页面手动触发（workflow_dispatch）：
-   - `mode`: 选择 `daily` 或 `weekly`
-   - `force`: 选择 `true` 时，会强制覆盖已存在的当日/当周文件（不会再跳过）
+3. 也可以在 GitHub Actions 页面手动触发（workflow_dispatch）
 
 ### 本地手动运行
 
 ```bash
-# 设置环境变量
 export OPENAI_API_KEY=sk-xxx
 
-# 生成今天的每日速递
-npm run news:daily
-
-# 生成本周周报
-npm run news:weekly
-
-# 强制覆盖已存在文件（用于重跑）
-node scripts/fetch-ai-news.mjs --daily --force
-node scripts/fetch-ai-news.mjs --weekly --force
+npm run news:daily              # 生成每日速递
+npm run news:weekly             # 生成每周总结
+node scripts/fetch-ai-news.mjs --daily --force   # 强制覆盖
 ```
 
-不设置 `OPENAI_API_KEY` 时，脚本会降级为直接输出 RSS 原始列表（不经过 LLM 总结）。
-当 LLM 接口调用失败（例如模型名格式不匹配、网关超时）时，脚本同样会自动降级输出原始列表，不会导致任务整体失败。
-每日速递和周报正文开头会包含“生成时间”（北京时间 + UTC），便于核对重跑结果。
+未设置 `OPENAI_API_KEY` 时，脚本降级为原始数据输出。所有数据源独立运行，单个失败不影响其他模块。
+
+## Model Arena 仪表盘
+
+AI 模型综合对比页面，以表格形式展示 Arena 排名、API 定价和发布时间线。
+
+### 数据源
+
+| 模块 | 来源 | 说明 |
+|------|------|------|
+| Arena 排名 | [lmarena.ai](https://lmarena.ai/leaderboard) RSC 解析 | 综合对话、代码/Web 开发、视觉理解三个维度的 ELO 排名 |
+| API 定价 | `scripts/model-pricing.json` | 手动维护，覆盖 20+ 主流模型 |
+| 发布时间线 | `scripts/model-releases.json` | 手动维护，记录 2024~2026 重要模型发布 |
+
+### 本地生成
+
+```bash
+node scripts/fetch-model-arena.mjs --force   # 生成/更新仪表盘页面
+```
+
+Arena 排名数据自动从 lmarena.ai 抓取，定价和时间线数据从本地 JSON 配置读取。
 
 ## 部署
 

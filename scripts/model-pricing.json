@@ -1,0 +1,162 @@
+[
+  {
+    "model": "GPT-5.2",
+    "provider": "OpenAI",
+    "input": 1.75,
+    "output": 14.00,
+    "context": "400K",
+    "maxOutput": "32K"
+  },
+  {
+    "model": "GPT-5",
+    "provider": "OpenAI",
+    "input": 1.25,
+    "output": 10.00,
+    "context": "128K",
+    "maxOutput": "16K"
+  },
+  {
+    "model": "GPT-5 Mini",
+    "provider": "OpenAI",
+    "input": 0.25,
+    "output": 2.00,
+    "context": "128K",
+    "maxOutput": "16K"
+  },
+  {
+    "model": "GPT-4.1",
+    "provider": "OpenAI",
+    "input": 2.00,
+    "output": 8.00,
+    "context": "1M",
+    "maxOutput": "32K"
+  },
+  {
+    "model": "GPT-4.1 Mini",
+    "provider": "OpenAI",
+    "input": 0.40,
+    "output": 1.60,
+    "context": "1M",
+    "maxOutput": "16K"
+  },
+  {
+    "model": "GPT-4.1 Nano",
+    "provider": "OpenAI",
+    "input": 0.10,
+    "output": 0.40,
+    "context": "1M",
+    "maxOutput": "16K"
+  },
+  {
+    "model": "o3",
+    "provider": "OpenAI",
+    "input": 2.00,
+    "output": 8.00,
+    "context": "200K",
+    "maxOutput": "100K"
+  },
+  {
+    "model": "o4-mini",
+    "provider": "OpenAI",
+    "input": 1.10,
+    "output": 4.40,
+    "context": "200K",
+    "maxOutput": "100K"
+  },
+  {
+    "model": "Claude Opus 4.6",
+    "provider": "Anthropic",
+    "input": 5.00,
+    "output": 25.00,
+    "context": "200K",
+    "maxOutput": "32K"
+  },
+  {
+    "model": "Claude Sonnet 4.6",
+    "provider": "Anthropic",
+    "input": 3.00,
+    "output": 15.00,
+    "context": "200K",
+    "maxOutput": "64K"
+  },
+  {
+    "model": "Claude Haiku 3.5",
+    "provider": "Anthropic",
+    "input": 0.80,
+    "output": 4.00,
+    "context": "200K",
+    "maxOutput": "8K"
+  },
+  {
+    "model": "Gemini 3.1 Pro",
+    "provider": "Google",
+    "input": 1.25,
+    "output": 10.00,
+    "context": "1M",
+    "maxOutput": "64K"
+  },
+  {
+    "model": "Gemini 2.5 Pro",
+    "provider": "Google",
+    "input": 1.25,
+    "output": 10.00,
+    "context": "1M",
+    "maxOutput": "64K"
+  },
+  {
+    "model": "Gemini 2.5 Flash",
+    "provider": "Google",
+    "input": 0.15,
+    "output": 0.60,
+    "context": "1M",
+    "maxOutput": "64K"
+  },
+  {
+    "model": "DeepSeek V3.2",
+    "provider": "DeepSeek",
+    "input": 0.25,
+    "output": 0.40,
+    "context": "128K",
+    "maxOutput": "16K"
+  },
+  {
+    "model": "DeepSeek R1",
+    "provider": "DeepSeek",
+    "input": 0.55,
+    "output": 2.19,
+    "context": "128K",
+    "maxOutput": "16K"
+  },
+  {
+    "model": "Qwen 3.5 Flash",
+    "provider": "Alibaba",
+    "input": 0.10,
+    "output": 0.40,
+    "context": "1M",
+    "maxOutput": "8K"
+  },
+  {
+    "model": "Llama 4 Maverick",
+    "provider": "Meta (via API)",
+    "input": 0.20,
+    "output": 0.60,
+    "context": "1M",
+    "maxOutput": "16K"
+  },
+  {
+    "model": "Grok 3",
+    "provider": "xAI",
+    "input": 3.00,
+    "output": 15.00,
+    "context": "128K",
+    "maxOutput": "16K"
+  },
+  {
+    "model": "Grok 3 Mini",
+    "provider": "xAI",
+    "input": 0.30,
+    "output": 0.50,
+    "context": "128K",
+    "maxOutput": "16K"
+  }
+]

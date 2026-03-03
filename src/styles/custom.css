@@ -139,6 +139,19 @@ code {
 	margin-top: 1.5em;
 }
 
+/* ─── Heading Anchor Icons ─── */
+
+.sl-anchor-link {
+	font-size: 0.6em !important;
+	opacity: 0;
+	transition: opacity 0.15s ease;
+}
+
+:is(h1, h2, h3, h4, h5, h6):hover + .sl-anchor-link,
+.sl-anchor-link:hover {
+	opacity: 0.4;
+}
+
 /* ─── Paragraphs & Prose ─── */
 
 .sl-markdown-content {

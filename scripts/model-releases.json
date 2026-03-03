@@ -1,0 +1,122 @@
+[
+  {
+    "date": "2026-02-19",
+    "model": "Gemini 3.1 Pro",
+    "provider": "Google",
+    "highlights": "推理能力提升 2x，ARC-AGI-2 得分 77.1%，2M 上下文窗口"
+  },
+  {
+    "date": "2026-02-17",
+    "model": "Claude Sonnet 4.6",
+    "provider": "Anthropic",
+    "highlights": "200K 上下文，编码与 Agent 能力显著提升"
+  },
+  {
+    "date": "2026-02-11",
+    "model": "DeepSeek V3.2",
+    "provider": "DeepSeek",
+    "highlights": "1M+ 上下文窗口，MIT 开源，671B MoE"
+  },
+  {
+    "date": "2026-02-11",
+    "model": "GLM-5",
+    "provider": "智谱 AI",
+    "highlights": "首个不使用 NVIDIA GPU 训练的前沿模型"
+  },
+  {
+    "date": "2026-02-05",
+    "model": "Claude Opus 4.6",
+    "provider": "Anthropic",
+    "highlights": "Agent 团队协作能力，1M 上下文窗口"
+  },
+  {
+    "date": "2026-02-05",
+    "model": "GPT-5.3 Codex",
+    "provider": "OpenAI",
+    "highlights": "比 5.2-Codex 快 25%，专注代码生成"
+  },
+  {
+    "date": "2026-01-20",
+    "model": "Kimi K2",
+    "provider": "Moonshot AI",
+    "highlights": "1.04T 参数开源模型，LMSYS Arena 首个开源 #1"
+  },
+  {
+    "date": "2025-12-18",
+    "model": "GPT-5.2 Codex",
+    "provider": "OpenAI",
+    "highlights": "专注代码生成和 Agent 任务"
+  },
+  {
+    "date": "2025-12-11",
+    "model": "GPT-5.2",
+    "provider": "OpenAI",
+    "highlights": "AIME 2025 满分，SWE-bench 80%，400K 上下文"
+  },
+  {
+    "date": "2025-12-11",
+    "model": "Gemini 3 Pro",
+    "provider": "Google",
+    "highlights": "与 GPT-5.2 同日发布，多模态推理提升"
+  },
+  {
+    "date": "2025-12-02",
+    "model": "Mistral Large 3",
+    "provider": "Mistral AI",
+    "highlights": "256K 上下文窗口，多语言优化"
+  },
+  {
+    "date": "2025-11-01",
+    "model": "Claude 4.5 Opus",
+    "provider": "Anthropic",
+    "highlights": "SWE-bench 80.9%，最强编码模型之一"
+  },
+  {
+    "date": "2025-09-01",
+    "model": "Claude 4.5 Haiku/Sonnet",
+    "provider": "Anthropic",
+    "highlights": "Claude 4.5 系列首发，速度与质量平衡"
+  },
+  {
+    "date": "2025-07-18",
+    "model": "Llama 4 Maverick",
+    "provider": "Meta",
+    "highlights": "1M 上下文，开源 MoE 架构"
+  },
+  {
+    "date": "2025-04-14",
+    "model": "GPT-4.1 / Mini / Nano",
+    "provider": "OpenAI",
+    "highlights": "1M 上下文，指令遵循优化，Nano 极低成本"
+  },
+  {
+    "date": "2025-03-25",
+    "model": "Gemini 2.5 Pro",
+    "provider": "Google",
+    "highlights": "1M 上下文 + 思考模式，代码和推理显著提升"
+  },
+  {
+    "date": "2025-01-20",
+    "model": "DeepSeek R1",
+    "provider": "DeepSeek",
+    "highlights": "开源推理模型，达到 o1 水平，MIT 协议"
+  },
+  {
+    "date": "2025-01-17",
+    "model": "o3-mini",
+    "provider": "OpenAI",
+    "highlights": "轻量推理模型，性价比极高"
+  },
+  {
+    "date": "2024-12-20",
+    "model": "o3",
+    "provider": "OpenAI",
+    "highlights": "ARC-AGI 突破性得分 87.5%"
+  },
+  {
+    "date": "2024-09-12",
+    "model": "o1",
+    "provider": "OpenAI",
+    "highlights": "首个推理模型系列，链式思考"
+  }
+]

@@ -113,12 +113,21 @@ export default defineConfig({
         ],
       },
       workbox: {
-        navigateFallback: '/404',
-        globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff2}'],
+        globPatterns: ['**/*.{css,js,svg,png,ico,txt,woff2}'],
+        navigateFallback: null,
+        runtimeCaching: [
+          {
+            urlPattern: ({ request }) => request.mode === 'navigate',
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'pages',
+              expiration: { maxEntries: 50, maxAgeSeconds: 60 * 60 * 24 * 7 },
+            },
+          },
+        ],
       },
       devOptions: {
         enabled: false,
-        navigateFallbackAllowlist: [/^\//],
       },
     }),
   ],

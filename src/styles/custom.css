@@ -1,7 +1,7 @@
 /*
- * Elegant Dark Theme
- * 220° blue undertone across all grays for visual harmony.
- * Layered surfaces, generous whitespace, refined typography.
+ * Warm Neutral Dark Theme
+ * Warm undertone, low blue-light, eye-friendly.
+ * Inspired by Solarized's contrast calibration + warm amber accent.
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&family=Noto+Sans+SC:wght@300;400;500&family=Space+Grotesk:wght@300;400;500&display=swap');
@@ -11,27 +11,27 @@
 :root,
 [data-theme='light'],
 [data-theme='dark'] {
-	/* Surfaces */
-	--sl-color-bg: #10131a;
-	--sl-color-bg-nav: rgba(16, 19, 26, 0.75);
-	--sl-color-bg-sidebar: #10131a;
-	--sl-color-bg-footer: #10131a;
+	/* Surfaces — warm charcoal, no blue */
+	--sl-color-bg: #1b1918;
+	--sl-color-bg-nav: rgba(27, 25, 24, 0.8);
+	--sl-color-bg-sidebar: #1b1918;
+	--sl-color-bg-footer: #1b1918;
 
-	/* Gray scale */
-	--sl-color-white: #e8ecf2;
-	--sl-color-gray-1: #ccd2dc;
-	--sl-color-gray-2: #a8b0be;
-	--sl-color-gray-3: #7e8899;
-	--sl-color-gray-4: #5e6878;
-	--sl-color-gray-5: #3f4758;
-	--sl-color-gray-6: #262e3c;
-	--sl-color-black: #10131a;
+	/* Gray scale — warm neutral */
+	--sl-color-white: #e8e3dc;
+	--sl-color-gray-1: #cdc7bf;
+	--sl-color-gray-2: #a9a29a;
+	--sl-color-gray-3: #847d74;
+	--sl-color-gray-4: #635c54;
+	--sl-color-gray-5: #433d38;
+	--sl-color-gray-6: #2c2724;
+	--sl-color-black: #1b1918;
 
-	/* Accent — slightly purple-shifted blue */
-	--sl-color-accent-low: #172340;
-	--sl-color-accent: #6b9cf7;
-	--sl-color-accent-high: #c4d8f6;
-	--sl-color-text-accent: #82aff8;
+	/* Accent — warm amber gold */
+	--sl-color-accent-low: #2a2214;
+	--sl-color-accent: #d4a55a;
+	--sl-color-accent-high: #f0ddb8;
+	--sl-color-text-accent: #dbb56c;
 
 	/* Layout */
 	--sl-content-width: 50rem;
@@ -160,7 +160,7 @@ code {
 }
 
 .sl-markdown-content tr:nth-child(even) td {
-	background: rgba(38, 46, 60, 0.35);
+	background: rgba(44, 39, 36, 0.35);
 }
 
 /* ─── Horizontal Rules ─── */
@@ -175,7 +175,7 @@ code {
 /* ─── Cards ─── */
 
 .card {
-	background: #151a24;
+	background: #211f1d;
 	border: 1px solid var(--sl-color-gray-6);
 	box-shadow: none;
 	transition: border-color 0.25s ease, transform 0.25s ease;
@@ -189,7 +189,7 @@ code {
 
 starlight-link-card a {
 	border-color: var(--sl-color-gray-6) !important;
-	background: #151a24 !important;
+	background: #211f1d !important;
 	transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
 }
 

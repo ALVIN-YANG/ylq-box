@@ -9,16 +9,20 @@
 - **框架**：Astro 5 + Starlight
 - **语言**：TypeScript / Markdown
 - **部署**：Netlify（CI/CD 自动构建）
-- **样式**：自定义 Elegant Dark 暗色主题（Inter + JetBrains Mono 字体，Google Fonts 加载）
+- **样式**：自定义暗色/亮色双主题（Inter + JetBrains Mono 字体，Google Fonts 加载）
+- **PWA**：通过 @vite-pwa/astro 集成，支持离线访问、添加到主屏幕、Service Worker 自动更新
 
 ## 项目结构
 
 ```
 src/
 ├── components/
-│   ├── CustomHeader.astro   # 自定义导航栏（毛玻璃背景、当前页高亮、移动端汉堡菜单）
+│   ├── CustomHeader.astro   # 自定义导航栏（毛玻璃背景、当前页高亮）
 │   ├── Sidebar.astro        # 自定义侧边栏（按栏目过滤、AI News 周报/日报分组）
 │   ├── RecentNotes.astro    # 首页最近笔记卡片（AI 内容优先、分类标签、hover 微动效）
+│   ├── Hero.astro           # 自定义 Hero 组件（粒子网络背景动效）
+│   ├── HeroAnimation.astro  # Canvas 粒子动画（跟随主题切换颜色）
+│   ├── ThemeToggle.astro    # 明暗主题切换按钮（图标式，替代 Starlight 默认下拉框）
 │   └── Footer.astro         # 自定义页脚（版权信息、Starlight 致谢）
 ├── content/
 │   └── docs/
@@ -37,7 +41,12 @@ src/
 │       ├── ai-news/         # AI News（每日速递 + 每周总结，GitHub Actions + LLM 自动生成）
 │       └── blog/            # 博客文章
 ├── styles/
-│   └── custom.css       # 全局 Elegant Dark 暗色主题（配色、排版、动画、内容页精修）
+│   └── custom.css       # 全局双主题样式（暗色暖灰 + 亮色奶白，排版、动画、内容页精修）
+public/
+├── favicon.svg            # 站点图标（SVG）
+├── pwa-192x192.png        # PWA 图标 192×192
+├── pwa-512x512.png        # PWA 图标 512×512
+└── apple-touch-icon.png   # iOS 主屏幕图标 180×180
 └── content.config.ts    # Starlight 内容集合配置
 ```
 

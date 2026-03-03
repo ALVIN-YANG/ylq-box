@@ -3,6 +3,7 @@ import type { Props } from '@astrojs/starlight/props';
 import SiteTitle from '@astrojs/starlight/components/SiteTitle.astro';
 import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
 import Search from '@astrojs/starlight/components/Search.astro';
+import ThemeToggle from './ThemeToggle.astro';
 
 const navLinks = [
   { label: 'AI', href: '/ai/function-call-agent/', match: '/ai/' },
@@ -32,24 +33,15 @@ function isActive(match: string): boolean {
       <a href={link.href} class:list={[{ active: isActive(link.match) }]}>{link.label}</a>
     ))}
   </nav>
+  <div class="sl-flex right-group-mobile md:sl-hidden">
+    <ThemeToggle />
+  </div>
   <div class="sl-hidden md:sl-flex right-group">
     <Search {...Astro.props} />
     <div class="sl-flex social-icons">
       <SocialIcons {...Astro.props} />
     </div>
-  </div>
-
-  {/* Mobile menu */}
-  <input type="checkbox" id="mobile-menu-toggle" class="mobile-menu-checkbox" aria-label="Toggle menu" />
-  <label for="mobile-menu-toggle" class="mobile-menu-btn md:sl-hidden">
-    <span class="hamburger"></span>
-  </label>
-  <div class="mobile-overlay">
-    <nav class="mobile-nav">
-      {navLinks.map(link => (
-        <a href={link.href} class:list={[{ active: isActive(link.match) }]}>{link.label}</a>
-      ))}
-    </nav>
+    <ThemeToggle />
   </div>
 </div>
 
@@ -103,107 +95,9 @@ function isActive(match: string): boolean {
     background-color: var(--sl-color-accent-low, rgba(212, 165, 90, 0.1));
   }
 
-  /* ── Mobile Menu ── */
-  .mobile-menu-checkbox {
-    display: none;
-  }
-  .mobile-menu-btn {
-    display: flex;
+  /* ── Mobile right group ── */
+  .right-group-mobile {
     align-items: center;
-    justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: background-color 0.2s ease;
-    z-index: 20;
-  }
-  @media (min-width: 50rem) {
-    .mobile-menu-btn {
-      display: none;
-    }
-  }
-  .mobile-menu-btn:hover {
-    background-color: var(--sl-color-gray-6);
-  }
-  .hamburger {
-    display: block;
-    width: 18px;
-    height: 2px;
-    background: var(--sl-color-gray-2);
-    border-radius: 1px;
-    position: relative;
-    transition: background-color 0.2s ease;
-  }
-  .hamburger::before,
-  .hamburger::after {
-    content: '';
-    display: block;
-    width: 18px;
-    height: 2px;
-    background: var(--sl-color-gray-2);
-    border-radius: 1px;
-    position: absolute;
-    transition: transform 0.25s ease, opacity 0.2s ease;
-  }
-  .hamburger::before { top: -6px; }
-  .hamburger::after  { top: 6px; }
-
-  .mobile-menu-checkbox:checked ~ .mobile-menu-btn .hamburger {
-    background: transparent;
-  }
-  .mobile-menu-checkbox:checked ~ .mobile-menu-btn .hamburger::before {
-    transform: translateY(6px) rotate(45deg);
-    background: var(--sl-color-white);
-  }
-  .mobile-menu-checkbox:checked ~ .mobile-menu-btn .hamburger::after {
-    transform: translateY(-6px) rotate(-45deg);
-    background: var(--sl-color-white);
-  }
-
-  /* ── Overlay ── */
-  .mobile-overlay {
-    position: fixed;
-    inset: 0;
-    top: var(--sl-nav-height);
-    background: rgba(27, 25, 24, 0.95);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    z-index: 15;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding-top: 3rem;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-  }
-  .mobile-menu-checkbox:checked ~ .mobile-overlay {
-    opacity: 1;
-    visibility: visible;
-  }
-  .mobile-nav {
-    display: flex;
-    flex-direction: column;
     gap: 0.5rem;
-    width: min(85vw, 20rem);
-  }
-  .mobile-nav a {
-    display: block;
-    text-decoration: none;
-    color: var(--sl-color-gray-1);
-    font-weight: 500;
-    font-size: 1.05rem;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    transition: color 0.2s ease, background-color 0.2s ease;
-  }
-  .mobile-nav a:hover {
-    background-color: var(--sl-color-gray-6);
-    color: var(--sl-color-white);
-  }
-  .mobile-nav a.active {
-    color: var(--sl-color-accent);
-    background-color: var(--sl-color-accent-low, rgba(212, 165, 90, 0.1));
   }
 </style>

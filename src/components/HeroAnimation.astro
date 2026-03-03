@@ -20,7 +20,11 @@
 
   const PARTICLE_COUNT = 60;
   const MAX_DIST = 150;
-  const ACCENT = { r: 212, g: 165, b: 90 };
+  const ACCENT_DARK = { r: 212, g: 165, b: 90 };
+  const ACCENT_LIGHT = { r: 180, g: 83, b: 9 };
+  function getAccent() {
+    return document.documentElement.dataset.theme === 'light' ? ACCENT_LIGHT : ACCENT_DARK;
+  }
 
   function resize() {
     const rect = canvas.parentElement!.getBoundingClientRect();
@@ -61,19 +65,21 @@
         const dy = a.y - b.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < MAX_DIST) {
+          const accent = getAccent();
           const alpha = (1 - dist / MAX_DIST) * 0.35;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(b.x, b.y);
-          ctx.strokeStyle = `rgba(${ACCENT.r},${ACCENT.g},${ACCENT.b},${alpha})`;
+          ctx.strokeStyle = `rgba(${accent.r},${accent.g},${accent.b},${alpha})`;
           ctx.lineWidth = 0.8;
           ctx.stroke();
         }
       }
 
+      const accent = getAccent();
       ctx.beginPath();
       ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${ACCENT.r},${ACCENT.g},${ACCENT.b},0.7)`;
+      ctx.fillStyle = `rgba(${accent.r},${accent.g},${accent.b},0.7)`;
       ctx.fill();
     }
 

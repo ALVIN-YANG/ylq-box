@@ -1,86 +1,86 @@
 {
-  "updatedAt": "2026/3/3 15:26:09",
-  "updatedAtISO": "2026-03-03T07:26:09.331Z",
+  "updatedAt": "2026/3/4 10:30:29",
+  "updatedAtISO": "2026-03-04T02:30:29.402Z",
   "arena": {
     "text": [
       {
         "rank": 1,
-        "name": "claude-opus-4-6-thinking",
-        "rating": 1503.45,
-        "ci": "7.6 / 7.6",
-        "votes": 6583,
+        "name": "claude-opus-4-6",
+        "rating": 1505.14,
+        "ci": "6.9 / 6.9",
+        "votes": 8449,
         "org": "Anthropic"
       },
       {
         "rank": 2,
-        "name": "claude-opus-4-6",
-        "rating": 1502.91,
-        "ci": "7.3 / 7.3",
-        "votes": 7454,
+        "name": "claude-opus-4-6-thinking",
+        "rating": 1500.64,
+        "ci": "7.1 / 7.2",
+        "votes": 7570,
         "org": "Anthropic"
       },
       {
         "rank": 3,
         "name": "gemini-3.1-pro-preview",
-        "rating": 1500.36,
-        "ci": "9.2 / 9.3",
-        "votes": 4052,
+        "rating": 1499.91,
+        "ci": "9.3 / 9.3",
+        "votes": 4043,
         "org": "Google"
       },
       {
         "rank": 4,
         "name": "grok-4.20-beta1",
-        "rating": 1495.42,
-        "ci": "9.6 / 9.6",
-        "votes": 3818,
+        "rating": 1493.27,
+        "ci": "8.8 / 8.8",
+        "votes": 4617,
         "org": "xAI"
       },
       {
         "rank": 5,
         "name": "gemini-3-pro",
-        "rating": 1486.23,
-        "ci": "4.1 / 4.1",
-        "votes": 38248,
+        "rating": 1486,
+        "ci": "4.0 / 4.0",
+        "votes": 39205,
         "org": "Google"
       },
       {
         "rank": 6,
         "name": "gpt-5.2-chat-latest-20260210",
-        "rating": 1481.31,
-        "ci": "10.1 / 10.1",
-        "votes": 3605,
+        "rating": 1478.95,
+        "ci": "8.8 / 8.8",
+        "votes": 4867,
         "org": "OpenAI"
       },
       {
         "rank": 7,
         "name": "gemini-3-flash",
-        "rating": 1473.23,
-        "ci": "4.6 / 4.6",
-        "votes": 29334,
+        "rating": 1472.91,
+        "ci": "4.5 / 4.5",
+        "votes": 30512,
         "org": "Google"
       },
       {
         "rank": 8,
         "name": "grok-4.1-thinking",
-        "rating": 1472.97,
-        "ci": "4.2 / 4.2",
-        "votes": 37474,
+        "rating": 1472.6,
+        "ci": "4.1 / 4.1",
+        "votes": 38472,
         "org": "xAI"
       },
       {
         "rank": 9,
         "name": "claude-opus-4-5-20251101-thinking-32k",
-        "rating": 1470.96,
-        "ci": "4.4 / 4.4",
-        "votes": 30541,
+        "rating": 1470.54,
+        "ci": "4.3 / 4.3",
+        "votes": 31680,
         "org": "Anthropic"
       },
       {
         "rank": 10,
         "name": "dola-seed-2.0-preview",
-        "rating": 1469.86,
-        "ci": "8.8 / 8.8",
-        "votes": 4620,
+        "rating": 1469.04,
+        "ci": "8.0 / 8.0",
+        "votes": 5797,
         "org": "Bytedance"
       }
     ],
@@ -88,81 +88,81 @@
       {
         "rank": 1,
         "name": "claude-opus-4-6",
-        "rating": 1560.47,
-        "ci": "13.4 / 13.4",
-        "votes": 2845,
+        "rating": 1556.57,
+        "ci": "12.7 / 12.7",
+        "votes": 3225,
         "org": "Anthropic"
       },
       {
         "rank": 2,
         "name": "claude-opus-4-6-thinking",
-        "rating": 1553.08,
-        "ci": "14.8 / 14.8",
-        "votes": 2182,
+        "rating": 1556.35,
+        "ci": "13.9 / 13.9",
+        "votes": 2521,
         "org": "Anthropic"
       },
       {
         "rank": 3,
         "name": "claude-sonnet-4-6",
-        "rating": 1530.86,
-        "ci": "15.5 / 15.5",
-        "votes": 1839,
+        "rating": 1524,
+        "ci": "12.6 / 12.6",
+        "votes": 2975,
         "org": "Anthropic"
       },
       {
         "rank": 4,
         "name": "claude-opus-4-5-20251101-thinking-32k",
-        "rating": 1498.64,
-        "ci": "7.8 / 7.9",
-        "votes": 11149,
+        "rating": 1496.98,
+        "ci": "7.7 / 7.6",
+        "votes": 11780,
         "org": "Anthropic"
       },
       {
         "rank": 5,
+        "name": "claude-opus-4-5-20251101",
+        "rating": 1474.34,
+        "ci": "7.5 / 7.4",
+        "votes": 11898,
+        "org": "Anthropic"
+      },
+      {
+        "rank": 6,
         "name": "gpt-5.2-high",
-        "rating": 1470.76,
+        "rating": 1471.79,
         "ci": "16.2 / 16.2",
         "votes": 1696,
         "org": "OpenAI"
       },
       {
-        "rank": 6,
-        "name": "claude-opus-4-5-20251101",
-        "rating": 1470.5,
-        "ci": "7.7 / 7.7",
-        "votes": 11239,
-        "org": "Anthropic"
-      },
-      {
         "rank": 7,
         "name": "gemini-3.1-pro-preview",
-        "rating": 1460.6,
-        "ci": "15.1 / 15.1",
-        "votes": 1826,
+        "rating": 1461.29,
+        "ci": "15.1 / 15.0",
+        "votes": 1829,
         "org": "Google"
       },
       {
         "rank": 8,
         "name": "glm-5",
-        "rating": 1450.83,
-        "ci": "12.6 / 12.5",
-        "votes": 2621,
+        "rating": 1447.82,
+        "ci": "11.7 / 11.7",
+        "votes": 3101,
         "org": "Z.ai"
       },
       {
         "rank": 9,
         "name": "gemini-3-pro",
-        "rating": 1443.05,
-        "ci": "7.2 / 7.2",
-        "votes": 17027,
+        "rating": 1442.06,
+        "ci": "7.1 / 7.1",
+        "votes": 17421,
         "org": "Google"
       },
       {
         "rank": 10,
         "name": "gemini-3-flash",
-        "rating": 1440.55,
-        "ci": "7.4 / 7.4",
-        "votes": 12934,
+        "rating": 1442.02,
+        "ci": "7.3 / 7.3",
+        "votes": 13563,
         "org": "Google"
       }
     ],
@@ -416,121 +416,1161 @@
       "date": "2026-02-19",
       "model": "Gemini 3.1 Pro",
       "provider": "Google",
-      "highlights": "推理能力提升 2x，ARC-AGI-2 得分 77.1%，2M 上下文窗口"
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "Google's latest flagship model with a major 2x jump in reasoning capabilities。ARC-AGI-2 77.1%，MMLU 93.8%",
+      "features": [
+        "2x reasoning improvement",
+        "ARC-AGI-2 score of 77.1%",
+        "Enhanced multimodal understanding",
+        "Deep Think mode"
+      ],
+      "metrics": [
+        {
+          "name": "ARC-AGI-2",
+          "value": "77.1%"
+        },
+        {
+          "name": "MMLU",
+          "value": "93.8%"
+        },
+        {
+          "name": "MATH",
+          "value": "89.4%"
+        }
+      ],
+      "url": ""
     },
     {
       "date": "2026-02-17",
       "model": "Claude Sonnet 4.6",
       "provider": "Anthropic",
-      "highlights": "200K 上下文，编码与 Agent 能力显著提升"
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "Anthropic's latest Sonnet with Agent Teams capability and near-Opus performance at a fraction of the cost。SWE-bench 80.8%，MMLU 92.1%",
+      "features": [
+        "Agent Teams: orchestrate 2-16 Claude instances",
+        "Near-Opus performance at 1/5th cost",
+        "80.8% SWE-bench Verified",
+        "Fast mode research preview"
+      ],
+      "metrics": [
+        {
+          "name": "SWE-bench",
+          "value": "80.8%"
+        },
+        {
+          "name": "MMLU",
+          "value": "92.1%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "95.2%"
+        }
+      ],
+      "url": ""
     },
     {
-      "date": "2026-02-11",
+      "date": "2026-02-12",
       "model": "DeepSeek V3.2",
       "provider": "DeepSeek",
-      "highlights": "1M+ 上下文窗口，MIT 开源，671B MoE"
+      "type": "LLM",
+      "category": "Update",
+      "highlights": "Major update with 10x context window expansion to over 1 million tokens。MMLU 90.1%，HumanEval 92.5%",
+      "features": [
+        "1M+ token context window (10x expansion)",
+        "Improved reasoning capabilities",
+        "Open source release",
+        "Cost-effective inference"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "90.1%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "92.5%"
+        },
+        {
+          "name": "Context Window",
+          "value": "1M+ tokens"
+        }
+      ],
+      "url": ""
     },
     {
       "date": "2026-02-11",
       "model": "GLM-5",
-      "provider": "智谱 AI",
-      "highlights": "首个不使用 NVIDIA GPU 训练的前沿模型"
+      "provider": "Zhipu AI",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "First frontier AI model trained entirely without NVIDIA GPUs, using Huawei Ascend chips。HLE 50.4%，Hallucination Rate 1.2%",
+      "features": [
+        "First frontier model trained on Huawei Ascend chips (no NVIDIA)",
+        "#1 HLE score (50.4%)",
+        "1.2% hallucination rate via Slime RL",
+        "136x cheaper than Claude Opus 4.5"
+      ],
+      "metrics": [
+        {
+          "name": "HLE",
+          "value": "50.4%"
+        },
+        {
+          "name": "Hallucination Rate",
+          "value": "1.2%"
+        },
+        {
+          "name": "Cost",
+          "value": "$0.11/M tokens"
+        }
+      ],
+      "url": ""
     },
     {
-      "date": "2026-02-05",
-      "model": "Claude Opus 4.6",
-      "provider": "Anthropic",
-      "highlights": "Agent 团队协作能力，1M 上下文窗口"
+      "date": "2026-02-10",
+      "model": "Seedance 2.0",
+      "provider": "ByteDance",
+      "type": "Video",
+      "category": "Major Release",
+      "highlights": "First commercial video model generating synchronized audio and video in a single pass。Audio Sync Excellent，Languages 8+",
+      "features": [
+        "Synchronized audio + video generation in one pass",
+        "Lip-sync in 8+ languages",
+        "10-30x cheaper than Sora 2",
+        "Commercial pricing: $0.10-$0.80/min"
+      ],
+      "metrics": [
+        {
+          "name": "Audio Sync",
+          "value": "Excellent"
+        },
+        {
+          "name": "Languages",
+          "value": "8+"
+        },
+        {
+          "name": "Cost",
+          "value": "$0.10-$0.80/min"
+        }
+      ],
+      "url": ""
     },
     {
       "date": "2026-02-05",
       "model": "GPT-5.3 Codex",
       "provider": "OpenAI",
-      "highlights": "比 5.2-Codex 快 25%，专注代码生成"
+      "type": "Code",
+      "category": "Major Release",
+      "highlights": "OpenAI's specialized self-improving coding model with state-of-the-art software engineering performance。Terminal-Bench 77.3%，SWE-Bench Pro SOTA",
+      "features": [
+        "Self-improving agentic coding",
+        "25% faster than GPT-5.2-Codex",
+        "1,000+ tokens/sec generation",
+        "First OpenAI model flagged 'high' on cybersecurity framework"
+      ],
+      "metrics": [
+        {
+          "name": "Terminal-Bench",
+          "value": "77.3%"
+        },
+        {
+          "name": "SWE-Bench Pro",
+          "value": "SOTA"
+        },
+        {
+          "name": "Speed",
+          "value": "1,000+ tok/s"
+        }
+      ],
+      "url": ""
     },
     {
       "date": "2026-01-20",
       "model": "Kimi K2",
       "provider": "Moonshot AI",
-      "highlights": "1.04T 参数开源模型，LMSYS Arena 首个开源 #1"
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "First open-weight model to rank #1 on LMSYS Chatbot Arena with over 1 trillion parameters。LMSYS Arena #1，Parameters 1.04T",
+      "features": [
+        "First open-weight model #1 on LMSYS Chatbot Arena",
+        "1.04 trillion parameters",
+        "K2.5 agent swarms with up to 100 sub-agents",
+        "$0.15/M input tokens"
+      ],
+      "metrics": [
+        {
+          "name": "LMSYS Arena",
+          "value": "#1"
+        },
+        {
+          "name": "Parameters",
+          "value": "1.04T"
+        },
+        {
+          "name": "Cost",
+          "value": "$0.15/M tokens"
+        }
+      ],
+      "url": ""
     },
     {
       "date": "2025-12-18",
       "model": "GPT-5.2 Codex",
       "provider": "OpenAI",
-      "highlights": "专注代码生成和 Agent 任务"
+      "type": "Code",
+      "category": "Update",
+      "highlights": "Specialized coding variant of GPT-5.2 focused on software engineering tasks。SWE-Bench SOTA，HumanEval 96.1%",
+      "features": [
+        "Specialized for software engineering",
+        "Enhanced agentic coding",
+        "Multi-file refactoring",
+        "Advanced debugging capabilities"
+      ],
+      "metrics": [
+        {
+          "name": "SWE-Bench",
+          "value": "SOTA"
+        },
+        {
+          "name": "HumanEval",
+          "value": "96.1%"
+        },
+        {
+          "name": "Terminal-Bench",
+          "value": "72.8%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2025-12-15",
+      "model": "Mistral Large 3",
+      "provider": "Mistral",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "Mistral's flagship model competing with GPT-5 class models at a fraction of the cost。MMLU 88.2%，HumanEval 82.5%",
+      "features": [
+        "128K context window",
+        "Improved multilingual capabilities",
+        "Enhanced function calling",
+        "Competitive with GPT-5 class models"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "88.2%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "82.5%"
+        },
+        {
+          "name": "MATH",
+          "value": "72.1%"
+        }
+      ],
+      "url": ""
     },
     {
       "date": "2025-12-11",
       "model": "GPT-5.2",
       "provider": "OpenAI",
-      "highlights": "AIME 2025 满分，SWE-bench 80%，400K 上下文"
+      "type": "LLM",
+      "category": "Update",
+      "highlights": "Iterative improvement on GPT-5.1 with enhanced reasoning and faster performance。MMLU 92.8%，MATH 88.5%",
+      "features": [
+        "Enhanced reasoning capabilities",
+        "Improved adaptive reasoning",
+        "Better multimodal understanding",
+        "Faster inference"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "92.8%"
+        },
+        {
+          "name": "MATH",
+          "value": "88.5%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "95.8%"
+        }
+      ],
+      "url": ""
     },
     {
-      "date": "2025-12-11",
+      "date": "2025-11-24",
+      "model": "Claude Opus 4.5",
+      "provider": "Anthropic",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "Anthropic's most capable model with breakthrough coding performance and major price reduction。SWE-bench 80.9%，MMLU 91.5%",
+      "features": [
+        "First model to break 80.9% on SWE-Bench Verified",
+        "67% price reduction vs previous Opus",
+        "Extended reasoning capabilities",
+        "Advanced coding performance"
+      ],
+      "metrics": [
+        {
+          "name": "SWE-bench",
+          "value": "80.9%"
+        },
+        {
+          "name": "MMLU",
+          "value": "91.5%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "95.0%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2025-11-18",
       "model": "Gemini 3 Pro",
       "provider": "Google",
-      "highlights": "与 GPT-5.2 同日发布，多模态推理提升"
+      "type": "Multimodal",
+      "category": "Major Release",
+      "highlights": "Google's flagship model with Deep Think mode, ranked #1 on LMSYS Arena at launch。ARC-AGI 87.5%，MMLU 93.2%",
+      "features": [
+        "1M token context window",
+        "Deep Think reasoning mode",
+        "Solved 5/6 IMO 2025 problems",
+        "#1 on LMSYS Arena"
+      ],
+      "metrics": [
+        {
+          "name": "ARC-AGI",
+          "value": "87.5%"
+        },
+        {
+          "name": "MMLU",
+          "value": "93.2%"
+        },
+        {
+          "name": "LMSYS Arena",
+          "value": "#1"
+        }
+      ],
+      "url": ""
     },
     {
-      "date": "2025-12-02",
-      "model": "Mistral Large 3",
-      "provider": "Mistral AI",
-      "highlights": "256K 上下文窗口，多语言优化"
-    },
-    {
-      "date": "2025-11-01",
-      "model": "Claude 4.5 Opus",
-      "provider": "Anthropic",
-      "highlights": "SWE-bench 80.9%，最强编码模型之一"
-    },
-    {
-      "date": "2025-09-01",
-      "model": "Claude 4.5 Haiku/Sonnet",
-      "provider": "Anthropic",
-      "highlights": "Claude 4.5 系列首发，速度与质量平衡"
-    },
-    {
-      "date": "2025-07-18",
-      "model": "Llama 4 Maverick",
-      "provider": "Meta",
-      "highlights": "1M 上下文，开源 MoE 架构"
-    },
-    {
-      "date": "2025-04-14",
-      "model": "GPT-4.1 / Mini / Nano",
+      "date": "2025-11-12",
+      "model": "GPT-5.1",
       "provider": "OpenAI",
-      "highlights": "1M 上下文，指令遵循优化，Nano 极低成本"
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "Major GPT-5 iteration with adaptive reasoning and perfect scores on math competitions。ARC-AGI 87.5%，AIME 2025 100%",
+      "features": [
+        "Adaptive reasoning modes",
+        "Perfect 100% on AIME 2025",
+        "87.5% on ARC-AGI",
+        "Enhanced multimodal capabilities"
+      ],
+      "metrics": [
+        {
+          "name": "ARC-AGI",
+          "value": "87.5%"
+        },
+        {
+          "name": "AIME 2025",
+          "value": "100%"
+        },
+        {
+          "name": "MMLU",
+          "value": "92.5%"
+        }
+      ],
+      "url": ""
     },
     {
-      "date": "2025-03-25",
-      "model": "Gemini 2.5 Pro",
+      "date": "2025-08-15",
+      "model": "GPT-5",
+      "provider": "OpenAI",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "OpenAI's next-generation flagship model with adaptive reasoning capabilities。MMLU 91.0%，HumanEval 93.5%",
+      "features": [
+        "Adaptive reasoning (routes between quick and deep thinking)",
+        "Improved math and coding",
+        "Enhanced multimodal reasoning",
+        "New safety architecture"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "91.0%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "93.5%"
+        },
+        {
+          "name": "MATH",
+          "value": "85.0%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2025-07-15",
+      "model": "Claude Opus 4.1",
+      "provider": "Anthropic",
+      "type": "LLM",
+      "category": "Update",
+      "highlights": "Iterative improvement on Claude Opus 4 with enhanced multi-file refactoring。SWE-bench 75.2%，MMLU 90.8%",
+      "features": [
+        "Improved multi-file refactoring",
+        "Enhanced agentic capabilities",
+        "Better long-context performance",
+        "Reduced hallucinations"
+      ],
+      "metrics": [
+        {
+          "name": "SWE-bench",
+          "value": "75.2%"
+        },
+        {
+          "name": "MMLU",
+          "value": "90.8%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "94.0%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2025-06-20",
+      "model": "Gemini 2.5 Flash",
       "provider": "Google",
-      "highlights": "1M 上下文 + 思考模式，代码和推理显著提升"
+      "type": "Multimodal",
+      "category": "Update",
+      "highlights": "Google's fast and cost-effective model with enhanced image capabilities。MMLU 87.5%，Speed 2x Gemini 2.0 Flash",
+      "features": [
+        "Enhanced image editing stabilization",
+        "Faster inference",
+        "Improved multimodal understanding",
+        "Cost-effective deployment"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "87.5%"
+        },
+        {
+          "name": "Speed",
+          "value": "2x Gemini 2.0 Flash"
+        },
+        {
+          "name": "Image Quality",
+          "value": "High"
+        }
+      ],
+      "url": ""
     },
     {
-      "date": "2025-01-20",
-      "model": "DeepSeek R1",
+      "date": "2025-05-22",
+      "model": "Claude Sonnet 4",
+      "provider": "Anthropic",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "Latest generation Claude model with significant performance improvements。MMLU 91.2%，HumanEval 94.5%",
+      "features": [
+        "Enhanced reasoning capabilities",
+        "Improved safety measures",
+        "Advanced multimodal understanding",
+        "Extended context window"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "91.2%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "94.5%"
+        },
+        {
+          "name": "MATH",
+          "value": "76.8%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2025-02-24",
+      "model": "Claude Sonnet 3.7",
+      "provider": "Anthropic",
+      "type": "LLM",
+      "category": "Update",
+      "highlights": "Iterative improvement on Claude 3.5 with enhanced capabilities。MMLU 89.5%，HumanEval 93.2%",
+      "features": [
+        "Improved reasoning",
+        "Better code generation",
+        "Enhanced safety",
+        "Reduced hallucinations"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "89.5%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "93.2%"
+        },
+        {
+          "name": "MATH",
+          "value": "74.1%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2024-12-26",
+      "model": "DeepSeek-V3",
       "provider": "DeepSeek",
-      "highlights": "开源推理模型，达到 o1 水平，MIT 协议"
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "DeepSeek's most advanced open-source model with MoE architecture。MMLU 88.5%，HumanEval 90.2%",
+      "features": [
+        "Mixture of Experts architecture",
+        "Cost-effective training",
+        "Open source release",
+        "Strong reasoning capabilities"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "88.5%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "90.2%"
+        },
+        {
+          "name": "MATH",
+          "value": "76.1%"
+        }
+      ],
+      "url": ""
     },
     {
-      "date": "2025-01-17",
-      "model": "o3-mini",
-      "provider": "OpenAI",
-      "highlights": "轻量推理模型，性价比极高"
+      "date": "2024-12-11",
+      "model": "Gemini 2.0 Flash",
+      "provider": "Google",
+      "type": "Multimodal",
+      "category": "Major Release",
+      "highlights": "Google's next-generation model with native multimodal capabilities。MMLU 85.8%，HumanEval 71.9%",
+      "features": [
+        "Native multimodal generation",
+        "Real-time API",
+        "Agentic capabilities",
+        "Enhanced speed"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "85.8%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "71.9%"
+        },
+        {
+          "name": "MATH",
+          "value": "58.8%"
+        }
+      ],
+      "url": ""
     },
     {
-      "date": "2024-12-20",
-      "model": "o3",
-      "provider": "OpenAI",
-      "highlights": "ARC-AGI 突破性得分 87.5%"
+      "date": "2024-10-16",
+      "model": "Moonshot Kimi",
+      "provider": "Moonshot AI",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "Chinese AI company's large language model optimized for Asian languages。C-Eval 77.9%，CMMLU 75.2%",
+      "features": [
+        "200K context window",
+        "Multilingual support",
+        "Document processing",
+        "Chinese language optimization"
+      ],
+      "metrics": [
+        {
+          "name": "C-Eval",
+          "value": "77.9%"
+        },
+        {
+          "name": "CMMLU",
+          "value": "75.2%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "65.8%"
+        }
+      ],
+      "url": ""
     },
     {
       "date": "2024-09-12",
-      "model": "o1",
+      "model": "GPT-o1-preview",
       "provider": "OpenAI",
-      "highlights": "首个推理模型系列，链式思考"
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "OpenAI's most advanced reasoning model designed for complex problem-solving。AIME 83rd percentile，GPQA 78%",
+      "features": [
+        "Advanced reasoning capabilities",
+        "Chain-of-thought processing",
+        "Enhanced problem-solving",
+        "Improved mathematical reasoning"
+      ],
+      "metrics": [
+        {
+          "name": "AIME",
+          "value": "83rd percentile"
+        },
+        {
+          "name": "GPQA",
+          "value": "78%"
+        },
+        {
+          "name": "MATH",
+          "value": "83%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2024-08-13",
+      "model": "Grok-2",
+      "provider": "xAI",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "xAI's flagship model with real-time web access and multimodal capabilities。MMLU 84.0%，HumanEval 74.1%",
+      "features": [
+        "Real-time information access",
+        "Multimodal understanding",
+        "X platform integration",
+        "Conversational AI"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "84.0%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "74.1%"
+        },
+        {
+          "name": "MATH",
+          "value": "56.0%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2024-07-25",
+      "model": "GitHub Copilot Chat",
+      "provider": "Microsoft",
+      "type": "Code",
+      "category": "Major Release",
+      "highlights": "AI-powered coding assistant with conversational interface。HumanEval 84.2%，MBPP 78.9%",
+      "features": [
+        "Conversational coding",
+        "IDE integration",
+        "Code explanation",
+        "Multi-language support"
+      ],
+      "metrics": [
+        {
+          "name": "HumanEval",
+          "value": "84.2%"
+        },
+        {
+          "name": "MBPP",
+          "value": "78.9%"
+        },
+        {
+          "name": "CodeT5",
+          "value": "71.4%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2024-06-20",
+      "model": "Claude 3.5 Sonnet",
+      "provider": "Anthropic",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "Anthropic's most intelligent model with significantly improved capabilities。MMLU 88.7%，HumanEval 92%",
+      "features": [
+        "200K context window",
+        "Improved coding capabilities",
+        "Enhanced reasoning",
+        "Vision capabilities"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "88.7%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "92%"
+        },
+        {
+          "name": "MATH",
+          "value": "71.1%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2024-03-28",
+      "model": "Grok-1.5",
+      "provider": "xAI",
+      "type": "LLM",
+      "category": "Update",
+      "highlights": "Enhanced version of Grok with improved performance across benchmarks。MMLU 73.0%，HumanEval 63.2%",
+      "features": [
+        "Improved reasoning",
+        "Code generation",
+        "128K context window",
+        "Real-time data access"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "73.0%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "63.2%"
+        },
+        {
+          "name": "MATH",
+          "value": "50.6%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2024-03-04",
+      "model": "Claude 3 Opus",
+      "provider": "Anthropic",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "Most capable model in the Claude 3 family with near-human performance on complex tasks。MMLU 86.8%，HumanEval 84.9%",
+      "features": [
+        "200K context window",
+        "Advanced reasoning",
+        "Multimodal capabilities",
+        "Constitutional AI training"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "86.8%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "84.9%"
+        },
+        {
+          "name": "MATH",
+          "value": "60.1%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2024-03-04",
+      "model": "Claude 3 Sonnet",
+      "provider": "Anthropic",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "Balanced model offering strong performance with faster response times。MMLU 79.0%，HumanEval 73.0%",
+      "features": [
+        "200K context window",
+        "Balanced capability and speed",
+        "Multimodal input",
+        "Strong reasoning"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "79.0%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "73.0%"
+        },
+        {
+          "name": "MATH",
+          "value": "40.5%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2024-03-04",
+      "model": "Claude 3 Haiku",
+      "provider": "Anthropic",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "Fastest and most compact model in the Claude 3 family。MMLU 75.2%，HumanEval 75.9%",
+      "features": [
+        "200K context window",
+        "Fastest response times",
+        "Multimodal input",
+        "Cost-effective"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "75.2%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "75.9%"
+        },
+        {
+          "name": "MATH",
+          "value": "38.9%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2024-02-26",
+      "model": "Mistral Large",
+      "provider": "Mistral",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "Top-tier reasoning model with strong multilingual capabilities。MMLU 81.2%，HumanEval 45%",
+      "features": [
+        "32K context window",
+        "Multilingual capabilities",
+        "Function calling",
+        "JSON mode"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "81.2%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "45%"
+        },
+        {
+          "name": "HellaSwag",
+          "value": "89.2%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2024-02-15",
+      "model": "Sora",
+      "provider": "OpenAI",
+      "type": "Video",
+      "category": "Major Release",
+      "highlights": "OpenAI's text-to-video AI model capable of generating minute-long videos。Video Quality High，Motion Coherence Excellent",
+      "features": [
+        "Text-to-video generation",
+        "60-second video clips",
+        "Complex scene generation",
+        "Realistic motion physics"
+      ],
+      "metrics": [
+        {
+          "name": "Video Quality",
+          "value": "High"
+        },
+        {
+          "name": "Motion Coherence",
+          "value": "Excellent"
+        },
+        {
+          "name": "Text Adherence",
+          "value": "95%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2024-02-15",
+      "model": "Gemini 1.5 Pro",
+      "provider": "Google",
+      "type": "Multimodal",
+      "category": "Major Release",
+      "highlights": "Google's next-generation model with breakthrough long context capabilities。MMLU 85.9%，HumanEval 71.9%",
+      "features": [
+        "1M token context window",
+        "Multimodal understanding",
+        "Video analysis",
+        "Audio processing"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "85.9%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "71.9%"
+        },
+        {
+          "name": "MATH",
+          "value": "58.5%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2024-01-25",
+      "model": "text-embedding-3-large",
+      "provider": "OpenAI",
+      "type": "Embedding",
+      "category": "Major Release",
+      "highlights": "OpenAI's most powerful text embedding model。MTEB Score 64.6%，Dimensions 3072",
+      "features": [
+        "3072 embedding dimensions",
+        "Improved retrieval performance",
+        "Reduced hallucinations",
+        "Multi-language support"
+      ],
+      "metrics": [
+        {
+          "name": "MTEB Score",
+          "value": "64.6%"
+        },
+        {
+          "name": "Dimensions",
+          "value": "3072"
+        },
+        {
+          "name": "Languages",
+          "value": "100+"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2024-01-25",
+      "model": "GPT-4 Turbo",
+      "provider": "OpenAI",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "Latest iteration of GPT-4 with improved performance and longer context window。MMLU 86.4%，HumanEval 67%",
+      "features": [
+        "128K context window",
+        "Improved instruction following",
+        "Enhanced reasoning capabilities",
+        "Reduced hallucinations"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "86.4%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "67%"
+        },
+        {
+          "name": "HellaSwag",
+          "value": "95.3%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2023-12-21",
+      "model": "Midjourney v6",
+      "provider": "Midjourney",
+      "type": "Vision",
+      "category": "Major Release",
+      "highlights": "Midjourney's latest high-quality image generation model。Image Quality Very High，Prompt Adherence 92%",
+      "features": [
+        "Photorealistic image generation",
+        "Improved prompt understanding",
+        "Better human anatomy",
+        "Text rendering"
+      ],
+      "metrics": [
+        {
+          "name": "Image Quality",
+          "value": "Very High"
+        },
+        {
+          "name": "Prompt Adherence",
+          "value": "92%"
+        },
+        {
+          "name": "Style Versatility",
+          "value": "Excellent"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2023-12-07",
+      "model": "Grok-1",
+      "provider": "xAI",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "xAI's first major language model with real-time internet access。MMLU 73.0%，HumanEval 63.2%",
+      "features": [
+        "Real-time information",
+        "Conversational interface",
+        "X platform integration",
+        "Uncensored responses"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "73.0%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "63.2%"
+        },
+        {
+          "name": "GSM8K",
+          "value": "62.9%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2023-12-06",
+      "model": "AlphaCode 2",
+      "provider": "Google DeepMind",
+      "type": "Code",
+      "category": "Research",
+      "highlights": "DeepMind's advanced code generation system for competitive programming。Codeforces Rating 1747，Problem Solving 85th percentile",
+      "features": [
+        "Advanced code generation",
+        "Competitive programming",
+        "Multi-language support",
+        "Problem decomposition"
+      ],
+      "metrics": [
+        {
+          "name": "Codeforces Rating",
+          "value": "1747"
+        },
+        {
+          "name": "Problem Solving",
+          "value": "85th percentile"
+        },
+        {
+          "name": "Language Support",
+          "value": "10+ languages"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2023-12-06",
+      "model": "Gemini Ultra",
+      "provider": "Google",
+      "type": "Multimodal",
+      "category": "Major Release",
+      "highlights": "Google's most capable multimodal AI model。MMLU 90.0%，HumanEval 74.4%",
+      "features": [
+        "Multimodal reasoning",
+        "Text, image, audio, video understanding",
+        "Advanced mathematical reasoning",
+        "Code generation"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "90.0%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "74.4%"
+        },
+        {
+          "name": "MATH",
+          "value": "53.2%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2023-12-06",
+      "model": "Gemini Pro",
+      "provider": "Google",
+      "type": "Multimodal",
+      "category": "Major Release",
+      "highlights": "Google's balanced model for wide range of tasks。MMLU 83.7%，HumanEval 67.7%",
+      "features": [
+        "Multimodal capabilities",
+        "32K context window",
+        "Fast inference",
+        "Scalable deployment"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "83.7%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "67.7%"
+        },
+        {
+          "name": "MATH",
+          "value": "32.6%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2023-11-21",
+      "model": "Claude 2.1",
+      "provider": "Anthropic",
+      "type": "LLM",
+      "category": "Update",
+      "highlights": "Significant improvements in accuracy and honesty over Claude 2。MMLU 88.0%，HumanEval 71.2%",
+      "features": [
+        "200K context window",
+        "Reduced hallucination rates",
+        "Enhanced accuracy",
+        "Tool use capabilities"
+      ],
+      "metrics": [
+        {
+          "name": "MMLU",
+          "value": "88.0%"
+        },
+        {
+          "name": "HumanEval",
+          "value": "71.2%"
+        },
+        {
+          "name": "MATH",
+          "value": "71.1%"
+        }
+      ],
+      "url": ""
     }
   ]
 }

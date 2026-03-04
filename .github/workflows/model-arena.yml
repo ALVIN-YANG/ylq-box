@@ -1,0 +1,38 @@
+name: Model Arena
+
+on:
+  schedule:
+    # 每 3 天 UTC 02:00（北京时间 10:00）运行
+    - cron: '0 2 */3 * *'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: '是否强制覆盖已存在文件'
+        required: true
+        default: true
+        type: boolean
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Generate Model Arena data
+        run: node scripts/fetch-model-arena.mjs --force
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/model-arena.json
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "chore(model-arena): auto-update $(date -u +%Y-%m-%d)"
+          git push

@@ -8,7 +8,7 @@ import data from '../data/model-arena.json';
     <header class="hero">
       <h1>Model Arena</h1>
       <p class="subtitle">AI 模型综合对比仪表盘</p>
-      <p class="updated">数据更新：{data.updatedAt} · Arena 数据来源 <a href="https://lmarena.ai/leaderboard" target="_blank">lmarena.ai</a></p>
+      <p class="updated">数据更新：{data.updatedAt} · Arena 来源 <a href="https://lmarena.ai/leaderboard" target="_blank">lmarena.ai</a> · 时间线来源 <a href="https://aiflashreport.com/model-releases" target="_blank">AI Flash Report</a></p>
     </header>
 
     <div class="tabs" id="tabs">
@@ -119,8 +119,18 @@ import data from '../data/model-arena.json';
               <div class="tl-date">{r.date}</div>
               <div class="tl-dot"></div>
               <div class="tl-content">
-                <div class="tl-model">{r.model} <span class="tl-provider">{r.provider}</span></div>
+                <div class="tl-header">
+                  <span class="tl-model">{r.model}</span>
+                  <span class="tl-provider">{r.provider}</span>
+                  {r.type && <span class="tl-type">{r.type}</span>}
+                </div>
                 <div class="tl-highlights">{r.highlights}</div>
+                {r.features && r.features.length > 0 && (
+                  <ul class="tl-features">
+                    {r.features.map(f => <li>{f}</li>)}
+                  </ul>
+                )}
+                {r.url && <a class="tl-link" href={r.url} target="_blank">View Announcement</a>}
               </div>
             </div>
           ))}
@@ -306,12 +316,22 @@ import data from '../data/model-arena.json';
     z-index: 1;
   }
   .tl-content { flex: 1; min-width: 0; }
+  .tl-header { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
   .tl-model { font-weight: 500; font-size: 0.88rem; }
   .tl-provider {
     font-size: 0.75rem;
     color: var(--text-dim);
     font-weight: 400;
-    margin-left: 0.3rem;
+  }
+  .tl-type {
+    font-size: 0.6rem;
+    font-weight: 600;
+    padding: 0.1rem 0.4rem;
+    border-radius: 999px;
+    background: var(--accent-low);
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
   .tl-highlights {
     font-size: 0.8rem;
@@ -319,6 +339,25 @@ import data from '../data/model-arena.json';
     margin-top: 0.15rem;
     line-height: 1.5;
   }
+  .tl-features {
+    margin: 0.3rem 0 0;
+    padding-left: 1.1rem;
+    list-style: disc;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+  .tl-features li { margin: 0; }
+  .tl-link {
+    font-size: 0.72rem;
+    color: var(--accent);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.15s;
+    display: inline-block;
+    margin-top: 0.25rem;
+  }
+  .tl-link:hover { opacity: 1; text-decoration: underline; }
 
   /* ── Mobile ── */
   @media (max-width: 600px) {

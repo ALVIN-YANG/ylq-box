@@ -43,7 +43,7 @@ scripts/
 ├── watched-repos.json       # 可配置的 AI 框架 Release 追踪项目列表
 ├── watched-devtools.json    # 可配置的 AI 开发者工具 Release 追踪列表
 ├── model-pricing.json       # 主流模型 API 定价数据
-└── model-releases.json      # 模型发布时间线数据
+└── model-releases.json      # 模型发布时间线数据（降级兜底，正常从 aiflashreport.com 自动抓取）
 public/
 ├── favicon.svg              # 站点图标（SVG）
 ├── pwa-192x192.png          # PWA 图标 192×192
@@ -143,15 +143,19 @@ AI 模型综合对比页面，以表格形式展示 Arena 排名、API 定价和
 |------|------|------|
 | Arena 排名 | [lmarena.ai](https://lmarena.ai/leaderboard) RSC 解析 | 综合对话、代码/Web 开发、视觉理解三个维度的 ELO 排名 |
 | API 定价 | `scripts/model-pricing.json` | 手动维护，覆盖 20+ 主流模型 |
-| 发布时间线 | `scripts/model-releases.json` | 手动维护，记录 2024~2026 重要模型发布 |
+| 发布时间线 | [aiflashreport.com/model-releases](https://aiflashreport.com/model-releases) | 自动抓取，含模型类型、关键特性、Benchmark 指标 |
+
+### 自动更新
+
+通过 GitHub Actions 每 **3 天**自动运行一次（`.github/workflows/model-arena.yml`），也可手动触发。
 
 ### 本地生成
 
 ```bash
-node scripts/fetch-model-arena.mjs --force   # 生成/更新仪表盘页面
+node scripts/fetch-model-arena.mjs --force   # 生成/更新仪表盘数据
 ```
 
-Arena 排名数据自动从 lmarena.ai 抓取，定价和时间线数据从本地 JSON 配置读取。
+Arena 排名和发布时间线均自动从线上抓取，定价数据从本地 JSON 配置读取。抓取失败时自动降级为本地 `model-releases.json`。
 
 ## 部署
 

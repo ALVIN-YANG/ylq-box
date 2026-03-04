@@ -4,7 +4,7 @@
  * 数据源：
  *   1. lmarena.ai — Arena 排名（RSC payload 解析）
  *   2. model-pricing.json — API 定价（手动维护）
- *   3. model-releases.json — 模型发布时间线（手动维护）
+ *   3. aiflashreport.com — 模型发布时间线（自动抓取）
  *
  * 用法：
  *   node scripts/fetch-model-arena.mjs [--force]
@@ -86,7 +86,6 @@ function parseArenaData(html) {
     }
   });
 
-  // Deduplicate each category by name, keep highest rating
   for (const cat of ['text', 'code', 'vision']) {
     const seen = new Map();
     results[cat].forEach(e => {
@@ -128,6 +127,92 @@ function loadJSON(filename) {
 }
 
 // ─────────────────────────────────────────────
+// 模块 3: AI Flash Report 模型发布时间线抓取
+// ─────────────────────────────────────────────
+
+function parseReleaseCards(html) {
+  const releases = [];
+
+  const cardSplits = html.split('<div class="release-card"');
+  for (let i = 1; i < cardSplits.length; i++) {
+    const card = cardSplits[i];
+    const endIdx = card.indexOf('<div class="release-card"');
+    const chunk = endIdx > -1 ? card.slice(0, endIdx) : card;
+
+    const company = chunk.match(/data-company="([^"]+)"/)?.[1]?.trim() || '';
+    const type = chunk.match(/data-type="([^"]+)"/)?.[1]?.trim() || '';
+    const category = chunk.match(/data-category="([^"]+)"/)?.[1]?.trim() || '';
+    const title = chunk.match(/release-title">([^<]+)/)?.[1]?.trim() || '';
+    const orgText = chunk.match(/release-company">([^<]+)/)?.[1]?.trim() || company;
+    const date = chunk.match(/<strong>Released:<\/strong>\s*(\d{4}-\d{2}-\d{2})/)?.[1] || '';
+    const description = chunk.match(/release-description">([^<]+)/)?.[1]?.trim() || '';
+
+    const features = [];
+    const featureMatches = chunk.matchAll(/<li>([^<]+)<\/li>/g);
+    for (const fm of featureMatches) features.push(fm[1].trim());
+
+    const metrics = [];
+    const metricPairs = chunk.matchAll(/<div class="metric-value">([^<]+)<\/div>\s*<div class="metric-name">([^<]+)<\/div>/g);
+    for (const mp of metricPairs) {
+      metrics.push({ name: mp[2].trim(), value: mp[1].trim() });
+    }
+
+    const announcementUrl = chunk.match(/announcement-link"\s*[^>]*href="([^"]+)"/)?.[1] || '';
+
+    if (!title || !date) continue;
+
+    const highlights = buildHighlights(description, features, metrics);
+
+    releases.push({
+      date,
+      model: title,
+      provider: orgText,
+      type,
+      category,
+      highlights,
+      features: features.slice(0, 4),
+      metrics: metrics.slice(0, 3),
+      url: announcementUrl,
+    });
+  }
+
+  return releases.sort((a, b) => b.date.localeCompare(a.date));
+}
+
+function buildHighlights(description, features, metrics) {
+  const parts = [];
+  if (description) parts.push(description);
+
+  const metricsStr = metrics.slice(0, 2)
+    .map(m => `${m.name} ${m.value}`)
+    .join('，');
+  if (metricsStr) parts.push(metricsStr);
+
+  if (parts.length === 0 && features.length > 0) {
+    parts.push(features.slice(0, 3).join('；'));
+  }
+
+  return parts.join('。') || '';
+}
+
+async function fetchModelReleases() {
+  console.log('\n── AI Flash Report (Model Releases) ──');
+  try {
+    const res = await fetchWithTimeout('https://aiflashreport.com/model-releases', {
+      headers: { Accept: 'text/html' },
+    }, 30000);
+    const html = await res.text();
+    const releases = parseReleaseCards(html);
+    console.log(`  ✓ ${releases.length} releases parsed`);
+    return releases;
+  } catch (err) {
+    console.warn(`  ✗ AI Flash Report: ${err.message}`);
+    console.log('  ↩ Falling back to local model-releases.json');
+    return loadJSON('model-releases.json');
+  }
+}
+
+// ─────────────────────────────────────────────
 // JSON 数据输出
 // ─────────────────────────────────────────────
 
@@ -141,7 +226,7 @@ function buildOutput(arena, pricing, releases, timestamp) {
       vision: arena.vision.slice(0, 15),
     },
     pricing: [...pricing].sort((a, b) => a.input - b.input),
-    releases: [...releases].sort((a, b) => b.date.localeCompare(a.date)),
+    releases: releases.slice(0, 40),
   };
 }
 
@@ -154,7 +239,7 @@ async function main() {
   const outputPath = join(process.cwd(), OUTPUT_PATH);
 
   if (existsSync(outputPath) && !force) {
-    console.log('⏭ model-arena/index.md 已存在，使用 --force 强制覆盖');
+    console.log('⏭ model-arena.json 已存在，使用 --force 强制覆盖');
     return;
   }
 
@@ -165,10 +250,11 @@ async function main() {
   console.log('\n── Loading JSON configs ──');
   const pricing = loadJSON('model-pricing.json');
   console.log(`  ✓ Pricing: ${pricing.length} models`);
-  const releases = loadJSON('model-releases.json');
-  console.log(`  ✓ Releases: ${releases.length} entries`);
 
-  const arena = await fetchArenaRankings();
+  const [arena, releases] = await Promise.all([
+    fetchArenaRankings(),
+    fetchModelReleases(),
+  ]);
 
   const data = buildOutput(arena, pricing, releases, timestamp);
   writeFileSync(outputPath, JSON.stringify(data, null, 2));

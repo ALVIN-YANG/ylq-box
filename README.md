@@ -30,7 +30,7 @@ src/
 │       ├── java/            # Java 技术栈
 │       ├── ops/             # 运维（Kubernetes）
 │       ├── network/         # 网络（IP、Git 配置等）
-│       ├── ai/              # AI（提示词工程、RAG、Function Call/Agent 等）
+│       ├── ai/              # AI（提示词工程、RAG、Function Call/Agent、记忆系统设计等）
 │       ├── architecture/    # 架构设计（分布式事务）
 │       ├── ai-news/         # AI 技术日报（Trending + 论文 + Release + Devtools + RSS，自动生成）
 │       ├── model-arena/     # Model Arena 仪表盘（Arena 排名 + 定价 + 时间线，自动生成）

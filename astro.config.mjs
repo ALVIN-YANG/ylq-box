@@ -50,6 +50,19 @@ export default defineConfig({
       },
       sidebar: [
         {
+          label: 'Opencode 专栏',
+          items: [
+            {
+              label: '个人工作流',
+              autogenerate: { directory: 'opencode/individual' }
+            },
+            {
+              label: '企业与进阶',
+              autogenerate: { directory: 'opencode/enterprise' }
+            }
+          ]
+        },
+        {
           label: 'Claw 专栏',
           items: [
             {

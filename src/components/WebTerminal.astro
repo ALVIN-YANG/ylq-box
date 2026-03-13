@@ -1,0 +1,216 @@
+---
+import '@xterm/xterm/css/xterm.css';
+---
+
+<div class="terminal-wrapper">
+  <div class="terminal-header">
+    <div class="terminal-dots">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green"></span>
+    </div>
+    <div class="terminal-title">alvin@agent-os: ~</div>
+  </div>
+  <div id="terminal-container"></div>
+</div>
+
+<script>
+  import { Terminal } from '@xterm/xterm';
+  import { FitAddon } from '@xterm/addon-fit';
+  import { CreateMLCEngine } from '@mlc-ai/web-llm';
+
+  const termContainer = document.getElementById('terminal-container');
+  
+  if (termContainer) {
+    const term = new Terminal({
+      cursorBlink: true,
+      fontFamily: 'JetBrains Mono, Fira Code, monospace',
+      fontSize: 14,
+      theme: {
+        background: '#1b1918',
+        foreground: '#e8e3dc',
+        cursor: '#d4a55a'
+      }
+    });
+
+    const fitAddon = new FitAddon();
+    term.loadAddon(fitAddon);
+    term.open(termContainer);
+    fitAddon.fit();
+
+    // Resize observer
+    window.addEventListener('resize', () => {
+      fitAddon.fit();
+    });
+
+    // Basic commands
+    const commands = {
+      help: 'Available commands: whoami, skills, clear, chat <message>',
+      whoami: 'Alvin Yang. Full-stack Architect & AI Agent Explorer.',
+      skills: 'Java, Rust, Node.js, Kubernetes, Spring Cloud, LLM, RAG, WebAssembly.',
+    };
+
+    term.writeln('\x1b[1;32mWelcome to Alvin\'s Agent OS (v2026.03.11)\x1b[0m');
+    term.writeln('Type "help" to see available commands.');
+    term.writeln('Or type "chat <message>" to talk with my local AI clone (requires WebGPU).\r\n');
+    prompt(term);
+
+    let currentInput = '';
+    let isComputing = false;
+    let engine = null;
+
+    async function initEngine() {
+      if (engine) return engine;
+      term.writeln('\r\n\x1b[1;33m[System] Initializing WebGPU LLM Engine (Llama-3.2-1B-Instruct)... This will download ~1GB of weights and might take a minute.\x1b[0m');
+      
+      try {
+        const initProgressCallback = (initProgress) => {
+          // term.write(`\rLoading... ${Math.round(initProgress.progress * 100)}%`);
+        };
+
+        // using a very small model for fast load
+        engine = await CreateMLCEngine(
+          "Llama-3.2-1B-Instruct-q4f32_1-MLC", 
+          { initProgressCallback }
+        );
+        term.writeln('\r\n\x1b[1;32m[System] Engine initialized successfully! You can now chat.\x1b[0m');
+        return engine;
+      } catch (error) {
+        term.writeln(`\r\n\x1b[1;31m[Error] Failed to initialize WebGPU: ${error.message}\x1b[0m`);
+        return null;
+      }
+    }
+
+    async function handleChat(message) {
+      isComputing = true;
+      if (!engine) {
+        engine = await initEngine();
+      }
+      
+      if (!engine) {
+        isComputing = false;
+        prompt(term);
+        return;
+      }
+
+      term.writeln('\r\n\x1b[36mAlvin-Clone is thinking...\x1b[0m');
+      
+      try {
+        const chunks = await engine.chat.completions.create({
+          messages: [
+            { role: "system", content: "You are an AI clone of Alvin Yang, a senior Java Architect and AI Agent developer. Keep answers concise, professional, and slightly geeky." },
+            { role: "user", content: message }
+          ],
+          temperature: 0.7,
+          stream: true
+        });
+
+        term.write('\r\n\x1b[1;32mAlvin-Clone:\x1b[0m ');
+        for await (const chunk of chunks) {
+          const content = chunk.choices[0]?.delta?.content || '';
+          // Write chunk and handle newlines for xterm
+          term.write(content.replace(/\n/g, '\r\n'));
+        }
+      } catch (e) {
+        term.writeln(`\r\n\x1b[1;31mError: ${e.message}\x1b[0m`);
+      }
+
+      term.writeln('');
+      isComputing = false;
+      prompt(term);
+    }
+
+    function prompt(term) {
+      term.write('\r\nalvin@agent-os:~$ ');
+    }
+
+    term.onKey(({ key, domEvent }) => {
+      if (isComputing) return;
+
+      const ev = domEvent;
+      const printable = !ev.altKey && !ev.ctrlKey && !ev.metaKey;
+
+      if (ev.keyCode === 13) { // Enter
+        term.writeln('');
+        const cmd = currentInput.trim();
+        
+        if (cmd === 'clear') {
+          term.clear();
+        } else if (cmd.startsWith('chat ')) {
+          const msg = cmd.substring(5);
+          handleChat(msg);
+          currentInput = '';
+          return; // don't prompt yet
+        } else if (commands[cmd]) {
+          term.writeln(commands[cmd]);
+        } else if (cmd.length > 0) {
+          term.writeln(`Command not found: ${cmd}. Type "help" for a list of commands.`);
+        }
+        
+        currentInput = '';
+        prompt(term);
+      } else if (ev.keyCode === 8) { // Backspace
+        if (currentInput.length > 0) {
+          currentInput = currentInput.slice(0, -1);
+          term.write('\b \b');
+        }
+      } else if (printable && key.length === 1) {
+        currentInput += key;
+        term.write(key);
+      }
+    });
+  }
+</script>
+
+<style>
+  .terminal-wrapper {
+    background: var(--sl-color-black);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 2rem 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .terminal-header {
+    background: #2c2724;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--sl-color-gray-6);
+  }
+
+  .terminal-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .dot.red { background: #ff5f56; }
+  .dot.yellow { background: #ffbd2e; }
+  .dot.green { background: #27c93f; }
+
+  .terminal-title {
+    flex: 1;
+    text-align: center;
+    font-family: var(--sl-font-mono);
+    font-size: 0.85rem;
+    color: var(--sl-color-gray-3);
+    margin-right: 42px; /* balance the dots */
+  }
+
+  #terminal-container {
+    padding: 1rem;
+    height: 350px;
+  }
+
+  /* Overrides for xterm.js to fit the theme */
+  :global(.xterm-viewport) {
+    background-color: transparent !important;
+  }
+</style>

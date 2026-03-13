@@ -14,8 +14,13 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.1.2",
     "@astrojs/starlight": "^0.37.6",
+    "@mlc-ai/web-llm": "^0.2.82",
+    "@xterm/addon-fit": "^0.11.0",
+    "@xterm/xterm": "^6.0.0",
     "astro": "^5.6.1",
-    "sharp": "^0.34.2"
+    "sharp": "^0.34.2",
+    "xterm": "^5.3.0",
+    "xterm-addon-fit": "^0.8.0"
   },
   "devDependencies": {
     "@vite-pwa/astro": "^1.2.0"

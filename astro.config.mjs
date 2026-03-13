@@ -144,6 +144,7 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{css,js,svg,png,ico,txt,woff2}'],
         navigateFallback: null,
+        maximumFileSizeToCacheInBytes: 10485760, // 10MB to allow for local LLM engine JS
         runtimeCaching: [
           {
             urlPattern: ({ request }) => request.mode === 'navigate',

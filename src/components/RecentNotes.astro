@@ -9,6 +9,8 @@ const categoryLabels: Record<string, string> = {
   ops: 'Ops',
   network: 'Network',
   blog: 'Blog',
+  claw: 'Claw 专栏',
+  opencode: 'Opencode 专栏',
 };
 
 function getCategory(id: string): string {
@@ -23,7 +25,7 @@ function formatDate(date: Date | undefined): string {
 
 const allDocs = await getCollection('docs');
 
-const priorityPrefixes = ['ai/', 'architecture/', 'ai-news/'];
+const priorityPrefixes = ['opencode/', 'claw/', 'ai/', 'architecture/', 'ai-news/'];
 
 function getPriority(id: string): number {
   for (let i = 0; i < priorityPrefixes.length; i++) {

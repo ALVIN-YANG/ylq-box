@@ -337,8 +337,6 @@ A 依赖 B，B 依赖 C，C 能否传递到 A 取决于依赖范围
   - Used undeclared dependencies：已经使用了但是未定义的依赖 。此类依赖一般是由依赖传递机制引入进来，在代码中也直接使用过。
   - Unused declared dependencies：未使用但引入的依赖 。此类依赖并未直接在代码中使用，也不代表运行期间没有使用
 
-![](img/1.png)
-
 ### 对于模块开发
 
 - 依赖库尽量 `<optional>true</optional>` ，除非这个核心依赖是想让用户引用的依赖

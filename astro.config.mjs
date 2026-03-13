@@ -50,6 +50,19 @@ export default defineConfig({
       },
       sidebar: [
         {
+          label: 'Claw 专栏',
+          items: [
+            {
+              label: 'OpenClaw',
+              autogenerate: { directory: 'claw/openclaw' }
+            },
+            {
+              label: 'ZeroClaw',
+              autogenerate: { directory: 'claw/zeroclaw' }
+            }
+          ]
+        },
+        {
           label: 'AI',
           autogenerate: { directory: 'ai' },
         },

@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026/3/13 12:03:43",
-  "updatedAtISO": "2026-03-13T04:03:43.868Z",
+  "updatedAt": "2026/3/16 12:32:36",
+  "updatedAtISO": "2026-03-16T04:32:36.089Z",
   "arena": {
     "text": [
       {
@@ -170,82 +170,82 @@
       {
         "rank": 1,
         "name": "gemini-3-pro",
-        "rating": 1288.4,
-        "ci": "8.3 / 8.3",
-        "votes": 12595,
+        "rating": 1287.98,
+        "ci": "8.2 / 8.2",
+        "votes": 13037,
         "org": "Google"
       },
       {
         "rank": 2,
         "name": "gemini-3.1-pro-preview",
-        "rating": 1278.17,
-        "ci": "11.8 / 11.8",
-        "votes": 3483,
+        "rating": 1278.95,
+        "ci": "10.1 / 10.1",
+        "votes": 6186,
         "org": "Google"
       },
       {
         "rank": 3,
-        "name": "gemini-3-flash",
-        "rating": 1276.25,
-        "ci": "8.7 / 8.7",
-        "votes": 11557,
-        "org": "Google"
+        "name": "gpt-5.2-chat-latest-20260210",
+        "rating": 1277.86,
+        "ci": "12.5 / 12.5",
+        "votes": 2922,
+        "org": "OpenAI"
       },
       {
         "rank": 4,
-        "name": "gpt-5.2-chat-latest-20260210",
-        "rating": 1271.28,
-        "ci": "17.5 / 17.5",
-        "votes": 1442,
-        "org": "OpenAI"
+        "name": "gemini-3-flash",
+        "rating": 1273.91,
+        "ci": "8.4 / 8.4",
+        "votes": 12634,
+        "org": "Google"
       },
       {
         "rank": 5,
         "name": "gemini-3-flash (thinking-minimal)",
-        "rating": 1260.24,
-        "ci": "9.3 / 9.3",
-        "votes": 9609,
+        "rating": 1261.22,
+        "ci": "8.8 / 8.9",
+        "votes": 10764,
         "org": "Google"
       },
       {
         "rank": 6,
         "name": "dola-seed-2.0-preview",
-        "rating": 1260.19,
-        "ci": "14.3 / 14.3",
-        "votes": 1989,
+        "rating": 1253.6,
+        "ci": "12.2 / 12.2",
+        "votes": 3076,
         "org": "Bytedance"
       },
       {
         "rank": 7,
-        "name": "gpt-5.1-high",
-        "rating": 1249.38,
-        "ci": "8.7 / 8.7",
-        "votes": 9246,
+        "name": "gpt-5.2-high",
+        "rating": 1252.27,
+        "ci": "10.0 / 10.0",
+        "votes": 6292,
         "org": "OpenAI"
       },
       {
         "rank": 8,
-        "name": "kimi-k2.5-thinking",
-        "rating": 1248.37,
-        "ci": "10.6 / 10.6",
-        "votes": 5181,
-        "org": "Moonshot"
+        "name": "gpt-5.1-high",
+        "rating": 1249.06,
+        "ci": "8.6 / 8.6",
+        "votes": 9375,
+        "org": "OpenAI"
       },
       {
         "rank": 9,
         "name": "gemini-2.5-pro",
-        "rating": 1247.52,
-        "ci": "6.1 / 6.1",
-        "votes": 81050,
+        "rating": 1248.48,
+        "ci": "6.0 / 6.0",
+        "votes": 81858,
         "org": "Google"
       },
       {
         "rank": 10,
-        "name": "gpt-5.2-high",
-        "rating": 1247.36,
-        "ci": "10.8 / 10.8",
-        "votes": 5078,
-        "org": "OpenAI"
+        "name": "kimi-k2.5-thinking",
+        "rating": 1244.89,
+        "ci": "9.9 / 9.9",
+        "votes": 6469,
+        "org": "Moonshot"
       }
     ]
   },

@@ -1,0 +1,297 @@
+{
+  "note": "国内模型分区榜单为站内整理版，综合公开榜单、产品能力、生态落地与近期发布节奏，适合做选型参考，不等同于单一统一基准测试。",
+  "source": {
+    "label": "站内维护数据",
+    "url": "https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-domestic.json"
+  },
+  "categories": {
+    "general": {
+      "source": {
+        "label": "国内榜单依据",
+        "url": "https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-domestic.json"
+      },
+      "items": [
+        {
+          "rank": 1,
+          "model": "DeepSeek V3.2",
+          "org": "DeepSeek",
+          "score": 98,
+          "strengths": "通用对话、推理、长上下文、性价比",
+          "benchmark": "MMLU 90.1%，HumanEval 92.5%，1M+ context"
+        },
+        {
+          "rank": 2,
+          "model": "GLM-5",
+          "org": "Zhipu AI",
+          "score": 96,
+          "strengths": "综合智能、低幻觉率、国产算力适配",
+          "benchmark": "HLE 50.4%，Hallucination Rate 1.2%"
+        },
+        {
+          "rank": 3,
+          "model": "Kimi K2",
+          "org": "Moonshot AI",
+          "score": 95,
+          "strengths": "长文理解、中文体验、开放权重影响力",
+          "benchmark": "LMSYS Arena #1 open-weight，1.04T params"
+        },
+        {
+          "rank": 4,
+          "model": "Doubao Seed 2.0",
+          "org": "ByteDance",
+          "score": 93,
+          "strengths": "产品化、Agent 场景、多模态联动",
+          "benchmark": "多模态能力强，适合字节生态产品化"
+        },
+        {
+          "rank": 5,
+          "model": "MiniMax M2.7",
+          "org": "MiniMax",
+          "score": 91,
+          "strengths": "通用能力平衡、生成式交互、多模态协同",
+          "benchmark": "Arena code 1445，综合产品成熟度高"
+        }
+      ]
+    },
+    "code": {
+      "source": {
+        "label": "国内编码榜依据",
+        "url": "https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-domestic.json"
+      },
+      "items": [
+        {
+          "rank": 1,
+          "model": "GLM-5",
+          "org": "Zhipu AI",
+          "score": 97,
+          "strengths": "工程代码生成、Agent 编排、中文开发支持",
+          "benchmark": "Arena Code Top domestic，HLE 50.4%"
+        },
+        {
+          "rank": 2,
+          "model": "MiniMax M2.7",
+          "org": "MiniMax",
+          "score": 95,
+          "strengths": "代码补全、复杂任务拆解、工具调用",
+          "benchmark": "Arena Code 1445"
+        },
+        {
+          "rank": 3,
+          "model": "GLM-4.7",
+          "org": "Zhipu AI",
+          "score": 93,
+          "strengths": "稳定编码、函数调用、工程问答",
+          "benchmark": "Arena Code 1439.1"
+        },
+        {
+          "rank": 4,
+          "model": "DeepSeek Coder V3",
+          "org": "DeepSeek",
+          "score": 92,
+          "strengths": "代码生成、重构、开源生态认可度高",
+          "benchmark": "HumanEval / Repo-level coding 表现强"
+        },
+        {
+          "rank": 5,
+          "model": "Kimi K2",
+          "org": "Moonshot AI",
+          "score": 90,
+          "strengths": "长上下文代码理解、文档到实现链路",
+          "benchmark": "长文代码库理解表现突出"
+        }
+      ]
+    },
+    "tts": {
+      "source": {
+        "label": "国内 TTS 榜依据",
+        "url": "https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-domestic.json"
+      },
+      "items": [
+        {
+          "rank": 1,
+          "model": "MiniMax Speech-02",
+          "org": "MiniMax",
+          "score": 96,
+          "strengths": "自然度高、情感表达、商业落地成熟",
+          "benchmark": "中文自然度与角色语音表现领先"
+        },
+        {
+          "rank": 2,
+          "model": "CosyVoice 2",
+          "org": "FunAudioLLM / 阿里系生态",
+          "score": 94,
+          "strengths": "开源可控、零样本音色克隆、中文效果好",
+          "benchmark": "开源中文 TTS 代表方案"
+        },
+        {
+          "rank": 3,
+          "model": "Step-Audio TTS",
+          "org": "StepFun",
+          "score": 92,
+          "strengths": "对话式语音、拟人化表达、端到端体验好",
+          "benchmark": "语音交互体验强"
+        },
+        {
+          "rank": 4,
+          "model": "Doubao Voice",
+          "org": "ByteDance",
+          "score": 90,
+          "strengths": "产品集成强、延迟低、适合陪伴/内容场景",
+          "benchmark": "大规模应用落地能力强"
+        },
+        {
+          "rank": 5,
+          "model": "Tencent Cloud TTS",
+          "org": "Tencent",
+          "score": 88,
+          "strengths": "稳定性高、企业服务成熟、音库丰富",
+          "benchmark": "企业级接入成熟"
+        }
+      ]
+    },
+    "asr": {
+      "source": {
+        "label": "国内 ASR 榜依据",
+        "url": "https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-domestic.json"
+      },
+      "items": [
+        {
+          "rank": 1,
+          "model": "Paraformer Large",
+          "org": "FunAudioLLM / ModelScope",
+          "score": 96,
+          "strengths": "中文识别准确率高、流式与非流式都成熟",
+          "benchmark": "中文 ASR 开源标杆"
+        },
+        {
+          "rank": 2,
+          "model": "SenseVoice",
+          "org": "FunAudioLLM",
+          "score": 95,
+          "strengths": "多语言识别、情感/事件理解、实时性好",
+          "benchmark": "ASR + speech understanding 一体化"
+        },
+        {
+          "rank": 3,
+          "model": "Tencent Cloud ASR",
+          "org": "Tencent",
+          "score": 91,
+          "strengths": "稳定、工程接入成熟、行业方案丰富",
+          "benchmark": "企业级落地广泛"
+        },
+        {
+          "rank": 4,
+          "model": "iFLYTEK Spark ASR",
+          "org": "iFLYTEK",
+          "score": 90,
+          "strengths": "中文语音识别积累深、行业词表能力强",
+          "benchmark": "政企和教育场景强势"
+        },
+        {
+          "rank": 5,
+          "model": "Baidu Speech ASR",
+          "org": "Baidu",
+          "score": 88,
+          "strengths": "云服务稳定、普通话识别成熟、接入门槛低",
+          "benchmark": "通用云语音场景覆盖广"
+        }
+      ]
+    },
+    "video": {
+      "source": {
+        "label": "国内视频榜依据",
+        "url": "https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-domestic.json"
+      },
+      "items": [
+        {
+          "rank": 1,
+          "model": "Seedance 2.0",
+          "org": "ByteDance",
+          "score": 97,
+          "strengths": "音视频同步生成、镜头一致性、商业化能力强",
+          "benchmark": "同步音视频单次生成，Languages 8+"
+        },
+        {
+          "rank": 2,
+          "model": "Kling 2.0",
+          "org": "Kuaishou",
+          "score": 95,
+          "strengths": "运动幅度、镜头语言、人物动作细节",
+          "benchmark": "国内视频生成头部产品"
+        },
+        {
+          "rank": 3,
+          "model": "Vidu Q1",
+          "org": "ShengShu AI",
+          "score": 93,
+          "strengths": "叙事连贯性、风格控制、中文提示词友好",
+          "benchmark": "创作者社区反馈稳定"
+        },
+        {
+          "rank": 4,
+          "model": "Wan 2.1",
+          "org": "Alibaba",
+          "score": 91,
+          "strengths": "开源路线、可控生成、生态联动强",
+          "benchmark": "开源视频模型代表之一"
+        },
+        {
+          "rank": 5,
+          "model": "Hailuo Video",
+          "org": "MiniMax",
+          "score": 89,
+          "strengths": "人物演绎、短视频生成、产品体验完整",
+          "benchmark": "消费级生成体验优秀"
+        }
+      ]
+    },
+    "image": {
+      "source": {
+        "label": "国内图片榜依据",
+        "url": "https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-domestic.json"
+      },
+      "items": [
+        {
+          "rank": 1,
+          "model": "FLUX China / 国内优化版生态",
+          "org": "Open ecosystem",
+          "score": 94,
+          "strengths": "中文提示词适配、写实质感、社区活跃",
+          "benchmark": "国内创作者生态采用广泛"
+        },
+        {
+          "rank": 2,
+          "model": "Kolors",
+          "org": "Kuaishou",
+          "score": 93,
+          "strengths": "中文语义理解强、海报和人物图表现好",
+          "benchmark": "中文文生图代表模型"
+        },
+        {
+          "rank": 3,
+          "model": "Tongyi Wanxiang",
+          "org": "Alibaba",
+          "score": 92,
+          "strengths": "电商和设计场景适配、企业服务能力强",
+          "benchmark": "企业图像生成落地成熟"
+        },
+        {
+          "rank": 4,
+          "model": "Doubao Image",
+          "org": "ByteDance",
+          "score": 90,
+          "strengths": "社媒内容生成、风格化、上手门槛低",
+          "benchmark": "内容创作场景增长快"
+        },
+        {
+          "rank": 5,
+          "model": "Ernie Image",
+          "org": "Baidu",
+          "score": 88,
+          "strengths": "企业集成、通用图像生成、中文理解稳定",
+          "benchmark": "云产品体系完整"
+        }
+      ]
+    }
+  }
+}

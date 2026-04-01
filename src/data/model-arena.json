@@ -1,86 +1,104 @@
 {
-  "updatedAt": "2026/3/22 12:11:05",
-  "updatedAtISO": "2026-03-22T04:11:05.211Z",
+  "updatedAt": "2026/3/31 19:02:21",
+  "updatedAtISO": "2026-03-31T11:02:21.925Z",
+  "sources": {
+    "arena": {
+      "label": "LMArena Leaderboard",
+      "url": "https://lmarena.ai/leaderboard"
+    },
+    "pricing": {
+      "label": "站内定价数据",
+      "url": "https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-pricing.json"
+    },
+    "releases": {
+      "label": "AI Flash Report",
+      "url": "https://aiflashreport.com/model-releases"
+    },
+    "domestic": {
+      "label": "站内维护数据",
+      "url": "https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-domestic.json"
+    }
+  },
   "arena": {
     "text": [
       {
         "rank": 1,
         "name": "claude-opus-4-6-thinking",
-        "rating": 1502.13,
-        "ci": "6.0 / 6.0",
-        "votes": 11801,
+        "rating": 1504.08,
+        "ci": "5.8 / 5.8",
+        "votes": 12730,
         "org": "Anthropic"
       },
       {
         "rank": 2,
         "name": "claude-opus-4-6",
-        "rating": 1500.87,
-        "ci": "5.9 / 5.8",
-        "votes": 12546,
+        "rating": 1499.5,
+        "ci": "5.7 / 5.7",
+        "votes": 13553,
         "org": "Anthropic"
       },
       {
         "rank": 3,
         "name": "gemini-3.1-pro-preview",
-        "rating": 1492.91,
-        "ci": "5.7 / 5.7",
-        "votes": 14677,
+        "rating": 1493.17,
+        "ci": "5.6 / 5.6",
+        "votes": 15809,
         "org": "Google"
       },
       {
         "rank": 4,
         "name": "grok-4.20-beta1",
-        "rating": 1491.51,
+        "rating": 1491.37,
         "ci": "7.3 / 7.3",
-        "votes": 7396,
+        "votes": 7378,
         "org": "xAI"
       },
       {
         "rank": 5,
         "name": "gemini-3-pro",
-        "rating": 1486.49,
+        "rating": 1486.39,
         "ci": "3.9 / 3.9",
-        "votes": 41762,
+        "votes": 41631,
         "org": "Google"
       },
       {
         "rank": 6,
         "name": "gpt-5.4-high",
-        "rating": 1485.21,
-        "ci": "8.6 / 8.6",
-        "votes": 4965,
+        "rating": 1484.03,
+        "ci": "8.2 / 8.2",
+        "votes": 5570,
         "org": "OpenAI"
       },
       {
         "rank": 7,
-        "name": "gpt-5.2-chat-latest-20260210",
-        "rating": 1481.77,
-        "ci": "6.2 / 6.2",
-        "votes": 10140,
-        "org": "OpenAI"
+        "name": "grok-4.20-beta-0309-reasoning",
+        "rating": 1483.48,
+        "ci": "7.9 / 7.9",
+        "votes": 5702,
+        "org": "xAI"
       },
       {
         "rank": 8,
-        "name": "grok-4.20-beta-0309-reasoning",
-        "rating": 1481.01,
-        "ci": "8.8 / 8.8",
-        "votes": 4504,
-        "org": "xAI"
+        "name": "gpt-5.2-chat-latest-20260210",
+        "rating": 1480.18,
+        "ci": "5.9 / 5.9",
+        "votes": 11405,
+        "org": "OpenAI"
       },
       {
         "rank": 9,
         "name": "gemini-3-flash",
-        "rating": 1474.57,
+        "rating": 1474.42,
         "ci": "4.5 / 4.5",
-        "votes": 31060,
+        "votes": 30962,
         "org": "Google"
       },
       {
         "rank": 10,
         "name": "claude-opus-4-5-20251101-thinking-32k",
-        "rating": 1473.72,
+        "rating": 1473.8,
         "ci": "4.0 / 4.0",
-        "votes": 37036,
+        "votes": 37448,
         "org": "Anthropic"
       }
     ],
@@ -88,166 +106,464 @@
       {
         "rank": 1,
         "name": "claude-opus-4-6",
-        "rating": 1548.35,
-        "ci": "11.5 / 11.5",
-        "votes": 4059,
+        "rating": 1549.13,
+        "ci": "11.2 / 11.2",
+        "votes": 4264,
         "org": "Anthropic"
       },
       {
         "rank": 2,
         "name": "claude-opus-4-6-thinking",
-        "rating": 1546.06,
-        "ci": "12.3 / 12.3",
-        "votes": 3317,
+        "rating": 1545.06,
+        "ci": "11.9 / 11.9",
+        "votes": 3495,
         "org": "Anthropic"
       },
       {
         "rank": 3,
         "name": "claude-sonnet-4-6",
-        "rating": 1520.86,
-        "ci": "9.3 / 9.3",
-        "votes": 5876,
+        "rating": 1522.7,
+        "ci": "8.9 / 8.9",
+        "votes": 6391,
         "org": "Anthropic"
       },
       {
         "rank": 4,
         "name": "claude-opus-4-5-20251101-thinking-32k",
-        "rating": 1489.11,
-        "ci": "7.1 / 7.1",
-        "votes": 13259,
+        "rating": 1490.77,
+        "ci": "7.0 / 7.0",
+        "votes": 13247,
         "org": "Anthropic"
       },
       {
         "rank": 5,
         "name": "claude-opus-4-5-20251101",
-        "rating": 1465.46,
-        "ci": "6.9 / 6.9",
-        "votes": 13313,
+        "rating": 1464.57,
+        "ci": "6.8 / 6.8",
+        "votes": 13559,
         "org": "Anthropic"
       },
       {
         "rank": 6,
         "name": "gpt-5.4-high (codex-harness)",
-        "rating": 1457.42,
-        "ci": "16.9 / 16.9",
-        "votes": 1486,
+        "rating": 1456.73,
+        "ci": "16.8 / 16.8",
+        "votes": 1488,
         "org": "OpenAI"
       },
       {
         "rank": 7,
         "name": "gemini-3.1-pro-preview",
-        "rating": 1454.26,
-        "ci": "10.1 / 10.1",
-        "votes": 4364,
+        "rating": 1454.96,
+        "ci": "9.7 / 9.7",
+        "votes": 4733,
         "org": "Google"
       },
       {
         "rank": 8,
         "name": "glm-5",
-        "rating": 1445.24,
+        "rating": 1444.82,
         "ci": "10.2 / 10.2",
-        "votes": 4316,
+        "votes": 4265,
         "org": "Z.ai"
       },
       {
         "rank": 9,
-        "name": "minimax-m2.7",
-        "rating": 1445,
-        "ci": "14.2 / 14.2",
-        "votes": 2015,
-        "org": "MiniMax"
+        "name": "glm-4.7",
+        "rating": 1439.01,
+        "ci": "10.1 / 10.1",
+        "votes": 4877,
+        "org": "Z.ai"
       },
       {
         "rank": 10,
-        "name": "glm-4.7",
-        "rating": 1439.05,
-        "ci": "10.1 / 10.1",
-        "votes": 4971,
-        "org": "Z.ai"
+        "name": "gemini-3-pro",
+        "rating": 1437.91,
+        "ci": "7.1 / 7.1",
+        "votes": 17152,
+        "org": "Google"
       }
     ],
     "vision": [
       {
         "rank": 1,
         "name": "gemini-3-pro",
-        "rating": 1289.78,
+        "rating": 1286.42,
         "ci": "8.0 / 8.0",
-        "votes": 13906,
+        "votes": 13520,
         "org": "Google"
       },
       {
         "rank": 2,
-        "name": "gemini-3.1-pro-preview",
-        "rating": 1276.22,
-        "ci": "9.5 / 9.5",
-        "votes": 7465,
-        "org": "Google"
+        "name": "claude-opus-4-6",
+        "rating": 1284.31,
+        "ci": "26.1 / 26.1",
+        "votes": 491,
+        "org": "Anthropic"
       },
       {
         "rank": 3,
         "name": "gpt-5.2-chat-latest-20260210",
-        "rating": 1275.04,
-        "ci": "11.0 / 11.0",
-        "votes": 4212,
+        "rating": 1275.97,
+        "ci": "10.4 / 10.4",
+        "votes": 4980,
         "org": "OpenAI"
       },
       {
         "rank": 4,
-        "name": "gemini-3-flash",
-        "rating": 1274.05,
-        "ci": "8.0 / 8.0",
-        "votes": 14159,
+        "name": "gemini-3.1-pro-preview",
+        "rating": 1275.55,
+        "ci": "9.3 / 9.3",
+        "votes": 8046,
         "org": "Google"
       },
       {
         "rank": 5,
-        "name": "dola-seed-2.0-preview",
-        "rating": 1261.42,
-        "ci": "11.0 / 11.0",
-        "votes": 4120,
-        "org": "Bytedance"
+        "name": "claude-opus-4-6-thinking",
+        "rating": 1272.74,
+        "ci": "25.4 / 25.4",
+        "votes": 527,
+        "org": "Anthropic"
       },
       {
         "rank": 6,
-        "name": "gemini-3-flash (thinking-minimal)",
-        "rating": 1258.04,
-        "ci": "8.3 / 8.3",
-        "votes": 11942,
-        "org": "Google"
+        "name": "claude-sonnet-4-6",
+        "rating": 1270.86,
+        "ci": "24.3 / 24.3",
+        "votes": 595,
+        "org": "Anthropic"
       },
       {
         "rank": 7,
-        "name": "gpt-5.2-high",
-        "rating": 1250.39,
-        "ci": "9.3 / 9.4",
-        "votes": 7437,
-        "org": "OpenAI"
+        "name": "gemini-3-flash",
+        "rating": 1265.27,
+        "ci": "7.8 / 7.8",
+        "votes": 14304,
+        "org": "Google"
       },
       {
         "rank": 8,
-        "name": "gpt-5.1-high",
-        "rating": 1248.22,
-        "ci": "8.4 / 8.4",
-        "votes": 9824,
-        "org": "OpenAI"
+        "name": "dola-seed-2.0-preview",
+        "rating": 1256.62,
+        "ci": "10.5 / 10.5",
+        "votes": 4705,
+        "org": "Bytedance"
       },
       {
         "rank": 9,
-        "name": "gemini-2.5-pro",
-        "rating": 1247.39,
-        "ci": "5.8 / 5.8",
-        "votes": 83351,
+        "name": "gemini-3-flash (thinking-minimal)",
+        "rating": 1252.87,
+        "ci": "8.1 / 8.1",
+        "votes": 12449,
         "org": "Google"
       },
       {
         "rank": 10,
-        "name": "kimi-k2.5-thinking",
-        "rating": 1245.73,
-        "ci": "9.1 / 9.2",
-        "votes": 7605,
-        "org": "Moonshot"
+        "name": "gpt-5.2-high",
+        "rating": 1248.77,
+        "ci": "9.0 / 9.0",
+        "votes": 8047,
+        "org": "OpenAI"
       }
     ]
+  },
+  "domestic": {
+    "updatedAt": "2026/3/31 19:02:21",
+    "note": "国内模型分区榜单为站内整理版，综合公开榜单、产品能力、生态落地与近期发布节奏，适合做选型参考，不等同于单一统一基准测试。",
+    "source": {
+      "label": "站内维护数据",
+      "url": "https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-domestic.json"
+    },
+    "categories": {
+      "general": {
+        "source": {
+          "label": "国内榜单依据",
+          "url": "https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-domestic.json"
+        },
+        "items": [
+          {
+            "rank": 1,
+            "model": "DeepSeek V3.2",
+            "org": "DeepSeek",
+            "score": 98,
+            "strengths": "通用对话、推理、长上下文、性价比",
+            "benchmark": "MMLU 90.1%，HumanEval 92.5%，1M+ context"
+          },
+          {
+            "rank": 2,
+            "model": "GLM-5",
+            "org": "Zhipu AI",
+            "score": 96,
+            "strengths": "综合智能、低幻觉率、国产算力适配",
+            "benchmark": "HLE 50.4%，Hallucination Rate 1.2%"
+          },
+          {
+            "rank": 3,
+            "model": "Kimi K2",
+            "org": "Moonshot AI",
+            "score": 95,
+            "strengths": "长文理解、中文体验、开放权重影响力",
+            "benchmark": "LMSYS Arena #1 open-weight，1.04T params"
+          },
+          {
+            "rank": 4,
+            "model": "Doubao Seed 2.0",
+            "org": "ByteDance",
+            "score": 93,
+            "strengths": "产品化、Agent 场景、多模态联动",
+            "benchmark": "多模态能力强，适合字节生态产品化"
+          },
+          {
+            "rank": 5,
+            "model": "MiniMax M2.7",
+            "org": "MiniMax",
+            "score": 91,
+            "strengths": "通用能力平衡、生成式交互、多模态协同",
+            "benchmark": "Arena code 1445，综合产品成熟度高"
+          }
+        ]
+      },
+      "code": {
+        "source": {
+          "label": "国内编码榜依据",
+          "url": "https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-domestic.json"
+        },
+        "items": [
+          {
+            "rank": 1,
+            "model": "GLM-5",
+            "org": "Zhipu AI",
+            "score": 97,
+            "strengths": "工程代码生成、Agent 编排、中文开发支持",
+            "benchmark": "Arena Code Top domestic，HLE 50.4%"
+          },
+          {
+            "rank": 2,
+            "model": "MiniMax M2.7",
+            "org": "MiniMax",
+            "score": 95,
+            "strengths": "代码补全、复杂任务拆解、工具调用",
+            "benchmark": "Arena Code 1445"
+          },
+          {
+            "rank": 3,
+            "model": "GLM-4.7",
+            "org": "Zhipu AI",
+            "score": 93,
+            "strengths": "稳定编码、函数调用、工程问答",
+            "benchmark": "Arena Code 1439.1"
+          },
+          {
+            "rank": 4,
+            "model": "DeepSeek Coder V3",
+            "org": "DeepSeek",
+            "score": 92,
+            "strengths": "代码生成、重构、开源生态认可度高",
+            "benchmark": "HumanEval / Repo-level coding 表现强"
+          },
+          {
+            "rank": 5,
+            "model": "Kimi K2",
+            "org": "Moonshot AI",
+            "score": 90,
+            "strengths": "长上下文代码理解、文档到实现链路",
+            "benchmark": "长文代码库理解表现突出"
+          }
+        ]
+      },
+      "tts": {
+        "source": {
+          "label": "国内 TTS 榜依据",
+          "url": "https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-domestic.json"
+        },
+        "items": [
+          {
+            "rank": 1,
+            "model": "MiniMax Speech-02",
+            "org": "MiniMax",
+            "score": 96,
+            "strengths": "自然度高、情感表达、商业落地成熟",
+            "benchmark": "中文自然度与角色语音表现领先"
+          },
+          {
+            "rank": 2,
+            "model": "CosyVoice 2",
+            "org": "FunAudioLLM / 阿里系生态",
+            "score": 94,
+            "strengths": "开源可控、零样本音色克隆、中文效果好",
+            "benchmark": "开源中文 TTS 代表方案"
+          },
+          {
+            "rank": 3,
+            "model": "Step-Audio TTS",
+            "org": "StepFun",
+            "score": 92,
+            "strengths": "对话式语音、拟人化表达、端到端体验好",
+            "benchmark": "语音交互体验强"
+          },
+          {
+            "rank": 4,
+            "model": "Doubao Voice",
+            "org": "ByteDance",
+            "score": 90,
+            "strengths": "产品集成强、延迟低、适合陪伴/内容场景",
+            "benchmark": "大规模应用落地能力强"
+          },
+          {
+            "rank": 5,
+            "model": "Tencent Cloud TTS",
+            "org": "Tencent",
+            "score": 88,
+            "strengths": "稳定性高、企业服务成熟、音库丰富",
+            "benchmark": "企业级接入成熟"
+          }
+        ]
+      },
+      "asr": {
+        "source": {
+          "label": "国内 ASR 榜依据",
+          "url": "https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-domestic.json"
+        },
+        "items": [
+          {
+            "rank": 1,
+            "model": "Paraformer Large",
+            "org": "FunAudioLLM / ModelScope",
+            "score": 96,
+            "strengths": "中文识别准确率高、流式与非流式都成熟",
+            "benchmark": "中文 ASR 开源标杆"
+          },
+          {
+            "rank": 2,
+            "model": "SenseVoice",
+            "org": "FunAudioLLM",
+            "score": 95,
+            "strengths": "多语言识别、情感/事件理解、实时性好",
+            "benchmark": "ASR + speech understanding 一体化"
+          },
+          {
+            "rank": 3,
+            "model": "Tencent Cloud ASR",
+            "org": "Tencent",
+            "score": 91,
+            "strengths": "稳定、工程接入成熟、行业方案丰富",
+            "benchmark": "企业级落地广泛"
+          },
+          {
+            "rank": 4,
+            "model": "iFLYTEK Spark ASR",
+            "org": "iFLYTEK",
+            "score": 90,
+            "strengths": "中文语音识别积累深、行业词表能力强",
+            "benchmark": "政企和教育场景强势"
+          },
+          {
+            "rank": 5,
+            "model": "Baidu Speech ASR",
+            "org": "Baidu",
+            "score": 88,
+            "strengths": "云服务稳定、普通话识别成熟、接入门槛低",
+            "benchmark": "通用云语音场景覆盖广"
+          }
+        ]
+      },
+      "video": {
+        "source": {
+          "label": "国内视频榜依据",
+          "url": "https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-domestic.json"
+        },
+        "items": [
+          {
+            "rank": 1,
+            "model": "Seedance 2.0",
+            "org": "ByteDance",
+            "score": 97,
+            "strengths": "音视频同步生成、镜头一致性、商业化能力强",
+            "benchmark": "同步音视频单次生成，Languages 8+"
+          },
+          {
+            "rank": 2,
+            "model": "Kling 2.0",
+            "org": "Kuaishou",
+            "score": 95,
+            "strengths": "运动幅度、镜头语言、人物动作细节",
+            "benchmark": "国内视频生成头部产品"
+          },
+          {
+            "rank": 3,
+            "model": "Vidu Q1",
+            "org": "ShengShu AI",
+            "score": 93,
+            "strengths": "叙事连贯性、风格控制、中文提示词友好",
+            "benchmark": "创作者社区反馈稳定"
+          },
+          {
+            "rank": 4,
+            "model": "Wan 2.1",
+            "org": "Alibaba",
+            "score": 91,
+            "strengths": "开源路线、可控生成、生态联动强",
+            "benchmark": "开源视频模型代表之一"
+          },
+          {
+            "rank": 5,
+            "model": "Hailuo Video",
+            "org": "MiniMax",
+            "score": 89,
+            "strengths": "人物演绎、短视频生成、产品体验完整",
+            "benchmark": "消费级生成体验优秀"
+          }
+        ]
+      },
+      "image": {
+        "source": {
+          "label": "国内图片榜依据",
+          "url": "https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-domestic.json"
+        },
+        "items": [
+          {
+            "rank": 1,
+            "model": "FLUX China / 国内优化版生态",
+            "org": "Open ecosystem",
+            "score": 94,
+            "strengths": "中文提示词适配、写实质感、社区活跃",
+            "benchmark": "国内创作者生态采用广泛"
+          },
+          {
+            "rank": 2,
+            "model": "Kolors",
+            "org": "Kuaishou",
+            "score": 93,
+            "strengths": "中文语义理解强、海报和人物图表现好",
+            "benchmark": "中文文生图代表模型"
+          },
+          {
+            "rank": 3,
+            "model": "Tongyi Wanxiang",
+            "org": "Alibaba",
+            "score": 92,
+            "strengths": "电商和设计场景适配、企业服务能力强",
+            "benchmark": "企业图像生成落地成熟"
+          },
+          {
+            "rank": 4,
+            "model": "Doubao Image",
+            "org": "ByteDance",
+            "score": 90,
+            "strengths": "社媒内容生成、风格化、上手门槛低",
+            "benchmark": "内容创作场景增长快"
+          },
+          {
+            "rank": 5,
+            "model": "Ernie Image",
+            "org": "Baidu",
+            "score": 88,
+            "strengths": "企业集成、通用图像生成、中文理解稳定",
+            "benchmark": "云产品体系完整"
+          }
+        ]
+      }
+    }
   },
   "pricing": [
     {

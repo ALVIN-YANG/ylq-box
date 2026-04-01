@@ -4,7 +4,8 @@
  * 数据源：
  *   1. lmarena.ai — Arena 排名（RSC payload 解析）
  *   2. model-pricing.json — API 定价（手动维护）
- *   3. aiflashreport.com — 模型发布时间线（自动抓取）
+ *   3. model-domestic.json — 国内模型榜单与来源（手动维护）
+ *   4. aiflashreport.com — 模型发布时间线（自动抓取）
  *
  * 用法：
  *   node scripts/fetch-model-arena.mjs [--force]
@@ -217,13 +218,47 @@ async function fetchModelReleases() {
 // ─────────────────────────────────────────────
 
 function buildOutput(arena, pricing, releases, timestamp) {
+  const domestic = loadJSON('model-domestic.json');
+
   return {
     updatedAt: timestamp.cn,
     updatedAtISO: timestamp.iso,
+    sources: {
+      arena: {
+        label: 'LMArena Leaderboard',
+        url: 'https://lmarena.ai/leaderboard',
+      },
+      pricing: {
+        label: '站内定价数据',
+        url: 'https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-pricing.json',
+      },
+      releases: {
+        label: 'AI Flash Report',
+        url: 'https://aiflashreport.com/model-releases',
+      },
+      domestic: domestic.source || {
+        label: '站内维护数据',
+        url: 'https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-domestic.json',
+      },
+    },
     arena: {
       text: arena.text.slice(0, 20),
       code: arena.code.slice(0, 15),
       vision: arena.vision.slice(0, 15),
+    },
+    domestic: {
+      updatedAt: timestamp.cn,
+      note: domestic.note || '',
+      source: domestic.source || null,
+      categories: Object.fromEntries(
+        Object.entries(domestic.categories || {}).map(([key, value]) => [
+          key,
+          {
+            source: value.source || domestic.source || null,
+            items: Array.isArray(value.items) ? value.items : [],
+          },
+        ])
+      ),
     },
     pricing: [...pricing].sort((a, b) => a.input - b.input),
     releases: releases.slice(0, 40),

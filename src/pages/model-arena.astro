@@ -23,6 +23,12 @@ const highlights = [
   { label: 'API 价格样本', value: `${data.pricing.length}+`, note: '便于成本对比' },
   { label: '发布时间线', value: `${data.releases.length}`, note: '追踪模型演进' },
 ];
+
+const arenaLeaders = [
+  { label: '综合对话', model: data.arena.text[0]?.name, org: data.arena.text[0]?.org, rating: data.arena.text[0]?.rating },
+  { label: '代码', model: data.arena.code[0]?.name, org: data.arena.code[0]?.org, rating: data.arena.code[0]?.rating },
+  { label: '视觉', model: data.arena.vision[0]?.name, org: data.arena.vision[0]?.org, rating: data.arena.vision[0]?.rating },
+];
 ---
 
 <StarlightPage frontmatter={{ title: 'Model Arena', description: 'AI 模型综合对比与国内榜单', template: 'splash' }} sidebar={[]}>
@@ -33,6 +39,11 @@ const highlights = [
         <h1>模型排名与选型看板</h1>
         <p class="hero-text">把国际 Arena、国内模型分区、API 定价和发布时间线放到同一页，方便你快速做模型选型、竞品观察和技术跟踪。</p>
         <p class="updated">数据更新：{data.updatedAt} · 国际 Arena 来源 <a href={data.sources.arena.url} target="_blank">{data.sources.arena.label}</a> · 时间线参考 <a href={data.sources.releases.url} target="_blank">{data.sources.releases.label}</a></p>
+        <div class="hero-actions">
+          <a href="#arena" class="hero-action primary">查看国际榜单</a>
+          <a href="#domestic" class="hero-action">查看国内分区</a>
+          <a href="#pricing" class="hero-action">比较 API 价格</a>
+        </div>
       </div>
       <div class="hero-stats">
         {highlights.map((item) => (
@@ -61,6 +72,16 @@ const highlights = [
         <a class="source-link" href={data.sources.arena.url} target="_blank">查看数据来源</a>
       </div>
 
+      <div class="leader-strip">
+        {arenaLeaders.map((leader) => (
+          <div class="leader-card">
+            <div class="leader-label">{leader.label} Top 1</div>
+            <div class="leader-model">{leader.model}</div>
+            <div class="leader-meta">{leader.org} · Rating {leader.rating?.toFixed(1)}</div>
+          </div>
+        ))}
+      </div>
+
       <div class="card-grid arena-grid">
         {arenaCards.map((card) => (
           <div class:list={["card", { "featured-card": card.featured }]}>
@@ -76,7 +97,7 @@ const highlights = [
                 <thead><tr><th>#</th><th>模型</th><th>Rating</th><th>组织</th><th>投票</th></tr></thead>
                 <tbody>
                   {card.items.map((m, i) => (
-                    <tr>
+                    <tr class:list={[{ "top-row": i === 0 }]}>
                       <td class="rank">{i + 1}</td>
                       <td class="model-name">{m.name}</td>
                       <td class="num">{m.rating.toFixed(1)}</td>
@@ -126,8 +147,8 @@ const highlights = [
             </div>
 
             <div class="domestic-list">
-              {data.domestic.categories[section.key].items.map((item) => (
-                <div class="domestic-item">
+              {data.domestic.categories[section.key].items.map((item, index) => (
+                <div class:list={["domestic-item", { "domestic-item-top": index === 0 }]}>
                   <div class="domestic-rank">#{item.rank}</div>
                   <div class="domestic-main">
                     <div class="domestic-topline">
@@ -137,7 +158,10 @@ const highlights = [
                     <div class="domestic-strengths">{item.strengths}</div>
                     <div class="domestic-benchmark">{item.benchmark}</div>
                   </div>
-                  <div class="score-pill">{item.score}</div>
+                  <div class="score-wrap">
+                    <div class="score-pill">{item.score}</div>
+                    {index === 0 && <div class="score-caption">推荐</div>}
+                  </div>
                 </div>
               ))}
             </div>
@@ -155,6 +179,10 @@ const highlights = [
         <a class="source-link" href={data.sources.pricing.url} target="_blank">查看数据来源</a>
       </div>
       <div class="card full-width">
+        <div class="panel-intro">
+          <span>筛选思路</span>
+          先看输入成本，再看输出倍率和上下文窗口，避免只看单价忽略真实任务成本。
+        </div>
         <div class="table-scroll">
           <table>
             <thead>
@@ -193,6 +221,10 @@ const highlights = [
         <a class="source-link" href={data.sources.releases.url} target="_blank">查看数据来源</a>
       </div>
       <div class="card full-width">
+        <div class="panel-intro">
+          <span>观察重点</span>
+          留意各家在代码、推理、多模态和长上下文上的发布时间密度，能更快看出产品路线。
+        </div>
         <div class="timeline-list">
           {data.releases.map((r) => (
             <div class="timeline-item">
@@ -293,6 +325,46 @@ const highlights = [
     font-size: 0.84rem;
   }
 
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .hero-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.5rem;
+    padding: 0.7rem 1rem;
+    border: 1px solid #e1e6ec;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #334155;
+    text-decoration: none;
+    font-size: 0.86rem;
+    font-weight: 600;
+    transition: all 0.18s ease;
+  }
+
+  .hero-action:hover {
+    background: #f6f8fa;
+    border-color: #d4dce6;
+    color: #1f2937;
+  }
+
+  .hero-action.primary {
+    background: #1f2937;
+    border-color: #1f2937;
+    color: #ffffff;
+  }
+
+  .hero-action.primary:hover {
+    background: #111827;
+    border-color: #111827;
+  }
+
   .hero-stats {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -387,6 +459,42 @@ const highlights = [
     letter-spacing: -0.03em;
   }
 
+  .leader-strip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .leader-card {
+    padding: 0.95rem 1rem;
+    border: 1px solid #e5eaf0;
+    border-radius: 14px;
+    background: #fbfcfd;
+  }
+
+  .leader-label {
+    color: #6b778c;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .leader-model {
+    margin-top: 0.4rem;
+    color: #111827;
+    font-size: 0.96rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .leader-meta {
+    margin-top: 0.2rem;
+    color: #6b7280;
+    font-size: 0.78rem;
+  }
+
   .section-head p,
   .section-meta {
     margin: 0.35rem 0 0;
@@ -460,6 +568,24 @@ const highlights = [
 
   .card-tools {
     margin: -0.3rem 0 0.75rem;
+  }
+
+  .panel-intro {
+    margin-bottom: 0.9rem;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid #e7ebf0;
+    border-radius: 12px;
+    background: #fafbfc;
+    color: #4b5563;
+    font-size: 0.82rem;
+    line-height: 1.65;
+  }
+
+  .panel-intro span {
+    display: inline-block;
+    margin-right: 0.45rem;
+    color: #1f2937;
+    font-weight: 700;
   }
 
   .card-title-row h3,
@@ -536,6 +662,11 @@ const highlights = [
     background: rgba(255, 255, 255, 0.92);
   }
 
+  .domestic-item-top {
+    border-color: #d5dde7;
+    background: #fbfcfd;
+  }
+
   .domestic-rank {
     min-width: 3rem;
     height: 3rem;
@@ -589,6 +720,19 @@ const highlights = [
     font-family: var(--mono);
   }
 
+  .score-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.35rem;
+  }
+
+  .score-caption {
+    color: #6b7280;
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+
   .table-scroll { overflow-x: auto; }
 
   table {
@@ -617,6 +761,17 @@ const highlights = [
 
   tbody tr:hover {
     background: #f8fafb;
+  }
+
+  .top-row {
+    background: #fafbfd;
+  }
+
+  .top-row .rank,
+  .top-row .model-name,
+  .top-row .num {
+    color: #111827;
+    font-weight: 700;
   }
 
   .rank {
@@ -763,6 +918,10 @@ const highlights = [
     .hero-panel {
       grid-template-columns: 1fr;
     }
+
+    .leader-strip {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 720px) {
@@ -781,8 +940,8 @@ const highlights = [
       grid-template-columns: 1fr;
     }
 
-    .score-pill {
-      justify-self: start;
+    .score-wrap {
+      align-items: flex-start;
     }
   }
 

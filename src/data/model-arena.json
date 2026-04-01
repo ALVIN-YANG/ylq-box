@@ -1,86 +1,86 @@
 {
-  "updatedAt": "2026/3/31 12:28:55",
-  "updatedAtISO": "2026-03-31T04:28:55.511Z",
+  "updatedAt": "2026/4/1 12:40:36",
+  "updatedAtISO": "2026-04-01T04:40:36.074Z",
   "arena": {
     "text": [
       {
         "rank": 1,
         "name": "claude-opus-4-6-thinking",
-        "rating": 1504.08,
-        "ci": "5.8 / 5.8",
-        "votes": 12730,
+        "rating": 1504.18,
+        "ci": "5.6 / 5.6",
+        "votes": 13919,
         "org": "Anthropic"
       },
       {
         "rank": 2,
         "name": "claude-opus-4-6",
-        "rating": 1499.5,
-        "ci": "5.7 / 5.7",
-        "votes": 13553,
+        "rating": 1499.51,
+        "ci": "5.4 / 5.4",
+        "votes": 14874,
         "org": "Anthropic"
       },
       {
         "rank": 3,
         "name": "gemini-3.1-pro-preview",
-        "rating": 1493.17,
-        "ci": "5.6 / 5.6",
-        "votes": 15809,
+        "rating": 1494.06,
+        "ci": "5.3 / 5.3",
+        "votes": 17446,
         "org": "Google"
       },
       {
         "rank": 4,
         "name": "grok-4.20-beta1",
-        "rating": 1491.37,
+        "rating": 1491.18,
         "ci": "7.3 / 7.3",
-        "votes": 7378,
+        "votes": 7379,
         "org": "xAI"
       },
       {
         "rank": 5,
         "name": "gemini-3-pro",
-        "rating": 1486.39,
+        "rating": 1486.36,
         "ci": "3.9 / 3.9",
-        "votes": 41631,
+        "votes": 41627,
         "org": "Google"
       },
       {
         "rank": 6,
         "name": "gpt-5.4-high",
-        "rating": 1484.03,
-        "ci": "8.2 / 8.2",
-        "votes": 5570,
+        "rating": 1483.64,
+        "ci": "7.4 / 7.4",
+        "votes": 7068,
         "org": "OpenAI"
       },
       {
         "rank": 7,
         "name": "grok-4.20-beta-0309-reasoning",
-        "rating": 1483.48,
-        "ci": "7.9 / 7.9",
-        "votes": 5702,
+        "rating": 1480.57,
+        "ci": "7.1 / 7.1",
+        "votes": 7241,
         "org": "xAI"
       },
       {
         "rank": 8,
         "name": "gpt-5.2-chat-latest-20260210",
-        "rating": 1480.18,
-        "ci": "5.9 / 5.9",
-        "votes": 11405,
+        "rating": 1478.53,
+        "ci": "5.6 / 5.6",
+        "votes": 12973,
         "org": "OpenAI"
       },
       {
         "rank": 9,
         "name": "gemini-3-flash",
-        "rating": 1474.42,
+        "rating": 1474.43,
         "ci": "4.5 / 4.5",
-        "votes": 30962,
+        "votes": 30958,
         "org": "Google"
       },
       {
         "rank": 10,
         "name": "claude-opus-4-5-20251101-thinking-32k",
-        "rating": 1473.8,
-        "ci": "4.0 / 4.0",
-        "votes": 37448,
+        "rating": 1473.65,
+        "ci": "3.9 / 4.0",
+        "votes": 37458,
         "org": "Anthropic"
       }
     ],
@@ -169,82 +169,82 @@
     "vision": [
       {
         "rank": 1,
-        "name": "gemini-3-pro",
-        "rating": 1286.42,
-        "ci": "8.0 / 8.0",
-        "votes": 13520,
-        "org": "Google"
+        "name": "claude-opus-4-6",
+        "rating": 1295.05,
+        "ci": "17.0 / 17.0",
+        "votes": 1415,
+        "org": "Anthropic"
       },
       {
         "rank": 2,
-        "name": "claude-opus-4-6",
-        "rating": 1284.31,
-        "ci": "26.1 / 26.1",
-        "votes": 491,
+        "name": "claude-opus-4-6-thinking",
+        "rating": 1293.85,
+        "ci": "16.6 / 16.6",
+        "votes": 1419,
         "org": "Anthropic"
       },
       {
         "rank": 3,
-        "name": "gpt-5.2-chat-latest-20260210",
-        "rating": 1275.97,
-        "ci": "10.4 / 10.4",
-        "votes": 4980,
-        "org": "OpenAI"
+        "name": "gemini-3-pro",
+        "rating": 1287.24,
+        "ci": "7.9 / 7.9",
+        "votes": 13521,
+        "org": "Google"
       },
       {
         "rank": 4,
         "name": "gemini-3.1-pro-preview",
-        "rating": 1275.55,
-        "ci": "9.3 / 9.3",
-        "votes": 8046,
+        "rating": 1278.72,
+        "ci": "8.9 / 8.9",
+        "votes": 9030,
         "org": "Google"
       },
       {
         "rank": 5,
-        "name": "claude-opus-4-6-thinking",
-        "rating": 1272.74,
-        "ci": "25.4 / 25.4",
-        "votes": 527,
-        "org": "Anthropic"
+        "name": "gpt-5.2-chat-latest-20260210",
+        "rating": 1277.9,
+        "ci": "9.8 / 9.8",
+        "votes": 5854,
+        "org": "OpenAI"
       },
       {
         "rank": 6,
         "name": "claude-sonnet-4-6",
-        "rating": 1270.86,
-        "ci": "24.3 / 24.3",
-        "votes": 595,
+        "rating": 1271.13,
+        "ci": "15.4 / 15.4",
+        "votes": 1747,
         "org": "Anthropic"
       },
       {
         "rank": 7,
         "name": "gemini-3-flash",
-        "rating": 1265.27,
-        "ci": "7.8 / 7.8",
-        "votes": 14304,
+        "rating": 1267.69,
+        "ci": "7.6 / 7.6",
+        "votes": 15160,
         "org": "Google"
       },
       {
         "rank": 8,
         "name": "dola-seed-2.0-preview",
-        "rating": 1256.62,
-        "ci": "10.5 / 10.5",
-        "votes": 4705,
+        "rating": 1256.97,
+        "ci": "10.4 / 10.4",
+        "votes": 4711,
         "org": "Bytedance"
       },
       {
         "rank": 9,
         "name": "gemini-3-flash (thinking-minimal)",
-        "rating": 1252.87,
-        "ci": "8.1 / 8.1",
-        "votes": 12449,
+        "rating": 1254.56,
+        "ci": "7.9 / 7.9",
+        "votes": 13269,
         "org": "Google"
       },
       {
         "rank": 10,
-        "name": "gpt-5.2-high",
-        "rating": 1248.77,
-        "ci": "9.0 / 9.0",
-        "votes": 8047,
+        "name": "gpt-5.1-high",
+        "rating": 1249.06,
+        "ci": "8.4 / 8.4",
+        "votes": 9442,
         "org": "OpenAI"
       }
     ]

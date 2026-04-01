@@ -26,14 +26,44 @@ function getTimestamp() {
   };
 }
 
-async function fetchWithTimeout(url, options = {}, timeoutMs = 20000) {
-  const res = await fetch(url, {
-    ...options,
-    headers: { 'User-Agent': 'YLQ-Box-ModelArena/1.0', ...options.headers },
-    signal: AbortSignal.timeout(timeoutMs),
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-  return res;
+const BROWSER_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+  'Accept-Language': 'en-US,en;q=0.9',
+  'Accept-Encoding': 'gzip, deflate, br',
+  'DNT': '1',
+  'Connection': 'keep-alive',
+  'Upgrade-Insecure-Requests': '1',
+  'Sec-Fetch-Dest': 'document',
+  'Sec-Fetch-Mode': 'navigate',
+  'Sec-Fetch-Site': 'none',
+  'Sec-Fetch-User': '?1',
+  'Cache-Control': 'max-age=0',
+};
+
+async function fetchWithRetry(url, options = {}, retries = 3, baseDelayMs = 2000) {
+  let lastError = new Error(`Failed after ${retries} attempts`);
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const res = await fetch(url, {
+        ...options,
+        headers: { ...BROWSER_HEADERS, ...options.headers },
+        signal: AbortSignal.timeout(25000),
+      });
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status} for ${url}`);
+      }
+      return res;
+    } catch (err) {
+      lastError = err;
+      if (attempt < retries) {
+        const delay = baseDelayMs * Math.pow(2, attempt - 1);
+        console.log(`  ⚠ Attempt ${attempt} failed (${err.message}), retrying in ${delay}ms...`);
+        await new Promise(r => setTimeout(r, delay));
+      }
+    }
+  }
+  throw lastError;
 }
 
 // ─────────────────────────────────────────────
@@ -98,20 +128,41 @@ function parseArenaData(html) {
   return results;
 }
 
-async function fetchArenaRankings() {
+async function fetchArenaRankings(existingData = null) {
   console.log('\n── LMArena Rankings ──');
-  try {
-    const res = await fetchWithTimeout('https://llmarena.ai/leaderboard', {
-      headers: { Accept: 'text/html' },
-    }, 30000);
-    const html = await res.text();
-    const data = parseArenaData(html);
-    console.log(`  ✓ Text: ${data.text.length}, Code: ${data.code.length}, Vision: ${data.vision.length}`);
-    return data;
-  } catch (err) {
-    console.warn(`  ✗ LMArena: ${err.message}`);
-    return { text: [], code: [], vision: [] };
+
+  const urls = [
+    'https://llmarena.ai/leaderboard',
+    'https://lmarena.ai/leaderboard',
+    'https://chat.lmarena.ai/leaderboard',
+  ];
+
+  let lastError = null;
+  for (const url of urls) {
+    try {
+      console.log(`  → Trying ${url}`);
+      const res = await fetchWithRetry(url, { headers: { Accept: 'text/html' } }, 2, 3000);
+      const html = await res.text();
+      const data = parseArenaData(html);
+      if (data.text.length > 0 || data.code.length > 0 || data.vision.length > 0) {
+        console.log(`  ✓ Text: ${data.text.length}, Code: ${data.code.length}, Vision: ${data.vision.length}`);
+        return data;
+      } else {
+        console.warn(`  ✗ ${url}: parsed 0 entries, trying next URL`);
+      }
+    } catch (err) {
+      lastError = err;
+      console.warn(`  ✗ ${url}: ${err.message}`);
+    }
   }
+
+  if (existingData?.arena) {
+    console.warn(`  ↩ All LMArena URLs failed, preserving existing arena data (Text: ${existingData.arena.text?.length || 0}, Code: ${existingData.arena.code?.length || 0}, Vision: ${existingData.arena.vision?.length || 0})`);
+    return existingData.arena;
+  }
+
+  console.warn(`  ✗ All LMArena fetch attempts failed, using empty data`);
+  return { text: [], code: [], vision: [] };
 }
 
 // ─────────────────────────────────────────────
@@ -199,9 +250,9 @@ function buildHighlights(description, features, metrics) {
 async function fetchModelReleases() {
   console.log('\n── AI Flash Report (Model Releases) ──');
   try {
-    const res = await fetchWithTimeout('https://aiflashreport.com/model-releases', {
+    const res = await fetchWithRetry('https://aiflashreport.com/model-releases', {
       headers: { Accept: 'text/html' },
-    }, 30000);
+    }, 2, 2000);
     const html = await res.text();
     const releases = parseReleaseCards(html);
     console.log(`  ✓ ${releases.length} releases parsed`);
@@ -273,25 +324,27 @@ async function main() {
   const force = process.argv.includes('--force');
   const outputPath = join(process.cwd(), OUTPUT_PATH);
 
-  if (existsSync(outputPath) && !force) {
-    console.log('⏭ model-arena.json 已存在，使用 --force 强制覆盖');
-    return;
-  }
-
   console.log('🏟️ 生成 Model Arena 仪表盘...');
 
   const timestamp = getTimestamp();
+  const existing = existsSync(outputPath) ? JSON.parse(readFileSync(outputPath, 'utf-8')) : null;
 
   console.log('\n── Loading JSON configs ──');
   const pricing = loadJSON('model-pricing.json');
   console.log(`  ✓ Pricing: ${pricing.length} models`);
 
   const [arena, releases] = await Promise.all([
-    fetchArenaRankings(),
+    fetchArenaRankings(existing),
     fetchModelReleases(),
   ]);
 
   const data = buildOutput(arena, pricing, releases, timestamp);
+
+  if (!force && existing && existing.updatedAtISO === data.updatedAtISO) {
+    console.log('\n⏭ 数据未变化，跳过写入');
+    return;
+  }
+
   writeFileSync(outputPath, JSON.stringify(data, null, 2));
   console.log(`\n✅ 已生成 ${OUTPUT_PATH}`);
 }

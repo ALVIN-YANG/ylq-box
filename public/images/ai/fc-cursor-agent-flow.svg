@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 260">
+  <rect width="560" height="260" fill="#f8fafc"/>
+  <text x="280" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#334155">Example: IDE agent + rules + skills + MCP tools</text>
+  <rect x="40" y="36" width="480" height="210" rx="10" fill="#fff" stroke="#334155" stroke-width="1.5"/>
+  <text x="56" y="56" font-family="system-ui,sans-serif" font-size="9" fill="#475569">1 Load project rules</text>
+  <text x="56" y="74" font-family="system-ui,sans-serif" font-size="9" fill="#475569">2 Match skill (optional)</text>
+  <text x="56" y="96" font-family="system-ui,sans-serif" font-size="9" font-weight="600" fill="#1e40af">3 ReAct loop</text>
+  <rect x="56" y="104" width="448" height="28" rx="4" fill="#eff6ff" stroke="#93c5fd"/>
+  <text x="64" y="122" font-family="system-ui,sans-serif" font-size="8" fill="#1e40af">Thought / Action via MCP (read / edit / terminal) / Observation ...</text>
+  <rect x="56" y="142" width="448" height="28" rx="4" fill="#eff6ff" stroke="#93c5fd"/>
+  <text x="64" y="160" font-family="system-ui,sans-serif" font-size="8" fill="#1e40af">Repeat until tests pass or user stop</text>
+  <rect x="56" y="180" width="448" height="52" rx="4" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="64" y="198" font-family="system-ui,sans-serif" font-size="8" fill="#334155">Each action = tool call; tools wired through MCP servers</text>
+  <text x="64" y="214" font-family="system-ui,sans-serif" font-size="8" fill="#64748b">Final natural-language answer to user</text>
+</svg>

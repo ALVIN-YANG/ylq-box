@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200">
+  <rect width="720" height="200" fill="#f8fafc"/>
+  <text x="360" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#334155">Same question: company leave policy after 3 years?</text>
+  <text x="170" y="48" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#b45309">Without RAG</text>
+  <text x="550" y="48" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#15803d">With RAG</text>
+  <rect x="40" y="58" width="260" height="120" rx="8" fill="#fef2f2" stroke="#f87171"/>
+  <text x="170" y="82" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#991b1b">LLM guesses from training cut-off</text>
+  <text x="170" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#991b1b">High hallucination risk</text>
+  <text x="170" y="128" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#7f1d1d">e.g. about 10 days?</text>
+  <text x="170" y="158" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#b91c1c">no citation</text>
+  <rect x="420" y="58" width="260" height="120" rx="8" fill="#ecfdf5" stroke="#34d399"/>
+  <text x="550" y="82" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#166534">Retrieve chunks from your docs</text>
+  <text x="550" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#166534">Paste into prompt</text>
+  <text x="550" y="128" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#14532d">Answer cites handbook</text>
+  <text x="550" y="158" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#15803d">traceable source</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 280">
+  <rect width="520" height="280" fill="#f8fafc"/>
+  <text x="260" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#334155">Function call round-trip (host executes, model decides)</text>
+  <rect x="48" y="44" width="120" height="180" rx="8" fill="#fff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="108" y="68" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#1e40af">Your app</text>
+  <text x="108" y="92" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#64748b">1 define tools</text>
+  <text x="108" y="112" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#64748b">2 user message</text>
+  <text x="108" y="136" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#64748b">4 run tool</text>
+  <text x="108" y="156" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#64748b">5 tool output</text>
+  <text x="108" y="180" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#64748b">6 final reply</text>
+  <rect x="352" y="44" width="120" height="180" rx="8" fill="#f1f5f9" stroke="#64748b" stroke-width="2"/>
+  <text x="412" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#334155">LLM</text>
+  <text x="412" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#64748b">3 tool_call JSON</text>
+  <text x="412" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#64748b">reason + args</text>
+  <path d="M168 80 L344 80" stroke="#2563eb" stroke-width="1.5" marker-end="url(#m1)"/>
+  <path d="M344 100 L168 100" stroke="#64748b" stroke-width="1.5" marker-end="url(#m2)"/>
+  <path d="M168 140 L344 140" stroke="#2563eb" stroke-width="1.5" marker-end="url(#m1)"/>
+  <path d="M344 170 L168 170" stroke="#64748b" stroke-width="1.5" marker-end="url(#m2)"/>
+  <defs>
+    <marker id="m1" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#2563eb"/></marker>
+    <marker id="m2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#64748b"/></marker>
+  </defs>
+  <rect x="200" y="232" width="120" height="36" rx="6" fill="#ecfdf5" stroke="#22c55e"/>
+  <text x="260" y="254" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#166534">External API / DB</text>
+  <path d="M108 224 L108 250 L200 250" stroke="#22c55e" stroke-width="1.2" fill="none" stroke-dasharray="4 3"/>
+  <text x="130" y="218" font-family="system-ui,sans-serif" font-size="8" fill="#64748b">execute</text>
+</svg>

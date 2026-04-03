@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+  <rect width="400" height="200" fill="#f8fafc"/>
+  <text x="200" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#334155">Typical dependency direction (top uses bottom)</text>
+  <rect x="100" y="36" width="200" height="32" rx="6" fill="#fef3c7" stroke="#f59e0b"/>
+  <text x="200" y="56" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#92400e">Skill</text>
+  <path d="M200 68 L200 78" stroke="#64748b" stroke-width="2"/>
+  <polygon points="200,86 196,78 204,78" fill="#64748b"/>
+  <rect x="100" y="86" width="200" height="32" rx="6" fill="#e0e7ff" stroke="#6366f1"/>
+  <text x="200" y="106" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#3730a3">Agent</text>
+  <path d="M200 118 L200 128" stroke="#64748b" stroke-width="2"/>
+  <polygon points="200,136 196,128 204,128" fill="#64748b"/>
+  <rect x="100" y="136" width="200" height="32" rx="6" fill="#dbeafe" stroke="#3b82f6"/>
+  <text x="200" y="156" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#1e40af">MCP</text>
+  <path d="M200 168 L200 178" stroke="#64748b" stroke-width="2"/>
+  <polygon points="200,186 196,178 204,178" fill="#64748b"/>
+  <rect x="120" y="178" width="160" height="18" rx="4" fill="#ecfdf5" stroke="#22c55e"/>
+  <text x="200" y="190" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#166534">Function call to tools / APIs</text>
+</svg>

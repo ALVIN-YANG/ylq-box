@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 160">
+  <rect width="440" height="160" fill="#f8fafc"/>
+  <text x="220" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#334155">Skill pack layout (example)</text>
+  <rect x="120" y="40" width="200" height="108" rx="8" fill="#fff" stroke="#cbd5e1"/>
+  <text x="132" y="58" font-family="monospace" font-size="9" fill="#334155">my-skill/</text>
+  <text x="144" y="78" font-family="monospace" font-size="8" fill="#1e40af">SKILL.md</text>
+  <text x="160" y="78" font-family="system-ui,sans-serif" font-size="7" fill="#64748b">required</text>
+  <text x="144" y="96" font-family="monospace" font-size="8" fill="#64748b">scripts/</text>
+  <text x="144" y="112" font-family="monospace" font-size="8" fill="#64748b">references/</text>
+  <text x="144" y="128" font-family="monospace" font-size="8" fill="#64748b">assets/</text>
+  <text x="220" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">Also: /.cursor/skills, .cursor/skills, .agents/skills</text>
+</svg>

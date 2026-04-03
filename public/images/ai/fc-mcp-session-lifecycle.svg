@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 100">
+  <rect width="640" height="100" fill="#f8fafc"/>
+  <text x="320" y="20" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#334155">MCP session (JSON-RPC): handshake, list tools, call, optional push</text>
+  <rect x="24" y="36" width="88" height="48" rx="6" fill="#fff" stroke="#94a3b8"/>
+  <text x="68" y="56" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#334155">Client</text>
+  <text x="68" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" fill="#64748b">host side</text>
+  <text x="120" y="54" font-family="system-ui,sans-serif" font-size="7" fill="#2563eb">init</text>
+  <path d="M112 60 L200 60" stroke="#2563eb" stroke-width="1.5" marker-end="url(#mh)"/>
+  <rect x="200" y="36" width="88" height="48" rx="6" fill="#ecfdf5" stroke="#22c55e"/>
+  <text x="244" y="56" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#166534">Server</text>
+  <text x="244" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" fill="#15803d">capability</text>
+  <path d="M288 68 L376 68" stroke="#64748b" stroke-width="1.5" marker-end="url(#mg)"/>
+  <text x="320" y="62" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" fill="#64748b">tools/list</text>
+  <rect x="376" y="36" width="88" height="48" rx="6" fill="#eff6ff" stroke="#3b82f6"/>
+  <text x="420" y="54" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#1e40af">Tool defs</text>
+  <text x="420" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" fill="#64748b">tools/call</text>
+  <path d="M464 60 L552 60" stroke="#2563eb" stroke-width="1.5" marker-end="url(#mh)"/>
+  <rect x="552" y="36" width="64" height="48" rx="6" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="584" y="62" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#475569">Result</text>
+  <defs>
+    <marker id="mh" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#2563eb"/></marker>
+    <marker id="mg" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#64748b"/></marker>
+  </defs>
+</svg>

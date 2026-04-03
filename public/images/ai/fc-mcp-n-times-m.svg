@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 180">
+  <rect width="640" height="180" fill="#f8fafc"/>
+  <text x="320" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#334155">Why MCP: cut N×M adapters down to N+M</text>
+  <text x="150" y="48" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#b45309">Without MCP</text>
+  <text x="490" y="48" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#15803d">With MCP</text>
+  <text x="150" y="68" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#64748b">each app wires each tool</text>
+  <text x="490" y="68" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#64748b">apps speak MCP; tools expose MCP</text>
+  <circle cx="80" cy="110" r="14" fill="#fee2e2" stroke="#f87171"/>
+  <text x="80" y="114" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#991b1b">A1</text>
+  <circle cx="80" cy="140" r="14" fill="#fee2e2" stroke="#f87171"/>
+  <text x="80" y="144" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#991b1b">A2</text>
+  <circle cx="220" cy="110" r="14" fill="#dbeafe" stroke="#3b82f6"/>
+  <text x="220" y="114" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#1e40af">T1</text>
+  <circle cx="220" cy="140" r="14" fill="#dbeafe" stroke="#3b82f6"/>
+  <text x="220" y="144" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#1e40af">T2</text>
+  <path d="M94 110 L206 110 M94 110 L206 140 M94 140 L206 110 M94 140 L206 140" stroke="#fca5a5" stroke-width="1.2"/>
+  <text x="150" y="98" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#b91c1c">N×M edges</text>
+  <rect x="380" y="92" width="50" height="56" rx="4" fill="#eff6ff" stroke="#3b82f6"/>
+  <text x="405" y="114" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#1e40af">Apps</text>
+  <text x="405" y="128" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" fill="#64748b">N</text>
+  <rect x="450" y="100" width="36" height="40" rx="4" fill="#e0e7ff" stroke="#6366f1"/>
+  <text x="468" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" fill="#3730a3">MCP</text>
+  <text x="468" y="132" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" fill="#3730a3">bus</text>
+  <rect x="506" y="92" width="50" height="56" rx="4" fill="#ecfdf5" stroke="#22c55e"/>
+  <text x="531" y="114" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#166534">Tools</text>
+  <text x="531" y="128" text-anchor="middle" font-family="system-ui,sans-serif" font-size="7" fill="#15803d">M</text>
+  <path d="M430 120 L450 120 M486 120 L506 120" stroke="#6366f1" stroke-width="2"/>
+  <text x="468" y="88" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#15803d">N+M sides</text>
+</svg>

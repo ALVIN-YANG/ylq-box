@@ -6,7 +6,7 @@
 
 项目当前包含这些主要内容：
 
-- 技术文章与专题笔记（含 `src/content/docs/opencode/individual/` 下 OpenCode、Oh My OpenCode 等专栏）
+- 技术文章与专题笔记（含 `src/content/docs/opencode/individual/` 下 OpenCode、Oh My OpenCode 等专栏；`src/content/docs/ai/` 下 AI 专栏正文配图位于 `public/images/ai/`）
 - AI News 自动化资讯页
 - Model Arena 模型对比页
 - 适配桌面与移动端的文档站体验

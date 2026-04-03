@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 300">
+  <rect width="560" height="300" fill="#f8fafc"/>
+  <text x="280" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#0f172a">From one tool call to reusable expertise</text>
+  <rect x="80" y="44" width="400" height="44" rx="6" fill="#fef3c7" stroke="#f59e0b"/>
+  <text x="280" y="62" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#92400e">Skill</text>
+  <text x="280" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#b45309">domain playbooks, prompts, procedures</text>
+  <rect x="100" y="96" width="360" height="44" rx="6" fill="#dbeafe" stroke="#3b82f6"/>
+  <text x="280" y="114" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#1e40af">Agent</text>
+  <text x="280" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#1d4ed8">plan / act loop, memory, budgets</text>
+  <rect x="120" y="148" width="320" height="44" rx="6" fill="#e0e7ff" stroke="#6366f1"/>
+  <text x="280" y="166" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#3730a3">MCP</text>
+  <text x="280" y="182" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#4f46e5">standard tool and resource wiring</text>
+  <rect x="140" y="200" width="280" height="44" rx="6" fill="#ecfdf5" stroke="#22c55e"/>
+  <text x="280" y="218" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#166534">Function Call</text>
+  <text x="280" y="234" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#15803d">schema-defined tools; host executes</text>
+  <text x="280" y="276" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#64748b">Higher layers depend on lower layers</text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 340">
+  <rect width="640" height="340" fill="#f8fafc"/>
+  <text x="320" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#0f172a">Three memory layers + gated write-back</text>
+  <rect x="220" y="44" width="200" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b"/>
+  <text x="320" y="68" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#92400e">User request</text>
+  <path d="M320 84 L320 100" stroke="#64748b" stroke-width="2"/>
+  <rect x="48" y="104" width="160" height="56" rx="8" fill="#fff" stroke="#3b82f6"/>
+  <text x="128" y="128" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#1e40af">Working</text>
+  <text x="128" y="146" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">window + task JSON</text>
+  <rect x="240" y="104" width="160" height="56" rx="8" fill="#eff6ff" stroke="#2563eb"/>
+  <text x="320" y="128" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#1d4ed8">Episodic</text>
+  <text x="320" y="146" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">vector + time decay</text>
+  <rect x="432" y="104" width="160" height="56" rx="8" fill="#ecfdf5" stroke="#22c55e"/>
+  <text x="512" y="128" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#166534">Semantic</text>
+  <text x="512" y="146" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">prefs / rules KV</text>
+  <path d="M128 160 L128 176 L320 176 L320 188" stroke="#94a3b8" stroke-width="1.2" fill="none"/>
+  <path d="M320 160 L320 176" stroke="#94a3b8" stroke-width="1.2"/>
+  <path d="M512 160 L512 176 L320 176" stroke="#94a3b8" stroke-width="1.2" fill="none"/>
+  <rect x="200" y="192" width="240" height="44" rx="8" fill="#1e293b" stroke="#334155"/>
+  <text x="320" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#f8fafc">Prompt composer</text>
+  <text x="320" y="226" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8">priority: rules &gt; long &gt; state &gt; evidence</text>
+  <path d="M320 236 L320 252" stroke="#64748b" stroke-width="2"/>
+  <rect x="240" y="256" width="160" height="36" rx="6" fill="#fff" stroke="#cbd5e1"/>
+  <text x="320" y="278" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#334155">LLM + tools</text>
+  <text x="520" y="248" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">Memory gate</text>
+  <path d="M400 274 L480 274 L480 300 L200 300 L200 274 L240 274" stroke="#cbd5e1" stroke-width="1.5" fill="none" stroke-dasharray="5 4"/>
+  <text x="320" y="318" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">write episodic / semantic only when valuable</text>
+</svg>

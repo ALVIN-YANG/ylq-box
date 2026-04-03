@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 260">
+  <rect width="680" height="260" fill="#f8fafc"/>
+  <text x="340" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#0f172a">OpenClaw extension: where each mechanism hooks in</text>
+  <rect x="40" y="44" width="180" height="100" rx="8" fill="#ecfdf5" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="130" y="68" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#166534">Skill</text>
+  <text x="130" y="88" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#15803d">model-facing</text>
+  <text x="130" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">how to think / style</text>
+  <text x="130" y="132" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">loaded into context</text>
+  <rect x="250" y="44" width="180" height="100" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="340" y="68" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#1e40af">Tool</text>
+  <text x="340" y="88" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#1d4ed8">model decides</text>
+  <text x="340" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">callable capability</text>
+  <text x="340" y="132" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">grep, API, file...</text>
+  <rect x="460" y="44" width="180" height="100" rx="8" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
+  <text x="550" y="68" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#9d174d">Plugin</text>
+  <text x="550" y="88" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#be185d">host process</text>
+  <text x="550" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">lifecycle, routes,</text>
+  <text x="550" y="132" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">slots, services</text>
+  <rect x="120" y="168" width="440" height="72" rx="8" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="340" y="192" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#334155">Hook events (bundled / /.openclaw/hooks / workspace)</text>
+  <text x="340" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">Plugins may register hooks: before_model_resolve, before_prompt_build, ...</text>
+  <text x="340" y="228" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">Slot plugins replace memory / contextEngine when needed</text>
+</svg>

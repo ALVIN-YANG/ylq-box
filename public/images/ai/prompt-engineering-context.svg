@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 280">
+  <rect width="640" height="280" fill="#f8fafc"/>
+  <text x="320" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#0f172a">Prompt context shapes the next token distribution</text>
+  <rect x="48" y="48" width="544" height="52" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="64" y="72" font-family="system-ui,sans-serif" font-size="11" fill="#1e40af">system: role, rules, format, guardrails</text>
+  <text x="64" y="88" font-family="system-ui,sans-serif" font-size="11" fill="#1e40af">user: this-turn task + examples (few-shot)</text>
+  <path d="M320 100 L320 118" stroke="#64748b" stroke-width="2"/>
+  <polygon points="320,126 315,118 325,118" fill="#64748b"/>
+  <rect x="220" y="130" width="200" height="48" rx="8" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+  <text x="320" y="152" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#1d4ed8">LLM</text>
+  <text x="320" y="168" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#64748b">predicts continuation</text>
+  <path d="M320 178 L320 196" stroke="#64748b" stroke-width="2"/>
+  <polygon points="320,204 315,196 325,196" fill="#64748b"/>
+  <rect x="120" y="208" width="400" height="44" rx="8" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="320" y="228" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#334155">Structured text / JSON / tool calls</text>
+  <text x="320" y="244" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#64748b">Clear prompts reduce format drift and hallucinations</text>
+</svg>

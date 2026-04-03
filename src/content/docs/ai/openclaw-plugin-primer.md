@@ -19,6 +19,10 @@ description: 基于 OpenClaw 官方文档，系统拆解插件的能力边界、
 
 > OpenClaw 插件到底是什么，它和 Tool、Skill、Hook 分别是什么关系，什么时候该用，什么时候不该用？
 
+![Skill、Tool、Plugin 与 Hook 的落点](/images/ai/openclaw-plugin-spectrum.svg)
+
+*图：Skill 主要影响模型读到的说明；Tool 由模型按需调用；Plugin 跑在 Gateway 进程里，可挂生命周期、路由、插槽等。Hook 是事件系统，可由脚本或插件注册。*
+
 ---
 
 ## 一、先把边界说清楚：Skill、Tool、Plugin 分别解决什么问题

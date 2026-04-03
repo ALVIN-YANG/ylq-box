@@ -21,6 +21,39 @@ sidebar:
 
 ---
 
+## 让 OpenCode 代劳安装：一段通用话术（复制即用）
+
+上游安装文档的 **「For Humans」** 写法本来就是：把下面**整句**丢进任意 LLM / Agent 会话，让它去读链接并按步骤做（见 [installation.md](https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/refs/heads/dev/docs/guide/installation.md) 开头）：
+
+```text
+Install and configure oh-my-opencode by following the instructions here:
+https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/refs/heads/dev/docs/guide/installation.md
+```
+
+英文环境这一句就够。若你**主要用中文跟 OpenCode 说话**，又不想它漏掉 `--no-tui`、`--claude=max20` 这类细节，建议用下面这段**更啰嗦、但更稳**的话术（仍以上游 raw 文档为唯一流程依据；文档还要求 **Agent 用 `curl` 拉原文**，不要用会丢参数的「网页摘要」类工具）：
+
+```text
+请在本机为我安装并配置 Oh My OpenCode（npm 包名 oh-my-opencode；opencode.json 里插件名可能是 oh-my-openagent）。
+
+第一步：用终端执行下面命令，把安装指南的完整原文读进上下文（不要用会省略标志位、订阅选项的网页摘要工具）：
+curl -fsSL https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/refs/heads/dev/docs/guide/installation.md
+
+若当前环境不能执行 curl，则请你仅依据该 URL 对应文档的完整内容操作，链接是：
+https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/refs/heads/dev/docs/guide/installation.md
+
+第二步：按文档「Step 0」逐项问我有哪些订阅（Claude 是否 Max20、OpenAI、Gemini、Copilot、OpenCode Zen、Z.ai Coding Plan、OpenCode Go 等），再根据我的回答拼出正确的非交互安装命令，例如文档里的：
+bunx oh-my-opencode install --no-tui --claude=... --openai=... --gemini=... --copilot=... （其余开关按文档与我实际情况补全）
+不要替我默认全是 yes。
+
+第三步：确认本机已有 opencode CLI（opencode --version；版本要求以文档为准），再执行安装；完成后运行 bunx oh-my-opencode doctor，并把需要我本人在浏览器里完成的 opencode auth login 步骤列成清单。
+
+若我没有 Claude 订阅，请按文档提醒：Sisyphus 体验可能明显偏弱，不要隐瞒。
+```
+
+**最短链接（收藏用）**：与上面 `curl` 指向的是同一份文件——[OMO 官方安装指南（raw）](https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/refs/heads/dev/docs/guide/installation.md)。配置细节仍以 [configuration 参考](https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/docs/reference/configuration.md) 为准。
+
+---
+
 ## 这张图先看一眼：东西叠在一起长什么样
 
 ![OpenCode 与 OMO 的分层示意](/images/opencode/omo-architecture.svg)

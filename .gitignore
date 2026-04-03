@@ -24,3 +24,12 @@ pnpm-debug.log*
 node-v20.18.0-win-x64/
 node-v20.18.0-win-x64.zip
 dev.log
+run.log
+
+# IDE / local tooling
+.idea/
+.opencode/
+
+# 仅忽略仓库根目录下的本地 docs/（不影响 src/content/docs 站点内容）
+/docs/
+yarn.lock

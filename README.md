@@ -6,7 +6,17 @@
 
 项目当前包含这些主要内容：
 
-- 技术文章与专题笔记
+- 技术文章与专题笔记（含 `src/content/docs/opencode/individual/` 下 OpenCode、Oh My OpenCode 等专栏）
 - AI News 自动化资讯页
 - Model Arena 模型对比页
 - 适配桌面与移动端的文档站体验
+
+## 版本控制说明
+
+以下路径由 `.gitignore` 排除，不纳入仓库：
+
+- `.idea/`：JetBrains IDE 本地配置
+- `.opencode/`：Opencode 本地数据
+- `/docs/`：仓库根目录下的本地文档目录（与 `src/content/docs` 站点内容区分；`.gitignore` 使用 `/docs/` 避免误匹配 Starlight 内容路径）
+- `run.log`、`dev.log`：运行日志
+- `yarn.lock`：本项目以 `package-lock.json` 作为依赖锁定文件；若使用 Yarn，锁文件仅保留在本地

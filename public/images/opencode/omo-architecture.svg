@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:0.12"/>
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:0.08"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+  <rect width="720" height="420" fill="#f8fafc"/>
+  <rect x="40" y="32" width="640" height="72" rx="10" fill="url(#g)" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="360" y="58" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="600" fill="#0f172a">You (terminal or SSH session)</text>
+  <text x="360" y="82" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#475569">Run opencode locally or on a remote host; review diffs and approve tool use</text>
+  <path d="M360 104 L360 128" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="200" y="132" width="320" height="56" rx="8" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+  <text x="360" y="158" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#1d4ed8">OpenCode CLI</text>
+  <text x="360" y="176" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#64748b">Models, tools, sessions, auth</text>
+  <path d="M360 188 L360 212" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="160" y="216" width="400" height="52" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="360" y="240" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1e40af">Oh My OpenCode (OMO) plugin layer</text>
+  <text x="360" y="256" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#475569">Multi-agent orchestration, hooks, tasks, MCP (varies by version)</text>
+  <path d="M360 268 L360 292" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="360" y="312" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#64748b">Work is routed to specialized agents (names per upstream docs)</text>
+  <rect x="48" y="324" width="150" height="64" rx="6" fill="#fff" stroke="#cbd5e1"/>
+  <text x="123" y="352" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#334155">Main coding</text>
+  <text x="123" y="372" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#64748b">e.g. Sisyphus</text>
+  <rect x="214" y="324" width="150" height="64" rx="6" fill="#fff" stroke="#cbd5e1"/>
+  <text x="289" y="352" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#334155">Search / explore</text>
+  <text x="289" y="372" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#64748b">Explore, Librarian</text>
+  <rect x="380" y="324" width="150" height="64" rx="6" fill="#fff" stroke="#cbd5e1"/>
+  <text x="455" y="352" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#334155">Planning / review</text>
+  <text x="455" y="372" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#64748b">Prometheus, Metis</text>
+  <rect x="546" y="324" width="126" height="64" rx="6" fill="#fff" stroke="#cbd5e1"/>
+  <text x="609" y="352" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#334155">Architecture</text>
+  <text x="609" y="372" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#64748b">Oracle</text>
+</svg>

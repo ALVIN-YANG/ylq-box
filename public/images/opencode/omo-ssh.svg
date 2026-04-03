@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 400">
+  <rect width="560" height="400" fill="#f8fafc"/>
+  <text x="280" y="34" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="600" fill="#0f172a">SSH from phone or tablet to dev host</text>
+  <rect x="360" y="64" width="160" height="220" rx="18" fill="#1e293b" stroke="#334155" stroke-width="3"/>
+  <rect x="372" y="78" width="136" height="168" rx="6" fill="#0f172a"/>
+  <text x="440" y="130" text-anchor="middle" font-family="monospace" font-size="10" fill="#94a3b8">ssh user@host</text>
+  <text x="440" y="158" text-anchor="middle" font-family="monospace" font-size="10" fill="#38bdf8">opencode</text>
+  <rect x="380" y="176" width="120" height="40" rx="4" fill="#14532d" stroke="#22c55e"/>
+  <text x="440" y="200" text-anchor="middle" font-family="monospace" font-size="9" fill="#bbf7d0">TUI</text>
+  <text x="440" y="318" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#64748b">Mobile SSH client</text>
+  <path d="M320 170 L350 170" stroke="#2563eb" stroke-width="3"/>
+  <polygon points="350,170 340,165 340,175" fill="#2563eb"/>
+  <rect x="48" y="88" width="260" height="200" rx="8" fill="#fff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="178" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#334155">Dev host</text>
+  <text x="68" y="150" font-family="system-ui,sans-serif" font-size="11" fill="#475569">Repo, toolchain, OpenCode + OMO</text>
+  <text x="68" y="172" font-family="system-ui,sans-serif" font-size="11" fill="#475569">Uses /.config and project .opencode on this machine</text>
+  <text x="68" y="210" font-family="system-ui,sans-serif" font-size="11" fill="#1e40af">OAuth: host browser, or copy URL to phone browser</text>
+  <text x="280" y="370" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#64748b">External keyboard helps a lot</text>
+</svg>

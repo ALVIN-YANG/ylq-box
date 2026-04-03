@@ -1,6 +1,6 @@
 # Alvin Yang
 
-这是一个基于 [Astro](https://astro.build) + [Starlight](https://starlight.astro.build) 构建的个人技术站点，主要记录 AI、系统架构、云原生与工程实践相关内容。
+这是一个基于 [Astro](https://astro.build) + [Starlight](https://starlight.astro.build) 构建的个人技术站点，主要记录 AI、系统架构、云原生与工程实践相关内容。全局主题与正文样式（含中英混排字体与 Markdown 加粗）在 `src/styles/custom.css` 中维护。
 
 站点地址：[https://ilovestudy.club](https://ilovestudy.club)
 

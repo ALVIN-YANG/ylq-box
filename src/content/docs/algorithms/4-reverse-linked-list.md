@@ -92,3 +92,9 @@ public class Solution {
 每次先保存 cur 的下一个节点，再把 cur 指向 prev，最后整体向前推进。
 这个方法只遍历一次链表，空间复杂度是 O(1)。
 ```
+
+## 口诀
+
+```text
+先存 next，再反指针，prev 和 cur 一起走
+```

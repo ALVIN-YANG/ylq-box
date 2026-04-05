@@ -88,8 +88,17 @@ export default defineConfig({
           autogenerate: { directory: 'ai-news' },
         },
         {
-          label: 'Java',
-          autogenerate: { directory: 'java' },
+          label: '古法编程',
+          items: [
+            {
+              label: 'Java',
+              autogenerate: { directory: 'java' },
+            },
+            {
+              label: '算法题解',
+              autogenerate: { directory: 'algorithms' },
+            }
+          ],
           collapsed: true,
         },
         {

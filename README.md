@@ -6,7 +6,7 @@
 
 项目当前包含这些主要内容：
 
-- 技术文章与专题笔记（含 `src/content/docs/opencode/individual/` 下 OpenCode、OMO 使用技巧等；OMO 安装以官方 [installation.md](https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/refs/heads/dev/docs/guide/installation.md) 为准；`src/content/docs/ai/` 配图在 `public/images/ai/`，示意优先 SVG）
+- 技术文章与专题笔记（含 `src/content/docs/ai-workflow/` 下 OMO、superpowers、AI Coding 工作流文章；OMO 安装以官方 [installation.md](https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/refs/heads/dev/docs/guide/installation.md) 为准；`src/content/docs/ai/` 配图在 `public/images/ai/`，示意优先 SVG）
 - AI News 自动化资讯页
 - Model Arena 模型对比页
 - 适配桌面与移动端的文档站体验

@@ -50,17 +50,12 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: 'Opencode 专栏',
-          items: [
-            {
-              label: '个人工作流',
-              autogenerate: { directory: 'opencode/individual' }
-            },
-            {
-              label: '企业与进阶',
-              autogenerate: { directory: 'opencode/enterprise' }
-            }
-          ]
+          label: 'AI',
+          autogenerate: { directory: 'ai' },
+        },
+        {
+          label: 'AI 工作流',
+          autogenerate: { directory: 'ai-workflow' }
         },
         {
           label: 'Claw 专栏',
@@ -74,10 +69,6 @@ export default defineConfig({
               autogenerate: { directory: 'claw/zeroclaw' }
             }
           ]
-        },
-        {
-          label: 'AI',
-          autogenerate: { directory: 'ai' },
         },
         {
           label: 'Architecture',
@@ -103,17 +94,16 @@ export default defineConfig({
         },
         {
           label: 'Ops',
-          autogenerate: { directory: 'ops' },
-          collapsed: true,
-        },
-        {
-          label: 'Network',
-          autogenerate: { directory: 'network' },
-          collapsed: true,
-        },
-        {
-          label: 'Blog',
-          autogenerate: { directory: 'blog' },
+          items: [
+            {
+              label: '运维与基础设施',
+              autogenerate: { directory: 'ops' },
+            },
+            {
+              label: '网络',
+              autogenerate: { directory: 'network' },
+            }
+          ],
           collapsed: true,
         },
       ],

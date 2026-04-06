@@ -7,15 +7,13 @@ const { sidebar } = Astro.locals.starlightRoute;
 const currentPath = Astro.url.pathname;
 
 const groupPrefixes: Record<string, string> = {
-  'Opencode 专栏': '/opencode/',
+  'AI 工作流': '/ai-workflow/',
   'Claw 专栏': '/claw/',
   'AI': '/ai/',
   'Architecture': '/architecture/',
   'AI News': '/ai-news/',
-  'Java': '/java/',
+  '古法编程': '/algorithms/',
   'Ops': '/ops/',
-  'Network': '/network/',
-  'Blog': '/blog/',
 };
 
 function extractDate(href: string): string {
@@ -66,7 +64,9 @@ let filteredSidebar = sidebar;
 for (const entry of sidebar) {
   if (entry.type === 'group') {
     const prefix = groupPrefixes[entry.label];
-    if (prefix && currentPath.startsWith(prefix)) {
+    const isGuFa = entry.label === '古法编程' && (currentPath.startsWith('/algorithms/') || currentPath.startsWith('/java/'));
+    const isOps = entry.label === 'Ops' && (currentPath.startsWith('/ops/') || currentPath.startsWith('/network/'));
+    if ((prefix && currentPath.startsWith(prefix)) || isGuFa || isOps) {
       if (entry.label === 'AI News') {
         filteredSidebar = [splitAiNews(entry)];
       } else {

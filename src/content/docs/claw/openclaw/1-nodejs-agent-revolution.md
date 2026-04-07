@@ -62,7 +62,7 @@ npm install openclaw @openclaw/plugin-duckduckgo dotenv
 
 我们在项目根目录下建一个 `.env` 文件，填入你的模型 API Key：
 
-```env
+```txt
 OPENAI_API_KEY=sk-your-key-here
 ```
 

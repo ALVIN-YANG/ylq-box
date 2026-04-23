@@ -1,8 +1,16 @@
 name: Model Arena
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/model-arena.yml'
+      - 'scripts/fetch-model-arena.mjs'
+      - 'scripts/model-domestic.json'
+      - 'scripts/model-pricing.json'
+      - 'scripts/model-releases.json'
   schedule:
-    # 每 3 天 UTC 02:00（北京时间 10:00）运行
     - cron: '0 2 */3 * *'
   workflow_dispatch:
     inputs:
@@ -26,7 +34,9 @@ jobs:
           node-version: 22
 
       - name: Generate Model Arena data
-        run: node scripts/fetch-model-arena.mjs --force
+        env:
+          FORCE_FLAG: ${{ github.event_name == 'workflow_dispatch' && inputs.force && '--force' || '--force' }}
+        run: node scripts/fetch-model-arena.mjs ${{ env.FORCE_FLAG }}
 
       - name: Commit and push
         run: |

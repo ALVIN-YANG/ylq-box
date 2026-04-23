@@ -1,10 +1,14 @@
 name: AI News
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/ai-news.yml'
+      - 'scripts/fetch-ai-news.mjs'
   schedule:
-    # 每天 UTC 00:00（北京时间 08:00）生成每日速递
     - cron: '0 0 * * *'
-    # 每周日 UTC 01:00（北京时间 09:00）生成周报
     - cron: '0 1 * * 0'
   workflow_dispatch:
     inputs:
@@ -36,21 +40,21 @@ jobs:
           node-version: 22
 
       - name: Generate daily news
-        if: github.event.schedule == '0 0 * * *' || inputs.mode == 'daily'
+        if: github.event_name == 'schedule' && github.event.schedule == '0 0 * * *' || github.event_name == 'workflow_dispatch' && inputs.mode == 'daily' || github.event_name == 'push'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
-          FORCE_REGENERATE: ${{ inputs.force && 'true' || 'false' }}
+          FORCE_REGENERATE: ${{ github.event_name == 'workflow_dispatch' && inputs.force && 'true' || 'false' }}
         run: node scripts/fetch-ai-news.mjs --daily ${{ env.FORCE_REGENERATE == 'true' && '--force' || '' }}
 
       - name: Generate weekly summary
-        if: github.event.schedule == '0 1 * * 0' || inputs.mode == 'weekly'
+        if: github.event_name == 'schedule' && github.event.schedule == '0 1 * * 0' || github.event_name == 'workflow_dispatch' && inputs.mode == 'weekly'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
-          FORCE_REGENERATE: ${{ inputs.force && 'true' || 'false' }}
+          FORCE_REGENERATE: ${{ github.event_name == 'workflow_dispatch' && inputs.force && 'true' || 'false' }}
         run: node scripts/fetch-ai-news.mjs --weekly ${{ env.FORCE_REGENERATE == 'true' && '--force' || '' }}
 
       - name: Commit and push

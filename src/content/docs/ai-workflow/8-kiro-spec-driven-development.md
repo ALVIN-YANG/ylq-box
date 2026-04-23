@@ -1,6 +1,6 @@
 ---
 title: "Kiro：Spec 驱动的 AI 编程实践"
-description: "Kiro 是第一个将 spec-driven 开发引入 AI 编程工具的 IDE。它不只帮你写代码，而是把你的 prompt 变成可验证的规格文档，再驱动 AI 按规格交付。
+description: "Kiro 是第一个将 spec-driven 开发引入 AI 编程工具的 IDE。它不只帮你写代码，而是把你的 prompt 变成可验证的规格文档，再驱动 AI 按规格交付。"
 sidebar:
   order: 8
 ---

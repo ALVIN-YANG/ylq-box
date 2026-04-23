@@ -1,6 +1,6 @@
 ---
 title: "终端输出压缩：RTK 与 Navi 在 AI 编程中的实战"
-description: "AI 编程工具每次执行命令都会消耗 token。RTK 通过 CLI 代理压缩 60-90% 输出，Navi 用 tree-sitter 实现结构化代码导航，两者组合让 AI 上下文更干净。
+description: "AI 编程工具每次执行命令都会消耗 token。RTK 通过 CLI 代理压缩 60-90% 输出，Navi 用 tree-sitter 实现结构化代码导航，两者组合让 AI 上下文更干净。"
 sidebar:
   order: 7
 ---

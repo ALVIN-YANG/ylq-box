@@ -1,6 +1,6 @@
 ---
 title: "CC Switch：五大 AI 编程工具的统一管理面板"
-description: "CC Switch 是一个跨平台桌面应用，通过可视化界面管理 Claude Code、Codex、OpenCode、OpenClaw、 Gemini CLI 的 API 配置、MCP 和 Skills，解决多工具切换时手动改配置的痛点。
+description: "CC Switch 是一个跨平台桌面应用，通过可视化界面管理 Claude Code、Codex、OpenCode、OpenClaw、 Gemini CLI 的 API 配置、MCP 和 Skills，解决多工具切换时手动改配置的痛点。"
 sidebar:
   order: 9
 ---

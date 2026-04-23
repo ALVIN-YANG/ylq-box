@@ -1,5 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
+import { statSync } from 'node:fs';
+import { resolve } from 'node:path';
 
 const categoryLabels: Record<string, string> = {
   ai: 'AI',
@@ -25,13 +27,26 @@ function formatDate(date: Date | undefined): string {
 
 const allDocs = await getCollection('docs');
 
-const priorityPrefixes = ['opencode/', 'claw/', 'ai/', 'architecture/', 'ai-news/'];
+const priorityPrefixes = ['opencode/', 'claw/', 'ai-workflow/', 'ai/', 'architecture/', 'ai-news/'];
 
 function getPriority(id: string): number {
   for (let i = 0; i < priorityPrefixes.length; i++) {
     if (id.startsWith(priorityPrefixes[i])) return i;
   }
   return priorityPrefixes.length;
+}
+
+function getDocDate(doc: typeof allDocs[number]): number {
+  if (doc.data.lastUpdated) {
+    return new Date(doc.data.lastUpdated).getTime();
+  }
+  try {
+    const filePath = resolve(`src/content/docs/${doc.id}.md`);
+    const stats = statSync(filePath);
+    return stats.mtime.getTime();
+  } catch {
+    return 0;
+  }
 }
 
 const recentDocs = allDocs
@@ -48,9 +63,7 @@ const recentDocs = allDocs
     const pa = getPriority(a.id);
     const pb = getPriority(b.id);
     if (pa !== pb) return pa - pb;
-    const dateA = a.data.lastUpdated || new Date(0);
-    const dateB = b.data.lastUpdated || new Date(0);
-    return new Date(dateB).getTime() - new Date(dateA).getTime();
+    return getDocDate(b) - getDocDate(a);
   })
   .slice(0, 6);
 ---

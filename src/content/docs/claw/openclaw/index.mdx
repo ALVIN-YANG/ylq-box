@@ -1,0 +1,95 @@
+---
+title: "OpenClaw 深度实践"
+description: "从安装配置到高级用法，完整记录 OpenClaw 的使用经验"
+---
+
+# OpenClaw 深度实践
+
+## 快速开始
+
+### 安装
+
+```bash
+npm install -g openclaw
+```
+
+### 配置模型
+
+```bash
+# 添加 MiniMax
+openclaw config set models.providers.minimax.apiKey your-key
+
+# 添加自定义模型
+openclaw config set models.providers.custom.baseUrl https://api.example.com
+```
+
+## 核心概念
+
+### Agent
+OpenClaw 的核心执行单元。每个 Agent 有：
+- **模型配置**: 主模型、备用模型
+- **技能集 (Skills)**: 可插拔的能力模块
+- **记忆系统**: 短期上下文 + 长期记忆
+- **定时任务**: Cron 表达式驱动的自动化
+
+### Skill 开发
+自定义技能只需：
+1. 创建 `SKILL.md` 定义接口
+2. 实现工具函数
+3. 注册到 Agent 配置
+
+### 记忆管理
+- **MEMORY.md**: 长期记忆，跨会话持久
+- **memory/YYYY-MM-DD.md**: 每日日志
+- **自动维护**: 定期总结、归档、清理
+
+## 高级用法
+
+### 多模型路由
+```yaml
+models:
+  primary: kimi/kimi-for-coding
+  fallback: minimax/abab6.5s-chat
+  routing:
+    - pattern: "代码*"
+      model: kimi/kimi-for-coding
+    - pattern: "创意*"
+      model: minimax/abab6.5s-chat
+```
+
+### 定时任务
+```yaml
+cron:
+  - name: "每日新闻"
+    schedule: "0 9 * * *"
+    skill: "daily-news-caster"
+  - name: "代码审查"
+    schedule: "0 18 * * 1-5"
+    skill: "code-review"
+```
+
+## 实战经验
+
+### 性能优化
+- **Token 压缩**: 使用终端工具减少传输量
+- **上下文管理**: 及时清理无用历史
+- **模型选择**: 根据任务复杂度匹配模型
+
+### 安全实践
+- **API Key 隔离**: 不同环境用不同 Key
+- **权限控制**: 敏感操作需确认
+- **审计日志**: 记录所有外部调用
+
+## 踩坑记录
+
+### 常见问题
+1. **Gateway 连接失败**: 检查端口占用、防火墙
+2. **模型响应慢**: 考虑降级到更快模型
+3. **记忆丢失**: 确认文件权限、磁盘空间
+
+### 解决方案
+详见下方「踩坑记录」章节或社区文档
+
+---
+
+> 🔄 **持续更新**: 随着 OpenClaw 版本迭代，本文档会同步更新

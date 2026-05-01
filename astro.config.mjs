@@ -50,6 +50,10 @@ export default defineConfig({
       },
       sidebar: [
         {
+          label: 'Projects',
+          autogenerate: { directory: 'projects' },
+        },
+        {
           label: 'AI',
           autogenerate: { directory: 'ai' },
         },

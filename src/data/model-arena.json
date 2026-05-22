@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026/5/19 13:58:41",
-  "updatedAtISO": "2026-05-19T05:58:41.129Z",
+  "updatedAt": "2026/5/22 13:57:45",
+  "updatedAtISO": "2026-05-22T05:57:45.105Z",
   "sources": {
     "arena": {
       "label": "LMArena Leaderboard",
@@ -24,33 +24,33 @@
       {
         "rank": 1,
         "name": "claude-opus-4-6-thinking",
-        "rating": 1501.77,
+        "rating": 1501.98,
         "ci": "4.4 / 4.4",
-        "votes": 27265,
+        "votes": 27454,
         "org": "Anthropic"
       },
       {
         "rank": 2,
         "name": "claude-opus-4-7-thinking",
-        "rating": 1500.01,
+        "rating": 1500.25,
         "ci": "5.8 / 5.8",
-        "votes": 12710,
+        "votes": 12920,
         "org": "Anthropic"
       },
       {
         "rank": 3,
         "name": "claude-opus-4-6",
-        "rating": 1498.01,
+        "rating": 1498.06,
         "ci": "4.3 / 4.3",
-        "votes": 29016,
+        "votes": 29240,
         "org": "Anthropic"
       },
       {
         "rank": 4,
         "name": "claude-opus-4-7",
-        "rating": 1492.06,
-        "ci": "5.8 / 5.8",
-        "votes": 13348,
+        "rating": 1492.39,
+        "ci": "5.7 / 5.7",
+        "votes": 13571,
         "org": "Anthropic"
       },
       {
@@ -64,119 +64,119 @@
       {
         "rank": 6,
         "name": "gemini-3.1-pro-preview",
-        "rating": 1488.07,
+        "rating": 1488.18,
         "ci": "4.3 / 4.3",
-        "votes": 33936,
+        "votes": 34189,
         "org": "Google"
       },
       {
         "rank": 7,
         "name": "gemini-3-pro",
-        "rating": 1485.76,
+        "rating": 1485.82,
         "ci": "3.9 / 3.9",
-        "votes": 41336,
+        "votes": 41331,
         "org": "Google"
       },
       {
         "rank": 8,
         "name": "gpt-5.5-high",
-        "rating": 1481.7,
+        "rating": 1481.32,
         "ci": "6.3 / 6.3",
-        "votes": 9962,
+        "votes": 10172,
         "org": "OpenAI"
       },
       {
         "rank": 9,
-        "name": "gpt-5.4-high",
-        "rating": 1479.55,
-        "ci": "5.0 / 5.0",
-        "votes": 20831,
-        "org": "OpenAI"
+        "name": "gemini-3.5-flash",
+        "rating": 1480.04,
+        "ci": "7.7 / 7.7",
+        "votes": 5907,
+        "org": "Google"
       },
       {
         "rank": 10,
-        "name": "grok-4.20-beta1",
-        "rating": 1478.04,
-        "ci": "4.9 / 4.9",
-        "votes": 22459,
-        "org": "xAI"
+        "name": "gpt-5.4-high",
+        "rating": 1479.6,
+        "ci": "5.0 / 5.0",
+        "votes": 21023,
+        "org": "OpenAI"
       },
       {
         "rank": 11,
-        "name": "gpt-5.2-chat-latest-20260210",
-        "rating": 1476.85,
-        "ci": "4.3 / 4.3",
-        "votes": 27782,
+        "name": "gpt-5.5",
+        "rating": 1477.99,
+        "ci": "6.3 / 6.3",
+        "votes": 10294,
         "org": "OpenAI"
       },
       {
         "rank": 12,
-        "name": "gpt-5.5",
-        "rating": 1476.58,
-        "ci": "6.4 / 6.3",
-        "votes": 10067,
-        "org": "OpenAI"
-      },
-      {
-        "rank": 13,
-        "name": "qwen3.7-max-preview",
-        "rating": 1475.21,
-        "ci": "10.0 / 10.0",
-        "votes": 3740,
-        "org": "Alibaba"
-      },
-      {
-        "rank": 14,
-        "name": "grok-4.20-beta-0309-reasoning",
-        "rating": 1475.14,
+        "name": "grok-4.20-beta1",
+        "rating": 1477.98,
         "ci": "4.8 / 4.8",
-        "votes": 21355,
+        "votes": 22458,
         "org": "xAI"
       },
       {
+        "rank": 13,
+        "name": "gpt-5.2-chat-latest-20260210",
+        "rating": 1477.04,
+        "ci": "4.4 / 4.3",
+        "votes": 27988,
+        "org": "OpenAI"
+      },
+      {
+        "rank": 14,
+        "name": "qwen3.7-max-preview",
+        "rating": 1475.21,
+        "ci": "10.0 / 10.0",
+        "votes": 3741,
+        "org": "Alibaba"
+      },
+      {
         "rank": 15,
-        "name": "grok-4.20-multi-agent-beta-0309",
-        "rating": 1474.36,
+        "name": "grok-4.20-beta-0309-reasoning",
+        "rating": 1474.97,
         "ci": "4.8 / 4.8",
-        "votes": 21363,
+        "votes": 21572,
         "org": "xAI"
       },
       {
         "rank": 16,
-        "name": "ernie-5.1",
-        "rating": 1474.01,
-        "ci": "6.6 / 6.7",
-        "votes": 8812,
-        "org": "Baidu"
+        "name": "grok-4.20-multi-agent-beta-0309",
+        "rating": 1474.23,
+        "ci": "4.8 / 4.8",
+        "votes": 21565,
+        "org": "xAI"
       },
       {
         "rank": 17,
         "name": "gemini-3-flash",
-        "rating": 1473.13,
+        "rating": 1473.32,
         "ci": "4.4 / 4.4",
-        "votes": 30751,
+        "votes": 30742,
         "org": "Google"
       },
       {
         "rank": 18,
-        "name": "gpt-5.5-instant",
-        "rating": 1472.6,
-        "ci": "6.4 / 6.4",
-        "votes": 10015,
-        "org": "OpenAI"
+        "name": "ernie-5.1",
+        "rating": 1473.22,
+        "ci": "6.6 / 6.6",
+        "votes": 9004,
+        "org": "Baidu"
       },
       {
         "rank": 19,
         "name": "claude-opus-4-5-20251101-thinking-32k",
-        "rating": 1472.46,
+        "rating": 1472.6,
         "ci": "3.9 / 3.9",
-        "votes": 37134,
+        "votes": 37130,
         "org": "Anthropic"
       },
       {
         "rank": 20,
         "name": "glm-5.1",
-        "rating": 1472.24,
+        "rating": 1472.23,
         "ci": "6.0 / 6.0",
         "votes": 12295,
         "org": "Z.ai"
@@ -186,122 +186,122 @@
       {
         "rank": 1,
         "name": "claude-opus-4-7-thinking",
-        "rating": 1567.38,
-        "ci": "10.6 / 10.6",
-        "votes": 4176,
+        "rating": 1567.35,
+        "ci": "10.3 / 10.3",
+        "votes": 4462,
         "org": "Anthropic"
       },
       {
         "rank": 2,
         "name": "claude-opus-4-7",
-        "rating": 1559.28,
-        "ci": "10.6 / 10.6",
-        "votes": 3959,
+        "rating": 1559.83,
+        "ci": "10.3 / 10.3",
+        "votes": 4186,
         "org": "Anthropic"
       },
       {
         "rank": 3,
         "name": "claude-opus-4-6-thinking",
-        "rating": 1545.57,
-        "ci": "8.2 / 8.2",
-        "votes": 7021,
+        "rating": 1544.67,
+        "ci": "8.1 / 8.1",
+        "votes": 7241,
         "org": "Anthropic"
       },
       {
         "rank": 4,
         "name": "claude-opus-4-6",
-        "rating": 1540.85,
-        "ci": "7.8 / 7.8",
-        "votes": 8022,
+        "rating": 1539.92,
+        "ci": "7.7 / 7.7",
+        "votes": 8242,
         "org": "Anthropic"
       },
       {
         "rank": 5,
         "name": "glm-5.1",
-        "rating": 1531.86,
+        "rating": 1532.03,
         "ci": "10.9 / 10.9",
-        "votes": 3613,
+        "votes": 3611,
         "org": "Z.ai"
       },
       {
         "rank": 6,
         "name": "claude-sonnet-4-6",
-        "rating": 1523.61,
-        "ci": "7.3 / 7.3",
-        "votes": 10155,
+        "rating": 1523.71,
+        "ci": "7.2 / 7.2",
+        "votes": 10408,
         "org": "Anthropic"
       },
       {
         "rank": 7,
         "name": "kimi-k2.6",
-        "rating": 1518.51,
-        "ci": "11.2 / 11.2",
-        "votes": 3230,
+        "rating": 1519.02,
+        "ci": "10.8 / 10.8",
+        "votes": 3437,
         "org": "Moonshot"
       },
       {
         "rank": 8,
         "name": "muse-spark",
-        "rating": 1508.7,
+        "rating": 1508.73,
         "ci": "15.9 / 15.9",
         "votes": 1630,
         "org": "Meta"
       },
       {
         "rank": 9,
-        "name": "gpt-5.5-xhigh (codex-harness)",
-        "rating": 1500.57,
-        "ci": "11.3 / 11.3",
-        "votes": 3220,
-        "org": "OpenAI"
+        "name": "gemini-3.5-flash",
+        "rating": 1507.14,
+        "ci": "13.7 / 13.7",
+        "votes": 2148,
+        "org": "Google"
       },
       {
         "rank": 10,
-        "name": "qwen3.6-max-preview",
-        "rating": 1491.31,
-        "ci": "14.4 / 14.4",
-        "votes": 1900,
-        "org": "Alibaba"
-      },
-      {
-        "rank": 11,
-        "name": "claude-opus-4-5-20251101-thinking-32k",
-        "rating": 1490.45,
-        "ci": "7.2 / 7.2",
-        "votes": 13066,
-        "org": "Anthropic"
-      },
-      {
-        "rank": 12,
-        "name": "gpt-5.5-high (codex-harness)",
-        "rating": 1481.33,
-        "ci": "11.0 / 11.0",
-        "votes": 3403,
+        "name": "gpt-5.5-xhigh (codex-harness)",
+        "rating": 1502.76,
+        "ci": "10.9 / 10.9",
+        "votes": 3456,
         "org": "OpenAI"
       },
       {
-        "rank": 13,
-        "name": "mimo-v2.5-pro",
-        "rating": 1472.35,
-        "ci": "10.3 / 10.3",
-        "votes": 3879,
-        "org": "Xiaomi"
+        "rank": 11,
+        "name": "qwen3.6-max-preview",
+        "rating": 1490.83,
+        "ci": "13.7 / 13.7",
+        "votes": 2117,
+        "org": "Alibaba"
       },
       {
-        "rank": 14,
-        "name": "claude-opus-4-5-20251101",
-        "rating": 1467.04,
-        "ci": "6.4 / 6.4",
-        "votes": 15306,
+        "rank": 12,
+        "name": "claude-opus-4-5-20251101-thinking-32k",
+        "rating": 1490.45,
+        "ci": "7.2 / 7.2",
+        "votes": 13067,
         "org": "Anthropic"
       },
       {
+        "rank": 13,
+        "name": "gpt-5.5-high (codex-harness)",
+        "rating": 1479.64,
+        "ci": "10.6 / 10.6",
+        "votes": 3664,
+        "org": "OpenAI"
+      },
+      {
+        "rank": 14,
+        "name": "mimo-v2.5-pro",
+        "rating": 1470.9,
+        "ci": "10.1 / 10.1",
+        "votes": 4087,
+        "org": "Xiaomi"
+      },
+      {
         "rank": 15,
-        "name": "qwen3.6-plus",
-        "rating": 1460.43,
-        "ci": "9.0 / 9.0",
-        "votes": 5140,
-        "org": "Alibaba"
+        "name": "claude-opus-4-5-20251101",
+        "rating": 1466.95,
+        "ci": "6.4 / 6.4",
+        "votes": 15307,
+        "org": "Anthropic"
       }
     ],
     "vision": [
@@ -428,7 +428,7 @@
     ]
   },
   "domestic": {
-    "updatedAt": "2026/5/19 13:58:41",
+    "updatedAt": "2026/5/22 13:57:45",
     "note": "国内模型分区榜单为站内整理版，综合公开榜单、产品能力、生态落地与近期发布节奏，适合做选型参考，不等同于单一统一基准测试。",
     "source": {
       "label": "站内维护数据",

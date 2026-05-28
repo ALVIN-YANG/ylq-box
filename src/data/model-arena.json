@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026/5/25 14:17:55",
-  "updatedAtISO": "2026-05-25T06:17:55.881Z",
+  "updatedAt": "2026/5/28 14:02:10",
+  "updatedAtISO": "2026-05-28T06:02:10.820Z",
   "sources": {
     "arena": {
       "label": "LMArena Leaderboard",
@@ -24,284 +24,284 @@
       {
         "rank": 1,
         "name": "claude-opus-4-6-thinking",
-        "rating": 1501.98,
-        "ci": "4.4 / 4.4",
-        "votes": 27454,
+        "rating": 1502.17,
+        "ci": "4.3 / 4.3",
+        "votes": 34186,
         "org": "Anthropic"
       },
       {
         "rank": 2,
         "name": "claude-opus-4-7-thinking",
-        "rating": 1500.25,
-        "ci": "5.8 / 5.8",
-        "votes": 12920,
+        "rating": 1499.7,
+        "ci": "5.2 / 5.2",
+        "votes": 19973,
         "org": "Anthropic"
       },
       {
         "rank": 3,
         "name": "claude-opus-4-6",
-        "rating": 1498.06,
-        "ci": "4.3 / 4.3",
-        "votes": 29240,
+        "rating": 1498.38,
+        "ci": "4.2 / 4.2",
+        "votes": 36512,
         "org": "Anthropic"
       },
       {
         "rank": 4,
         "name": "claude-opus-4-7",
-        "rating": 1492.39,
-        "ci": "5.7 / 5.7",
-        "votes": 13571,
+        "rating": 1493.64,
+        "ci": "5.3 / 5.3",
+        "votes": 20724,
         "org": "Anthropic"
       },
       {
         "rank": 5,
         "name": "muse-spark",
-        "rating": 1489.49,
-        "ci": "6.1 / 6.1",
-        "votes": 11103,
+        "rating": 1488.97,
+        "ci": "6.0 / 6.0",
+        "votes": 12228,
         "org": "Meta"
       },
       {
         "rank": 6,
         "name": "gemini-3.1-pro-preview",
-        "rating": 1488.18,
-        "ci": "4.3 / 4.3",
-        "votes": 34189,
+        "rating": 1487.45,
+        "ci": "4.1 / 4.1",
+        "votes": 43742,
         "org": "Google"
       },
       {
         "rank": 7,
         "name": "gemini-3-pro",
-        "rating": 1485.82,
+        "rating": 1485.97,
         "ci": "3.9 / 3.9",
-        "votes": 41331,
+        "votes": 41332,
         "org": "Google"
       },
       {
         "rank": 8,
         "name": "gpt-5.5-high",
-        "rating": 1481.32,
-        "ci": "6.3 / 6.3",
-        "votes": 10172,
+        "rating": 1482.33,
+        "ci": "5.6 / 5.6",
+        "votes": 16573,
         "org": "OpenAI"
       },
       {
         "rank": 9,
-        "name": "gemini-3.5-flash",
-        "rating": 1480.04,
-        "ci": "7.7 / 7.7",
-        "votes": 5907,
-        "org": "Google"
+        "name": "gpt-5.4-high",
+        "rating": 1480.43,
+        "ci": "4.7 / 4.7",
+        "votes": 28246,
+        "org": "OpenAI"
       },
       {
         "rank": 10,
-        "name": "gpt-5.4-high",
-        "rating": 1479.6,
-        "ci": "5.0 / 5.0",
-        "votes": 21023,
-        "org": "OpenAI"
+        "name": "gemini-3.5-flash",
+        "rating": 1479.08,
+        "ci": "6.7 / 6.7",
+        "votes": 9045,
+        "org": "Google"
       },
       {
         "rank": 11,
         "name": "gpt-5.5",
-        "rating": 1477.99,
-        "ci": "6.3 / 6.3",
-        "votes": 10294,
+        "rating": 1476.41,
+        "ci": "5.6 / 5.6",
+        "votes": 16852,
         "org": "OpenAI"
       },
       {
         "rank": 12,
-        "name": "grok-4.20-beta1",
-        "rating": 1477.98,
-        "ci": "4.8 / 4.8",
-        "votes": 22458,
-        "org": "xAI"
-      },
-      {
-        "rank": 13,
         "name": "gpt-5.2-chat-latest-20260210",
-        "rating": 1477.04,
-        "ci": "4.4 / 4.3",
-        "votes": 27988,
+        "rating": 1476.33,
+        "ci": "4.2 / 4.2",
+        "votes": 32280,
         "org": "OpenAI"
       },
       {
+        "rank": 13,
+        "name": "grok-4.20-beta1",
+        "rating": 1476.21,
+        "ci": "4.8 / 4.8",
+        "votes": 24468,
+        "org": "xAI"
+      },
+      {
         "rank": 14,
-        "name": "qwen3.7-max-preview",
-        "rating": 1475.21,
-        "ci": "10.0 / 10.0",
-        "votes": 3741,
-        "org": "Alibaba"
+        "name": "grok-4.20-beta-0309-reasoning",
+        "rating": 1475.11,
+        "ci": "4.5 / 4.5",
+        "votes": 29068,
+        "org": "xAI"
       },
       {
         "rank": 15,
-        "name": "grok-4.20-beta-0309-reasoning",
-        "rating": 1474.97,
-        "ci": "4.8 / 4.8",
-        "votes": 21572,
-        "org": "xAI"
+        "name": "qwen3.7-max-preview",
+        "rating": 1474.72,
+        "ci": "10.0 / 10.0",
+        "votes": 3755,
+        "org": "Alibaba"
       },
       {
         "rank": 16,
-        "name": "grok-4.20-multi-agent-beta-0309",
-        "rating": 1474.23,
-        "ci": "4.8 / 4.8",
-        "votes": 21565,
-        "org": "xAI"
+        "name": "glm-5.1",
+        "rating": 1473.85,
+        "ci": "5.8 / 5.8",
+        "votes": 13957,
+        "org": "Z.ai"
       },
       {
         "rank": 17,
-        "name": "gemini-3-flash",
-        "rating": 1473.32,
-        "ci": "4.4 / 4.4",
-        "votes": 30742,
-        "org": "Google"
+        "name": "gpt-5.5-instant",
+        "rating": 1473.75,
+        "ci": "5.2 / 5.2",
+        "votes": 24925,
+        "org": "OpenAI"
       },
       {
         "rank": 18,
-        "name": "ernie-5.1",
-        "rating": 1473.22,
-        "ci": "6.6 / 6.6",
-        "votes": 9004,
-        "org": "Baidu"
+        "name": "gemini-3-flash",
+        "rating": 1473.25,
+        "ci": "4.4 / 4.4",
+        "votes": 30732,
+        "org": "Google"
       },
       {
         "rank": 19,
         "name": "claude-opus-4-5-20251101-thinking-32k",
-        "rating": 1472.6,
+        "rating": 1472.59,
         "ci": "3.9 / 3.9",
         "votes": 37130,
         "org": "Anthropic"
       },
       {
         "rank": 20,
-        "name": "glm-5.1",
-        "rating": 1472.23,
-        "ci": "6.0 / 6.0",
-        "votes": 12295,
-        "org": "Z.ai"
+        "name": "grok-4.20-multi-agent-beta-0309",
+        "rating": 1472.25,
+        "ci": "4.6 / 4.6",
+        "votes": 28630,
+        "org": "xAI"
       }
     ],
     "code": [
       {
         "rank": 1,
         "name": "claude-opus-4-7-thinking",
-        "rating": 1567.35,
-        "ci": "10.3 / 10.3",
-        "votes": 4462,
+        "rating": 1566.85,
+        "ci": "9.5 / 9.5",
+        "votes": 5270,
         "org": "Anthropic"
       },
       {
         "rank": 2,
         "name": "claude-opus-4-7",
-        "rating": 1559.83,
-        "ci": "10.3 / 10.3",
-        "votes": 4186,
+        "rating": 1562.39,
+        "ci": "9.6 / 9.6",
+        "votes": 4862,
         "org": "Anthropic"
       },
       {
         "rank": 3,
         "name": "claude-opus-4-6-thinking",
-        "rating": 1544.67,
-        "ci": "8.1 / 8.1",
-        "votes": 7241,
+        "rating": 1542.16,
+        "ci": "7.8 / 7.7",
+        "votes": 7919,
         "org": "Anthropic"
       },
       {
         "rank": 4,
-        "name": "claude-opus-4-6",
-        "rating": 1539.92,
-        "ci": "7.7 / 7.7",
-        "votes": 8242,
-        "org": "Anthropic"
+        "name": "qwen3.7-max-20260517",
+        "rating": 1540.77,
+        "ci": "16.0 / 16.0",
+        "votes": 1522,
+        "org": "Alibaba"
       },
       {
         "rank": 5,
+        "name": "claude-opus-4-6",
+        "rating": 1538.21,
+        "ci": "7.4 / 7.4",
+        "votes": 8889,
+        "org": "Anthropic"
+      },
+      {
+        "rank": 6,
         "name": "glm-5.1",
-        "rating": 1532.03,
+        "rating": 1532.77,
         "ci": "10.9 / 10.9",
         "votes": 3611,
         "org": "Z.ai"
       },
       {
-        "rank": 6,
+        "rank": 7,
         "name": "claude-sonnet-4-6",
-        "rating": 1523.71,
-        "ci": "7.2 / 7.2",
-        "votes": 10408,
+        "rating": 1522.91,
+        "ci": "6.9 / 6.9",
+        "votes": 11120,
         "org": "Anthropic"
       },
       {
-        "rank": 7,
+        "rank": 8,
         "name": "kimi-k2.6",
-        "rating": 1519.02,
-        "ci": "10.8 / 10.8",
-        "votes": 3437,
+        "rating": 1517.76,
+        "ci": "10.1 / 10.1",
+        "votes": 4008,
         "org": "Moonshot"
       },
       {
-        "rank": 8,
+        "rank": 9,
         "name": "muse-spark",
-        "rating": 1508.73,
+        "rating": 1508.16,
         "ci": "15.9 / 15.9",
-        "votes": 1630,
+        "votes": 1627,
         "org": "Meta"
       },
       {
-        "rank": 9,
+        "rank": 10,
         "name": "gemini-3.5-flash",
-        "rating": 1507.14,
-        "ci": "13.7 / 13.7",
-        "votes": 2148,
+        "rating": 1506.38,
+        "ci": "13.5 / 13.5",
+        "votes": 2213,
         "org": "Google"
       },
       {
-        "rank": 10,
-        "name": "gpt-5.5-xhigh (codex-harness)",
-        "rating": 1502.76,
-        "ci": "10.9 / 10.9",
-        "votes": 3456,
-        "org": "OpenAI"
-      },
-      {
         "rank": 11,
-        "name": "qwen3.6-max-preview",
-        "rating": 1490.83,
-        "ci": "13.7 / 13.7",
-        "votes": 2117,
-        "org": "Alibaba"
+        "name": "gpt-5.5-xhigh (codex-harness)",
+        "rating": 1504.74,
+        "ci": "10.0 / 10.1",
+        "votes": 4126,
+        "org": "OpenAI"
       },
       {
         "rank": 12,
         "name": "claude-opus-4-5-20251101-thinking-32k",
-        "rating": 1490.45,
+        "rating": 1490.41,
         "ci": "7.2 / 7.2",
-        "votes": 13067,
+        "votes": 13063,
         "org": "Anthropic"
       },
       {
         "rank": 13,
-        "name": "gpt-5.5-high (codex-harness)",
-        "rating": 1479.64,
-        "ci": "10.6 / 10.6",
-        "votes": 3664,
-        "org": "OpenAI"
+        "name": "qwen3.6-max-preview",
+        "rating": 1485.57,
+        "ci": "12.5 / 12.5",
+        "votes": 2498,
+        "org": "Alibaba"
       },
       {
         "rank": 14,
-        "name": "mimo-v2.5-pro",
-        "rating": 1470.9,
-        "ci": "10.1 / 10.1",
-        "votes": 4087,
-        "org": "Xiaomi"
+        "name": "gpt-5.5-high (codex-harness)",
+        "rating": 1478.93,
+        "ci": "9.8 / 9.9",
+        "votes": 4348,
+        "org": "OpenAI"
       },
       {
         "rank": 15,
-        "name": "claude-opus-4-5-20251101",
-        "rating": 1466.95,
-        "ci": "6.4 / 6.4",
-        "votes": 15307,
-        "org": "Anthropic"
+        "name": "mimo-v2.5-pro",
+        "rating": 1471.48,
+        "ci": "9.5 / 9.5",
+        "votes": 4719,
+        "org": "Xiaomi"
       }
     ],
     "vision": [
@@ -428,7 +428,7 @@
     ]
   },
   "domestic": {
-    "updatedAt": "2026/5/25 14:17:55",
+    "updatedAt": "2026/5/28 14:02:10",
     "note": "国内模型分区榜单为站内整理版，综合公开榜单、产品能力、生态落地与近期发布节奏，适合做选型参考，不等同于单一统一基准测试。",
     "source": {
       "label": "站内维护数据",
@@ -889,6 +889,78 @@
   ],
   "releases": [
     {
+      "date": "2026-05-19",
+      "model": "Qwen3.7 Max",
+      "provider": "Alibaba",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "Alibaba Qwen3.7 Max — AA Intelligence Index 56.6, 1M tokens context, reasoning model.。GPQA Diamond 92.3%，HLE 38.1%",
+      "features": [],
+      "metrics": [
+        {
+          "name": "GPQA Diamond",
+          "value": "92.3%"
+        },
+        {
+          "name": "HLE",
+          "value": "38.1%"
+        },
+        {
+          "name": "SciCode",
+          "value": "48.8%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2026-05-19",
+      "model": "Gemini 3.5 Flash",
+      "provider": "Google",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "Google Gemini 3.5 Flash — AA Intelligence Index 55.3, 1M tokens context, reasoning model.。GPQA Diamond 82.8%，HLE 23.1%",
+      "features": [],
+      "metrics": [
+        {
+          "name": "GPQA Diamond",
+          "value": "82.8%"
+        },
+        {
+          "name": "HLE",
+          "value": "23.1%"
+        },
+        {
+          "name": "SciCode",
+          "value": "48.8%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2026-05-14",
+      "model": "JT-35B-Flash",
+      "provider": "China Mobile",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "China Mobile JT-35B-Flash — AA Intelligence Index 36.1, 256K tokens context.。GPQA Diamond 82.9%，HLE 6.1%",
+      "features": [],
+      "metrics": [
+        {
+          "name": "GPQA Diamond",
+          "value": "82.9%"
+        },
+        {
+          "name": "HLE",
+          "value": "6.1%"
+        },
+        {
+          "name": "SciCode",
+          "value": "29.1%"
+        }
+      ],
+      "url": ""
+    },
+    {
       "date": "2026-05-11",
       "model": "MiniCPM-V 4.6 1.3B",
       "provider": "OpenBMB",
@@ -908,6 +980,30 @@
         {
           "name": "SciCode",
           "value": "2.1%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2026-05-08",
+      "model": "Ring-2.6-1T",
+      "provider": "InclusionAI",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "InclusionAI Ring-2.6-1T — AA Intelligence Index 38.5, 262K tokens context, reasoning model.。GPQA Diamond 85.7%，HLE 18.3%",
+      "features": [],
+      "metrics": [
+        {
+          "name": "GPQA Diamond",
+          "value": "85.7%"
+        },
+        {
+          "name": "HLE",
+          "value": "18.3%"
+        },
+        {
+          "name": "SciCode",
+          "value": "42.4%"
         }
       ],
       "url": ""
@@ -1369,6 +1465,30 @@
       "url": ""
     },
     {
+      "date": "2026-04-15",
+      "model": "JT-MINI",
+      "provider": "China Mobile",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "China Mobile JT-MINI — AA Intelligence Index 25.4, 128K tokens context.。GPQA Diamond 67.6%，HLE 6.6%",
+      "features": [],
+      "metrics": [
+        {
+          "name": "GPQA Diamond",
+          "value": "67.6%"
+        },
+        {
+          "name": "HLE",
+          "value": "6.6%"
+        },
+        {
+          "name": "SciCode",
+          "value": "27.2%"
+        }
+      ],
+      "url": ""
+    },
+    {
       "date": "2026-04-09",
       "model": "EXAONE 4.5 33B",
       "provider": "LG AI Research",
@@ -1724,126 +1844,6 @@
         {
           "name": "SciCode",
           "value": "40.5%"
-        }
-      ],
-      "url": ""
-    },
-    {
-      "date": "2026-03-27",
-      "model": "MiMo-V2-Omni-0327",
-      "provider": "Xiaomi",
-      "type": "LLM",
-      "category": "Major Release",
-      "highlights": "Xiaomi MiMo-V2-Omni-0327 — AA Intelligence Index 44.9, 256K tokens context, reasoning model.。GPQA Diamond 85.5%，HLE 20.4%",
-      "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "85.5%"
-        },
-        {
-          "name": "HLE",
-          "value": "20.4%"
-        },
-        {
-          "name": "SciCode",
-          "value": "39.5%"
-        }
-      ],
-      "url": ""
-    },
-    {
-      "date": "2026-03-19",
-      "model": "Nemotron Cascade 2 30B A3B",
-      "provider": "NVIDIA",
-      "type": "LLM",
-      "category": "Major Release",
-      "highlights": "NVIDIA Nemotron Cascade 2 30B A3B — AA Intelligence Index 28.4, 1M tokens context, reasoning model.。GPQA Diamond 75.8%，HLE 11.4%",
-      "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "75.8%"
-        },
-        {
-          "name": "HLE",
-          "value": "11.4%"
-        },
-        {
-          "name": "SciCode",
-          "value": "34.8%"
-        }
-      ],
-      "url": ""
-    },
-    {
-      "date": "2026-03-19",
-      "model": "MiMo-V2-Omni",
-      "provider": "Xiaomi",
-      "type": "LLM",
-      "category": "Major Release",
-      "highlights": "Xiaomi MiMo-V2-Omni — AA Intelligence Index 43.4, 256K tokens context, reasoning model.。GPQA Diamond 82.8%，HLE 19.9%",
-      "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "82.8%"
-        },
-        {
-          "name": "HLE",
-          "value": "19.9%"
-        },
-        {
-          "name": "SciCode",
-          "value": "36.7%"
-        }
-      ],
-      "url": ""
-    },
-    {
-      "date": "2026-03-18",
-      "model": "MiniMax-M2.7",
-      "provider": "MiniMax",
-      "type": "LLM",
-      "category": "Major Release",
-      "highlights": "MiniMax MiniMax-M2.7 — AA Intelligence Index 49.6, 204K tokens context, reasoning model.。GPQA Diamond 87.4%，HLE 28.1%",
-      "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "87.4%"
-        },
-        {
-          "name": "HLE",
-          "value": "28.1%"
-        },
-        {
-          "name": "SciCode",
-          "value": "47.0%"
-        }
-      ],
-      "url": ""
-    },
-    {
-      "date": "2026-03-18",
-      "model": "MiMo-V2-Pro",
-      "provider": "Xiaomi",
-      "type": "LLM",
-      "category": "Major Release",
-      "highlights": "Xiaomi MiMo-V2-Pro — AA Intelligence Index 49.2, 1M tokens context, reasoning model.。GPQA Diamond 87.0%，HLE 28.3%",
-      "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "87.0%"
-        },
-        {
-          "name": "HLE",
-          "value": "28.3%"
-        },
-        {
-          "name": "SciCode",
-          "value": "42.5%"
         }
       ],
       "url": ""

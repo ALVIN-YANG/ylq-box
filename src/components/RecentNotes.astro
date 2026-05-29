@@ -27,25 +27,23 @@ function formatDate(date: Date | undefined): string {
 
 const allDocs = await getCollection('docs');
 
-const priorityPrefixes = ['opencode/', 'claw/', 'ai-workflow/', 'ai/', 'architecture/', 'ai-news/'];
-
-function getPriority(id: string): number {
-  for (let i = 0; i < priorityPrefixes.length; i++) {
-    if (id.startsWith(priorityPrefixes[i])) return i;
-  }
-  return priorityPrefixes.length;
-}
-
 function getDocDate(doc: typeof allDocs[number]): number {
   if (doc.data.lastUpdated) {
     return new Date(doc.data.lastUpdated).getTime();
   }
   try {
-    const filePath = resolve(`src/content/docs/${doc.id}.md`);
-    const stats = statSync(filePath);
+    // 优先匹配 .md 文件，回退到 .mdx
+    let filePath = resolve(`src/content/docs/${doc.id}.md`);
+    let stats = statSync(filePath);
     return stats.mtime.getTime();
   } catch {
-    return 0;
+    try {
+      let filePath = resolve(`src/content/docs/${doc.id}.mdx`);
+      let stats = statSync(filePath);
+      return stats.mtime.getTime();
+    } catch {
+      return 0;
+    }
   }
 }
 
@@ -59,12 +57,7 @@ const recentDocs = allDocs
       && !id.startsWith('guides/')
       && !id.startsWith('reference/');
   })
-  .sort((a, b) => {
-    const pa = getPriority(a.id);
-    const pb = getPriority(b.id);
-    if (pa !== pb) return pa - pb;
-    return getDocDate(b) - getDocDate(a);
-  })
+  .sort((a, b) => getDocDate(b) - getDocDate(a))
   .slice(0, 6);
 ---
 

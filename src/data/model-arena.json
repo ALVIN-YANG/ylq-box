@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026/6/7 14:14:21",
-  "updatedAtISO": "2026-06-07T06:14:21.917Z",
+  "updatedAt": "2026/6/10 14:14:16",
+  "updatedAtISO": "2026-06-10T06:14:16.966Z",
   "sources": {
     "arena": {
       "label": "LMArena Leaderboard",
@@ -428,7 +428,7 @@
     ]
   },
   "domestic": {
-    "updatedAt": "2026/6/7 14:14:21",
+    "updatedAt": "2026/6/10 14:14:16",
     "note": "国内模型分区榜单为站内整理版，综合公开榜单、产品能力、生态落地与近期发布节奏，适合做选型参考，不等同于单一统一基准测试。",
     "source": {
       "label": "站内维护数据",
@@ -889,6 +889,126 @@
   ],
   "releases": [
     {
+      "date": "2026-06-04",
+      "model": "Nemotron 3 Ultra 550B A55B",
+      "provider": "NVIDIA",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "NVIDIA Nemotron 3 Ultra 550B A55B — AA Intelligence Index 47.7, 262K tokens context, reasoning model.。GPQA Diamond 86.7%，HLE 26.6%",
+      "features": [],
+      "metrics": [
+        {
+          "name": "GPQA Diamond",
+          "value": "86.7%"
+        },
+        {
+          "name": "HLE",
+          "value": "26.6%"
+        },
+        {
+          "name": "SciCode",
+          "value": "39.9%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2026-06-03",
+      "model": "Gemma 4 12B",
+      "provider": "Google",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "Google Gemma 4 12B — AA Intelligence Index 29.0, 131K tokens context, reasoning model.。GPQA Diamond 75.3%，HLE 14.6%",
+      "features": [],
+      "metrics": [
+        {
+          "name": "GPQA Diamond",
+          "value": "75.3%"
+        },
+        {
+          "name": "HLE",
+          "value": "14.6%"
+        },
+        {
+          "name": "SciCode",
+          "value": "38.2%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2026-06-01",
+      "model": "Qwen3.7 Plus",
+      "provider": "Alibaba",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "Alibaba Qwen3.7 Plus — AA Intelligence Index 53.3, 1M tokens context, reasoning model.。GPQA Diamond 90.0%，HLE 33.4%",
+      "features": [],
+      "metrics": [
+        {
+          "name": "GPQA Diamond",
+          "value": "90.0%"
+        },
+        {
+          "name": "HLE",
+          "value": "33.4%"
+        },
+        {
+          "name": "SciCode",
+          "value": "45.5%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2026-06-01",
+      "model": "MiniMax-M3",
+      "provider": "MiniMax",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "MiniMax MiniMax-M3 — AA Intelligence Index 54.7, 1M tokens context, reasoning model.。GPQA Diamond 92.9%，HLE 37.1%",
+      "features": [],
+      "metrics": [
+        {
+          "name": "GPQA Diamond",
+          "value": "92.9%"
+        },
+        {
+          "name": "HLE",
+          "value": "37.1%"
+        },
+        {
+          "name": "SciCode",
+          "value": "45.4%"
+        }
+      ],
+      "url": ""
+    },
+    {
+      "date": "2026-05-29",
+      "model": "Step 3.7 Flash",
+      "provider": "StepFun",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "StepFun Step 3.7 Flash — AA Intelligence Index 42.6, 256K tokens context, reasoning model.。GPQA Diamond 80.9%，HLE 19.9%",
+      "features": [],
+      "metrics": [
+        {
+          "name": "GPQA Diamond",
+          "value": "80.9%"
+        },
+        {
+          "name": "HLE",
+          "value": "19.9%"
+        },
+        {
+          "name": "SciCode",
+          "value": "40.0%"
+        }
+      ],
+      "url": ""
+    },
+    {
       "date": "2026-05-28",
       "model": "Claude Opus 4.8",
       "provider": "Anthropic",
@@ -918,20 +1038,20 @@
       "provider": "OpenBMB",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "OpenBMB MiniCPM5-1B — AA Intelligence Index 17.9, 128K tokens context.。GPQA Diamond 26.9%，HLE 4.6%",
+      "highlights": "OpenBMB MiniCPM5-1B — AA Intelligence Index 17.9, 128K tokens context.。GPQA Diamond 27.8%，HLE 6.5%",
       "features": [],
       "metrics": [
         {
           "name": "GPQA Diamond",
-          "value": "26.9%"
+          "value": "27.8%"
         },
         {
           "name": "HLE",
-          "value": "4.6%"
+          "value": "6.5%"
         },
         {
           "name": "SciCode",
-          "value": "1.4%"
+          "value": "4.4%"
         }
       ],
       "url": ""
@@ -1724,126 +1844,6 @@
         {
           "name": "SciCode",
           "value": "40.7%"
-        }
-      ],
-      "url": ""
-    },
-    {
-      "date": "2026-04-02",
-      "model": "Gemma 4 26B A4B",
-      "provider": "Google",
-      "type": "LLM",
-      "category": "Major Release",
-      "highlights": "Google Gemma 4 26B A4B — AA Intelligence Index 31.2, 256K tokens context, reasoning model.。GPQA Diamond 79.2%，HLE 18.3%",
-      "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "79.2%"
-        },
-        {
-          "name": "HLE",
-          "value": "18.3%"
-        },
-        {
-          "name": "SciCode",
-          "value": "40.0%"
-        }
-      ],
-      "url": ""
-    },
-    {
-      "date": "2026-04-02",
-      "model": "Gemma 4 31B",
-      "provider": "Google",
-      "type": "LLM",
-      "category": "Major Release",
-      "highlights": "Google Gemma 4 31B — AA Intelligence Index 39.2, 256K tokens context, reasoning model.。GPQA Diamond 85.7%，HLE 22.7%",
-      "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "85.7%"
-        },
-        {
-          "name": "HLE",
-          "value": "22.7%"
-        },
-        {
-          "name": "SciCode",
-          "value": "43.4%"
-        }
-      ],
-      "url": ""
-    },
-    {
-      "date": "2026-04-02",
-      "model": "Gemma 4 E2B",
-      "provider": "Google",
-      "type": "LLM",
-      "category": "Major Release",
-      "highlights": "Google Gemma 4 E2B — AA Intelligence Index 15.2, 128K tokens context, reasoning model.。GPQA Diamond 43.3%，HLE 4.8%",
-      "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "43.3%"
-        },
-        {
-          "name": "HLE",
-          "value": "4.8%"
-        },
-        {
-          "name": "SciCode",
-          "value": "20.9%"
-        }
-      ],
-      "url": ""
-    },
-    {
-      "date": "2026-04-02",
-      "model": "Step 3.5 Flash 2603",
-      "provider": "StepFun",
-      "type": "LLM",
-      "category": "Major Release",
-      "highlights": "StepFun Step 3.5 Flash 2603 — AA Intelligence Index 38.5, 256K tokens context, reasoning model.。GPQA Diamond 82.6%，HLE 22.6%",
-      "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "82.6%"
-        },
-        {
-          "name": "HLE",
-          "value": "22.6%"
-        },
-        {
-          "name": "SciCode",
-          "value": "38.5%"
-        }
-      ],
-      "url": ""
-    },
-    {
-      "date": "2026-04-01",
-      "model": "Trinity Large Thinking",
-      "provider": "Arcee AI",
-      "type": "LLM",
-      "category": "Major Release",
-      "highlights": "Arcee AI Trinity Large Thinking — AA Intelligence Index 31.9, 512K tokens context, reasoning model.。GPQA Diamond 75.2%，HLE 14.7%",
-      "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "75.2%"
-        },
-        {
-          "name": "HLE",
-          "value": "14.7%"
-        },
-        {
-          "name": "SciCode",
-          "value": "36.1%"
         }
       ],
       "url": ""

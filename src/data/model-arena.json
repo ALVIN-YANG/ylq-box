@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026/6/19 14:56:46",
-  "updatedAtISO": "2026-06-19T06:56:46.671Z",
+  "updatedAt": "2026/6/22 15:11:10",
+  "updatedAtISO": "2026-06-22T07:11:10.429Z",
   "sources": {
     "arena": {
       "label": "LMArena Leaderboard",
@@ -428,7 +428,7 @@
     ]
   },
   "domestic": {
-    "updatedAt": "2026/6/19 14:56:46",
+    "updatedAt": "2026/6/22 15:11:10",
     "note": "国内模型分区榜单为站内整理版，综合公开榜单、产品能力、生态落地与近期发布节奏，适合做选型参考，不等同于单一统一基准测试。",
     "source": {
       "label": "站内维护数据",
@@ -894,7 +894,7 @@
       "provider": "Anthropic",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Anthropic Claude Fable 5 — AA Intelligence Index 64.9, 1M tokens context, reasoning model.。GPQA Diamond 92.6%，HLE 53.3%",
+      "highlights": "Anthropic Claude Fable 5 — 1M tokens context, reasoning model.。GPQA Diamond 92.6%，HLE 53.3%",
       "features": [],
       "metrics": [
         {
@@ -918,7 +918,7 @@
       "provider": "Cohere",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Cohere North Mini Code — AA Intelligence Index 27.6, 256K tokens context, reasoning model.。GPQA Diamond 75.7%，HLE 9.9%",
+      "highlights": "Cohere North Mini Code — 256K tokens context, reasoning model.。GPQA Diamond 75.7%，HLE 9.9%",
       "features": [],
       "metrics": [
         {
@@ -942,7 +942,7 @@
       "provider": "NVIDIA",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "NVIDIA Nemotron 3 Ultra 550B A55B — AA Intelligence Index 47.7, 262K tokens context, reasoning model.。GPQA Diamond 86.7%，HLE 26.6%",
+      "highlights": "NVIDIA Nemotron 3 Ultra 550B A55B — 262K tokens context, reasoning model.。GPQA Diamond 86.7%，HLE 26.6%",
       "features": [],
       "metrics": [
         {
@@ -966,7 +966,7 @@
       "provider": "Google",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Google Gemma 4 12B — AA Intelligence Index 29.0, 131K tokens context, reasoning model.。GPQA Diamond 75.3%，HLE 14.8%",
+      "highlights": "Google Gemma 4 12B — 131K tokens context, reasoning model.。GPQA Diamond 75.3%，HLE 14.8%",
       "features": [],
       "metrics": [
         {
@@ -990,7 +990,7 @@
       "provider": "Alibaba",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Alibaba Qwen3.7 Plus — AA Intelligence Index 53.3, 1M tokens context, reasoning model.。GPQA Diamond 90.0%，HLE 33.4%",
+      "highlights": "Alibaba Qwen3.7 Plus — 1M tokens context, reasoning model.。GPQA Diamond 90.0%，HLE 33.4%",
       "features": [],
       "metrics": [
         {
@@ -1014,7 +1014,7 @@
       "provider": "MiniMax",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "MiniMax MiniMax-M3 — AA Intelligence Index 54.7, 1M tokens context, reasoning model.。GPQA Diamond 92.9%，HLE 37.1%",
+      "highlights": "MiniMax MiniMax-M3 — 1M tokens context, reasoning model.。GPQA Diamond 92.9%，HLE 37.1%",
       "features": [],
       "metrics": [
         {
@@ -1038,7 +1038,7 @@
       "provider": "StepFun",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "StepFun Step 3.7 Flash — AA Intelligence Index 42.6, 256K tokens context, reasoning model.。GPQA Diamond 80.9%，HLE 19.9%",
+      "highlights": "StepFun Step 3.7 Flash — 256K tokens context, reasoning model.。GPQA Diamond 80.9%，HLE 19.9%",
       "features": [],
       "metrics": [
         {
@@ -1062,7 +1062,7 @@
       "provider": "Anthropic",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Anthropic Claude Opus 4.8 — AA Intelligence Index 61.4, 1M tokens context, reasoning model.。GPQA Diamond 92.0%，HLE 45.7%",
+      "highlights": "Anthropic Claude Opus 4.8 — 1M tokens context, reasoning model.。GPQA Diamond 92.0%，HLE 45.7%",
       "features": [],
       "metrics": [
         {
@@ -1086,7 +1086,7 @@
       "provider": "Liquid AI",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Liquid AI LFM2.5-8B-A1B — AA Intelligence Index 14.2, 32K tokens context, reasoning model.。GPQA Diamond 51.3%，HLE 6.9%",
+      "highlights": "Liquid AI LFM2.5-8B-A1B — 32K tokens context, reasoning model.。GPQA Diamond 51.3%，HLE 6.9%",
       "features": [],
       "metrics": [
         {
@@ -1110,7 +1110,7 @@
       "provider": "Multiverse Computing",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Multiverse Computing HyperNova 60B 2605 — AA Intelligence Index 29.3, 131K tokens context, reasoning model.。GPQA Diamond 73.3%，HLE 15.1%",
+      "highlights": "Multiverse Computing HyperNova 60B 2605 — 131K tokens context, reasoning model.。GPQA Diamond 73.3%，HLE 15.1%",
       "features": [],
       "metrics": [
         {
@@ -1134,7 +1134,7 @@
       "provider": "OpenBMB",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "OpenBMB MiniCPM5-1B — AA Intelligence Index 17.9, 128K tokens context.。GPQA Diamond 27.8%，HLE 6.5%",
+      "highlights": "OpenBMB MiniCPM5-1B — 128K tokens context.。GPQA Diamond 27.8%，HLE 6.5%",
       "features": [],
       "metrics": [
         {
@@ -1158,7 +1158,7 @@
       "provider": "Alibaba",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Alibaba Qwen3.7 Max — AA Intelligence Index 56.6, 1M tokens context, reasoning model.。GPQA Diamond 92.3%，HLE 38.1%",
+      "highlights": "Alibaba Qwen3.7 Max — 1M tokens context, reasoning model.。GPQA Diamond 92.3%，HLE 38.1%",
       "features": [],
       "metrics": [
         {
@@ -1182,7 +1182,7 @@
       "provider": "Google",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Google Gemini 3.5 Flash — AA Intelligence Index 55.3, 1M tokens context, reasoning model.。GPQA Diamond 82.8%，HLE 23.1%",
+      "highlights": "Google Gemini 3.5 Flash — 1M tokens context, reasoning model.。GPQA Diamond 82.8%，HLE 23.1%",
       "features": [],
       "metrics": [
         {
@@ -1206,7 +1206,7 @@
       "provider": "China Mobile",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "China Mobile JT-35B-Flash — AA Intelligence Index 36.1, 256K tokens context.。GPQA Diamond 82.9%，HLE 6.1%",
+      "highlights": "China Mobile JT-35B-Flash — 256K tokens context.。GPQA Diamond 82.9%，HLE 6.1%",
       "features": [],
       "metrics": [
         {
@@ -1230,7 +1230,7 @@
       "provider": "OpenBMB",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "OpenBMB MiniCPM-V 4.6 1.3B — AA Intelligence Index 12.7, 262K tokens context.。GPQA Diamond 30.5%，HLE 4.9%",
+      "highlights": "OpenBMB MiniCPM-V 4.6 1.3B — 262K tokens context.。GPQA Diamond 30.5%，HLE 4.9%",
       "features": [],
       "metrics": [
         {
@@ -1254,7 +1254,7 @@
       "provider": "InclusionAI",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "InclusionAI Ring-2.6-1T — AA Intelligence Index 38.5, 262K tokens context, reasoning model.。GPQA Diamond 85.7%，HLE 18.3%",
+      "highlights": "InclusionAI Ring-2.6-1T — 262K tokens context, reasoning model.。GPQA Diamond 85.7%，HLE 18.3%",
       "features": [],
       "metrics": [
         {
@@ -1278,7 +1278,7 @@
       "provider": "OpenAI",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "OpenAI GPT-5.5 Instant — AA Intelligence Index 41.8, 400K tokens context, reasoning model.。GPQA Diamond 84.6%，HLE 20.3%",
+      "highlights": "OpenAI GPT-5.5 Instant — 400K tokens context, reasoning model.。GPQA Diamond 84.6%，HLE 20.3%",
       "features": [],
       "metrics": [
         {
@@ -1302,7 +1302,7 @@
       "provider": "xAI",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "xAI Grok 4.3 — AA Intelligence Index 53.2, 1M tokens context, reasoning model.。GPQA Diamond 90.1%，HLE 35.0%",
+      "highlights": "xAI Grok 4.3 — 1M tokens context, reasoning model.。GPQA Diamond 90.1%，HLE 35.0%",
       "features": [],
       "metrics": [
         {
@@ -1326,7 +1326,7 @@
       "provider": "IBM",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "IBM Granite 4.1 30B — AA Intelligence Index 14.7, 131K tokens context.。GPQA Diamond 48.1%，HLE 4.2%",
+      "highlights": "IBM Granite 4.1 30B — 131K tokens context.。GPQA Diamond 48.1%，HLE 4.2%",
       "features": [],
       "metrics": [
         {
@@ -1350,7 +1350,7 @@
       "provider": "IBM",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "IBM Granite 4.1 3B — AA Intelligence Index 8.5, 131K tokens context.。GPQA Diamond 31.4%，HLE 3.4%",
+      "highlights": "IBM Granite 4.1 3B — 131K tokens context.。GPQA Diamond 31.4%，HLE 3.4%",
       "features": [],
       "metrics": [
         {
@@ -1374,7 +1374,7 @@
       "provider": "IBM",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "IBM Granite 4.1 8B — AA Intelligence Index 12.4, 131K tokens context.。GPQA Diamond 43.3%，HLE 3.8%",
+      "highlights": "IBM Granite 4.1 8B — 131K tokens context.。GPQA Diamond 43.3%，HLE 3.8%",
       "features": [],
       "metrics": [
         {
@@ -1398,7 +1398,7 @@
       "provider": "Mistral",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Mistral Mistral Medium 3.5 — AA Intelligence Index 39.2, 256K tokens context, reasoning model.。GPQA Diamond 74.8%，HLE 12.8%",
+      "highlights": "Mistral Mistral Medium 3.5 — 256K tokens context, reasoning model.。GPQA Diamond 74.8%，HLE 12.8%",
       "features": [],
       "metrics": [
         {
@@ -1422,7 +1422,7 @@
       "provider": "NVIDIA",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "NVIDIA Nemotron 3 Nano Omni 30B A3B Reasoning — AA Intelligence Index 21.4, 256K tokens context, reasoning model.。GPQA Diamond 46.9%，HLE 5.3%",
+      "highlights": "NVIDIA Nemotron 3 Nano Omni 30B A3B Reasoning — 256K tokens context, reasoning model.。GPQA Diamond 46.9%，HLE 5.3%",
       "features": [],
       "metrics": [
         {
@@ -1446,7 +1446,7 @@
       "provider": "DeepSeek",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "DeepSeek DeepSeek V4 Flash — AA Intelligence Index 46.5, 1M tokens context, reasoning model.。GPQA Diamond 89.4%，HLE 32.1%",
+      "highlights": "DeepSeek DeepSeek V4 Flash — 1M tokens context, reasoning model.。GPQA Diamond 89.4%，HLE 32.1%",
       "features": [],
       "metrics": [
         {
@@ -1470,7 +1470,7 @@
       "provider": "DeepSeek",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "DeepSeek DeepSeek V4 Pro — AA Intelligence Index 51.5, 1M tokens context, reasoning model.。GPQA Diamond 88.8%，HLE 35.9%",
+      "highlights": "DeepSeek DeepSeek V4 Pro — 1M tokens context, reasoning model.。GPQA Diamond 88.8%，HLE 35.9%",
       "features": [],
       "metrics": [
         {
@@ -1494,7 +1494,7 @@
       "provider": "InclusionAI",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "InclusionAI Ling-2.6-1T — AA Intelligence Index 33.6, 262K tokens context.。GPQA Diamond 75.2%，HLE 8.2%",
+      "highlights": "InclusionAI Ling-2.6-1T — 262K tokens context.。GPQA Diamond 75.2%，HLE 8.2%",
       "features": [],
       "metrics": [
         {
@@ -1518,7 +1518,7 @@
       "provider": "OpenAI",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "OpenAI GPT-5.5 — AA Intelligence Index 60.2, 922K tokens context, reasoning model.。GPQA Diamond 93.5%，HLE 44.3%",
+      "highlights": "OpenAI GPT-5.5 — 922K tokens context, reasoning model.。GPQA Diamond 93.5%，HLE 44.3%",
       "features": [],
       "metrics": [
         {
@@ -1542,7 +1542,7 @@
       "provider": "Tencent",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Tencent Hy3-preview — AA Intelligence Index 41.9, 256K tokens context, reasoning model.。GPQA Diamond 86.7%，HLE 25.5%",
+      "highlights": "Tencent Hy3-preview — 256K tokens context, reasoning model.。GPQA Diamond 86.7%，HLE 25.5%",
       "features": [],
       "metrics": [
         {
@@ -1566,7 +1566,7 @@
       "provider": "Alibaba",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Alibaba Qwen3.6 27B — AA Intelligence Index 45.8, 262K tokens context, reasoning model.。GPQA Diamond 84.2%，HLE 21.6%",
+      "highlights": "Alibaba Qwen3.6 27B — 262K tokens context, reasoning model.。GPQA Diamond 84.2%，HLE 21.6%",
       "features": [],
       "metrics": [
         {
@@ -1590,7 +1590,7 @@
       "provider": "Xiaomi",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Xiaomi MiMo-V2.5 — AA Intelligence Index 49.0, 1M tokens context, reasoning model.。GPQA Diamond 84.9%，HLE 25.2%",
+      "highlights": "Xiaomi MiMo-V2.5 — 1M tokens context, reasoning model.。GPQA Diamond 84.9%，HLE 25.2%",
       "features": [],
       "metrics": [
         {
@@ -1614,7 +1614,7 @@
       "provider": "Xiaomi",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Xiaomi MiMo-V2.5-Pro — AA Intelligence Index 53.8, 1M tokens context, reasoning model.。GPQA Diamond 86.6%，HLE 33.8%",
+      "highlights": "Xiaomi MiMo-V2.5-Pro — 1M tokens context, reasoning model.。GPQA Diamond 86.6%，HLE 33.8%",
       "features": [],
       "metrics": [
         {
@@ -1638,7 +1638,7 @@
       "provider": "InclusionAI",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "InclusionAI Ling 2.6 Flash — AA Intelligence Index 26.2, 262K tokens context.。GPQA Diamond 59.3%，HLE 6.2%",
+      "highlights": "InclusionAI Ling 2.6 Flash — 262K tokens context.。GPQA Diamond 59.3%，HLE 6.2%",
       "features": [],
       "metrics": [
         {
@@ -1662,7 +1662,7 @@
       "provider": "Alibaba",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Alibaba Qwen3.6 Max Preview — AA Intelligence Index 51.8, 256K tokens context, reasoning model.。GPQA Diamond 88.8%，HLE 28.9%",
+      "highlights": "Alibaba Qwen3.6 Max Preview — 256K tokens context, reasoning model.。GPQA Diamond 88.8%，HLE 28.9%",
       "features": [],
       "metrics": [
         {
@@ -1686,7 +1686,7 @@
       "provider": "Kimi",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Kimi Kimi K2.6 — AA Intelligence Index 53.9, 256K tokens context, reasoning model.。GPQA Diamond 91.1%，HLE 35.9%",
+      "highlights": "Kimi Kimi K2.6 — 256K tokens context, reasoning model.。GPQA Diamond 91.1%，HLE 35.9%",
       "features": [],
       "metrics": [
         {
@@ -1710,7 +1710,7 @@
       "provider": "Alibaba",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Alibaba Qwen3.6 35B A3B — AA Intelligence Index 43.5, 262K tokens context, reasoning model.。GPQA Diamond 84.1%，HLE 20.2%",
+      "highlights": "Alibaba Qwen3.6 35B A3B — 262K tokens context, reasoning model.。GPQA Diamond 84.1%，HLE 20.2%",
       "features": [],
       "metrics": [
         {
@@ -1734,7 +1734,7 @@
       "provider": "Anthropic",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Anthropic Claude Opus 4.7 — AA Intelligence Index 57.3, 1M tokens context, reasoning model.。GPQA Diamond 91.4%，HLE 39.6%",
+      "highlights": "Anthropic Claude Opus 4.7 — 1M tokens context, reasoning model.。GPQA Diamond 91.4%，HLE 39.6%",
       "features": [],
       "metrics": [
         {
@@ -1758,7 +1758,7 @@
       "provider": "China Mobile",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "China Mobile JT-MINI — AA Intelligence Index 25.4, 128K tokens context.。GPQA Diamond 67.6%，HLE 6.6%",
+      "highlights": "China Mobile JT-MINI — 128K tokens context.。GPQA Diamond 67.6%，HLE 6.6%",
       "features": [],
       "metrics": [
         {
@@ -1782,7 +1782,7 @@
       "provider": "LG AI Research",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "LG AI Research EXAONE 4.5 33B — AA Intelligence Index 30.2, 262K tokens context, reasoning model.。GPQA Diamond 79.4%，HLE 11.6%",
+      "highlights": "LG AI Research EXAONE 4.5 33B — 262K tokens context, reasoning model.。GPQA Diamond 79.4%，HLE 11.6%",
       "features": [],
       "metrics": [
         {
@@ -1806,7 +1806,7 @@
       "provider": "Meta",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Meta Muse Spark — AA Intelligence Index 52.1, 262K tokens context, reasoning model.。GPQA Diamond 88.4%，HLE 39.9%",
+      "highlights": "Meta Muse Spark — 262K tokens context, reasoning model.。GPQA Diamond 88.4%，HLE 39.9%",
       "features": [],
       "metrics": [
         {
@@ -1830,7 +1830,7 @@
       "provider": "Z AI",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "Z AI GLM-5.1 — AA Intelligence Index 51.4, 200K tokens context, reasoning model.。GPQA Diamond 86.8%，HLE 28.0%",
+      "highlights": "Z AI GLM-5.1 — 200K tokens context, reasoning model.。GPQA Diamond 86.8%，HLE 28.0%",
       "features": [],
       "metrics": [
         {

@@ -1,0 +1,519 @@
+---
+title: 从 Demo 到服务：一个可落地的 RAG 知识库组件实战
+description: 用 FastAPI + LlamaIndex + pgvector + 国产大模型 API，把一个 RAG 知识库从本地 Demo 推进到可部署、可接入、可管理的服务形态。
+author: Alvin Yang
+date: 2026-07-02
+tags:
+  - RAG
+  - AI Agent
+  - FastAPI
+  - LlamaIndex
+  - pgvector
+  - 国产大模型
+---
+
+# 从 Demo 到服务：一个可落地的 RAG 知识库组件实战
+
+RAG Demo 5 分钟跑通，但产品上线一周后你会发现：多租户隔离、文件重试、国产模型接入、部署运维这些“落地问题”一个都没解决。这篇文章复盘我近期做的一个**轻量知识库组件**（KB Component），目标是让 RAG 从本地 Notebook 推进到**可部署、可接入、可管理**的服务形态。适合想把 RAG 做成产品或内部工具的开发者参考。
+
+> ⚠️ 文章定位：这是 **MVP 阶段的复盘**，不是“直接上线”的完整方案。文中会明确标出哪些已实现、哪些仅在数据模型或计划中。
+
+---
+
+## 1. 为什么做这件事
+
+现在网上 RAG 教程很多，但大多数停留在：
+
+- 用 `PyPDFLoader` 读一份 PDF；
+- 调用 OpenAI Embedding + FAISS；
+- 跑一个 `RetrievalQAChain` 的问答 Demo；
+- 结束。
+
+真正落地时，你会发现少了大量东西：
+
+- **多用户与权限**：谁可以访问哪个知识库？
+- **文件生命周期**：上传、索引、重试、删除、版本管理；
+- **多知识库隔离**：不同业务/部门的数据不能混在一个向量空间里；
+- **国产模型接入**：OpenAI 不是唯一选择，阿里百炼、DeepSeek、讯飞星火都需要支持；
+- **可部署性**：单台机器能跑起来，开发环境能热更新，生产环境能扩展。
+
+所以我决定做一个**轻量但边界清晰**的知识库组件：只保留核心能力，不引入不必要的复杂度，同时保证这三件事：**业务数据独立、RAG 引擎可替换、单 Docker Compose 启动**。
+
+---
+
+## 2. 最终要做成什么样
+
+这个组件对外暴露的是**一组 REST API 和一个 Admin UI**，内部计划完成：
+
+1. 用户 / 用户组管理；
+2. 知识库创建、配置、授权；
+3. 文件上传、后台索引、状态追踪；
+4. 多知识库检索 + LLM 生成 + 引用溯源；
+5. 查询日志记录。
+
+> ⚠️ **当前 MVP 限制**
+>
+> 以下能力已设计数据模型，但尚未在查询接口中启用：
+> - 用户/组权限过滤（`Permission` 表已存在，查询时暂未使用）；
+> - 文件解析目前仅支持 PDF/TXT/MD/CSV（docx/xlsx 已进依赖，但 parser 未接入）；
+> - 后台索引用 `asyncio.create_task`，无队列/重试机制；
+> - 多知识库结果合并只是按分数截断，未接入 reranker。
+>
+> 这篇文章的定位是**可运行的 MVP 复盘**，不是“直接上线”的完整方案。
+
+核心请求链路：
+
+```text
+POST /api/v1/search
+  question: "年终奖发放规则是什么？"
+  user_id:  "u_123"
+  kb_ids:   ["kb_abc", "kb_def"]  (可选，默认查全部 active 知识库)
+  top_k:    5
+
+→ 读取知识库配置 → 向量检索 (pgvector)
+→ LLM 生成答案 + 引用来源 → 返回 { answer, sources, latency_ms }
+```
+
+---
+
+## 3. 技术选型
+
+| 层级 | 选型 | 原因 | 对比替代方案 |
+|---|---|---|---|
+| Web 框架 | **FastAPI** | 异步原生、类型安全、自动 OpenAPI 文档 | 比 Flask 更适合高并发检索；比 Django 更轻量 |
+| 数据库 | **PostgreSQL + pgvector** | 业务数据与向量数据同一实例，减少运维负担 | 比 Milvus/Chroma 少一个服务；扩展性稍弱但 MVP 足够 |
+| ORM | **SQLAlchemy 2.0 (async)** | 支持 asyncpg，模型清晰 | 直接写 SQL 也可以，但 ORM 对权限/日志这类关系数据更友好 |
+| RAG 编排 | **LlamaIndex** | Index/Retriever/Node 抽象成熟，向量存储插件丰富 | 比 LangChain 更聚焦检索与索引，链式编排不如 LangChain 灵活 |
+| 文档解析 | **pypdf / python-docx / openpyxl** | 轻量，不引入本地大模型；当前 MVP 仅支持 PDF/TXT/MD/CSV | 未来可替换为 Docling，处理复杂版面和扫描件 |
+| Embedding | **阿里百炼 text-embedding-v3** | 国产、OpenAI-compatible、默认 1024 维 | 与 OpenAI `text-embedding-3-small` 类似，但国内调用更稳定 |
+| LLM | **DeepSeek / 通义千问** | 国产 API，成本低、响应快 | 通过 OpenAI-compatible 接口统一接入，切换模型只需改配置 |
+| 文件存储 | **MinIO / S3 / 本地** | 可配置，开发环境用本地即可 | 本地适合开发，S3 适合生产 |
+| Admin UI | **纯 HTML + JS** | 直接挂载到 FastAPI 静态目录，无需单独部署 | 内部工具或 MVP 场景下，比独立前端服务更省事 |
+
+一个关键决策：**不用 LlamaIndex 的默认 Embedding 封装**，而是自己实现 `AliyunEmbedding` 类，直接调 OpenAI-compatible 的百炼接口。LLM 生成则直接走 `httpx` 调用，不经过 LlamaIndex 的 `OpenAI` 包装，以保持最大可控性。原因是：
+
+- 封装层可以隐藏国产 API 的字段差异；
+- 替换 Embedding 模型或 LLM 时只需改 `.env`；
+- 调试时能看到原始请求和响应，不依赖 LlamaIndex 的黑盒行为。
+
+---
+
+## 4. 架构：三层分离
+
+项目架构非常简单，但分界清楚：
+
+```text
+┌─────────────────────────────────────┐
+│  接口层：REST API + Admin UI         │  app/api/  app/admin/
+├─────────────────────────────────────┤
+│  业务数据层：用户 / 组 / KB / 文件 / 权限 │  app/models/  PostgreSQL
+├─────────────────────────────────────┤
+│  RAG 引擎层：索引、检索、生成        │  app/rag/  LlamaIndex + pgvector
+└─────────────────────────────────────┘
+```
+
+**关键不变式：**
+
+- 业务数据（谁拥有哪个知识库、谁可以访问）完全由 PostgreSQL 和 SQLAlchemy 管理；
+- RAG 引擎（LlamaIndex）只管理向量索引，不拥有业务数据；
+- 未来即使把 LlamaIndex 换成自研检索或 Milvus，业务层代码不动。
+
+这种分离是**落地**和**Demo 最大的区别**。Demo 会把文件路径、向量索引、用户状态揉在一起写，产品化了就是灾难。
+
+---
+
+## 5. 关键设计决策
+
+### 5.1 每个知识库独立一张向量表
+
+```python
+vector_store = PGVectorStore.from_params(
+    database="kb_dev",
+    host="postgres",
+    password="kb",
+    port=5432,
+    user="kb",
+    table_name=f"kb_{kb_id.replace('-', '_')}",  # 按知识库隔离
+    embed_dim=1024,  # text-embedding-v3 默认输出 1024 维
+)
+```
+
+优点：
+
+- 知识库之间天然隔离；
+- 删除一个知识库时直接删表即可；
+- 不同知识库可以用不同 Embedding 维度（未来扩展）。
+
+缺点：
+
+- 表数量会增长，但每个表不大，pgvector 可以处理；
+- 需要规范 kb_id 格式，避免表名非法；
+- 生产环境建议用完整 UUID 或显式 `table_name` 字段，避免 8 位 UUID 前缀冲突。
+
+### 5.2 自定义 Embedding 封装
+
+```python
+class AliyunEmbedding(BaseEmbedding):
+    """Custom embedding via OpenAI-compatible Aliyun Bailian API."""
+
+    _api_key: str = PrivateAttr()
+    _api_base: str = PrivateAttr()
+    _model: str = PrivateAttr()
+
+    def __init__(self, api_key: str, api_base: str, model: str = "text-embedding-v3"):
+        super().__init__(embed_batch_size=10)
+        self._api_key = api_key
+        self._api_base = api_base
+        self._model = model
+
+    def _get_embedding(self, texts: List[str]) -> List[List[float]]:
+        url = f"{self._api_base}/embeddings"
+        headers = {
+            "Authorization": f"Bearer {self._api_key}",
+            "Content-Type": "application/json",
+        }
+        payload = {
+            "model": self._model,
+            "input": texts,
+            "dimensions": 1024,  # 显式声明，避免模型版本或配置差异导致维度不一致
+        }
+        with httpx.Client(timeout=60.0) as client:
+            resp = client.post(url, headers=headers, json=payload)
+            resp.raise_for_status()
+            data = resp.json()
+        return [item["embedding"] for item in data["data"]]
+
+    # 实现 BaseEmbedding 需要同时覆盖同步和异步版本。
+    # AliyunEmbedding 内部是同步 httpx 调用，在高并发场景下应改为 async httpx
+    # 或丢进 run_in_threadpool。这里为了清晰展示核心逻辑做了简化。
+```
+
+实现 LlamaIndex 的 `BaseEmbedding` 接口需要覆盖同步和异步两套方法。这样 LlamaIndex 的 `VectorStoreIndex` 就能用上百炼 Embedding，同时切换模型时只改配置。注意 `embed_dim` 与 `dimensions` 必须保持一致，否则写入 pgvector 会失败。
+
+### 5.3 文件上传后后台索引
+
+文件上传接口返回 201 Created，表示文件已落库。真正的解析和索引通过 `asyncio.create_task` 丢到后台执行：
+
+```python
+@router.post("/{kb_id}/files", response_model=FileOut, status_code=status.HTTP_201_CREATED)
+async def upload_file(...):
+    # ... 保存文件到对象存储，写入数据库 ...
+    asyncio.create_task(_auto_index(kb_id, file_id, storage_path, original_name))
+    return db_file
+
+
+async def _auto_index(kb_id: str, file_id: str, storage_path: str, original_name: str):
+    async with AsyncSessionLocal() as db:
+        try:
+            rag = RAGEngine()
+            await rag.add_files(kb_id, [
+                {"id": file_id, "storage_path": storage_path, "original_name": original_name}
+            ])
+            await db.execute(
+                update(FileModel).where(FileModel.id == file_id).values(status="indexed")
+            )
+            await db.commit()
+        except Exception as e:
+            await db.execute(
+                update(FileModel).where(FileModel.id == file_id).values(
+                    status="failed", error_message=str(e)  # File 表目前只有 error_message 字段
+                )
+            )
+            await db.commit()
+```
+
+这是一个**MVP 取舍**：没有引入 Celery/RabbitMQ，用 Python 的 `asyncio.create_task` 做简单后台任务。对于单节点、文件量不大的场景足够；量大了再接入任务队列，业务层改动很小。
+
+### 5.4 多知识库结果合并与截断
+
+```python
+async def query(self, kb_ids: List[str], question: str, top_k: int = 5) -> Dict[str, Any]:
+    all_nodes = []
+    for kb_id in kb_ids:
+        vector_store = self._get_vector_store(kb_id)
+        index = VectorStoreIndex.from_vector_store(vector_store)
+        retriever = index.as_retriever(similarity_top_k=top_k)
+        nodes = await retriever.aretrieve(question)
+        all_nodes.extend(nodes)
+
+    # 跨知识库按相似度合并后截断
+    all_nodes.sort(key=lambda n: n.score or 0, reverse=True)
+    top_nodes = all_nodes[:top_k]
+    # ... 生成 prompt 并调用 LLM
+```
+
+这里做了一个简单但有效的处理：先分别对每个知识库做检索，再把结果合并按相似度排序，最终只返回最相关的 top_k 个来源。这不是真正的 reranker（Cross-Encoder 才是），且**只适用于所有知识库使用同一 Embedding 模型的场景**；若后续混用不同模型，分数不可直接比较，需要引入统一的 reranker 或归一化。
+
+### 5.5 配置全部外部化
+
+```python
+class Settings(BaseSettings):
+    DATABASE_URL: str
+    LLM_BASE_URL: str | None
+    LLM_API_KEY: str | None
+    LLM_MODEL: str = "qwen-max"
+    EMBEDDING_PROVIDER: str = "bailian"
+    EMBEDDING_BASE_URL: str | None
+    EMBEDDING_API_KEY: str | None
+    EMBEDDING_MODEL: str | None
+    # ... 存储相关配置
+```
+
+所有外部服务（LLM、Embedding、S3）都通过 `.env` 注入。这意味着：**不改动代码，就可以从 DeepSeek 切换到通义千问，从阿里云 OSS 切换到 MinIO**。
+
+---
+
+## 6. 请求与响应示例
+
+### 6.1 上传文件
+
+```bash
+curl -X POST "http://localhost:8000/api/v1/knowledge-bases/{kb_id}/files" \
+  -F "user_id=u_123" \
+  -F "file=@/path/to/employee-handbook.pdf"
+```
+
+返回：
+
+```json
+{
+  "id": "a1b2c3d4",
+  "kb_id": "kb_abc123",
+  "uploader_id": "u_123",
+  "original_name": "employee-handbook.pdf",
+  "storage_path": "kb-files/a1b2c3d4_employee-handbook.pdf",
+  "status": "uploaded"
+}
+```
+
+`status` 随后会在后台自动变成 `indexed` 或 `failed`。
+
+### 6.2 查询知识库
+
+```bash
+curl -X POST "http://localhost:8000/api/v1/search" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "question": "年终奖发放规则是什么？",
+    "user_id": "u_123",
+    "kb_ids": ["kb_abc123"],
+    "top_k": 5
+  }'
+```
+
+返回：
+
+```json
+{
+  "answer": "根据《员工手册》第 3.2 条，年终奖于次年 1 月 15 日随工资发放，需满足入职满 6 个月且年度绩效为 B 及以上。",
+  "sources": [
+    {
+      "chunk_id": "node-xxx",
+      "file_name": "employee-handbook.pdf",
+      "content": "年终奖发放条件：入职满 6 个月；年度绩效 B 及以上；发放时间为次年 1 月 15 日。",
+      "score": 0.9123
+    }
+  ],
+  "latency_ms": 1420,
+  "kb_ids": ["kb_abc123"]
+}
+```
+
+---
+
+## 7. 部署：单条命令启动
+
+`docker-compose.yml` 只包含两个服务：
+
+```yaml
+services:
+  kb-api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app/app          # 代码热挂载
+      - ./requirements.txt:/app/requirements.txt
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    # ... 数据库配置
+```
+
+启动：
+
+```bash
+# 1. 配置环境变量
+cp .env.example .env
+# 编辑 .env 填入 LLM / Embedding / S3 凭证
+
+# 2. 启动
+docker compose up -d
+
+# 3. 数据库迁移
+docker compose exec kb-api alembic upgrade head
+
+# 4. 打开 Admin UI
+open http://localhost:8000/admin/
+```
+
+Admin UI 是纯 HTML + JS，直接通过 FastAPI 的 `StaticFiles` 挂载在 `/admin` 路径下，不需要单独部署前端服务。这对于内部工具或 MVP 场景非常省事。
+
+### 5 分钟验证闭环
+
+启动后建议按下面步骤跑通：
+
+```bash
+# 1. 创建知识库（或在 Admin UI 里创建）
+# 2. 上传文件
+curl -X POST "http://localhost:8000/api/v1/knowledge-bases/{kb_id}/files" \
+  -F "user_id=u_123" -F "file=@/path/to/doc.pdf"
+
+# 3. 轮询状态，直到 status 变成 indexed
+curl "http://localhost:8000/api/v1/knowledge-bases/{kb_id}/files"
+
+# 4. 查询
+curl -X POST "http://localhost:8000/api/v1/search" \
+  -H "Content-Type: application/json" \
+  -d '{"question":"...","user_id":"u_123","kb_ids":["{kb_id}"]}'
+```
+
+---
+
+## 8. 我踩过的几个坑
+
+### 8.1 LlamaIndex 的 OpenAI 封装不完全兼容国产 API
+
+虽然百炼和 DeepSeek 都号称 OpenAI-compatible，但 Embedding 接口的字段名、批次限制、返回结构仍有差异。直接套 LlamaIndex 的 `OpenAIEmbedding` 会遇到 `dimensions` 不支持、batch size 报错等问题。自己实现 `BaseEmbedding` 后，这些问题彻底消失，调试也更透明。
+
+### 8.2 async SQLAlchemy + 同步 LlamaIndex 混用要小心
+
+LlamaIndex 的 `VectorStoreIndex.from_documents` 和部分检索逻辑是同步的。如果直接在 async HTTP handler 里调用，会阻塞事件循环。MVP 里的做法是：
+
+- 上传接口用 `asyncio.create_task` 丢后台；
+- 批量索引接口是同步调用，但限制为管理员低频操作；
+- 检索接口用 `await retriever.aretrieve(question)`，尽量走异步路径。
+
+后续如果要支持高并发，需要把同步调用放进 `run_in_threadpool` 或拆成独立 worker。
+
+### 8.3 pgvector 表按知识库隔离，表名要规范化
+
+kb_id 是 UUID 前 8 位，里面可能包含 `-`，但 PostgreSQL 表名默认不允许 `-`。所以用 `kb_id.replace('-', '_')` 处理。更严谨的做法是加一个 `table_name` 字段显式存储，且生产环境建议用完整 UUID 避免冲突。
+
+### 8.4 大文件解析会占内存和超时
+
+当前用轻量库直接解析，几十上百 MB 的 PDF 会卡。MVP 里 `parser.py` 是按页遍历，不是真正的流式分块。解决方向：
+
+- 按页分批解析，而不是一次性读完整文件；
+- 对超大文件限制单文件大小；
+- 后台任务加超时和重试；
+- 未来接 Docling 或自研解析服务。
+
+### 8.5 引用溯源比答案更重要
+
+RAG 上线后，用户第一句可能不是「回答得对不对」，而是「你根据哪条规则说的」。所以返回 `sources` 字段必须包含：文件名、chunk 内容、相似度分数。这在做合规、财务、客服类知识库时尤为重要。
+
+### 8.6 踩坑自查清单
+
+在把类似项目推进到下一阶段前，建议先检查：
+
+- [ ] `Embedding.dimensions` 与 `PGVectorStore.embed_dim` 是否一致；
+- [ ] 同步的 LlamaIndex 调用是否已用 `run_in_threadpool` 或独立 worker 包裹；
+- [ ] `kb_id` 转表名时是否处理了非法字符和冲突；
+- [ ] 大文件是否加了单文件大小限制和超时保护；
+- [ ] 返回结果是否包含 `sources` 且可追溯到原始文件。
+
+---
+
+## 9. 下一步功能扩展
+
+这个组件目前已经能跑通基础 RAG 场景。下一步我会往这几个方向推进：
+
+1. **Agentic RAG**
+   - 从单次检索生成，进化到多步查询、Self-RAG、查询分解。
+2. **MCP 工具接入**
+   - 让知识库成为 Agent 可调用的标准工具。
+3. **多模态解析**
+   - 接入 Docling，处理扫描件、表格、PPT 中的图片。
+
+---
+
+## 10. 生产上线 Checklist
+
+这篇文章主要记录 MVP 阶段的设计。如果准备上生产，建议按优先级补齐以下事情：
+
+**必须做**
+
+1. **权限控制**：把 `Permission` 表接进查询接口，kb_ids 为空时只返回用户/组有权限的知识库。
+2. **任务队列**：用 Celery / RQ / 独立 worker 替换 `asyncio.create_task`，支持重试、超时、死信队列。
+3. **Chunking 策略**：按 token 长度 + overlap 切分，而不是简单按页；长文档要流式解析。
+
+**建议做**
+
+4. **LLM 调用增强**：加流式输出、温度控制、重试、fallback 模型、token 上限和预算控制。
+5. **可观测性**：记录每次查询的 prompt、检索结果、LLM 输出、延迟、成本，接入 tracing。
+6. **测试**：至少补上传-解析-索引-查询的端到端测试，以及 Embedding/LLM 的 mock 测试。
+7. **限流与审计**：防止刷接口，记录操作日志。
+
+---
+
+## 11. 总结
+
+这个项目给我最大的体会是：**RAG 的 Demo 和服务之间，差的不只是代码量，而是对边界、职责、配置、部署的清晰定义。**
+
+如果你是刚开始做 RAG 产品，建议先想清楚这三类问题：
+
+- **数据与架构**：知识库之间如何隔离？未来是否需要多 Embedding 模型共存？
+- **部署与运维**：文件解析和索引是同步还是异步？失败怎么重试？单台机器能跑起来吗？多久能部署到新环境？
+- **安全与治理**：权限、审计、成本控制在不在你的设计范围内？返回的答案是否可追溯来源？
+
+这些问题在 Demo 里都不重要，但在产品里每一个都会让你返工。
+
+---
+
+## 项目结构速览
+
+```
+knowledge-base/
+├── app/
+│   ├── main.py                 # FastAPI 入口
+│   ├── config.py               # Pydantic Settings
+│   ├── database.py             # async SQLAlchemy
+│   ├── models/                 # User, Group, KB, File, Permission, QueryLog
+│   ├── api/                    # REST 路由
+│   │   ├── users.py
+│   │   ├── groups.py
+│   │   ├── knowledge_bases.py
+│   │   ├── files.py            # 上传 + 后台索引
+│   │   └── query.py            # /search 检索接口
+│   ├── rag/
+│   │   ├── engine.py           # RAGEngine + AliyunEmbedding
+│   │   └── parser.py           # 轻量文档解析
+│   ├── storage/
+│   │   └── s3.py               # 本地 / OSS / S3 兼容
+│   ├── admin/
+│   │   └── index.html          # 管理后台
+├── alembic/                    # 数据库迁移
+├── docker-compose.yml
+├── .env.example
+└── requirements.txt
+```
+
+---
+
+**参考资源**
+
+- [LlamaIndex 文档](https://docs.llamaindex.ai)
+- [pgvector](https://github.com/pgvector/pgvector)
+- [阿里百炼 Embedding 文档](https://help.aliyun.com/zh/model-studio/text-embedding-synchronous-api)
+- [FastAPI](https://fastapi.tiangolo.com)
+
+---
+
+*这篇文章主要记录我在把 RAG 知识库从实验性 Demo 推进到可部署服务过程中的设计取舍。如果你也在做类似项目，欢迎留言交流。*

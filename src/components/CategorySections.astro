@@ -101,10 +101,7 @@ const sections = categories.map((cat) => ({
       <section class="section-card" style={`animation-delay: ${i * 60}ms`}>
         <a href={cat.href} class="section-header">
           <span class="section-icon" set:html={cat.icon} />
-          <div class="section-meta">
-            <h2 class="section-title">{cat.title}</h2>
-            <p class="section-desc">{cat.desc}</p>
-          </div>
+          <span class="section-title">{cat.title}</span>
         </a>
 
         {cat.docs.length > 0 && (
@@ -121,6 +118,7 @@ const sections = categories.map((cat) => ({
             })}
           </ul>
         )}
+        <a href={cat.href} class="section-more">{cat.desc} →</a>
       </section>
     ))
   }
@@ -164,7 +162,8 @@ const sections = categories.map((cat) => ({
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.35rem 0.75rem;
+    height: 2.25rem;
+    padding: 0 0.75rem;
     text-decoration: none;
     color: inherit;
     border-bottom: 1px solid var(--sl-color-gray-6);
@@ -182,24 +181,10 @@ const sections = categories.map((cat) => ({
     align-items: center;
   }
 
-  .section-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    min-width: 0;
-  }
-
   .section-title {
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--sl-color-white);
-    margin: 0;
-    line-height: 1;
-  }
-
-  .section-desc {
-    font-size: 0.7rem;
-    color: var(--sl-color-gray-3);
     margin: 0;
     line-height: 1;
   }
@@ -230,6 +215,24 @@ const sections = categories.map((cat) => ({
     color: var(--sl-color-accent);
     background-color: var(--sl-color-accent-low, rgba(212, 165, 90, 0.06));
     padding-left: 0.9rem;
+  }
+
+  .section-more {
+    display: flex;
+    align-items: center;
+    height: 1.75rem;
+    padding: 0 0.75rem;
+    margin-top: auto;
+    font-size: 0.72rem;
+    color: var(--sl-color-gray-3);
+    text-decoration: none;
+    border-top: 1px solid var(--sl-color-gray-6);
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .section-more:hover {
+    color: var(--sl-color-accent);
+    background-color: var(--sl-color-accent-low, rgba(212, 165, 90, 0.06));
   }
 
   .section-link-title {

@@ -25,25 +25,40 @@ function formatDate(date: Date | undefined): string {
   return new Intl.DateTimeFormat('zh-CN', { month: 'short', day: 'numeric' }).format(new Date(date));
 }
 
+function parseDateFromFilename(id: string): Date | null {
+  // Match date patterns like 2026-07-02-daily, 2026-02-28-mola-intro, 10-vibe-coding
+  const match = id.match(/(\d{4}-\d{2}-\d{2})/);
+  if (match) return new Date(match[1]);
+
+  // Match numbered prefix like 1-, 01-, 10-
+  const numMatch = id.match(/\/(\d{1,2})-/);
+  if (numMatch) {
+    const year = 2025 + Math.min(parseInt(numMatch[1], 10), 12);
+    return new Date(`${year}-01-01`);
+  }
+  return null;
+}
+
 const allDocs = await getCollection('docs');
 
 function getDocDate(doc: typeof allDocs[number]): number {
+  if (doc.data.date) {
+    return new Date(doc.data.date).getTime();
+  }
   if (doc.data.lastUpdated) {
     return new Date(doc.data.lastUpdated).getTime();
   }
+  const parsed = parseDateFromFilename(doc.id);
+  if (parsed) {
+    return parsed.getTime();
+  }
   try {
-    // 优先匹配 .md 文件，回退到 .mdx
-    let filePath = resolve(`src/content/docs/${doc.id}.md`);
-    let stats = statSync(filePath);
+    const ext = doc.id.endsWith('.mdx') ? '.mdx' : '.md';
+    const filePath = resolve(`src/content/docs/${doc.id}${ext === '.mdx' && !doc.id.endsWith('.mdx') ? '' : ''}`);
+    const stats = statSync(filePath);
     return stats.mtime.getTime();
   } catch {
-    try {
-      let filePath = resolve(`src/content/docs/${doc.id}.mdx`);
-      let stats = statSync(filePath);
-      return stats.mtime.getTime();
-    } catch {
-      return 0;
-    }
+    return 0;
   }
 }
 
@@ -65,7 +80,7 @@ const recentDocs = allDocs
   {recentDocs.map((doc, i) => {
     const href = `/${doc.id.replace(/\.mdx?$/, '').replace(/\/index$/, '/')}/`;
     const category = getCategory(doc.id);
-    const date = formatDate(doc.data.lastUpdated);
+    const date = formatDate(doc.data.date ? new Date(doc.data.date) : doc.data.lastUpdated ? new Date(doc.data.lastUpdated) : parseDateFromFilename(doc.id) || undefined);
     const desc = doc.data.description || '';
     return (
       <a href={href} class="note-card" style={`animation-delay: ${i * 60}ms`}>
@@ -75,7 +90,7 @@ const recentDocs = allDocs
         </div>
         <h3 class="note-title">{doc.data.title}</h3>
         {desc && <p class="note-desc">{desc}</p>}
-      </a>
+    </a>
     );
   })}
 </div>

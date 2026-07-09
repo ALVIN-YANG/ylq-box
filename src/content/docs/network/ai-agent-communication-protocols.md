@@ -213,17 +213,33 @@ service AgentService {
 
 ```mermaid
 flowchart TD
-    A[开始] --> B{是否需要双向实时交互？}
-    B -->|是| C{是否需要媒体/音视频？}
-    B -->|否| D{是否需要服务器主动推送？}
-    C -->|是| E[WebRTC]
-    C -->|否| F[WebSocket]
-    D -->|是| G{是否主要是文本流？}
-    D -->|否| H[HTTP/REST 或 gRPC]
-    G -->|是| I[SSE]
-    G -->|否| J[WebSocket 或 MQTT]
-    J -->|大量设备/弱网| K[MQTT]
-    J -->|浏览器/用户交互| L[WebSocket]
+    Start([开始选择协议]) --> Bidirectional{是否需要<br/>双向实时交互？}
+
+    Bidirectional -->|是| Media{是否需要传输<br/>音视频或媒体？}
+    Bidirectional -->|否| Push{是否需要服务器<br/>主动推送数据？}
+
+    Media -->|是| WebRTC[WebRTC<br/>P2P 低延迟媒体]
+    Media -->|否| WebSocket[WebSocket<br/>全双工长连接]
+
+    Push -->|是| TextStream{数据形态主要是<br/>文本流？}
+    Push -->|否| InternalCall{是否为内部微服务<br/>高性能调用？}
+
+    TextStream -->|是| SSE[SSE<br/>服务器单向文本流]
+    TextStream -->|否| Scale{连接端是大量设备<br/>或弱网环境？}
+
+    Scale -->|是| MQTT[MQTT<br/>轻量 Pub/Sub]
+    Scale -->|否| WebSocket2[WebSocket<br/>浏览器实时交互]
+
+    InternalCall -->|是| gRPC[gRPC<br/>HTTP/2 强类型]
+    InternalCall -->|否| HTTP[HTTP/REST<br/>简单请求-响应]
+
+    classDef startEnd fill:#90EE90,stroke:#334155,stroke-width:2px,color:#1e293b
+    classDef decision fill:#fbbf24,stroke:#334155,stroke-width:2px,color:#1e293b
+    classDef protocol fill:#93c5fd,stroke:#334155,stroke-width:2px,color:#1e293b
+
+    class Start startEnd
+    class Bidirectional,Media,Push,TextStream,InternalCall,Scale decision
+    class WebRTC,WebSocket,SSE,MQTT,WebSocket2,gRPC,HTTP protocol
 ```
 
 ### 维度 1：谁主动说话？
@@ -261,26 +277,55 @@ flowchart TD
 
 ### 组合 A：聊天型 Agent
 
-```
-用户 <--WebSocket--> Agent 服务 <--SSE--> LLM API
+```mermaid
+sequenceDiagram
+    actor User
+    participant AgentSvc as Agent 服务
+    participant LLM as LLM API
+
+    User->>+AgentSvc: 发送消息 (WebSocket)
+    AgentSvc->>+LLM: POST /chat/completions (SSE)
+    loop 流式生成
+        LLM-->>AgentSvc: token
+    end
+    LLM-->>-AgentSvc: [DONE]
+    AgentSvc-->>-User: 实时展示完整回复
 ```
 
 WebSocket 维持多轮对话上下文，SSE 把 LLM 的流式输出转发给用户。
 
 ### 组合 B：IoT + AI
 
-```
-设备 <--MQTT--> Broker <--HTTP/gRPC--> AI Agent <--SSE--> 管理后台
+```mermaid
+sequenceDiagram
+    participant Device as 设备
+    participant Broker as MQTT Broker
+    participant Agent as AI Agent
+    participant Dashboard as 管理后台
+
+    Device->>Broker: 上报 telemetry (MQTT)
+    Broker->>Agent: 转发事件 (HTTP/gRPC)
+    Agent->>Agent: 异步决策
+    Agent-->>Dashboard: 推送结果 (SSE)
 ```
 
 设备通过 MQTT 上报状态，agent 异步决策后把结果推给后台。
 
 ### 组合 C：多 agent 协作
 
-```
-Agent A <--WebSocket--> 协调器 <--WebSocket--> Agent B
-                 |
-                 +--WebRTC--> Agent C（需音视频）
+```mermaid
+sequenceDiagram
+    participant A as Agent A
+    participant Coord as 协调器
+    participant B as Agent B
+    participant C as Agent C
+
+    A->>+Coord: 请求协作 (WebSocket)
+    Coord->>+B: 分发子任务 (WebSocket)
+    B-->>-Coord: 返回处理结果
+    Coord->>C: 建立 P2P 通道 (WebRTC)
+    C-->>Coord: 音视频/大数据直连
+    Coord-->>-A: 汇总最终结果
 ```
 
 协调器负责任务分发，复杂子任务通过 WebRTC 点对点完成。

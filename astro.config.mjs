@@ -3,12 +3,17 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import AstroPWA from '@vite-pwa/astro';
 import sitemap from '@astrojs/sitemap';
+import mermaid from 'astro-mermaid';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://ilovestudy.club',
   prefetch: true,
   integrations: [
+    mermaid({
+      theme: 'default',
+      autoTheme: true,
+    }),
     sitemap(),
     starlight({
       title: 'Alvin Yang',

@@ -54,7 +54,7 @@ export default defineConfig({
           autogenerate: { directory: 'projects' },
         },
         {
-          label: 'AI',
+          label: 'AI Agent',
           autogenerate: { directory: 'ai' },
         },
         {
@@ -62,7 +62,7 @@ export default defineConfig({
           autogenerate: { directory: 'ai-workflow' }
         },
         {
-          label: 'Claw 专栏',
+          label: 'AI 软件评测',
           items: [
             {
               label: 'OpenClaw',
@@ -83,7 +83,7 @@ export default defineConfig({
           autogenerate: { directory: 'ai-news' },
         },
         {
-          label: '古法编程',
+          label: '算法',
           items: [
             {
               label: 'Java',
@@ -97,15 +97,15 @@ export default defineConfig({
           collapsed: true,
         },
         {
+          label: '网络',
+          autogenerate: { directory: 'network' },
+        },
+        {
           label: 'Ops',
           items: [
             {
               label: '运维与基础设施',
               autogenerate: { directory: 'ops' },
-            },
-            {
-              label: '网络',
-              autogenerate: { directory: 'network' },
             }
           ],
           collapsed: true,

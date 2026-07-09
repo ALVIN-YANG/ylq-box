@@ -58,24 +58,27 @@ const categories = [
 const allDocs = await getCollection('docs');
 
 function parseDateFromFilename(id: string): Date | null {
+  if (typeof id !== 'string') return null;
   const match = id.match(/(\d{4}-\d{2}-\d{2})/);
   if (match) return new Date(match[1]);
-  const numMatch = id.match(/\/(\d{1,2})-/);
-  if (numMatch) {
-    const year = 2025 + Math.min(parseInt(numMatch[1], 10), 12);
-    return new Date(`${year}-01-01`);
-  }
   return null;
 }
 
+function getFilenameOrder(id: string): number {
+  if (typeof id !== 'string') return 0;
+  const numMatch = id.match(/\/(\d{1,2})-/);
+  return numMatch ? parseInt(numMatch[1], 10) : 0;
+}
+
 function getDocDate(doc: typeof allDocs[number]): number {
+  const id = doc.id;
   if (doc.data.date) return new Date(doc.data.date).getTime();
   if (doc.data.lastUpdated) return new Date(doc.data.lastUpdated).getTime();
-  const parsed = parseDateFromFilename(doc.id);
+  const parsed = parseDateFromFilename(id);
   if (parsed) return parsed.getTime();
   try {
-    const ext = doc.id.endsWith('.mdx') ? '.mdx' : '.md';
-    const stats = statSync(resolve(`src/content/docs/${doc.id}${ext}`));
+    const ext = typeof id === 'string' && id.endsWith('.mdx') ? '.mdx' : '.md';
+    const stats = statSync(resolve(`src/content/docs/${id}${ext}`));
     return stats.mtime.getTime();
   } catch {
     return 0;
@@ -92,7 +95,11 @@ function getCategoryDocs(categoryId: string, count = 6) {
       }
       return id.startsWith(`${categoryId}/`);
     })
-    .sort((a, b) => getDocDate(b) - getDocDate(a))
+    .sort((a, b) => {
+      const dateDiff = getDocDate(b) - getDocDate(a);
+      if (dateDiff !== 0) return dateDiff;
+      return getFilenameOrder(b) - getFilenameOrder(a);
+    })
     .slice(0, count);
 }
 

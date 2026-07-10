@@ -34,6 +34,10 @@ export default defineConfig({
           tag: 'script',
           attrs: { src: '/registerSW.js', defer: true },
         },
+        {
+          tag: 'script',
+          attrs: { src: '/mermaid-zoom.js', defer: true },
+        },
       ],
       customCss: [
         // Path to your custom CSS file

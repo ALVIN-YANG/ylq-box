@@ -462,3 +462,73 @@ pre {
 	background: var(--sl-color-accent-low);
 	color: var(--sl-color-accent-high);
 }
+
+/* ─── Mermaid Zoom ─── */
+
+pre.mermaid {
+	cursor: zoom-in;
+	transition: transform 0.2s ease;
+}
+
+pre.mermaid:hover {
+	transform: scale(1.005);
+}
+
+#mermaid-zoom-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 9999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(15, 23, 42, 0.85);
+	backdrop-filter: blur(4px);
+	cursor: zoom-out;
+	padding: 2rem;
+	animation: mermaidZoomIn 0.2s ease;
+}
+
+@keyframes mermaidZoomIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+#mermaid-zoom-overlay .mermaid-zoom-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+}
+
+#mermaid-zoom-overlay svg {
+	max-width: 90vw;
+	max-height: 90vh;
+	background: white;
+	border-radius: 8px;
+	box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+}
+
+.mermaid-zoom-close {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	width: 2.5rem;
+	height: 2.5rem;
+	border: none;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.9);
+	color: #334155;
+	font-size: 1.5rem;
+	line-height: 1;
+	cursor: pointer;
+	transition: background 0.2s ease;
+}
+
+.mermaid-zoom-close:hover {
+	background: white;
+}

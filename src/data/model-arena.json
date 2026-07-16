@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026/7/13 13:26:43",
-  "updatedAtISO": "2026-07-13T05:26:43.453Z",
+  "updatedAt": "2026/7/16 12:51:13",
+  "updatedAtISO": "2026-07-16T04:51:13.829Z",
   "sources": {
     "arena": {
       "label": "LMArena Leaderboard",
@@ -428,7 +428,7 @@
     ]
   },
   "domestic": {
-    "updatedAt": "2026/7/13 13:26:43",
+    "updatedAt": "2026/7/16 12:51:13",
     "note": "国内模型分区榜单为站内整理版，综合公开榜单、产品能力、生态落地与近期发布节奏，适合做选型参考，不等同于单一统一基准测试。",
     "source": {
       "label": "站内维护数据",
@@ -889,6 +889,17 @@
   ],
   "releases": [
     {
+      "date": "2026-07-13",
+      "model": "UniVR-34B-Planning",
+      "provider": "ByteDance",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "",
+      "features": [],
+      "metrics": [],
+      "url": ""
+    },
+    {
       "date": "2026-07-08",
       "model": "nvDock",
       "provider": "nvidia",
@@ -947,6 +958,17 @@
       "date": "2026-06-27",
       "model": "DeepSeek-V4-Pro-DSpark",
       "provider": "deepseek-ai",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "",
+      "features": [],
+      "metrics": [],
+      "url": ""
+    },
+    {
+      "date": "2026-06-23",
+      "model": "Kimi-K2.6-DFlash",
+      "provider": "nvidia",
       "type": "LLM",
       "category": "Major Release",
       "highlights": "",
@@ -1071,6 +1093,28 @@
       "url": ""
     },
     {
+      "date": "2026-06-02",
+      "model": "gemma-4-E2B-it-qat-mobile-transformers",
+      "provider": "google",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "",
+      "features": [],
+      "metrics": [],
+      "url": ""
+    },
+    {
+      "date": "2026-06-02",
+      "model": "gemma-4-E4B-it-qat-mobile-transformers",
+      "provider": "google",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "",
+      "features": [],
+      "metrics": [],
+      "url": ""
+    },
+    {
       "date": "2026-06-01",
       "model": "Qwen3.7 Plus",
       "provider": "Alibaba",
@@ -1122,6 +1166,17 @@
       "date": "2026-06-01",
       "model": "Mellum2",
       "provider": "Hugging Face",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "",
+      "features": [],
+      "metrics": [],
+      "url": ""
+    },
+    {
+      "date": "2026-06-01",
+      "model": "gemma-4-E2B-it-qat-mobile-ct",
+      "provider": "google",
       "type": "LLM",
       "category": "Major Release",
       "highlights": "",
@@ -1557,113 +1612,6 @@
           "value": "44.9%"
         }
       ],
-      "url": ""
-    },
-    {
-      "date": "2026-04-24",
-      "model": "DeepSeek V4 Pro",
-      "provider": "DeepSeek",
-      "type": "LLM",
-      "category": "Major Release",
-      "highlights": "DeepSeek DeepSeek V4 Pro — 1M tokens context, reasoning model.。GPQA Diamond 88.8%，HLE 35.9%",
-      "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "88.8%"
-        },
-        {
-          "name": "HLE",
-          "value": "35.9%"
-        },
-        {
-          "name": "SciCode",
-          "value": "50.0%"
-        }
-      ],
-      "url": ""
-    },
-    {
-      "date": "2026-04-23",
-      "model": "Ling-2.6-1T",
-      "provider": "InclusionAI",
-      "type": "LLM",
-      "category": "Major Release",
-      "highlights": "InclusionAI Ling-2.6-1T — 262K tokens context.。GPQA Diamond 75.2%，HLE 8.2%",
-      "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "75.2%"
-        },
-        {
-          "name": "HLE",
-          "value": "8.2%"
-        },
-        {
-          "name": "SciCode",
-          "value": "37.0%"
-        }
-      ],
-      "url": ""
-    },
-    {
-      "date": "2026-04-23",
-      "model": "GPT-5.5",
-      "provider": "OpenAI",
-      "type": "LLM",
-      "category": "Major Release",
-      "highlights": "OpenAI GPT-5.5 — 922K tokens context, reasoning model.。GPQA Diamond 93.5%，HLE 44.3%",
-      "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "93.5%"
-        },
-        {
-          "name": "HLE",
-          "value": "44.3%"
-        },
-        {
-          "name": "SciCode",
-          "value": "56.1%"
-        }
-      ],
-      "url": ""
-    },
-    {
-      "date": "2026-04-23",
-      "model": "Hy3-preview",
-      "provider": "Tencent",
-      "type": "LLM",
-      "category": "Major Release",
-      "highlights": "Tencent Hy3-preview — 256K tokens context, reasoning model.。GPQA Diamond 86.7%，HLE 25.5%",
-      "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "86.7%"
-        },
-        {
-          "name": "HLE",
-          "value": "25.5%"
-        },
-        {
-          "name": "SciCode",
-          "value": "41.2%"
-        }
-      ],
-      "url": ""
-    },
-    {
-      "date": "2026-04-23",
-      "model": "CADD-Base-7B",
-      "provider": "apple",
-      "type": "LLM",
-      "category": "Major Release",
-      "highlights": "",
-      "features": [],
-      "metrics": [],
       "url": ""
     }
   ]

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 560">
+  <rect width="840" height="560" fill="#f8fafc"/>
+  <text x="420" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#334155">OpenAI 兼容路径：中转层签名缓存 + 请求规整</text>
+
+  <text x="120" y="60" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#1e40af">Agent 客户端</text>
+  <text x="420" y="60" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#334155">中转服务</text>
+  <text x="710" y="60" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#b45309">Vertex OpenAI 兼容端点</text>
+  <line x1="120" y1="74" x2="120" y2="530" stroke="#cbd5e1" stroke-dasharray="4 4"/>
+  <line x1="420" y1="74" x2="420" y2="530" stroke="#cbd5e1" stroke-dasharray="4 4"/>
+  <line x1="710" y1="74" x2="710" y2="530" stroke="#cbd5e1" stroke-dasharray="4 4"/>
+
+  <path d="M120 104 L412 104" stroke="#2563eb" stroke-width="1.5" marker-end="url(#ra)"/>
+  <text x="130" y="96" font-family="system-ui,sans-serif" font-size="9" fill="#334155">① POST chat/completions（含历史 messages，客户端已丢签名）</text>
+
+  <rect x="290" y="118" width="260" height="66" rx="8" fill="#fff7ed" stroke="#f59e0b"/>
+  <text x="420" y="136" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="600" fill="#b45309">请求侧规整</text>
+  <text x="420" y="152" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#78716c">a. 带 tool_calls 的 assistant 文本置空，</text>
+  <text x="420" y="164" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#78716c">　 原文本移到 tool 结果之后（信息不丢）</text>
+  <text x="420" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#78716c">b. 按 tool_call id 查缓存，注入签名</text>
+
+  <path d="M420 214 L702 214" stroke="#2563eb" stroke-width="1.5" marker-end="url(#ra)"/>
+  <text x="430" y="206" font-family="system-ui,sans-serif" font-size="9" fill="#334155">② 规整后的请求（content=""，extra_content.google.thought_signature=sig）</text>
+
+  <path d="M710 264 L428 264" stroke="#b45309" stroke-width="1.5" marker-end="url(#rb)"/>
+  <text x="440" y="256" font-family="system-ui,sans-serif" font-size="9" fill="#334155">③ SSE chunks：delta.tool_calls[].extra_content 带新签名</text>
+
+  <rect x="290" y="278" width="260" height="52" rx="8" fill="#eff6ff" stroke="#3b82f6"/>
+  <text x="420" y="296" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="600" fill="#1e40af">响应侧提取</text>
+  <text x="420" y="312" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#475569">逐 chunk 提取签名 → 写缓存</text>
+  <text x="420" y="324" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#475569">key = tool_call id，TTL 7 天</text>
+
+  <rect x="560" y="380" width="220" height="44" rx="8" fill="#f1f5f9" stroke="#64748b"/>
+  <text x="670" y="398" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="600" fill="#334155">签名缓存（Redis）</text>
+  <text x="670" y="414" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#64748b">thought_sig:{tool_call_id}</text>
+  <path d="M550 304 L600 380" stroke="#64748b" stroke-width="1" stroke-dasharray="4 3" fill="none"/>
+  <path d="M600 380 L545 184" stroke="#64748b" stroke-width="1" stroke-dasharray="4 3" fill="none"/>
+
+  <path d="M420 380 L128 380" stroke="#2563eb" stroke-width="1.5" marker-end="url(#ra)"/>
+  <text x="140" y="372" font-family="system-ui,sans-serif" font-size="9" fill="#334155">④ 流原样转发给客户端（chunk 内容不改写）</text>
+
+  <rect x="50" y="412" width="150" height="34" rx="6" fill="#ecfdf5" stroke="#22c55e"/>
+  <text x="125" y="426" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#166534">⑤ 客户端执行工具</text>
+  <text x="125" y="440" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#166534">下一轮回到 ①</text>
+
+  <rect x="150" y="484" width="540" height="40" rx="8" fill="#fef2f2" stroke="#ef4444"/>
+  <text x="420" y="500" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#b91c1c">不修之前：客户端丢签名 → 带 tool_calls 的 assistant 文本触发 400 → 工具链路断裂</text>
+  <text x="420" y="516" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#b91c1c">修完之后：缓存注入 + 文本移位，多轮工具调用全链路 200</text>
+
+  <defs>
+    <marker id="ra" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#2563eb"/></marker>
+    <marker id="rb" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#b45309"/></marker>
+  </defs>
+</svg>

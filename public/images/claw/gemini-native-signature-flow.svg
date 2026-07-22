@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 480">
+  <rect width="820" height="480" fill="#f8fafc"/>
+  <text x="410" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#334155">原生端点：签名按 part 闭环，中转零改写</text>
+
+  <text x="130" y="62" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#1e40af">Agent 客户端</text>
+  <text x="410" y="62" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#334155">中转（纯透传）</text>
+  <text x="680" y="62" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#b45309">Vertex 原生端点</text>
+  <line x1="130" y1="76" x2="130" y2="440" stroke="#cbd5e1" stroke-dasharray="4 4"/>
+  <line x1="410" y1="76" x2="410" y2="440" stroke="#cbd5e1" stroke-dasharray="4 4"/>
+  <line x1="680" y1="76" x2="680" y2="440" stroke="#cbd5e1" stroke-dasharray="4 4"/>
+
+  <path d="M130 110 L672 110" stroke="#2563eb" stroke-width="1.5" marker-end="url(#na)"/>
+  <text x="140" y="102" font-family="system-ui,sans-serif" font-size="9" fill="#334155">① POST :streamGenerateContent　contents:[ user: 文本 ]</text>
+  <text x="410" y="124" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8">仅替换认证头，body 原样转发</text>
+
+  <path d="M680 172 L138 172" stroke="#b45309" stroke-width="1.5" marker-end="url(#nb)"/>
+  <text x="150" y="160" font-family="system-ui,sans-serif" font-size="9" fill="#334155">② parts:[ text + sigA，functionCall + sigB ]（签名挂在每个 part 上）</text>
+
+  <rect x="60" y="196" width="150" height="34" rx="6" fill="#ecfdf5" stroke="#22c55e"/>
+  <text x="135" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#166534">③ 本地执行工具</text>
+  <text x="135" y="224" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#166534">签名随 transcript 落盘</text>
+
+  <path d="M130 276 L672 276" stroke="#2563eb" stroke-width="1.5" marker-end="url(#na)"/>
+  <text x="140" y="256" font-family="system-ui,sans-serif" font-size="9" fill="#334155">④ contents:[ user: 文本，</text>
+  <text x="140" y="268" font-family="system-ui,sans-serif" font-size="9" fill="#334155">　 model: parts（签名原样挂回），</text>
+  <text x="140" y="290" font-family="system-ui,sans-serif" font-size="9" fill="#334155">　 user: functionResponse（工具结果）]</text>
+
+  <path d="M680 336 L138 336" stroke="#b45309" stroke-width="1.5" marker-end="url(#nb)"/>
+  <text x="150" y="328" font-family="system-ui,sans-serif" font-size="9" fill="#334155">⑤ 最终回答 text + sigC（供下一轮继续回放）</text>
+
+  <rect x="150" y="384" width="520" height="40" rx="8" fill="#eff6ff" stroke="#3b82f6"/>
+  <text x="410" y="400" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#1e40af">签名是 part 的一等字段：客户端保存 → 下一轮原样回放 → 服务端校验通过</text>
+  <text x="410" y="416" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#1e40af">中转层无需缓存、无需改写任何消息</text>
+
+  <defs>
+    <marker id="na" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#2563eb"/></marker>
+    <marker id="nb" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#b45309"/></marker>
+  </defs>
+</svg>

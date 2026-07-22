@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380">
+  <rect width="800" height="380" fill="#f8fafc"/>
+  <text x="400" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#334155">Vertex AI 暴露的三种模型调用协议</text>
+
+  <rect x="30" y="52" width="230" height="240" rx="10" fill="#fff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="145" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#1e40af">Gemini 原生 API</text>
+  <text x="145" y="104" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#475569">:generateContent</text>
+  <text x="145" y="120" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#475569">:streamGenerateContent</text>
+  <text x="145" y="146" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">publishers/google/models/{m}</text>
+  <line x1="50" y1="162" x2="240" y2="162" stroke="#e2e8f0"/>
+  <text x="145" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">适用：Gemini 全系模型</text>
+  <text x="145" y="208" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">消息结构：contents[] + parts[]</text>
+  <text x="145" y="232" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#166534">thoughtSignature 是 part 级字段</text>
+  <text x="145" y="252" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#166534">文本 / functionCall part 均可携带</text>
+  <text x="145" y="276" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">SDK：Google Gen AI SDK</text>
+
+  <rect x="285" y="52" width="230" height="240" rx="10" fill="#fff" stroke="#f59e0b" stroke-width="2"/>
+  <text x="400" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#b45309">OpenAI 兼容端点</text>
+  <text x="400" y="104" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#475569">仅 Chat Completions API</text>
+  <text x="400" y="120" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#475569">endpoints/openapi/chat/completions</text>
+  <text x="400" y="146" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">适用：Gemini + 部分 Model Garden</text>
+  <line x1="305" y1="162" x2="495" y2="162" stroke="#e2e8f0"/>
+  <text x="400" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">消息结构：messages[] + tool_calls[]</text>
+  <text x="400" y="208" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#b45309">签名走 extra_content.google.</text>
+  <text x="400" y="224" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#b45309">thought_signature 扩展字段</text>
+  <text x="400" y="248" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#dc2626">Responses API 未实现（官方确认）</text>
+  <text x="400" y="276" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">SDK：OpenAI SDK 改 base_url 即可</text>
+
+  <rect x="540" y="52" width="230" height="240" rx="10" fill="#fff" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="655" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#6d28d9">Anthropic Messages</text>
+  <text x="655" y="104" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#475569">:rawPredict / :streamRawPredict</text>
+  <text x="655" y="120" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#475569">publishers/anthropic/models/{m}</text>
+  <text x="655" y="146" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">适用：Claude 伙伴模型</text>
+  <line x1="560" y1="162" x2="750" y2="162" stroke="#e2e8f0"/>
+  <text x="655" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">body 需带 anthropic_version</text>
+  <text x="655" y="204" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">= "vertex-2023-10-16"</text>
+  <text x="655" y="228" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">载荷即 Anthropic Messages 格式</text>
+  <text x="655" y="252" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">thinking 块签名原生闭环</text>
+  <text x="655" y="276" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#64748b">SDK：AnthropicVertex 客户端</text>
+
+  <rect x="120" y="312" width="560" height="44" rx="8" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="400" y="330" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#334155">三者共用同一套认证：OAuth2 Bearer access token（服务账号 / ADC）</text>
+  <text x="400" y="347" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#334155">区别只在 URL 路径与请求体格式；模型能力本身完全相同</text>
+</svg>

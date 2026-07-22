@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026/7/19 13:11:55",
-  "updatedAtISO": "2026-07-19T05:11:55.305Z",
+  "updatedAt": "2026/7/22 12:59:06",
+  "updatedAtISO": "2026-07-22T04:59:06.874Z",
   "sources": {
     "arena": {
       "label": "LMArena Leaderboard",
@@ -428,7 +428,7 @@
     ]
   },
   "domestic": {
-    "updatedAt": "2026/7/19 13:11:55",
+    "updatedAt": "2026/7/22 12:59:06",
     "note": "国内模型分区榜单为站内整理版，综合公开榜单、产品能力、生态落地与近期发布节奏，适合做选型参考，不等同于单一统一基准测试。",
     "source": {
       "label": "站内维护数据",
@@ -889,6 +889,39 @@
   ],
   "releases": [
     {
+      "date": "2026-07-15",
+      "model": "bitnet-embedding-0.6b",
+      "provider": "microsoft",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "",
+      "features": [],
+      "metrics": [],
+      "url": ""
+    },
+    {
+      "date": "2026-07-15",
+      "model": "bitnet-embedding-270m",
+      "provider": "microsoft",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "",
+      "features": [],
+      "metrics": [],
+      "url": ""
+    },
+    {
+      "date": "2026-07-14",
+      "model": "Nemotron-3-Embed-1B-NVFP4",
+      "provider": "nvidia",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "",
+      "features": [],
+      "metrics": [],
+      "url": ""
+    },
+    {
       "date": "2026-07-13",
       "model": "UniVR-34B-Planning",
       "provider": "ByteDance",
@@ -1038,6 +1071,17 @@
     {
       "date": "2026-06-09",
       "model": "diffusiongemma-26B-A4B-it",
+      "provider": "google",
+      "type": "LLM",
+      "category": "Major Release",
+      "highlights": "",
+      "features": [],
+      "metrics": [],
+      "url": ""
+    },
+    {
+      "date": "2026-06-05",
+      "model": "gemma-4-12B-it-qat-q4_0-gguf",
       "provider": "google",
       "type": "LLM",
       "category": "Major Release",
@@ -1471,147 +1515,25 @@
       "url": ""
     },
     {
-      "date": "2026-04-30",
-      "model": "Grok 4.3",
-      "provider": "xAI",
+      "date": "2026-05-01",
+      "model": "gemma-4-31B-it-qat-q4_0-gguf",
+      "provider": "google",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "xAI Grok 4.3 — 1M tokens context, reasoning model.。GPQA Diamond 90.1%，HLE 35.0%",
+      "highlights": "",
       "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "90.1%"
-        },
-        {
-          "name": "HLE",
-          "value": "35.0%"
-        },
-        {
-          "name": "SciCode",
-          "value": "47.3%"
-        }
-      ],
+      "metrics": [],
       "url": ""
     },
     {
-      "date": "2026-04-29",
-      "model": "Granite 4.1 30B",
-      "provider": "IBM",
+      "date": "2026-05-01",
+      "model": "gemma-4-26B-A4B-it-qat-q4_0-gguf",
+      "provider": "google",
       "type": "LLM",
       "category": "Major Release",
-      "highlights": "IBM Granite 4.1 30B — 131K tokens context.。GPQA Diamond 48.1%，HLE 4.2%",
+      "highlights": "",
       "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "48.1%"
-        },
-        {
-          "name": "HLE",
-          "value": "4.2%"
-        },
-        {
-          "name": "SciCode",
-          "value": "25.8%"
-        }
-      ],
-      "url": ""
-    },
-    {
-      "date": "2026-04-29",
-      "model": "Granite 4.1 3B",
-      "provider": "IBM",
-      "type": "LLM",
-      "category": "Major Release",
-      "highlights": "IBM Granite 4.1 3B — 131K tokens context.。GPQA Diamond 31.4%，HLE 3.4%",
-      "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "31.4%"
-        },
-        {
-          "name": "HLE",
-          "value": "3.4%"
-        },
-        {
-          "name": "SciCode",
-          "value": "11.9%"
-        }
-      ],
-      "url": ""
-    },
-    {
-      "date": "2026-04-29",
-      "model": "Granite 4.1 8B",
-      "provider": "IBM",
-      "type": "LLM",
-      "category": "Major Release",
-      "highlights": "IBM Granite 4.1 8B — 131K tokens context.。GPQA Diamond 43.3%，HLE 3.8%",
-      "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "43.3%"
-        },
-        {
-          "name": "HLE",
-          "value": "3.8%"
-        },
-        {
-          "name": "SciCode",
-          "value": "21.8%"
-        }
-      ],
-      "url": ""
-    },
-    {
-      "date": "2026-04-29",
-      "model": "Mistral Medium 3.5",
-      "provider": "Mistral",
-      "type": "LLM",
-      "category": "Major Release",
-      "highlights": "Mistral Mistral Medium 3.5 — 256K tokens context, reasoning model.。GPQA Diamond 74.8%，HLE 12.8%",
-      "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "74.8%"
-        },
-        {
-          "name": "HLE",
-          "value": "12.8%"
-        },
-        {
-          "name": "SciCode",
-          "value": "39.6%"
-        }
-      ],
-      "url": ""
-    },
-    {
-      "date": "2026-04-24",
-      "model": "DeepSeek V4 Flash",
-      "provider": "DeepSeek",
-      "type": "LLM",
-      "category": "Major Release",
-      "highlights": "DeepSeek DeepSeek V4 Flash — 1M tokens context, reasoning model.。GPQA Diamond 89.4%，HLE 32.1%",
-      "features": [],
-      "metrics": [
-        {
-          "name": "GPQA Diamond",
-          "value": "89.4%"
-        },
-        {
-          "name": "HLE",
-          "value": "32.1%"
-        },
-        {
-          "name": "SciCode",
-          "value": "44.9%"
-        }
-      ],
+      "metrics": [],
       "url": ""
     }
   ]

@@ -59,41 +59,36 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: '🔬 原理解析',
-          autogenerate: { directory: 'principles' },
+          label: 'Projects',
+          autogenerate: { directory: 'projects' },
         },
         {
-          label: '⚙️ 场景实现',
-          autogenerate: { directory: 'scenarios' },
+          label: 'AI Agent',
+          autogenerate: { directory: 'ai' },
         },
         {
-          label: '🧰 开发工具',
+          label: 'AI 工作流',
+          autogenerate: { directory: 'ai-workflow' }
+        },
+        {
+          label: 'AI 软件评测',
           items: [
             {
-              label: 'AI 工作流',
-              autogenerate: { directory: 'tools/ai-workflow' },
+              label: 'OpenClaw',
+              autogenerate: { directory: 'claw/openclaw' }
             },
             {
-              label: 'AI 软件评测',
-              items: [
-                {
-                  label: 'OpenClaw',
-                  autogenerate: { directory: 'tools/claw/openclaw' }
-                },
-              ]
-            },
-            {
-              label: '其他工具',
-              autogenerate: { directory: 'tools' },
+              label: 'ZeroClaw',
+              autogenerate: { directory: 'claw/zeroclaw' }
             }
           ]
         },
         {
-          label: '📊 质量运维',
-          autogenerate: { directory: 'ops' },
+          label: 'Architecture',
+          autogenerate: { directory: 'architecture' },
         },
         {
-          label: '📰 新闻动态',
+          label: 'AI News',
           autogenerate: { directory: 'ai-news' },
         },
         {
@@ -113,6 +108,15 @@ export default defineConfig({
         {
           label: '网络',
           autogenerate: { directory: 'network' },
+        },
+        {
+          label: 'Ops',
+          items: [
+            {
+              label: '运维与基础设施',
+              autogenerate: { directory: 'ops' },
+            }
+          ],
           collapsed: true,
         },
       ],

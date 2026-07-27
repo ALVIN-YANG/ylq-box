@@ -142,8 +142,8 @@ const sections = categories.map((cat) => ({
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: stretch;
-    gap: 1rem;
-    margin: 2rem 0 1rem;
+    gap: 1.25rem;
+    margin: 2.25rem 0 1rem;
   }
 
   @media (max-width: 720px) {
@@ -159,24 +159,25 @@ const sections = categories.map((cat) => ({
     margin: 0;
     background: var(--sl-color-surface);
     border: 1px solid var(--sl-color-gray-6);
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: hidden;
+    box-shadow: var(--paper-shadow);
     transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
     animation: cardFadeIn 0.4s ease-out both;
   }
 
   .section-card:hover {
     border-color: var(--sl-color-accent);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+    transform: translateY(-1px);
+    box-shadow: 0 14px 30px rgba(36, 41, 47, 0.07);
   }
 
   .section-header {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    height: 1.75rem;
-    padding: 0 0.75rem;
+    min-height: 2.5rem;
+    padding: 0.35rem 0.9rem;
     text-decoration: none;
     color: inherit;
     border-bottom: 1px solid var(--sl-color-gray-6);
@@ -195,6 +196,7 @@ const sections = categories.map((cat) => ({
   }
 
   .section-title {
+    font-family: var(--sl-font-heading);
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--sl-color-white);
@@ -205,7 +207,7 @@ const sections = categories.map((cat) => ({
   .section-list {
     list-style: none;
     margin: 0;
-    padding: 0.25rem 0;
+    padding: 0.35rem 0;
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
@@ -219,7 +221,7 @@ const sections = categories.map((cat) => ({
   .section-link {
     display: flex;
     align-items: center;
-    padding: 0.35rem 0.75rem;
+    padding: 0.4rem 0.9rem;
     text-decoration: none;
     color: var(--sl-color-gray-2);
     transition: color 0.2s ease, background-color 0.2s ease, padding-left 0.2s ease;
@@ -228,7 +230,7 @@ const sections = categories.map((cat) => ({
   .section-link:hover {
     color: var(--sl-color-accent);
     background-color: var(--sl-color-accent-low, rgba(212, 165, 90, 0.06));
-    padding-left: 0.9rem;
+    padding-left: 1.05rem;
   }
 
   .section-link-title {

@@ -109,8 +109,9 @@ const recentDocs = allDocs
     gap: 0.5rem;
     padding: 1.25rem;
     border: 1px solid var(--sl-color-gray-6);
-    border-radius: 10px;
+    border-radius: 8px;
     background: var(--sl-color-surface);
+    box-shadow: var(--paper-shadow);
     text-decoration: none;
     color: inherit;
     transition: border-color 0.25s ease, transform 0.25s ease, background-color 0.25s ease;
@@ -120,7 +121,7 @@ const recentDocs = allDocs
   .note-card:hover {
     border-color: var(--sl-color-accent);
     background: var(--sl-color-accent-low, rgba(212, 165, 90, 0.08));
-    transform: translateY(-2px);
+    transform: translateY(-1px);
   }
 
   .note-meta {
@@ -141,6 +142,7 @@ const recentDocs = allDocs
   }
 
   .note-title {
+    font-family: var(--sl-font-heading);
     font-size: 1rem;
     font-weight: 600;
     color: var(--sl-color-white);

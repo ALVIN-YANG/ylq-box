@@ -110,6 +110,10 @@ export default defineConfig({
           autogenerate: { directory: 'network' },
         },
         {
+          label: '安全',
+          autogenerate: { directory: 'security' },
+        },
+        {
           label: 'Ops',
           items: [
             {

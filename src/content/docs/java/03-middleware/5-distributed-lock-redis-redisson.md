@@ -3,8 +3,8 @@ title: "分布式锁的深水区：Redisson 原理与脑裂问题解法"
 description: "还在手写 SETNX 加 expire 糊弄分布式锁？本文带你深入 Redisson 看门狗源码原理，并探讨在 Redis 集群脑裂（Split-Brain）极端场景下，为什么 ZooKeeper 才是绝对安全的选项。"
 sidebar:
   order: 5
-date: 2026-03-13
-lastUpdated: 2026-03-13
+date: 2025-12-24
+lastUpdated: 2026-02-05
 ---
 
 在单机应用里，用个 `ReentrantLock` 就能锁住线程。但在微服务里，当 10 台机器同时执行抢单、扣库存逻辑时，我们必须把锁放到一台大家都能看见的公共中间件上。这就是**分布式锁**。

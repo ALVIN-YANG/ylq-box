@@ -3,8 +3,8 @@ title: "2026 年：MyBatis-Plus 与 Spring Data JPA 的终极抉择"
 description: "在国内 Java 圈，ORM 框架的争论从未停止。作为架构师，到底是选极具掌控感的 MyBatis 体系，还是走全自动映射的 JPA 路线？"
 sidebar:
   order: 2
-date: 2026-03-13
-lastUpdated: 2026-03-13
+date: 2025-10-03
+lastUpdated: 2025-11-03
 ---
 
 在国内的 Java 圈，ORM（对象关系映射）框架的选型一直是引发口水战的重灾区。

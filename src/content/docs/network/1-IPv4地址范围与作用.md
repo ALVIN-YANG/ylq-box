@@ -1,8 +1,8 @@
 ---
 title: IPv4 地址范围与作用
 description: IPv4 五类地址划分、公网与私网地址、特殊地址的作用，附记忆技巧和实际应用场景
-date: 2024-07-10
-lastUpdated: 2026-02-28
+date: 2025-09-07
+lastUpdated: 2025-11-02
 ---
 
 ## IPv4 地址基础

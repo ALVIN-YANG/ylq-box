@@ -2,8 +2,8 @@
 title: AI 能力体系：从 Function Call 到 Agent
 description: 全面解析 LLM 与外部世界交互的核心机制：Function Call 工具调用、Agent 智能体、MCP 协议、Skill 技能系统的原理与协作关系
 slug: ai/function-call-agent
-date: 2025-03-27
-lastUpdated: 2026-07-24
+date: 2026-01-11
+lastUpdated: 2026-02-16
 ---
 
 大语言模型（LLM）本质是「读入文本、续写文本」。它不知道实时天气、你库里的表结构、磁盘上的文件——除非你把结果塞进上下文，或让它通过**工具**去拉数据。
@@ -227,9 +227,11 @@ MCP 基于 **JSON-RPC 2.0** 通信，支持两种传输方式：
 
 ### 连接生命周期
 
-典型顺序：`initialize` 协商能力 → `initialized` 就绪 → `tools/list` 发现工具 → `tools/call` 执行；部分实现还会推送工具列表变更。
+在 `2025-11-25` 及更早版本中，典型顺序是：`initialize` 协商能力 → `initialized` 就绪 → `tools/list` 发现工具 → `tools/call` 执行；部分实现还会推送工具列表变更。
 
 ![MCP 会话简化的请求方向（JSON-RPC）](/images/ai/fc-mcp-session-lifecycle.svg)
+
+`2026-07-28` 已移除这一握手和协议级会话，改用 `server/discover`、请求级 `_meta` 与 Multi Round-Trip Requests。完整迁移影响见 [《MCP 2026-07-28：从“有状态会话”走向可横向扩展的 Agent 协议》](/network/mcp-2026-07-28-core-changes/)。
 
 ### 配置示例
 
@@ -331,6 +333,7 @@ description: 创建符合团队规范的 React 组件。当用户要求创建新
 
 - [OpenAI Function Calling 文档](https://developers.openai.com/api/docs/guides/function-calling)
 - [MCP 官方规范](https://modelcontextprotocol.io/specification/2025-11-25)
+- [MCP 2026-07-28 核心变化与迁移解读](/network/mcp-2026-07-28-core-changes/)
 - [MCP 架构概览](https://modelcontextprotocol.io/docs/learn/architecture)
 - [MCP Server 列表](https://github.com/modelcontextprotocol/servers)
 - [Cursor Agent Skills 文档](https://cursor.com/docs/context/skills)

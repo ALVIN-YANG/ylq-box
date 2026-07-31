@@ -3,8 +3,8 @@ title: 上传项目到 Maven 中心仓
 description: 通过 Central Portal 发布开源库到 Maven 中心仓的完整流程：注册 namespace、GPG 签名、Maven 插件配置
 sidebar:
   label: 发布到中心仓
-date: 2025-05-09
-lastUpdated: 2026-03-13
+date: 2025-11-20
+lastUpdated: 2025-12-28
 ---
 
 ## Central Portal

@@ -3,8 +3,8 @@ title: MyBatis
 description: MyBatis 持久层框架全面指南：SpringBoot 集成、XML Mapper、动态 SQL、缓存、TypeHandler、连接池选型
 sidebar:
   label: MyBatis
-date: 2025-04-29
-lastUpdated: 2026-03-13
+date: 2025-09-20
+lastUpdated: 2025-10-18
 ---
 
 官方文档：[https://mybatis.org/mybatis-3/zh_CN/index.html](https://mybatis.org/mybatis-3/zh_CN/index.html)

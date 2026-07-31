@@ -1,9 +1,9 @@
 ---
 title: "实时语音 Agent 怎么做：延迟、打断和状态一致性"
 description: "用户不关心用了几个模型，只关心回应快不快、能不能打断、弱网会不会乱，以及事情到底做成没有。"
-date: 2026-07-31
-lastUpdated: 2026-07-31
-verifiedAgainst: "WebRTC、流式 ASR/TTS 与实时 Agent 工程实践，2026-07-31"
+date: 2026-06-14
+lastUpdated: 2026-07-13
+verifiedAgainst: "WebRTC、流式 ASR/TTS 与实时 Agent 工程实践，2026-07-13"
 sidebar:
   order: 16
 ---

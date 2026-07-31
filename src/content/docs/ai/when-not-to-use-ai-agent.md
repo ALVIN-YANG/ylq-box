@@ -1,9 +1,9 @@
 ---
 title: "什么时候不该用 AI Agent：先和普通代码、Workflow 比一遍"
 description: "Agent 不是默认升级。先看不确定性、风险、成本和可验证性，再决定用普通代码、Workflow 还是 Agent。"
-date: 2026-07-31
-lastUpdated: 2026-07-31
-verifiedAgainst: "OpenAI 与 Anthropic Agent 架构建议，2026-07-31"
+date: 2026-06-30
+lastUpdated: 2026-07-28
+verifiedAgainst: "OpenAI 与 Anthropic Agent 架构建议，2026-07-28"
 sidebar:
   order: 15
 ---

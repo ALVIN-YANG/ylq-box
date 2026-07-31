@@ -3,8 +3,8 @@ title: "OOM 内存泄漏：从 Heap Dump 到代码溯源的实战"
 description: "遇到 java.lang.OutOfMemoryError 怎么办？重启只能续命，唯有 Dump 分析才能根治。本文教你如何抓取案发现场，并使用 MAT 工具揪出内存泄漏的内鬼。"
 sidebar:
   order: 4
-date: 2026-03-13
-lastUpdated: 2026-03-13
+date: 2025-09-06
+lastUpdated: 2025-10-03
 ---
 
 比起 CPU 100%，Java 程序员更害怕看到日志里出现那个阴森森的词：`java.lang.OutOfMemoryError: Java heap space`。

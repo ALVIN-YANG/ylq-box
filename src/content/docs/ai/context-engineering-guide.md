@@ -1,9 +1,9 @@
 ---
 title: "Context Engineering 怎么做：别把所有信息都塞给模型"
 description: "上下文不是越长越好。Prompt、任务状态、RAG、Memory、工具结果和 Compaction 应该各自解决不同问题。"
-date: 2026-07-31
-lastUpdated: 2026-07-31
-verifiedAgainst: "Anthropic Context Engineering 与主流 Agent 实践，2026-07-31"
+date: 2026-03-14
+lastUpdated: 2026-04-16
+verifiedAgainst: "Anthropic Context Engineering 与主流 Agent 实践，2026-04-16"
 sidebar:
   order: 14
 ---

@@ -2,7 +2,7 @@
 title: AI News
 description: 面向 AI Agent 工程师的每周技术观察，聚焦真正影响工程实践的变化
 date: 2026-02-23
-lastUpdated: 2026-07-31
+lastUpdated: 2026-07-30
 ---
 
 这里不再公开堆积每日资讯。自动化每天只保存内部采集快照，每周再把重复信息去掉，整理成一篇面向 AI Agent / 基础设施工程师的技术周报。

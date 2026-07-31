@@ -3,8 +3,8 @@ title: Maven 依赖管理
 description: Maven 环境配置、pom.xml 标签详解、依赖范围与传递、版本冲突解决、模块管理、私服 Nexus 搭建
 sidebar:
   label: Maven 依赖管理
-date: 2025-04-17
-lastUpdated: 2026-03-13
+date: 2025-11-13
+lastUpdated: 2025-12-20
 ---
 
 ## 环境准备

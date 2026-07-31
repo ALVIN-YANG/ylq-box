@@ -3,8 +3,8 @@ title: "线上 CPU 飙升 100%？一整套标准排查 SOP"
 description: "每当线上监控报警 CPU 飙升时，很多开发都会手足无措。本文为你总结了一套在 Linux 生产环境中行之有效的排查 SOP，包括传统命令行工具和现代诊断神器 Arthas 的实战应用。"
 sidebar:
   order: 3
-date: 2026-03-13
-lastUpdated: 2026-03-13
+date: 2025-08-30
+lastUpdated: 2025-09-25
 ---
 
 在分布式系统运维中，最让人肾上腺素飙升的报警莫过于：“告警！生产节点 `app-node-01` CPU 使用率达到 99%！”。

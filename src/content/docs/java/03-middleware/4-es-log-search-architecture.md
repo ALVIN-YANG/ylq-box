@@ -3,8 +3,8 @@ title: "Elasticsearch 在海量日志与全文检索中的架构演进"
 description: "为什么曾经一统天下的 ELK 架构在 2026 年被频频诟病太重？本文探讨 ES 的存储原理，以及在纯日志场景下它与 ClickHouse/Loki 的差异，给出全文检索的最优实践。"
 sidebar:
   order: 4
-date: 2026-03-13
-lastUpdated: 2026-03-13
+date: 2025-12-17
+lastUpdated: 2026-01-28
 ---
 
 在微服务刚兴起的那些年，只要提到“日志收集”或者“搜索”，所有人的脑子里都会蹦出一个金光闪闪的词汇：**ELK (Elasticsearch + Logstash + Kibana)**。

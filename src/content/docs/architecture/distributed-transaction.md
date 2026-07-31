@@ -3,8 +3,8 @@ title: 分布式事务方案选型
 description: 从一致性模型出发，对比 Outbox Pattern、事务消息、Seata、TCC、SAGA、2PC/XA 及现代工作流引擎的适用场景与工程取舍
 sidebar:
   label: 分布式事务选型
-date: 2026-03-02
-lastUpdated: 2026-07-24
+date: 2025-10-20
+lastUpdated: 2025-12-05
 ---
 
 ## 核心问题
@@ -347,6 +347,7 @@ public void orderWorkflow(OrderRequest request) {
 
 ## 延伸阅读
 
+- [事件驱动架构怎么落地：Outbox、幂等、顺序与重放](/architecture/event-driven-architecture-outbox-idempotency/)
 - [Seata 官方文档](https://seata.apache.org/zh-cn/docs/user/quickstart/)
 - [Temporal 官方文档](https://docs.temporal.io/)
 - [Microservices Patterns - Chris Richardson（Transactional Outbox）](https://microservices.io/patterns/data/transactional-outbox.html)

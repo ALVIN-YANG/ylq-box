@@ -71,13 +71,8 @@ export default defineConfig({
           autogenerate: { directory: 'ai-workflow' }
         },
         {
-          label: 'AI 软件评测',
-          items: [
-            {
-              label: 'OpenClaw',
-              autogenerate: { directory: 'claw/openclaw' }
-            }
-          ]
+          label: 'OpenClaw',
+          autogenerate: { directory: 'claw/openclaw' }
         },
         {
           label: 'Architecture',

@@ -1,9 +1,9 @@
 ---
 title: "长任务 Agent 怎么跑稳：状态机、Checkpoint 与恢复"
 description: "任务一旦跨过一次请求，真正难的就不再是推理，而是重启、重复消息、取消、恢复和终态保护。"
-date: 2026-07-31
-lastUpdated: 2026-07-31
-verifiedAgainst: "持久化工作流与生产任务系统实践，2026-07-31"
+date: 2026-03-29
+lastUpdated: 2026-04-30
+verifiedAgainst: "持久化工作流与生产任务系统实践，2026-04-30"
 sidebar:
   order: 13
 ---

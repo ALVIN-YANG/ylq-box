@@ -3,8 +3,8 @@ title: "微服务无损发布：Spring Boot 优雅停机与 K8s 探针联动"
 description: "每次发版部署，接口总是会报几百个 502 网关错误？本文讲解如何在 2026 年的容器化架构中配置 Spring Boot 的优雅停机，结合 K8s 实现真正的平滑无损发布。"
 sidebar:
   order: 5
-date: 2026-03-13
-lastUpdated: 2026-03-13
+date: 2025-10-24
+lastUpdated: 2025-11-26
 ---
 
 “为什么每次我们在晚上 10 点更新发版，监控大屏上总会弹出一波 502 Bad Gateway 和 500 接口超时的报错？”

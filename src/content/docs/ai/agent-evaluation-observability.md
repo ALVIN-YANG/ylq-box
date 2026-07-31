@@ -1,9 +1,9 @@
 ---
 title: "AI Agent 怎么做评测：别只看最后一句回答"
 description: "一次任务成功，不代表系统可靠。从结果、轨迹、副作用和线上回放出发，建立真正能阻止回归的 Agent 评测。"
-date: 2026-07-31
-lastUpdated: 2026-07-31
-verifiedAgainst: "OpenAI 与 Anthropic Agent eval 官方资料，2026-07-31"
+date: 2026-01-27
+lastUpdated: 2026-03-03
+verifiedAgainst: "OpenAI 与 Anthropic Agent eval 官方资料，2026-03-03"
 sidebar:
   order: 10
 ---

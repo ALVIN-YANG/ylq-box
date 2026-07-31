@@ -20,6 +20,9 @@ verifiedAgainst: "产品或规范版本，验证日期"
 - `lastUpdated`：最后一次实质内容更新日；纯格式调整不刷新。
 - `verifiedAgainst`：教程、评测、协议和时效性内容必须填写。
 - Starlight 会渲染 frontmatter 的 `title`，正文不要重复写一级标题。
+- 导入历史文章时，应回填原始发布和内容演进时间，不要把导入日批量写成更新时间。
+- `lastUpdated` 不得早于 `date`，也不得使用未来日期。
+- AI News 使用真实采集周期，不参与人工日期分布。
 
 ## 写作风格
 

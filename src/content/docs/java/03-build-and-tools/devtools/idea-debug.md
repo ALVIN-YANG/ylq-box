@@ -3,8 +3,8 @@ title: 使用 IDEA 调试
 description: IntelliJ IDEA 调试全指南：断点、条件断点、变量查看、线程调试、远程调试配置
 sidebar:
   label: IDEA 调试
-date: 2025-03-27
-lastUpdated: 2026-03-13
+date: 2025-11-06
+lastUpdated: 2025-12-12
 ---
 
 ## 调试前的准备

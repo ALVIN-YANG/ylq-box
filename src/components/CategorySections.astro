@@ -1,50 +1,62 @@
 ---
 import { getCollection } from 'astro:content';
-import { statSync } from 'node:fs';
-import { resolve } from 'node:path';
 
 const categories = [
   {
     id: 'ai',
     title: 'AI Agent',
-    desc: 'Agent、RAG、Function Call',
+    desc: '从 Prompt、RAG 到生产级 Agent 系统',
     href: '/ai/prompt-engineering/',
     icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>',
   },
   {
     id: 'ai-workflow',
     title: 'AI 工作流',
-    desc: 'AI 辅助开发与工具链',
+    desc: 'AI Coding、Skills 与开发工具链',
     href: '/ai-workflow/ai-coding-skills-selection-guide/',
     icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
   },
   {
     id: 'architecture',
     title: 'Architecture',
-    desc: '分布式系统与架构设计',
+    desc: '分布式系统、事件驱动与业务建模',
     href: '/architecture/distributed-transaction/',
     icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>',
   },
   {
     id: 'claw',
-    title: 'AI 软件评测',
-    desc: 'AI 工具、框架与产品实测',
+    title: 'OpenClaw',
+    desc: '插件开发、模型接入与生产部署',
     href: '/claw/openclaw/',
     icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg>',
   },
   {
     id: 'ai-news',
     title: 'AI News',
-    desc: '每日 AI 资讯',
+    desc: '每周 AI 工程变化与趋势判断',
     href: '/ai-news/',
     icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-2a2 2 0 0 1 2-2h12"/><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h5"/></svg>',
   },
   {
     id: 'java',
-    title: '算法',
-    desc: 'Java、算法与运维基础',
-    href: '/algorithms/java-high-frequency-algorithm-patterns/',
+    title: 'Java',
+    desc: '并发、框架、中间件与架构实践',
+    href: '/java/01-core/1-java21-virtual-threads/',
     icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="10" y1="9" x2="16" y2="9"/><line x1="10" y1="13" x2="14" y2="13"/></svg>',
+  },
+  {
+    id: 'algorithms',
+    title: '算法',
+    desc: '用模式组织高频题，而不是背题解',
+    href: '/algorithms/java-high-frequency-algorithm-patterns/',
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h10M4 19h16"/><circle cx="17" cy="12" r="3"/></svg>',
+  },
+  {
+    id: 'ops',
+    title: 'Ops',
+    desc: 'Kubernetes、排障与生产运行手册',
+    href: '/ops/k8s/kubernetes-practical-starter-guide/',
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>',
   },
   {
     id: 'network',
@@ -78,29 +90,23 @@ function getFilenameOrder(id: string): number {
 }
 
 function getDocDate(doc: typeof allDocs[number]): number {
-  const id = doc.id;
-  if (doc.data.date) return new Date(doc.data.date).getTime();
   if (doc.data.lastUpdated) return new Date(doc.data.lastUpdated).getTime();
-  const parsed = parseDateFromFilename(id);
+  if (doc.data.date) return new Date(doc.data.date).getTime();
+  const parsed = parseDateFromFilename(doc.id);
   if (parsed) return parsed.getTime();
-  try {
-    const ext = typeof id === 'string' && id.endsWith('.mdx') ? '.mdx' : '.md';
-    const stats = statSync(resolve(`src/content/docs/${id}${ext}`));
-    return stats.mtime.getTime();
-  } catch {
-    return 0;
-  }
+  return 0;
 }
 
-function getCategoryDocs(categoryId: string, count = 6) {
+function isArticle(doc: typeof allDocs[number]) {
+  const id = doc.id;
+  return Boolean(id && !id.endsWith('index') && !id.includes('_category_') && id !== 'index.mdx');
+}
+
+function getCategoryDocs(categoryId: string, count = 5) {
   return allDocs
     .filter((doc) => {
-      const id = doc.id;
-      if (!id || id.endsWith('index') || id.includes('_category_') || id === 'index.mdx') return false;
-      if (categoryId === 'java') {
-        return id.startsWith('java/') || id.startsWith('algorithms/') || id.startsWith('ops/');
-      }
-      return id.startsWith(`${categoryId}/`);
+      if (!isArticle(doc)) return false;
+      return doc.id.startsWith(`${categoryId}/`);
     })
     .sort((a, b) => {
       const dateDiff = getDocDate(b) - getDocDate(a);
@@ -112,18 +118,43 @@ function getCategoryDocs(categoryId: string, count = 6) {
 
 const sections = categories.map((cat) => ({
   ...cat,
-  docs: getCategoryDocs(cat.id, 6),
+  docs: getCategoryDocs(cat.id),
+  count: allDocs.filter((doc) => isArticle(doc) && doc.id.startsWith(`${cat.id}/`)).length,
 }));
+
+const articleCount = allDocs.filter(isArticle).length;
+
+function formatDate(doc: typeof allDocs[number]) {
+  const value = doc.data.lastUpdated || doc.data.date;
+  if (!value) return '';
+  const date = new Date(value);
+  return `${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+}
 ---
 
-<div class="home-sections">
+<header class="directory-intro">
+  <div>
+    <p class="directory-kicker">Alvin Yang · Field Notes</p>
+    <h1>分栏</h1>
+    <p class="directory-lead">关于 AI Agent、软件架构与工程实践的持续笔记。</p>
+  </div>
+  <p class="directory-count"><strong>{articleCount}</strong> 篇文章 · {sections.length} 个分栏</p>
+</header>
+
+<div class="home-sections" aria-label="文章分栏">
   {
-    sections.map((cat, i) => (
-      <section class="section-card" style={`animation-delay: ${i * 60}ms`}>
-        <a href={cat.href} class="section-header">
-          <span class="section-icon" set:html={cat.icon} />
-          <span class="section-title">{cat.title}</span>
-        </a>
+    sections.map((cat) => (
+      <section class="section-card" aria-labelledby={`section-${cat.id}`}>
+        <div class="section-heading">
+          <a href={cat.href} class="section-header">
+            <span class="section-icon" set:html={cat.icon} />
+            <span>
+              <span class="section-title" id={`section-${cat.id}`}>{cat.title}</span>
+              <span class="section-desc">{cat.desc}</span>
+            </span>
+          </a>
+          <span class="section-count">{cat.count}</span>
+        </div>
 
         {cat.docs.length > 0 && (
           <ul class="section-list">
@@ -131,8 +162,9 @@ const sections = categories.map((cat) => ({
               const href = `/${doc.id.replace(/\.mdx?$/, '').replace(/\/index$/, '/')}/`;
               return (
                 <li class="section-item">
-                  <a href={href} class="section-link" onclick="event.stopPropagation()">
+                  <a href={href} class="section-link">
                     <span class="section-link-title">{doc.data.title}</span>
+                    <time datetime={new Date(doc.data.lastUpdated || doc.data.date || 0).toISOString()}>{formatDate(doc)}</time>
                   </a>
                 </li>
               );
@@ -145,54 +177,114 @@ const sections = categories.map((cat) => ({
 </div>
 
 <style>
+  .directory-intro {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin: clamp(2rem, 5vw, 4.5rem) 0 2.25rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--sl-color-gray-5);
+  }
+
+  .directory-kicker {
+    margin: 0 0 0.45rem;
+    color: var(--sl-color-accent);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .directory-intro h1 {
+    margin: 0;
+    color: var(--sl-color-white);
+    font-family: var(--sl-font-heading);
+    font-size: clamp(2.1rem, 5vw, 3.6rem);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    line-height: 1;
+  }
+
+  .directory-lead {
+    margin: 0.7rem 0 0;
+    color: var(--sl-color-gray-2);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .directory-count {
+    flex: 0 0 auto;
+    margin: 0;
+    color: var(--sl-color-gray-3);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+  }
+
+  .directory-count strong {
+    color: var(--sl-color-white);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
   .home-sections {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: stretch;
-    gap: 1.25rem;
-    margin: 2.25rem 0 1rem;
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+    align-items: start;
+    column-gap: clamp(2rem, 5vw, 4.5rem);
+    row-gap: 0;
+    margin: 0 0 2rem;
   }
 
   @media (max-width: 720px) {
+    .directory-intro {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 1.25rem;
+    }
+
     .home-sections {
       grid-template-columns: 1fr;
-      gap: 1rem;
+      column-gap: 0;
     }
   }
 
   .section-card {
-    display: flex;
-    flex-direction: column;
     margin: 0;
-    background: var(--sl-color-surface);
-    border: 1px solid var(--sl-color-gray-6);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: var(--paper-shadow);
-    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
-    animation: cardFadeIn 0.4s ease-out both;
+    padding: 1.35rem 0 1.5rem;
+    border-top: 1px solid var(--sl-color-gray-5);
+    animation: sectionFadeIn 0.4s ease-out both;
   }
 
-  .section-card:hover {
-    border-color: var(--sl-color-accent);
-    transform: translateY(-1px);
-    box-shadow: 0 14px 30px rgba(36, 41, 47, 0.07);
+  .section-card:nth-child(-n + 2) {
+    border-top-color: var(--sl-color-accent);
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
   }
 
   .section-header {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    min-height: 2.5rem;
-    padding: 0.35rem 0.9rem;
+    align-items: flex-start;
+    gap: 0.65rem;
+    min-width: 0;
     text-decoration: none;
     color: inherit;
-    border-bottom: 1px solid var(--sl-color-gray-6);
-    transition: background-color 0.2s ease;
+    transition: color 0.2s ease;
   }
 
-  .section-header:hover {
-    background-color: var(--sl-color-accent-low, rgba(212, 165, 90, 0.06));
+  .section-header:hover .section-title {
+    color: var(--sl-color-accent);
   }
 
   .section-icon {
@@ -200,24 +292,42 @@ const sections = categories.map((cat) => ({
     color: var(--sl-color-accent);
     display: flex;
     align-items: center;
+    margin-top: 0.1rem;
   }
 
   .section-title {
+    display: block;
     font-family: var(--sl-font-heading);
-    font-size: 0.85rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--sl-color-white);
     margin: 0;
-    line-height: 1;
+    line-height: 1.25;
+    transition: color 0.2s ease;
+  }
+
+  .section-desc {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--sl-color-gray-3);
+    font-size: 0.76rem;
+    line-height: 1.45;
+  }
+
+  .section-count {
+    flex: 0 0 auto;
+    color: var(--sl-color-gray-4);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 0.72rem;
+    font-variant-numeric: tabular-nums;
   }
 
   .section-list {
     list-style: none;
-    margin: 0;
-    padding: 0.35rem 0;
+    margin: 0.9rem 0 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    flex: 1 1 auto;
   }
 
   .section-item {
@@ -226,34 +336,52 @@ const sections = categories.map((cat) => ({
   }
 
   .section-link {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    padding: 0.4rem 0.9rem;
+    gap: 1rem;
+    padding: 0.35rem 0;
     text-decoration: none;
     color: var(--sl-color-gray-2);
-    transition: color 0.2s ease, background-color 0.2s ease, padding-left 0.2s ease;
+    transition: color 0.2s ease, transform 0.2s ease;
   }
 
   .section-link:hover {
     color: var(--sl-color-accent);
-    background-color: var(--sl-color-accent-low, rgba(212, 165, 90, 0.06));
-    padding-left: 1.05rem;
+    transform: translateX(0.2rem);
   }
 
   .section-link-title {
-    font-size: 0.85rem;
+    min-width: 0;
+    font-size: 0.84rem;
     line-height: 1.45;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  @keyframes cardFadeIn {
+  .section-link time {
+    color: var(--sl-color-gray-4);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 0.68rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .section-link:focus-visible,
+  .section-header:focus-visible {
+    border-radius: 3px;
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 3px;
+  }
+
+  @keyframes sectionFadeIn {
     from {
       opacity: 0;
+      transform: translateY(0.35rem);
     }
     to {
       opacity: 1;
+      transform: translateY(0);
     }
   }
 

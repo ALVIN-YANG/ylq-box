@@ -3,8 +3,8 @@ title: "AI Coding 远程开发机：macOS + Tailscale + SSH + Termux"
 description: "最稳的 AI Coding 用法不是每台设备都装，而是固定一台 Mac 当远程开发机。本文重点讲连接步骤、使用方式和排错。"
 sidebar:
   order: 4
-date: 2026-04-06
-lastUpdated: 2026-07-24
+date: 2026-03-09
+lastUpdated: 2026-04-06
 ---
 
 先说结论：**把 AI Coding 环境固定在一台主力 Mac 上，其他电脑和手机通过 Tailscale + SSH 连进去，这是最稳、最省心的长期方案。**

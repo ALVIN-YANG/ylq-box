@@ -1,9 +1,9 @@
 ---
 title: "生产级 Agent Tool 怎么设计：能调用，只是第一步"
 description: "模型会选工具，不代表工具可以直接进生产。真正的边界在 Schema、权限、幂等、审批、重试和审计。"
-date: 2026-07-31
-lastUpdated: 2026-07-31
-verifiedAgainst: "主流 Function Calling 与 Agent 工程实践，2026-07-31"
+date: 2026-04-29
+lastUpdated: 2026-05-30
+verifiedAgainst: "主流 Function Calling 与 Agent 工程实践，2026-05-30"
 sidebar:
   order: 11
 ---

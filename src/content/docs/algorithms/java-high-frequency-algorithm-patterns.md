@@ -1,9 +1,9 @@
 ---
 title: "Java 高频算法怎么练：15 道题背后的 8 个模式"
 description: "不再逐题背答案。用哈希、滑动窗口、链表、树、图、区间和堆，建立一套能迁移到新题的判断框架。"
-date: 2026-07-31
-lastUpdated: 2026-07-31
-verifiedAgainst: "Java 21；LeetCode 经典题型，2026-07-31"
+date: 2026-02-07
+lastUpdated: 2026-06-12
+verifiedAgainst: "Java 21；LeetCode 经典题型，2026-06-12"
 sidebar:
   order: 1
 ---
@@ -331,3 +331,7 @@ LRU 要同时满足：
 6. 最后再给时间和空间复杂度。
 
 真正稳定的算法能力，不是背下 15 份代码，而是看到新问题时能迅速回答：**我需要维护什么状态，这个状态用什么数据结构更新最便宜。**
+
+继续练习：
+
+- [Java 进阶算法模式：前缀和、单调栈、二分答案与并查集](/algorithms/java-advanced-algorithm-patterns/)

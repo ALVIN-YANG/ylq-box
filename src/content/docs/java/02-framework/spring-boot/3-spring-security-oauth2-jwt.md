@@ -3,8 +3,8 @@ title: "无状态微服务鉴权：Spring Security OAuth2 + JWT 最佳实践"
 description: "传统的 Session 鉴权在微服务时代已经彻底死亡。本文带你拆解如何在 2026 年利用 Spring Security 结合 RSA 非对称加密构建极其安全的 JWT 资源服务器。"
 sidebar:
   order: 3
-date: 2026-03-13
-lastUpdated: 2026-03-13
+date: 2025-10-10
+lastUpdated: 2025-11-11
 ---
 
 在单体应用时代，用户的登录状态全部存在 Tomcat 的 Session 里（本质是服务器内存）。

@@ -1,9 +1,9 @@
 ---
 title: "AI Agent 安全工程：真正危险的是它能继续行动"
 description: "Prompt Injection 只是入口。真正需要保护的是 Agent 后面的权限、MCP、记忆、数据和真实系统。"
-date: 2026-07-31
-lastUpdated: 2026-07-31
-verifiedAgainst: "OWASP AI Agent Security 与 MCP 2025-11-25 规范，2026-07-31"
+date: 2026-02-26
+lastUpdated: 2026-04-01
+verifiedAgainst: "OWASP AI Agent Security 与 MCP 2026-04-01 规范，2026-04-01"
 sidebar:
   order: 12
 ---

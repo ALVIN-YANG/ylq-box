@@ -3,8 +3,8 @@ title: "Kiro：Spec 驱动的 AI 编程实践"
 description: "Kiro 是第一个将 spec-driven 开发引入 AI 编程工具的 IDE。它不只帮你写代码，而是把你的 prompt 变成可验证的规格文档，再驱动 AI 按规格交付。"
 sidebar:
   order: 8
-date: 2026-04-15
-lastUpdated: 2026-07-24
+date: 2026-05-02
+lastUpdated: 2026-05-30
 ---
 
 大多数 AI 编程工具的核心模式是 **vibe coding**——你一句我一句，边聊边写。这种方式快，但难保证质量、难追踪需求、难协作。

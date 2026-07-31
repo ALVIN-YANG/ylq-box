@@ -3,8 +3,8 @@ title: "[协议与排障] Gemini 双端点与 thought_signature：一次工具�
 description: "OpenClaw 接入 Gemini 3 后，一旦触发工具调用就静默失败。根因藏在 Vertex AI OpenAI 兼容端点与原生端点对 thought_signature 的不同处理里。本文从协议面讲起，完整复盘排查过程，并给出一套经过生产验证的中转修复方案。"
 sidebar:
   order: 6
-date: 2026-07-22
-lastUpdated: 2026-07-24
+date: 2026-03-01
+lastUpdated: 2026-04-18
 ---
 
 这是 OpenClaw 深度实践系列里最"硬核"的一篇，也是我们踩坑踩得最值的一篇。

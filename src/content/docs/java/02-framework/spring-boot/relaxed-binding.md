@@ -3,8 +3,8 @@ title: SpringBoot Relaxed Binding
 description: Spring Boot 松散绑定特性，允许在环境变量、命令行参数、属性文件中使用不同风格的属性键命名
 sidebar:
   label: Relaxed Binding
-date: 2024-08-08
-lastUpdated: 2026-03-13
+date: 2025-10-31
+lastUpdated: 2025-12-04
 ---
 
 Spring Boot 的 Relaxed Binding 特性是为了提供灵活性，允许你在不同配置源（如环境变量、命令行参数、属性文件等）中使用不同风格的属性键命名，而 Spring Boot 会自动将它们统一为 Java 代码中的属性键格式。

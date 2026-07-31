@@ -3,8 +3,8 @@ title: "分布式事务：Seata AT 模式与 Saga 模式怎么选？"
 description: "微服务架构下，跨库转账如果失败了一半怎么办？抛弃缓慢的 2PC 和 XA，本文带你深入理解阿里开源的 Seata 中的 AT 与 Saga 模式，在性能与一致性中寻找平衡。"
 sidebar:
   order: 2
-date: 2026-03-13
-lastUpdated: 2026-03-13
+date: 2026-01-07
+lastUpdated: 2026-02-20
 ---
 
 只要你走上了微服务架构这条不归路，你就一定会撞上这座大山：**分布式事务**。

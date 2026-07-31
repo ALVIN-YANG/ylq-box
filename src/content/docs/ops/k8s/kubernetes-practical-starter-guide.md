@@ -1,9 +1,9 @@
 ---
 title: "Kubernetes 怎么入门：从一个 Pod 到可验证部署"
 description: "先用一个最小 Web 应用跑通主线，再理解 Deployment、Service、配置、探针、资源限制和排障。"
-date: 2026-07-31
-lastUpdated: 2026-07-31
-verifiedAgainst: "Kubernetes 官方文档，2026-07-31"
+date: 2025-12-06
+lastUpdated: 2026-02-17
+verifiedAgainst: "Kubernetes 官方文档，2026-02-17"
 sidebar:
   order: 1
 ---
@@ -315,3 +315,7 @@ kubectl -n demo get pod -l app=demo-api --show-labels
 - manifest 能通过 CI 校验和测试。
 
 Kubernetes 的核心不是记字段，而是理解控制循环：**声明期望状态，观察实际状态，用可重复的配置让系统自动收敛。**
+
+下一步：
+
+- [Kubernetes 生产排障：从 Pending 到 Service 5xx](/ops/k8s/kubernetes-production-troubleshooting/)

@@ -1,9 +1,9 @@
 ---
 title: "AI Coding Skills 怎么选：别把所有插件都装上"
 description: "OMO、superpowers、PUA 和 UI/UX Skill 解决的不是同一个问题。先判断任务缺什么，再决定是否加一层。"
-date: 2026-07-31
-lastUpdated: 2026-07-31
-verifiedAgainst: "各项目官方仓库 main 分支，2026-07-31"
+date: 2026-06-25
+lastUpdated: 2026-07-24
+verifiedAgainst: "各项目官方仓库 main 分支，2026-07-24"
 sidebar:
   order: 3
 ---

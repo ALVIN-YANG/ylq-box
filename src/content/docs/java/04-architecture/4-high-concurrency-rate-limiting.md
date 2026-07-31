@@ -3,8 +3,8 @@ title: "百万并发下的限流与熔断：从 Guava 到 Sentinel 实战"
 description: "如果大促流量超出了系统的极限，与其让数据库被瞬间压垮大家一起死，不如主动把多出来的流量踢掉。本文带你拆解现代限流算法与微服务防护墙 Alibaba Sentinel。"
 sidebar:
   order: 4
-date: 2026-03-13
-lastUpdated: 2026-03-13
+date: 2026-01-21
+lastUpdated: 2026-03-08
 ---
 
 在构建高并发系统时，我们总是致力于提升 QPS（吞吐量）。我们加缓存、上消息队列、切分数据库……

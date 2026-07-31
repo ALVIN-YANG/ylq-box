@@ -137,22 +137,20 @@ function formatDate(doc: typeof allDocs[number]) {
   </div>
 </header>
 
-<h2 class="directory-title">分栏</h2>
-
 <div class="home-sections" aria-label="文章分栏">
   {
-    sections.map((cat) => (
+    sections.map((cat, index) => (
       <section class="section-card" aria-labelledby={`section-${cat.id}`}>
-        <div class="section-heading">
-          <a href={cat.href} class="section-header">
-            <span class="section-icon" set:html={cat.icon} />
-            <span>
-              <span class="section-title" id={`section-${cat.id}`}>{cat.title}</span>
-              <span class="section-desc">{cat.desc}</span>
-            </span>
-          </a>
-          <span class="section-count">{cat.count}</span>
-        </div>
+        <span class="section-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+
+        <a href={cat.href} class="section-header">
+          <span class="section-title-row">
+            <span class="section-title" id={`section-${cat.id}`}>{cat.title}</span>
+            <span class="section-arrow" aria-hidden="true">↗</span>
+          </span>
+          <span class="section-desc">{cat.desc}</span>
+          <span class="section-count">{cat.count} 篇文章</span>
+        </a>
 
         {cat.docs.length > 0 && (
           <ul class="section-list">
@@ -180,9 +178,7 @@ function formatDate(doc: typeof allDocs[number]) {
     grid-template-columns: minmax(0, 1.35fr) minmax(15rem, 0.65fr);
     align-items: end;
     gap: clamp(1.5rem, 4vw, 3.5rem);
-    margin: clamp(1.5rem, 3.5vw, 2.75rem) 0 1.35rem;
-    padding-bottom: 1.15rem;
-    border-bottom: 1px solid var(--sl-color-gray-5);
+    margin: clamp(1.5rem, 3.5vw, 2.75rem) 0 0.9rem;
   }
 
   .directory-intro h1 {
@@ -210,22 +206,9 @@ function formatDate(doc: typeof allDocs[number]) {
     letter-spacing: 0.04em;
   }
 
-  .directory-title {
-    margin: 0 0 0.5rem;
-    color: var(--sl-color-white);
-    font-family: var(--sl-font-heading);
-    font-size: 1.05rem;
-    font-weight: 600;
-    letter-spacing: -0.015em;
-  }
-
   .home-sections {
-    display: grid;
-    grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
-    align-items: start;
-    column-gap: clamp(2rem, 5vw, 4.5rem);
-    row-gap: 0;
-    margin: 0 0 2rem;
+    margin: 0 0 2.5rem;
+    border-top: 1px solid var(--sl-color-gray-5);
   }
 
   @media (max-width: 720px) {
@@ -233,93 +216,108 @@ function formatDate(doc: typeof allDocs[number]) {
       grid-template-columns: 1fr;
       gap: 0.45rem;
       margin-top: 1.25rem;
-      margin-bottom: 1rem;
-      padding-bottom: 0.8rem;
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.2rem;
     }
 
     .directory-intro h1 {
       font-size: 1.2rem;
     }
 
-    .home-sections {
-      grid-template-columns: 1fr;
-      column-gap: 0;
-    }
   }
 
   .section-card {
+    display: grid;
+    grid-template-columns: 2.25rem minmax(10.5rem, 0.68fr) minmax(0, 1.7fr);
+    align-items: start;
+    gap: clamp(1rem, 2.6vw, 2.75rem);
     margin: 0;
-    padding: 1.35rem 0 1.5rem;
-    border-top: 1px solid var(--sl-color-gray-5);
+    padding: 1.5rem 0 1.65rem;
+    border-bottom: 1px solid var(--sl-color-gray-5);
     animation: sectionFadeIn 0.4s ease-out both;
+    transition: border-color 0.2s ease;
   }
 
-  .section-card:nth-child(-n + 2) {
-    border-top-color: var(--sl-color-accent);
+  .section-card:hover {
+    border-bottom-color: color-mix(in srgb, var(--sl-color-accent) 50%, var(--sl-color-gray-5));
   }
 
-  .section-heading {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
+  .section-index {
+    padding-top: 0.2rem;
+    color: var(--sl-color-gray-4);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 0.68rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.08em;
   }
 
   .section-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.65rem;
+    display: block;
     min-width: 0;
     text-decoration: none;
     color: inherit;
-    transition: color 0.2s ease;
+  }
+
+  .section-title-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.45rem;
   }
 
   .section-header:hover .section-title {
     color: var(--sl-color-accent);
   }
 
-  .section-icon {
-    flex-shrink: 0;
+  .section-header:hover .section-arrow {
+    opacity: 1;
+    transform: translate(0.12rem, -0.12rem);
+  }
+
+  .section-arrow {
     color: var(--sl-color-accent);
-    display: flex;
-    align-items: center;
-    margin-top: 0.1rem;
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
 
   .section-title {
     display: block;
     font-family: var(--sl-font-heading);
-    font-size: 1rem;
+    font-size: clamp(1.08rem, 1.55vw, 1.28rem);
     font-weight: 600;
     color: var(--sl-color-white);
     margin: 0;
-    line-height: 1.25;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
     transition: color 0.2s ease;
   }
 
   .section-desc {
     display: block;
-    margin-top: 0.25rem;
+    max-width: 19rem;
+    margin-top: 0.45rem;
     color: var(--sl-color-gray-3);
-    font-size: 0.76rem;
-    line-height: 1.45;
+    font-size: 0.75rem;
+    line-height: 1.55;
   }
 
   .section-count {
-    flex: 0 0 auto;
+    display: block;
+    margin-top: 0.7rem;
     color: var(--sl-color-gray-4);
     font-family: 'Space Grotesk', system-ui, sans-serif;
-    font-size: 0.72rem;
+    font-size: 0.65rem;
     font-variant-numeric: tabular-nums;
+    letter-spacing: 0.03em;
   }
 
   .section-list {
     list-style: none;
-    margin: 0.9rem 0 0;
+    margin: -0.15rem 0 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(1.25rem, 3vw, 3rem);
   }
 
   .section-item {
@@ -331,21 +329,22 @@ function formatDate(doc: typeof allDocs[number]) {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    gap: 1rem;
-    padding: 0.35rem 0;
+    gap: 0.7rem;
+    padding: 0.32rem 0;
     text-decoration: none;
     color: var(--sl-color-gray-2);
-    transition: color 0.2s ease, transform 0.2s ease;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
   }
 
   .section-link:hover {
     color: var(--sl-color-accent);
-    transform: translateX(0.2rem);
+    border-bottom-color: color-mix(in srgb, var(--sl-color-accent) 25%, transparent);
   }
 
   .section-link-title {
     min-width: 0;
-    font-size: 0.84rem;
+    font-size: 0.82rem;
     line-height: 1.45;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -380,6 +379,42 @@ function formatDate(doc: typeof allDocs[number]) {
   @media (prefers-reduced-motion: reduce) {
     .section-card {
       animation: none;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .section-card {
+      grid-template-columns: 1.75rem minmax(8.5rem, 0.72fr) minmax(0, 1.4fr);
+      gap: 0.9rem;
+    }
+
+    .section-list {
+      grid-template-columns: 1fr;
+    }
+
+    .section-item:nth-child(n + 4) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .section-card {
+      grid-template-columns: 1.6rem minmax(0, 1fr);
+      gap: 0.8rem;
+      padding: 1.25rem 0 1.35rem;
+    }
+
+    .section-header {
+      padding-right: 0.25rem;
+    }
+
+    .section-list {
+      grid-column: 2;
+      margin-top: 0.15rem;
+    }
+
+    .section-count {
+      margin-top: 0.5rem;
     }
   }
 </style>

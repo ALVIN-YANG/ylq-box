@@ -1,6 +1,6 @@
 ---
-title: "Kubernetes 入门手册：从对象模型到一次可验证的部署"
-description: "用一个最小 Web 应用串起 Kubernetes 架构、YAML、Deployment、Service、ConfigMap、Secret、探针、资源限制和排障命令。"
+title: "Kubernetes 怎么入门：从一个 Pod 到可验证部署"
+description: "先用一个最小 Web 应用跑通主线，再理解 Deployment、Service、配置、探针、资源限制和排障。"
 date: 2026-07-31
 lastUpdated: 2026-07-31
 verifiedAgainst: "Kubernetes 官方文档，2026-07-31"
@@ -8,7 +8,16 @@ sidebar:
   order: 1
 ---
 
-Kubernetes 的概念很多，但入门时只需要先建立一条主线：
+第一次看 Kubernetes 文档，很容易在 Pod、Deployment、Service、Ingress 和一堆 YAML 字段之间迷路。每个词都能查到解释，合在一起却不知道一次部署究竟发生了什么。
+
+入门阶段不用先背完整对象表，先抓住一条主线：你提交期望状态，控制器负责让实际状态不断向它靠近。
+
+## 先说结论
+
+- Pod 是运行单元，但日常部署通常从 Deployment 开始，不要手工维护孤立 Pod。
+- Service 解决稳定访问，ConfigMap 和 Secret 解决配置分离，它们各自只负责一件事。
+- 排障先看 `get`、`describe`、事件和日志，再考虑直接登录节点。
+- 能启动不等于能上线；探针、资源、滚动发布和回滚验证要一起补齐。
 
 ```text
 你提交期望状态

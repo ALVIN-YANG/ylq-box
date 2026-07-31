@@ -1,6 +1,6 @@
 ---
-title: "Context Engineering：Prompt、RAG、Memory 与 Compaction 怎么分工"
-description: "把有限上下文当作工程预算，设计系统指令、任务状态、检索、记忆、工具结果和压缩策略。"
+title: "Context Engineering 怎么做：别把所有信息都塞给模型"
+description: "上下文不是越长越好。Prompt、任务状态、RAG、Memory、工具结果和 Compaction 应该各自解决不同问题。"
 date: 2026-07-31
 lastUpdated: 2026-07-31
 verifiedAgainst: "Anthropic Context Engineering 与主流 Agent 实践，2026-07-31"
@@ -8,9 +8,18 @@ sidebar:
   order: 14
 ---
 
-Prompt Engineering 关注“这句话怎么写”；Context Engineering 关注“在模型做出下一次决策前，哪些信息应该进入有限的上下文窗口”。
+做 Agent 时，我更愿意把上下文看成一张不断变化的工作台。台面太空，模型找不到材料；什么都堆上去，真正要用的那张纸反而被压在最下面。
 
-对 Agent 来说，上下文不是一段静态 Prompt，而是不断变化的工作集：
+Prompt Engineering 关注“这句话怎么写”，Context Engineering 关注“模型做出下一次决策前，工作台上应该留下什么”。这两件事有关，但不是一回事。
+
+## 先说结论
+
+- 上下文的目标是足够、相关、可信、能行动，不是尽可能长。
+- 当前任务状态要结构化保存，聊天历史只保留理解当下所需的近因信息。
+- RAG 负责为当前问题取证，Memory 负责保存未来仍有价值的事实和经验。
+- Compaction 是有损视图，关键事实、权限和终态必须回到结构化来源读取。
+
+对 Agent 来说，上下文通常由这些部分组成：
 
 ```text
 系统规则
@@ -24,7 +33,7 @@ Prompt Engineering 关注“这句话怎么写”；Context Engineering 关注�
 + 剩余预算
 ```
 
-全部塞进去并不会更聪明，通常只会更慢、更贵、更容易被无关内容干扰。
+全部塞进去并不会更聪明，通常只会更慢、更贵，也更容易被无关内容带偏。
 
 ## 六类信息各自负责什么
 

@@ -7,7 +7,7 @@ import mermaid from 'astro-mermaid';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://ilovestudy.club',
+  site: 'https://blog.mlxb.cc',
   prefetch: true,
   integrations: [
     mermaid({

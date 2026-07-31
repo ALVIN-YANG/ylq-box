@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ilovestudy.club/sitemap-index.xml
+Sitemap: https://blog.mlxb.cc/sitemap-index.xml

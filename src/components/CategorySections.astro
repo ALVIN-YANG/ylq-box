@@ -122,8 +122,6 @@ const sections = categories.map((cat) => ({
   count: allDocs.filter((doc) => isArticle(doc) && doc.id.startsWith(`${cat.id}/`)).length,
 }));
 
-const articleCount = allDocs.filter(isArticle).length;
-
 function formatDate(doc: typeof allDocs[number]) {
   const value = doc.data.lastUpdated || doc.data.date;
   if (!value) return '';
@@ -133,13 +131,13 @@ function formatDate(doc: typeof allDocs[number]) {
 ---
 
 <header class="directory-intro">
-  <div>
-    <p class="directory-kicker">Alvin Yang · Field Notes</p>
-    <h1>分栏</h1>
-    <p class="directory-lead">关于 AI Agent、软件架构与工程实践的持续笔记。</p>
+  <h1>Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.</h1>
+  <div class="directory-note">
+    <p class="directory-author">— Antoine de Saint-Exupéry</p>
   </div>
-  <p class="directory-count"><strong>{articleCount}</strong> 篇文章 · {sections.length} 个分栏</p>
 </header>
+
+<h2 class="directory-title">分栏</h2>
 
 <div class="home-sections" aria-label="文章分栏">
   {
@@ -178,56 +176,47 @@ function formatDate(doc: typeof allDocs[number]) {
 
 <style>
   .directory-intro {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 2rem;
-    margin: clamp(2rem, 5vw, 4.5rem) 0 2.25rem;
-    padding-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(15rem, 0.65fr);
+    align-items: end;
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    margin: clamp(1.5rem, 3.5vw, 2.75rem) 0 1.35rem;
+    padding-bottom: 1.15rem;
     border-bottom: 1px solid var(--sl-color-gray-5);
-  }
-
-  .directory-kicker {
-    margin: 0 0 0.45rem;
-    color: var(--sl-color-accent);
-    font-family: 'Space Grotesk', system-ui, sans-serif;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
   }
 
   .directory-intro h1 {
     margin: 0;
     color: var(--sl-color-white);
     font-family: var(--sl-font-heading);
-    font-size: clamp(2.1rem, 5vw, 3.6rem);
-    font-weight: 600;
-    letter-spacing: -0.045em;
-    line-height: 1;
+    font-size: clamp(1.25rem, 2.25vw, 1.75rem);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.35;
+    text-wrap: balance;
   }
 
-  .directory-lead {
-    margin: 0.7rem 0 0;
-    color: var(--sl-color-gray-2);
-    font-size: 0.95rem;
-    line-height: 1.6;
+  .directory-note {
+    display: grid;
+    gap: 0.3rem;
   }
 
-  .directory-count {
-    flex: 0 0 auto;
+  .directory-author {
     margin: 0;
-    color: var(--sl-color-gray-3);
+    color: var(--sl-color-accent);
     font-family: 'Space Grotesk', system-ui, sans-serif;
-    font-size: 0.75rem;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0.02em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
   }
 
-  .directory-count strong {
+  .directory-title {
+    margin: 0 0 0.5rem;
     color: var(--sl-color-white);
-    font-size: 1rem;
+    font-family: var(--sl-font-heading);
+    font-size: 1.05rem;
     font-weight: 600;
+    letter-spacing: -0.015em;
   }
 
   .home-sections {
@@ -241,12 +230,15 @@ function formatDate(doc: typeof allDocs[number]) {
 
   @media (max-width: 720px) {
     .directory-intro {
-      align-items: flex-start;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 1.75rem;
+      grid-template-columns: 1fr;
+      gap: 0.45rem;
+      margin-top: 1.25rem;
       margin-bottom: 1rem;
-      padding-bottom: 1.25rem;
+      padding-bottom: 0.8rem;
+    }
+
+    .directory-intro h1 {
+      font-size: 1.2rem;
     }
 
     .home-sections {

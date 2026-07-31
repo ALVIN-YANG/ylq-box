@@ -1,9 +1,9 @@
 ---
 title: "AI Agent 通信协议选型指南：HTTP、SSE、WebSocket、WebRTC、MQTT 全面对比"
 description: "从同步调用到实时流式、从客户端-服务器到点对点，系统梳理 AI Agent 常用的 HTTP、SSE、WebSocket、WebRTC、MQTT 等通信协议，给出选型维度与典型场景。"
+date: 2026-07-09
+lastUpdated: 2026-07-09
 ---
-
-# AI Agent 通信协议选型指南
 
 AI Agent 不再是单机跑一次的脚本，而是需要**持续感知、协同决策、实时反馈**的自治系统。agent 与外部世界、agent 与 agent、agent 与用户之间的通信方式，直接决定了系统的响应速度、扩展能力和可靠性。
 

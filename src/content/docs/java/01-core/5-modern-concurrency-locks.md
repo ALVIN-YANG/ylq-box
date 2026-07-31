@@ -3,9 +3,9 @@ title: "现代 Java 并发：抛弃 synchronized 后的锁选择"
 description: "在 2026 年的高并发架构下，重量级的 synchronized 已经不再是首选。本文带你梳理 ReentrantLock、读写锁、StampedLock 以及分布式锁的使用场景。"
 sidebar:
   order: 5
+date: 2026-03-13
+lastUpdated: 2026-03-13
 ---
-
-# 现代 Java 并发：抛弃 synchronized 后的锁选择
 
 回想十年前，只要提到“线程安全”，很多人的第一反应就是在方法上加个 `synchronized`。
 

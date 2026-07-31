@@ -1,7 +1,8 @@
 ---
 title: 获取用户真实 IP
+date: 2024-06-05
+lastUpdated: 2026-02-28
 ---
-# 获取用户真实 IP
 
 ## X-Forwarded-For
 

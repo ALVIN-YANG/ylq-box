@@ -3,6 +3,8 @@ title: 分布式事务方案选型
 description: 从一致性模型出发，对比 Outbox Pattern、事务消息、Seata、TCC、SAGA、2PC/XA 及现代工作流引擎的适用场景与工程取舍
 sidebar:
   label: 分布式事务选型
+date: 2026-03-02
+lastUpdated: 2026-07-24
 ---
 
 ## 核心问题

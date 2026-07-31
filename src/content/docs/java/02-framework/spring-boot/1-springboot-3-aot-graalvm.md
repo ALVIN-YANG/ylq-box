@@ -3,9 +3,9 @@ title: "Spring Boot 3 与 GraalVM：微服务极速启动与极致降本"
 description: "Java 总是被嘲笑启动慢、吃内存？本文探讨 Spring Boot 3 结合 GraalVM Native Image 的底层原理、生产环境踩坑经验及最终落地场景。"
 sidebar:
   order: 1
+date: 2026-03-13
+lastUpdated: 2026-03-13
 ---
-
-# Spring Boot 3 与 GraalVM：微服务极速启动与极致降本
 
 长久以来，Java 程序员在面对 Go 和 Rust 开发者时，总有一个抬不起头的痛点：**启动慢、内存占用大**。
 

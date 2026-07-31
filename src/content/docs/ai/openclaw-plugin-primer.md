@@ -1,6 +1,8 @@
 ---
 title: OpenClaw 插件全解析：从 Tool、Hook 到 Slot
 description: 基于 OpenClaw 官方文档，系统拆解插件的能力边界、生命周期钩子、插槽机制、配置方式与开发范式
+date: 2026-03-10
+lastUpdated: 2026-07-24
 ---
 
 很多人刚接触 OpenClaw 插件时，容易把它理解成“更高级一点的 Tool”。这个理解不算错，但远远不够。

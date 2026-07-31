@@ -3,9 +3,9 @@ title: "Matt Pocock Skills：让 AI 编程回归工程本质的组合技"
 description: "不是 prompt 包，不是 vibe coding 的助推器。这是一套基于数十年工程经验、可组合、可适配的 AI 编程实践。从 /grill-with-docs 到 /implement，从 CONTEXT.md 到 ADR，拆解每个 skill 的设计意图、正确使用姿势和组合工作流。"
 sidebar:
   order: 11
+date: 2026-05-29
+lastUpdated: 2026-07-24
 ---
-
-# Matt Pocock Skills：让 AI 编程回归工程本质的组合技
 
 > 仓库地址：<https://github.com/mattpocock/skills>
 > 订阅更新：<https://www.aihero.dev/s/skills-newsletter>

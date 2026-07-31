@@ -3,9 +3,9 @@ title: "Java 21 虚拟线程生产避坑指南：别把它当银弹"
 description: "虽然 Java 21 的虚拟线程（Virtual Threads）彻底终结了响应式编程的噩梦，但在 2026 年的生产环境中，如果不了解 Pinning 和 ThreadLocal 陷阱，它依然会压垮你的服务器。"
 sidebar:
   order: 1
+date: 2026-03-13
+lastUpdated: 2026-03-13
 ---
-
-# Java 21 虚拟线程生产避坑指南：别把它当银弹
 
 时间来到 2026 年，如果你还在新项目里手写 `ThreadPoolExecutor` 或者被 WebFlux 的 `Mono/Flux` 各种回调折磨，那说明你们的技术栈已经严重脱节了。
 

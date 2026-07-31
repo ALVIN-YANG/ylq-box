@@ -31,11 +31,8 @@ function splitAiNews(group: any): any {
   const weekly = links
     .filter((e: any) => e.href.includes('-weekly'))
     .sort(sortByDateDesc);
-  const daily = links
-    .filter((e: any) => e.href.includes('-daily'))
-    .sort(sortByDateDesc);
   const other = links
-    .filter((e: any) => !e.href.includes('-weekly') && !e.href.includes('-daily'));
+    .filter((e: any) => !e.href.includes('-weekly'));
 
   const entries: any[] = [];
   if (other.length) entries.push(...other);
@@ -44,15 +41,6 @@ function splitAiNews(group: any): any {
       type: 'group',
       label: '周报',
       entries: weekly,
-      collapsed: false,
-      badge: undefined,
-    });
-  }
-  if (daily.length) {
-    entries.push({
-      type: 'group',
-      label: '日报',
-      entries: daily,
       collapsed: false,
       badge: undefined,
     });

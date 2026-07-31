@@ -2,6 +2,8 @@
 title: AI 能力体系：从 Function Call 到 Agent
 description: 全面解析 LLM 与外部世界交互的核心机制：Function Call 工具调用、Agent 智能体、MCP 协议、Skill 技能系统的原理与协作关系
 slug: ai/function-call-agent
+date: 2025-03-27
+lastUpdated: 2026-07-24
 ---
 
 大语言模型（LLM）本质是「读入文本、续写文本」。它不知道实时天气、你库里的表结构、磁盘上的文件——除非你把结果塞进上下文，或让它通过**工具**去拉数据。

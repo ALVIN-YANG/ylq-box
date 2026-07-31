@@ -17,12 +17,13 @@
  *   GITHUB_TOKEN    — 可选（提升 API 速率限制）
  */
 
-import { writeFileSync, readFileSync, readdirSync, existsSync } from 'node:fs';
+import { writeFileSync, readFileSync, readdirSync, existsSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DOCS_DIR = 'src/content/docs/ai-news';
+const DAILY_CACHE_DIR = 'src/data/ai-news-daily';
 
 // ─────────────────────────────────────────────
 // 通用工具
@@ -444,8 +445,10 @@ async function generateDaily(force = false) {
   const today = new Date();
   const dateStr = today.toISOString().split('T')[0];
   const filename = `${dateStr}-daily.md`;
-  const filepath = join(DOCS_DIR, filename);
+  const filepath = join(DAILY_CACHE_DIR, filename);
   const generatedAt = getGeneratedAt();
+
+  mkdirSync(DAILY_CACHE_DIR, { recursive: true });
 
   if (existsSync(filepath) && !force) {
     console.log(`⏭ ${filename} 已存在，跳过`);
@@ -471,18 +474,15 @@ async function generateDaily(force = false) {
   const llmResult = await callLLM(DAILY_SYSTEM_PROMPT, rawData);
   const content = llmResult || buildFallbackDaily(rssItems, trending, releases, papers, devtoolsReleases);
 
-  const md = `---
-title: "AI 速递 ${dateStr}"
-description: "${dateStr} AI 技术日报"
----
-
+  const md = `> 内部采集快照，不作为站点文章发布。
+>
 > 生成时间：${generatedAt.cn}（UTC: ${generatedAt.iso}）
 
 ${content}
 `;
 
   writeFileSync(filepath, md);
-  console.log(`\n✅ 已生成 ${filepath}`);
+  console.log(`\n✅ 已生成内部快照 ${filepath}`);
 }
 
 // ─────────────────────────────────────────────
@@ -541,7 +541,12 @@ async function generateWeekly(force = false) {
 
   console.log(`\n📋 生成周报 (${startStr} ~ ${endStr})...`);
 
-  const files = readdirSync(DOCS_DIR)
+  if (!existsSync(DAILY_CACHE_DIR)) {
+    console.log('本周没有每日采集快照，跳过');
+    return;
+  }
+
+  const files = readdirSync(DAILY_CACHE_DIR)
     .filter(f => f.endsWith('-daily.md') && f >= startStr && f <= endStr)
     .sort();
 
@@ -551,9 +556,8 @@ async function generateWeekly(force = false) {
   }
 
   const dailyContents = files.map(f => {
-    const raw = readFileSync(join(DOCS_DIR, f), 'utf-8');
-    const body = raw.replace(/---[\s\S]*?---/, '').trim();
-    return `## ${f.replace('-daily.md', '')}\n\n${body}`;
+    const raw = readFileSync(join(DAILY_CACHE_DIR, f), 'utf-8');
+    return `## ${f.replace('-daily.md', '')}\n\n${raw.trim()}`;
   }).join('\n\n---\n\n');
 
   const llmResult = await callLLM(WEEKLY_SYSTEM_PROMPT, dailyContents);
@@ -562,6 +566,8 @@ async function generateWeekly(force = false) {
   const md = `---
 title: "周报 ${startStr} ~ ${endStr}"
 description: "${startStr} 至 ${endStr} AI 技术周报"
+date: ${endStr}
+lastUpdated: ${endStr}
 ---
 
 > 生成时间：${generatedAt.cn}（UTC: ${generatedAt.iso}）
@@ -589,7 +595,7 @@ if (mode === '--daily') {
   console.log(`AI News v2 — 技术日报生成器
 
 用法：
-  node scripts/fetch-ai-news.mjs --daily    生成每日速递
+  node scripts/fetch-ai-news.mjs --daily    生成内部采集快照（不发布）
   node scripts/fetch-ai-news.mjs --weekly   生成每周总结
   加 --force 强制覆盖已存在文件
 

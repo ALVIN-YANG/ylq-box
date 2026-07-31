@@ -3,9 +3,9 @@ title: "DDD 战术设计落地：在 Java 工程中如何划分防腐层与聚�
 description: "如果你的 Service 层只有几十行调用 Mapper 的代码，你的 Entity 全是 Getter/Setter。那你写的根本不是面向对象，而是“面向数据库的脚本”。本文带你在 Java 中真正落地 DDD 战术。"
 sidebar:
   order: 5
+date: 2026-03-13
+lastUpdated: 2026-03-13
 ---
-
-# DDD 战术设计落地：在 Java 工程中如何划分防腐层与聚合根
 
 在技术圈，**领域驱动设计（Domain-Driven Design, DDD）** 是一个让人又爱又恨的词。
 听架构师讲 PPT 时，满屏的“限界上下文”、“聚合根”、“防腐层”，觉得高大上得不行。但到了自己写代码时，默默地建了包名：`controller`、`service`、`entity`、`mapper`，然后继续在 Service 里写着 1000 行面条一样的 CRUD。

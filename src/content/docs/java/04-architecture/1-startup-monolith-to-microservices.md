@@ -3,9 +3,9 @@ title: "从 0 到 1：初创公司单体架构向微服务演进的时机"
 description: "如果你的创业项目第一天就上了 Spring Cloud 和 K8s，那大概率会死于运维成本。本文探讨何时才是砸碎单体架构（Majestic Monolith）的正确时机。"
 sidebar:
   order: 1
+date: 2026-03-13
+lastUpdated: 2026-03-13
 ---
-
-# 从 0 到 1：初创公司单体架构向微服务演进的时机
 
 在技术圈有一种极其不健康的“大厂崇拜症”。
 很多初创公司的技术总监刚招来 3 个程序员，就迫不及待地引进了 Spring Cloud Alibaba 全家桶：Nacos、Gateway、Sentinel、Seata 安排得明明白白，把一个简单的电商 CRUD 系统拆成了 10 个微服务。

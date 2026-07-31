@@ -5,6 +5,8 @@ import { resolve } from 'node:path';
 
 const categoryLabels: Record<string, string> = {
   ai: 'AI',
+  'ai-workflow': 'AI 工作流',
+  algorithms: '算法',
   architecture: 'Architecture',
   'ai-news': 'AI News',
   java: 'Java',
@@ -27,7 +29,7 @@ function formatDate(date: Date | undefined): string {
 }
 
 function parseDateFromFilename(id: string): Date | null {
-  // Match date patterns like 2026-07-02-daily, 2026-02-28-mola-intro, 10-vibe-coding
+  // Match date patterns like 2026-07-20-weekly or dated articles.
   const match = id.match(/(\d{4}-\d{2}-\d{2})/);
   if (match) return new Date(match[1]);
 

@@ -76,10 +76,6 @@ export default defineConfig({
             {
               label: 'OpenClaw',
               autogenerate: { directory: 'claw/openclaw' }
-            },
-            {
-              label: 'ZeroClaw',
-              autogenerate: { directory: 'claw/zeroclaw' }
             }
           ]
         },

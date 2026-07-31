@@ -3,6 +3,8 @@ title: Java 多线程与并发指南 (包含虚拟线程)
 description: 从传统平台线程到 Java 21 引入的虚拟线程 (Virtual Threads)，全面掌握现代 Java 高并发编程
 sidebar:
   label: 多线程与虚拟线程
+date: 2026-03-13
+lastUpdated: 2026-03-13
 ---
 
 Java 提供了强大的多线程支持。在 2026 年的现代 Java 开发中，除了传统的平台线程（Platform Threads）与线程池，基于 Project Loom 引入的 **虚拟线程 (Virtual Threads)** 已经成为了构建高并发应用的首选。

@@ -3,9 +3,9 @@ title: "Vibe Coding 怎样写好提示词"
 description: "从 200 字焚诀到三层提示结构，结合 Claude Code、Cursor、Aider 等工具的实战经验，用具体示例讲清楚 vibe coding 中提示词怎么写才能又快又稳。"
 sidebar:
   order: 10
+date: 2026-04-23
+lastUpdated: 2026-07-24
 ---
-
-# Vibe Coding 怎样写好提示词
 
 > 提示词不是咒语，是对齐工具。写得好，AI 是你的 senior engineer；写得烂，AI 是你的 junior intern 还不敢提问。
 

@@ -1,95 +1,93 @@
 ---
 title: "OpenClaw 深度实践"
-description: "从安装配置到高级用法，完整记录 OpenClaw 的使用经验"
+description: "基于当前官方 CLI 与插件体系的 OpenClaw 使用入口，收录经过验证的配置、扩展和生产排障文章。"
+date: 2026-03-01
+lastUpdated: 2026-07-31
+verifiedAgainst: "OpenClaw 2026.7.x 官方文档与源码，2026-07-31"
 ---
 
-# OpenClaw 深度实践
+OpenClaw 是一个自托管的多渠道 AI Gateway。它把模型、会话、工具、Skills、插件和消息渠道组织在一个长期运行的 Gateway 中。
 
-## 快速开始
+这个专栏只保留两类内容：
 
-### 安装
+- 能够按明确版本复现的使用和扩展方式；
+- 来自真实故障、包含证据链和验证结果的排障记录。
+
+## 当前版本的最短上手
+
+安装最新稳定版本：
 
 ```bash
-npm install -g openclaw
+npm install -g openclaw@latest
+openclaw --version
 ```
 
-### 配置模型
+运行交互式配置并安装后台服务：
 
 ```bash
-# 添加 MiniMax
-openclaw config set models.providers.minimax.apiKey your-key
-
-# 添加自定义模型
-openclaw config set models.providers.custom.baseUrl https://api.example.com
+openclaw onboard --install-daemon
 ```
 
-## 核心概念
+确认 Gateway：
 
-### Agent
-OpenClaw 的核心执行单元。每个 Agent 有：
-- **模型配置**: 主模型、备用模型
-- **技能集 (Skills)**: 可插拔的能力模块
-- **记忆系统**: 短期上下文 + 长期记忆
-- **定时任务**: Cron 表达式驱动的自动化
-
-### Skill 开发
-自定义技能只需：
-1. 创建 `SKILL.md` 定义接口
-2. 实现工具函数
-3. 注册到 Agent 配置
-
-### 记忆管理
-- **MEMORY.md**: 长期记忆，跨会话持久
-- **memory/YYYY-MM-DD.md**: 每日日志
-- **自动维护**: 定期总结、归档、清理
-
-## 高级用法
-
-### 多模型路由
-```yaml
-models:
-  primary: kimi/kimi-for-coding
-  fallback: minimax/abab6.5s-chat
-  routing:
-    - pattern: "代码*"
-      model: kimi/kimi-for-coding
-    - pattern: "创意*"
-      model: minimax/abab6.5s-chat
+```bash
+openclaw gateway status
 ```
 
-### 定时任务
-```yaml
-cron:
-  - name: "每日新闻"
-    schedule: "0 9 * * *"
-    skill: "daily-news-caster"
-  - name: "代码审查"
-    schedule: "0 18 * * 1-5"
-    skill: "code-review"
+发起一次 Agent 请求：
+
+```bash
+openclaw agent --message "用三点总结当前工作区状态"
 ```
 
-## 实战经验
+命令和配置会随版本演进。复制任何示例前，都应先核对：
 
-### 性能优化
-- **Token 压缩**: 使用终端工具减少传输量
-- **上下文管理**: 及时清理无用历史
-- **模型选择**: 根据任务复杂度匹配模型
+```bash
+openclaw --version
+openclaw help
+openclaw doctor
+```
 
-### 安全实践
-- **API Key 隔离**: 不同环境用不同 Key
-- **权限控制**: 敏感操作需确认
-- **审计日志**: 记录所有外部调用
+官方入口：
 
-## 踩坑记录
+- [OpenClaw 官方文档](https://docs.openclaw.ai/)
+- [OpenClaw 官方仓库](https://github.com/openclaw/openclaw)
+- [工具能力概览](https://docs.openclaw.ai/tools)
+- [插件文档](https://docs.openclaw.ai/plugins)
 
-### 常见问题
-1. **Gateway 连接失败**: 检查端口占用、防火墙
-2. **模型响应慢**: 考虑降级到更快模型
-3. **记忆丢失**: 确认文件权限、磁盘空间
+## Tool、Skill 和 Plugin 怎么分
 
-### 解决方案
-详见下方「踩坑记录」章节或社区文档
+| 能力 | 用途 |
+|---|---|
+| Tool | 让模型调用一个具体动作 |
+| Skill | 教 Agent 如何完成一类任务 |
+| Plugin | 向运行时注册 Tool、Hook、Channel、Provider、Service 或其他扩展 |
+| Hook | 在明确生命周期事件发生时执行逻辑 |
+| Slot | 替换 memory、context engine 等排他性核心能力 |
 
----
+如果只是给 Agent 增加一套操作步骤，优先使用 Skill；如果只是增加一个可调用动作，优先使用 Tool；只有需要介入运行时生命周期或提供完整扩展包时，才使用 Plugin。
 
-> 🔄 **持续更新**: 随着 OpenClaw 版本迭代，本文档会同步更新
+详细设计见：
+
+- [OpenClaw 插件全解析：从 Tool、Hook 到 Slot](/ai/openclaw-plugin-primer/)
+
+## 当前保留的生产排障
+
+- [Gemini 双端点与 thought_signature：一次工具调用 400 的完整排障](/claw/openclaw/6-gemini-thought-signature/)
+
+这篇文章保留了协议差异、失败表现、调查过程、修复路径和来源链接。它也代表这个专栏后续文章的最低标准。
+
+## 发布前验证
+
+OpenClaw 相关教程必须记录：
+
+1. OpenClaw 版本；
+2. Node.js 与操作系统版本；
+3. 使用的模型 Provider 和协议；
+4. 完整可执行命令；
+5. 关键配置，但不包含真实密钥；
+6. 成功和失败输出；
+7. 官方文档或源码依据；
+8. 最后验证日期。
+
+无法提供这些证据时，文章应明确标注为“设计讨论”或“伪代码”，不能写成实测教程。

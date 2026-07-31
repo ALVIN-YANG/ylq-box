@@ -3,9 +3,9 @@ title: "用 Spring Event 解耦业务：从贫血模型到 DDD 的第一步"
 description: "还在把发送邮件、扣减库存的代码直接塞进下单逻辑里？本文教你如何使用 Spring 提供的事件发布订阅机制，写出高内聚低耦合的业务代码，为未来的微服务拆分打下地基。"
 sidebar:
   order: 4
+date: 2026-03-13
+lastUpdated: 2026-03-13
 ---
-
-# 用 Spring Event 解耦业务：从贫血模型到 DDD 的第一步
 
 在我们审查很多初中级开发者的代码时，经常会看到一个巨大的 `OrderService.createOrder()` 方法，里面塞满了各种乱七八糟的逻辑。
 

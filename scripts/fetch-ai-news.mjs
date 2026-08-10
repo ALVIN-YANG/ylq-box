@@ -305,6 +305,112 @@ async function callLLM(systemPrompt, userContent) {
   }
 }
 
+const CHINESE_REVIEW_PROMPT = `你是中文技术编辑。请检查用户给出的 Markdown，并把所有面向读者的英文内容改成自然、准确的简体中文。
+
+必须翻译论文标题、新闻标题、项目描述、论文摘要、Release 摘要、新闻摘要和分析。项目名、仓库名、模型名、API 名、版本号、代码、URL 与行业通用缩写可以保留英文。不要直译项目名；原文被截断时删除不完整句子，不要续写。保留原有 Markdown 结构和全部链接，不添加原文没有的事实，不输出 frontmatter，也不要解释修改过程。`;
+
+function stripMarkdownForLanguageCheck(line) {
+  return line
+    .replace(/https?:\/\/\S+/g, '')
+    .replace(/`[^`]*`/g, '')
+    .replace(/!?\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/<[^>]+>/g, '')
+    .replace(/^[#>*+\-\d.\s|]+/, '')
+    .replace(/[|*_~]/g, ' ')
+    .trim();
+}
+
+function isAllowedEnglishIdentifier(text) {
+  if (/^[\w@.-]+\/[\w@.-]+$/.test(text)) return true;
+  if (/^(?:OpenAI Codex CLI|OpenClaw|LangChain|LlamaIndex|CrewAI|Ollama|Goose|vLLM|Continue|MCP Servers?)\b[\w.=@+\-\s]*$/i.test(text)) return true;
+  return false;
+}
+
+function findUntranslatedEnglishBlocks(markdown) {
+  const issues = [];
+  let inCodeFence = false;
+  let inFrontmatter = false;
+  let frontmatterClosed = false;
+
+  markdown.split('\n').forEach((line, index) => {
+    if (index === 0 && line.trim() === '---') {
+      inFrontmatter = true;
+      return;
+    }
+    if (inFrontmatter) {
+      if (line.trim() === '---') {
+        inFrontmatter = false;
+        frontmatterClosed = true;
+      }
+      return;
+    }
+    if (!frontmatterClosed && line.trim() === '---') frontmatterClosed = true;
+    if (line.trim().startsWith('```')) {
+      inCodeFence = !inCodeFence;
+      return;
+    }
+    if (inCodeFence || /^\s*\|/.test(line)) return;
+
+    const text = stripMarkdownForLanguageCheck(line);
+    if (!text || isAllowedEnglishIdentifier(text)) return;
+
+    const latinCount = (text.match(/[A-Za-z]/g) || []).length;
+    const cjkCount = (text.match(/[\u3400-\u9fff]/g) || []).length;
+    const wordCount = (text.match(/[A-Za-z][A-Za-z'-]*/g) || []).length;
+    const isHeading = /^#{2,4}\s/.test(line);
+    const englishHeading = isHeading && cjkCount === 0 && latinCount >= 24 && wordCount >= 4;
+    const englishProse = !isHeading && latinCount >= 72 && (cjkCount === 0 || latinCount > cjkCount * 4);
+
+    if (englishHeading || englishProse) {
+      issues.push({ line: index + 1, text: text.slice(0, 120) });
+    }
+  });
+
+  return issues;
+}
+
+async function ensureChineseWeeklyContent(content) {
+  let issues = findUntranslatedEnglishBlocks(content);
+  if (issues.length === 0) return content;
+
+  console.warn(`⚠ 周报仍有 ${issues.length} 处英文内容，进行二次中文校对`);
+  const revised = await callLLM(CHINESE_REVIEW_PROMPT, content);
+  if (!revised) return null;
+
+  issues = findUntranslatedEnglishBlocks(revised);
+  if (issues.length > 0) {
+    console.warn(`⚠ 中文校对后仍有 ${issues.length} 处英文内容，停止发布`);
+    issues.slice(0, 5).forEach(issue => console.warn(`  L${issue.line} ${issue.text}`));
+    return null;
+  }
+
+  return revised;
+}
+
+function checkPublishedReportLanguages() {
+  const files = readdirSync(DOCS_DIR)
+    .filter(name => /-(weekly|monthly)\.md$/.test(name))
+    .sort();
+  const failed = [];
+
+  files.forEach(name => {
+    const markdown = readFileSync(join(DOCS_DIR, name), 'utf-8');
+    const issues = findUntranslatedEnglishBlocks(markdown);
+    if (issues.length > 0) failed.push({ name, issues });
+  });
+
+  if (failed.length === 0) {
+    console.log(`✅ ${files.length} 篇周报和月报均通过中文检查`);
+    return true;
+  }
+
+  failed.forEach(({ name, issues }) => {
+    console.error(`✗ ${name} 存在 ${issues.length} 处未翻译内容`);
+    issues.slice(0, 8).forEach(issue => console.error(`  L${issue.line} ${issue.text}`));
+  });
+  return false;
+}
+
 // ─────────────────────────────────────────────
 // 每日速递
 // ─────────────────────────────────────────────
@@ -395,8 +501,9 @@ const DAILY_SYSTEM_PROMPT = `你是一位资深 AI Agent 工程师兼中文技�
 
 重要约束：
 - 所有输出必须使用中文。如果原文是英文，你必须翻译为中文后再输出。
-- 项目名、专有名词、论文标题可保留英文原名，但后面的描述、摘要、点评必须全部是中文。
-- 不要输出任何英文标题或英文摘要。
+- 论文标题和新闻标题必须翻译成中文，项目名、仓库名、模型名、版本号和行业通用缩写可以保留英文。
+- 不要输出纯英文标题或英文摘要。
+- 原始摘要被截断时只保留完整句子，不要续写缺失内容。
 - 整体风格：简洁专业，面向工程师，关注"这对我的技术选型/架构/开发有什么影响"。`;
 
 function buildFallbackDaily(rssItems, trending, releases, papers, devtoolsReleases) {
@@ -517,8 +624,9 @@ const WEEKLY_SYSTEM_PROMPT = `你是一位资深 AI Agent 工程师兼中文技�
 
 重要约束：
 - 所有输出必须使用中文。如果原文是英文，你必须翻译为中文后再输出。
-- 项目名、专有名词可保留英文原名，但描述、分析、点评必须全部是中文。
-- 不要输出任何英文标题或英文摘要。
+- 论文标题和新闻标题必须翻译成中文，项目名、仓库名、模型名、版本号和行业通用缩写可以保留英文。
+- 不要输出纯英文标题或英文摘要。
+- 原始摘要被截断时只保留完整句子，不要续写缺失内容。
 - 整体风格：深度、专业、有观点。`;
 
 async function generateWeekly(force = false) {
@@ -561,7 +669,14 @@ async function generateWeekly(force = false) {
   }).join('\n\n---\n\n');
 
   const llmResult = await callLLM(WEEKLY_SYSTEM_PROMPT, dailyContents);
-  const content = llmResult || `> 本周自动总结未启用或调用失败，以下为原始内容合并。\n\n${dailyContents}`;
+  if (!llmResult) {
+    throw new Error('周报总结失败，已停止发布，现有文件不会被英文原始数据覆盖');
+  }
+
+  const content = await ensureChineseWeeklyContent(llmResult);
+  if (!content) {
+    throw new Error('周报未通过中文检查，已停止发布');
+  }
 
   const md = `---
 title: "周报 ${startStr} ~ ${endStr}"
@@ -584,19 +699,22 @@ ${content}
 // ─────────────────────────────────────────────
 
 const args = process.argv.slice(2);
-const mode = args.find(arg => arg === '--daily' || arg === '--weekly');
+const mode = args.find(arg => arg === '--daily' || arg === '--weekly' || arg === '--check-language');
 const force = args.includes('--force');
 
 if (mode === '--daily') {
   generateDaily(force).catch(err => { console.error(err); process.exit(1); });
 } else if (mode === '--weekly') {
   generateWeekly(force).catch(err => { console.error(err); process.exit(1); });
+} else if (mode === '--check-language') {
+  if (!checkPublishedReportLanguages()) process.exit(1);
 } else {
   console.log(`AI News v2 — 技术日报生成器
 
 用法：
   node scripts/fetch-ai-news.mjs --daily    生成内部采集快照（不发布）
   node scripts/fetch-ai-news.mjs --weekly   生成每周总结
+  node scripts/fetch-ai-news.mjs --check-language  检查已发布周报和月报是否仍有英文正文
   加 --force 强制覆盖已存在文件
 
 数据源：

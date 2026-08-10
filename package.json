@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "news:daily": "node scripts/fetch-ai-news.mjs --daily",
-    "news:weekly": "node scripts/fetch-ai-news.mjs --weekly"
+    "news:weekly": "node scripts/fetch-ai-news.mjs --weekly",
+    "news:check-language": "node scripts/fetch-ai-news.mjs --check-language"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.1.2",

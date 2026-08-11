@@ -1,0 +1,120 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import data from '../../data/model-arena.json';
+
+function formatTime(value: string) {
+  return new Intl.DateTimeFormat('zh-CN', {
+    timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false,
+  }).format(new Date(value));
+}
+---
+
+<StarlightPage frontmatter={{ title: '模型榜评分方法', description: '实时模型榜的数据来源、归并规则、评分方式和失效处理。', template: 'splash' }} sidebar={[]}>
+  <main class="method-shell">
+    <nav class="crumb"><a href="/model-arena/">实时模型榜</a><span>/</span><span>评分方法</span></nav>
+
+    <section class="method-intro">
+      <p>这不是又一张手工打分表。每个分数都能回到公开榜单的原始名次和成绩；来源停止更新或连续抓取失败后，会明确显示缓存或过期状态。</p>
+      <div><strong>{data.methodology.operatorCount}</strong><span>独立来源</span><strong>{data.methodology.boardCount}</strong><span>当前榜单</span></div>
+    </section>
+
+    <section class="method-block">
+      <p class="kicker">01 · SCORING</p>
+      <h2>共识分怎么计算</h2>
+      <ol class="steps">
+        <li><span>01</span><div><strong>榜内归一</strong><p>每张榜按名次换算为 0–100 分。榜首为 100，榜尾为 0，保留原始成绩供核对。</p></div></li>
+        <li><span>02</span><div><strong>运营方去重</strong><p>同一机构如果有多张榜，先算组内平均，避免一家来源通过增加榜单放大权重。</p></div></li>
+        <li><span>03</span><div><strong>跨来源平均</strong><p>再对独立来源求平均得到共识分。进入总榜至少需要 {data.methodology.minimumOverallSources} 个独立来源。</p></div></li>
+      </ol>
+      <aside>缺榜不按 0 分处理，因为“未被评测”和“表现为零”不是一回事。页面会单独显示来源覆盖，选型时应把分数和覆盖率一起看。</aside>
+    </section>
+
+    <section class="method-block">
+      <p class="kicker">02 · SOURCES</p>
+      <h2>当前接入的数据源</h2>
+      <div class="source-list">
+        {data.sourceBoards.map((board) => (
+          <article>
+            <div class="source-title"><span class:list={['status', `is-${board.status}`]}>{board.status === 'live' ? '实时' : board.status === 'cached' ? '缓存' : '过期'}</span><h3>{board.label}</h3><code>{board.short}</code></div>
+            <p>{board.description}</p>
+            <dl><div><dt>运营方</dt><dd>{board.operator}</dd></div><div><dt>分类</dt><dd>{board.categoryLabel}</dd></div><div><dt>模型数</dt><dd>{board.entries.length}</dd></div><div><dt>数据时间</dt><dd>{formatTime(board.updatedAt)}</dd></div></dl>
+            <a href={board.sourceUrl} target="_blank" rel="noreferrer">查看原始榜单 ↗</a>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="method-block">
+      <p class="kicker">03 · FRESHNESS</p>
+      <h2>实时性和失败处理</h2>
+      <div class="rules">
+        <p><strong>自动更新</strong> GitHub Actions 每 6 小时拉取一次。上游数据没有变化时不产生无意义提交。</p>
+        <p><strong>失败回退</strong> 单个来源暂时失败时保留最近一次成功数据并标为“缓存”；超过 72 小时仍未恢复则标为“过期”，不再参与计算。</p>
+        <p><strong>版本归并</strong> 同一基础模型的 thinking level、日期后缀和评测 harness 版本会归并，详情页仍保留上游原始模型名。</p>
+      </div>
+    </section>
+
+    <section class="attribution">
+      <p>Epoch 榜单数据通过其公开 Benchmarking Hub 数据包获取，并保留每张原始榜单链接。Artificial Analysis 只有在部署环境配置官方 API Key 后才接入；没有实时接口时，页面不会展示手工价格。</p>
+      <a href="https://epoch.ai/data/eci-documentation" target="_blank" rel="noreferrer">Epoch 数据说明</a>
+      <a href="https://artificialanalysis.ai/api-reference/" target="_blank" rel="noreferrer">Artificial Analysis API</a>
+    </section>
+  </main>
+</StarlightPage>
+
+<style>
+  .method-shell { --ink:#252a2d; --muted:#747a78; --line:#deddd4; --live:#478576; --warm:#b66b48; width:min(100%,68rem); margin-inline:auto; padding-bottom:3rem; color:var(--ink); }
+  .crumb { display:flex; gap:.5rem; margin-bottom:1rem; color:var(--muted); font-size:.75rem; }
+  .crumb a, .source-list a, .attribution a { color:#53665e; text-decoration:none; }
+  .crumb a:hover, .source-list a:hover, .attribution a:hover { text-decoration:underline; text-underline-offset:.2em; }
+  .method-intro { display:grid; grid-template-columns:1fr auto; gap:2rem; align-items:center; padding:1.1rem; border-block:1px solid var(--line); background:linear-gradient(110deg,rgba(255,255,255,.65),transparent); }
+  .method-intro > p { max-width:45rem; margin:0; color:#505653; font-size:.92rem; line-height:1.75; }
+  .method-intro > div { display:grid; grid-template-columns:auto auto; gap:.1rem .5rem; align-items:baseline; }
+  .method-intro strong { color:var(--warm); font-family:var(--sl-font-mono); font-size:1.4rem; text-align:right; }
+  .method-intro span { color:var(--muted); font-size:.68rem; }
+  .method-block { margin-top:2.4rem; }
+  .kicker { margin:0 0 .15rem; color:var(--live); font-family:var(--sl-font-mono); font-size:.65rem; font-weight:800; letter-spacing:.12em; }
+  .method-block h2 { margin:.2rem 0 1rem; font-family:var(--sl-font-heading); font-size:1.3rem; }
+  .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:0; padding:0; border-block:1px solid var(--line); list-style:none; }
+  .steps li { display:grid; grid-template-columns:2rem 1fr; gap:.5rem; padding:1rem; border-right:1px solid var(--line); }
+  .steps li:last-child { border-right:0; }
+  .steps li > span { color:var(--warm); font-family:var(--sl-font-mono); font-size:.68rem; }
+  .steps strong { font-size:.84rem; }
+  .steps p { margin:.3rem 0 0; color:var(--muted); font-size:.74rem; line-height:1.65; }
+  aside { margin-top:.75rem; padding:.75rem 1rem; border-left:3px solid var(--warm); background:rgba(182,107,72,.06); color:#5e625f; font-size:.76rem; line-height:1.65; }
+  .source-list { border-top:1px solid var(--line); }
+  .source-list article { display:grid; grid-template-columns:17rem 1fr 23rem 8rem; gap:1rem; align-items:center; padding:.9rem .2rem; border-bottom:1px solid var(--line); }
+  .source-title { display:grid; grid-template-columns:auto 1fr auto; gap:.45rem; align-items:center; min-width:0; }
+  .source-title h3 { overflow:hidden; margin:0; font-size:.8rem; text-overflow:ellipsis; white-space:nowrap; }
+  .source-title code { color:var(--muted); font-size:.62rem; }
+  .status { padding:.15rem .35rem; border-radius:3px; background:#e1ece7; color:var(--live); font-size:.6rem; }
+  .status.is-cached { background:#f0e6d8; color:#906c3e; }
+  .status.is-stale { background:#e9e9e5; color:#777b77; }
+  .source-list article > p { margin:0; color:var(--muted); font-size:.7rem; line-height:1.55; }
+  dl { display:grid; grid-template-columns:repeat(4,1fr); margin:0; }
+  dl div { padding-left:.6rem; border-left:1px solid var(--line); }
+  dt { color:var(--muted); font-size:.58rem; }
+  dd { margin:.15rem 0 0; font-family:var(--sl-font-mono); font-size:.64rem; }
+  .source-list a { font-size:.68rem; font-weight:650; text-align:right; }
+  .rules { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+  .rules p { margin:0; padding-top:.7rem; border-top:2px solid var(--line); color:var(--muted); font-size:.74rem; line-height:1.7; }
+  .rules strong { display:block; margin-bottom:.25rem; color:var(--ink); font-size:.8rem; }
+  .attribution { display:flex; flex-wrap:wrap; gap:.5rem 1rem; margin-top:2.4rem; padding-top:1rem; border-top:1px solid var(--line); color:var(--muted); font-size:.68rem; }
+  .attribution p { flex-basis:100%; margin:0; line-height:1.7; }
+  :global([data-theme='dark']) .method-shell { --ink:#e8e6df; --muted:#a5aaa7; --line:#42443f; }
+  :global([data-theme='dark']) .method-intro > p, :global([data-theme='dark']) aside { color:#c5c8c4; }
+  :global([data-theme='dark']) .status { background:rgba(71,133,118,.22); color:#8bc2b2; }
+  @media (max-width:58rem) {
+    .source-list article { grid-template-columns:1fr; gap:.5rem; }
+    .source-list a { text-align:left; }
+    dl { max-width:32rem; }
+  }
+  @media (max-width:42rem) {
+    .method-intro { grid-template-columns:1fr; gap:1rem; }
+    .method-intro > div { justify-content:start; }
+    .steps, .rules { grid-template-columns:1fr; }
+    .steps li { border-right:0; border-bottom:1px solid var(--line); }
+    .steps li:last-child { border-bottom:0; }
+    dl { grid-template-columns:repeat(2,1fr); gap:.6rem 0; }
+  }
+</style>

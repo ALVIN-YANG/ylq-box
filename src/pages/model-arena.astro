@@ -2,957 +2,395 @@
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import data from '../data/model-arena.json';
 
-const domesticSections = [
-  { key: 'general', label: '通用', description: '综合对话、推理、长上下文与产品完成度' },
-  { key: 'code', label: '代码', description: '编码、Agent、工具调用与工程落地能力' },
-  { key: 'tts', label: 'TTS', description: '语音合成自然度、情感表现与商用成熟度' },
-  { key: 'asr', label: 'ASR', description: '语音识别准确率、实时性与行业适配' },
-  { key: 'video', label: '视频生成', description: '镜头稳定性、动作表现与一致性' },
-  { key: 'image', label: '图片生成', description: '中文提示词理解、审美质量与可控性' },
-];
+const tabs = [
+  { key: 'overall', label: '总榜', note: '至少覆盖 2 个独立来源' },
+  { key: 'general', label: '通用', note: '综合知识与推理' },
+  { key: 'code', label: '代码', note: 'Web 开发与软件工程' },
+  { key: 'agent', label: 'Agent', note: '终端与知识工作' },
+] as const;
 
-const arenaCards = [
-  { key: 'text', title: '综合对话', badge: 'Text', items: data.arena.text, featured: true },
-  { key: 'code', title: '代码 / Web 开发', badge: 'Code', items: data.arena.code, featured: false },
-  { key: 'vision', title: '视觉理解', badge: 'Vision', items: data.arena.vision, featured: false },
-];
+const activeBoards = data.sourceBoards.filter((board) => board.status !== 'stale');
+const hasPricing = data.models.some((model) => Boolean(model.pricing));
+type LivePricing = { input: number; output: number };
+const dateFormatter = new Intl.DateTimeFormat('zh-CN', {
+  timeZone: 'Asia/Shanghai',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: false,
+});
 
-const highlights = [
-  { label: '国际 Arena 榜单', value: '3', note: 'Text / Code / Vision' },
-  { label: '国内模型分区', value: `${domesticSections.length}`, note: '覆盖通用到多模态' },
-  { label: 'API 价格样本', value: `${data.pricing.length}+`, note: '便于成本对比' },
-  { label: '发布时间线', value: `${data.releases.length}`, note: '追踪模型演进' },
-];
+function shortDate(value: string | null) {
+  return value ? value.slice(0, 10) : '—';
+}
 
-const arenaLeaders = [
-  { label: '综合对话', model: data.arena.text[0]?.name, org: data.arena.text[0]?.org, rating: data.arena.text[0]?.rating },
-  { label: '代码', model: data.arena.code[0]?.name, org: data.arena.code[0]?.org, rating: data.arena.code[0]?.rating },
-  { label: '视觉', model: data.arena.vision[0]?.name, org: data.arena.vision[0]?.org, rating: data.arena.vision[0]?.rating },
-];
+function sourceTime(value: string) {
+  return dateFormatter.format(new Date(value));
+}
 ---
 
-<StarlightPage frontmatter={{ title: 'Model Arena', description: 'AI 模型综合对比与国内榜单', template: 'splash' }} sidebar={[]}>
-  <div class="arena-dashboard">
-    <header class="hero-panel">
-      <div class="hero-copy">
-        <span class="eyebrow">AI Model Intelligence Hub</span>
-        <h1>模型排名与选型看板</h1>
-        <p class="hero-text">把国际 Arena、国内模型分区、API 定价和发布时间线放到同一页，方便你快速做模型选型、竞品观察和技术跟踪。</p>
-        <p class="updated">数据更新：{data.updatedAt} · 国际 Arena 来源 <a href={data.sources.arena.url} target="_blank">{data.sources.arena.label}</a> · 时间线参考 <a href={data.sources.releases.url} target="_blank">{data.sources.releases.label}</a></p>
-        <div class="hero-actions">
-          <a href="#arena" class="hero-action primary">查看国际榜单</a>
-          <a href="#domestic" class="hero-action">查看国内分区</a>
-          <a href="#pricing" class="hero-action">比较 API 价格</a>
-        </div>
+<StarlightPage frontmatter={{ title: '实时模型榜', description: '汇总持续更新的公开评测，保留每个模型的来源、原始成绩与覆盖情况。', template: 'splash' }} sidebar={[]}>
+  <main class="arena-shell">
+    <section class="ledger-head" aria-label="榜单数据状态">
+      <div class="ledger-summary">
+        <div class="live-line"><span class="live-dot"></span>实时汇总</div>
+        <p>{data.methodology.operatorCount} 个独立来源 · {data.methodology.boardCount} 张榜单 · 更新于 {data.updatedAt}</p>
       </div>
-      <div class="hero-stats">
-        {highlights.map((item) => (
-          <div class="stat-card">
-            <div class="stat-value">{item.value}</div>
-            <div class="stat-label">{item.label}</div>
-            <div class="stat-note">{item.note}</div>
-          </div>
-        ))}
-      </div>
-    </header>
+      <a class="method-link" href="/model-arena/methodology/">评分方法与来源说明 <span aria-hidden="true">→</span></a>
+    </section>
 
-    <div class="tabs" id="tabs">
-      <button class="tab active" data-target="arena">国际 Arena</button>
-      <button class="tab" data-target="domestic">国内模型</button>
-      <button class="tab" data-target="pricing">API 定价</button>
-      <button class="tab" data-target="timeline">发布时间线</button>
+    <div class="source-rail" aria-label="当前数据来源">
+      {data.sourceBoards.map((board) => (
+        <a class:list={['source-node', `is-${board.status}`]} href={board.sourceUrl} target="_blank" rel="noreferrer">
+          <span class="source-code">{board.short}</span>
+          <span class="source-name">{board.label}</span>
+          <span class="source-meta">{board.status === 'live' ? '实时' : board.status === 'cached' ? '缓存' : '过期'} · {sourceTime(board.updatedAt)}</span>
+        </a>
+      ))}
     </div>
 
-    <section class="panel active" id="arena">
-      <div class="section-head">
-        <div>
-          <h2>国际 Arena 榜单</h2>
-          <p>保留国际主流评测口径，适合看当前头部模型在对话、代码和视觉理解上的整体位置。</p>
-        </div>
-        <a class="source-link" href={data.sources.arena.url} target="_blank">查看数据来源</a>
-      </div>
-
-      <div class="leader-strip">
-        {arenaLeaders.map((leader) => (
-          <div class="leader-card">
-            <div class="leader-label">{leader.label} Top 1</div>
-            <div class="leader-model">{leader.model}</div>
-            <div class="leader-meta">{leader.org} · Rating {leader.rating?.toFixed(1)}</div>
-          </div>
+    <div class="board-toolbar">
+      <div class="board-tabs" role="tablist" aria-label="模型榜单分类">
+        {tabs.map((tab, index) => (
+          <button
+            class:list={['board-tab', { active: index === 0 }]}
+            id={`tab-${tab.key}`}
+            type="button"
+            role="tab"
+            aria-selected={index === 0 ? 'true' : 'false'}
+            aria-controls={`panel-${tab.key}`}
+            data-tab={tab.key}
+          >
+            <span>{tab.label}</span>
+            <small>{tab.note}</small>
+          </button>
         ))}
       </div>
+      <p class="coverage-help"><span class="coverage-sample"><i></i><i></i><i></i><i></i><i></i></span> 色块表示该模型被哪些榜单收录</p>
+    </div>
 
-      <div class="card-grid arena-grid">
-        {arenaCards.map((card) => (
-          <div class:list={["card", { "featured-card": card.featured }]}>
-            <div class="card-title-row">
-              <h3>{card.title}</h3>
-              <span class="badge">{card.badge}</span>
-            </div>
-            <div class="card-tools">
-              <a class="mini-source-link" href={data.sources.arena.url} target="_blank">来源</a>
-            </div>
-            <div class="table-scroll">
-              <table>
-                <thead><tr><th>#</th><th>模型</th><th>Rating</th><th>组织</th><th>投票</th></tr></thead>
-                <tbody>
-                  {card.items.map((m, i) => (
-                    <tr class:list={[{ "top-row": i === 0 }]}>
-                      <td class="rank">{i + 1}</td>
-                      <td class="model-name">{m.name}</td>
-                      <td class="num">{m.rating.toFixed(1)}</td>
-                      <td class="org">{m.org}</td>
-                      <td class="num">{m.votes.toLocaleString()}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <section class="panel" id="domestic">
-      <div class="section-head">
-        <div>
-          <h2>国内模型分区榜单</h2>
-          <p>{data.domestic.note}</p>
-        </div>
-        <div class="section-head-side">
-          <div class="section-meta">更新于 {data.domestic.updatedAt}</div>
-          <a class="source-link" href={data.sources.domestic.url} target="_blank">查看总来源</a>
-        </div>
-      </div>
-
-      <div class="category-nav">
-        {domesticSections.map((section) => (
-          <a href={`#domestic-${section.key}`} class="category-chip">{section.label}</a>
-        ))}
-      </div>
-
-      <div class="domestic-grid">
-        {domesticSections.map((section) => (
-          <article class="card category-card" id={`domestic-${section.key}`}>
-            <div class="category-head">
-              <div>
-                <h3>{section.label}</h3>
-                <p>{section.description}</p>
-              </div>
-              <span class="badge soft">Top 5</span>
-            </div>
-
-            <div class="card-tools">
-              <a class="mini-source-link" href={data.domestic.categories[section.key].source.url} target="_blank">{data.domestic.categories[section.key].source.label}</a>
-            </div>
-
-            <div class="domestic-list">
-              {data.domestic.categories[section.key].items.map((item, index) => (
-                <div class:list={["domestic-item", { "domestic-item-top": index === 0 }]}>
-                  <div class="domestic-rank">#{item.rank}</div>
-                  <div class="domestic-main">
-                    <div class="domestic-topline">
-                      <strong>{item.model}</strong>
-                      <span>{item.org}</span>
-                    </div>
-                    <div class="domestic-strengths">{item.strengths}</div>
-                    <div class="domestic-benchmark">{item.benchmark}</div>
-                  </div>
-                  <div class="score-wrap">
-                    <div class="score-pill">{item.score}</div>
-                    {index === 0 && <div class="score-caption">推荐</div>}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <section class="panel" id="pricing">
-      <div class="section-head">
-        <div>
-          <h2>API 定价对比</h2>
-          <p>统一按每百万 tokens 展示，方便快速看输入、输出与上下文成本结构。</p>
-        </div>
-        <a class="source-link" href={data.sources.pricing.url} target="_blank">查看数据来源</a>
-      </div>
-      <div class="card full-width">
-        <div class="panel-intro">
-          <span>筛选思路</span>
-          先看输入成本，再看输出倍率和上下文窗口，避免只看单价忽略真实任务成本。
-        </div>
-        <div class="table-scroll">
-          <table>
+    {tabs.map((tab, tabIndex) => (
+      <section
+        class:list={['board-panel', { active: tabIndex === 0 }]}
+        id={`panel-${tab.key}`}
+        role="tabpanel"
+        aria-labelledby={`tab-${tab.key}`}
+        hidden={tabIndex !== 0}
+        data-panel={tab.key}
+      >
+        <div class="table-wrap">
+          <table class="model-table">
             <thead>
               <tr>
-                <th>模型</th>
-                <th>提供商</th>
-                <th>输入</th>
-                <th>输出</th>
-                <th>上下文</th>
-                <th>最大输出</th>
+                <th scope="col">排名</th>
+                <th scope="col">模型</th>
+                <th scope="col">发布时间</th>
+                <th scope="col">来源覆盖</th>
+                {hasPricing && <th scope="col" class="price-head">价格 / 1M tokens</th>}
+                <th scope="col" class="score-head">共识分</th>
               </tr>
             </thead>
             <tbody>
-              {data.pricing.map((p) => (
-                <tr>
-                  <td class="model-name">{p.model}</td>
-                  <td class="org">{p.provider}</td>
-                  <td class="num price">${p.input.toFixed(2)}</td>
-                  <td class="num price">${p.output.toFixed(2)}</td>
-                  <td class="num">{p.context}</td>
-                  <td class="num">{p.maxOutput}</td>
+              {data.leaderboards[tab.key].map((model, index) => (
+                <tr class:list={{ podium: index < 3 }}>
+                  <td class="rank-cell" data-label="排名"><span>{String(index + 1).padStart(2, '0')}</span></td>
+                  <td class="model-cell" data-label="模型">
+                    <a href={`/model-arena/${model.slug}/`}>{model.name}</a>
+                    <small>{model.organization}</small>
+                  </td>
+                  <td class="date-cell" data-label="发布时间">{shortDate(model.releaseDate)}</td>
+                  <td class="coverage-cell" data-label="来源覆盖">
+                    <div class="coverage-track" aria-label={`覆盖 ${model.sourceCount} / ${activeBoards.length} 张榜单`}>
+                      {activeBoards.map((board) => (
+                        <span class:list={{ covered: model.evidenceSources.includes(board.id) }} title={`${board.label}${model.evidenceSources.includes(board.id) ? '：已收录' : '：未收录'}`}></span>
+                      ))}
+                    </div>
+                    <small>{model.sourceCount}/{activeBoards.length}</small>
+                  </td>
+                  {hasPricing && (
+                    <td class="price-cell" data-label="价格">
+                      {(model.pricing as LivePricing | null) ? `$${(model.pricing as LivePricing).input.toFixed(2)} / $${(model.pricing as LivePricing).output.toFixed(2)}` : '—'}
+                    </td>
+                  )}
+                  <td class="score-cell" data-label="共识分">
+                    <strong>{model.score.toFixed(1)}</strong><span>/100</span>
+                    <a href={`/model-arena/${model.slug}/`} aria-label={`查看 ${model.name} 的评测证据`}>证据 →</a>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      </div>
-    </section>
+      </section>
+    ))}
 
-    <section class="panel" id="timeline">
-      <div class="section-head">
-        <div>
-          <h2>模型发布时间线</h2>
-          <p>按时间回看模型迭代节奏，判断各厂商当前重点押注方向。</p>
-        </div>
-        <a class="source-link" href={data.sources.releases.url} target="_blank">查看数据来源</a>
-      </div>
-      <div class="card full-width">
-        <div class="panel-intro">
-          <span>观察重点</span>
-          留意各家在代码、推理、多模态和长上下文上的发布时间密度，能更快看出产品路线。
-        </div>
-        <div class="timeline-list">
-          {data.releases.map((r) => (
-            <div class="timeline-item">
-              <div class="tl-date">{r.date}</div>
-              <div class="tl-dot"></div>
-              <div class="tl-content">
-                <div class="tl-header">
-                  <span class="tl-model">{r.model}</span>
-                  <span class="tl-provider">{r.provider}</span>
-                  {r.type && <span class="tl-type">{r.type}</span>}
-                </div>
-                <div class="tl-highlights">{r.highlights}</div>
-                {r.features && r.features.length > 0 && (
-                  <ul class="tl-features">
-                    {r.features.map((f) => <li>{f}</li>)}
-                  </ul>
-                )}
-                {r.url && <a class="tl-link" href={r.url} target="_blank">View Announcement</a>}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  </div>
+    <footer class="arena-note">
+      <p>榜单只汇总能自动更新、能回到原始结果的数据。缺少某张榜不会直接扣分，但会降低来源覆盖。</p>
+      <a href="/model-arena/methodology/">查看归并规则、计算方式和数据状态</a>
+    </footer>
+  </main>
 
   <script is:inline>
-    document.querySelectorAll('.tab').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.tab').forEach(function(b) { b.classList.remove('active'); });
-        document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
-        btn.classList.add('active');
-        var target = btn.getAttribute('data-target');
-        if (target) document.getElementById(target).classList.add('active');
+    const tabs = Array.from(document.querySelectorAll('[data-tab]'));
+    const panels = Array.from(document.querySelectorAll('[data-panel]'));
+
+    function activateBoard(key, updateHash) {
+      tabs.forEach(function (tab) {
+        const active = tab.getAttribute('data-tab') === key;
+        tab.classList.toggle('active', active);
+        tab.setAttribute('aria-selected', String(active));
+        tab.setAttribute('tabindex', active ? '0' : '-1');
+      });
+      panels.forEach(function (panel) {
+        const active = panel.getAttribute('data-panel') === key;
+        panel.classList.toggle('active', active);
+        panel.hidden = !active;
+      });
+      if (updateHash) history.replaceState(null, '', key === 'overall' ? location.pathname : '#' + key);
+    }
+
+    tabs.forEach(function (tab, index) {
+      tab.addEventListener('click', function () { activateBoard(tab.getAttribute('data-tab'), true); });
+      tab.addEventListener('keydown', function (event) {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+        event.preventDefault();
+        const nextIndex = (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+        tabs[nextIndex].focus();
+        activateBoard(tabs[nextIndex].getAttribute('data-tab'), true);
       });
     });
+
+    const initial = location.hash.slice(1);
+    activateBoard(tabs.some(function (tab) { return tab.getAttribute('data-tab') === initial; }) ? initial : 'overall', false);
   </script>
 </StarlightPage>
 
 <style>
-  .arena-dashboard {
-    --bg-card: rgba(255, 255, 255, 0.96);
-    --text-main: var(--sl-color-white, #0f172a);
-    --text-dim: var(--sl-color-gray-3, #64748b);
-    --border: var(--sl-color-gray-6, #e2e8f0);
-    --accent: var(--sl-color-accent, #4b5f7c);
-    --accent-strong: var(--sl-color-accent-high, #334155);
-    --accent-low: var(--sl-color-accent-low, #f1f5f9);
-    --mono: var(--sl-font-mono, 'JetBrains Mono', monospace);
-    max-width: 1240px;
-    margin: 0 auto;
+  .arena-shell {
+    --ink: #252a2d;
+    --muted: #737a78;
+    --line: #deddd4;
+    --paper: rgba(255, 255, 252, 0.72);
+    --live: #478576;
+    --live-soft: #dfece6;
+    --warm: #b66b48;
+    width: min(100%, 76rem);
+    margin-inline: auto;
     padding: 0 0 3rem;
+    color: var(--ink);
   }
 
-  .hero-panel {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 1.25rem;
-    margin: 0 0 1.5rem;
-    padding: 1.25rem;
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    background: rgba(255, 255, 255, 0.92);
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 10px 24px rgba(15, 23, 42, 0.03);
-  }
-
-  .eyebrow {
-    display: inline-flex;
-    padding: 0.3rem 0.7rem;
-    border-radius: 999px;
-    background: #f3f5f7;
-    color: var(--accent-strong);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .hero-copy h1 {
-    margin: 0.8rem 0 0.8rem;
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    line-height: 1.08;
-    color: #0f172a;
-    letter-spacing: -0.04em;
-  }
-
-  .hero-text {
-    max-width: 46rem;
-    margin: 0;
-    color: #334155;
-    font-size: 1rem;
-    line-height: 1.8;
-  }
-
-  .updated {
-    margin-top: 0.8rem;
-    color: var(--text-dim);
-    font-size: 0.84rem;
-  }
-
-  .hero-actions {
+  .ledger-head {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 1rem;
-  }
-
-  .hero-action {
-    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    min-height: 2.5rem;
-    padding: 0.7rem 1rem;
-    border: 1px solid #e1e6ec;
-    border-radius: 10px;
-    background: #ffffff;
-    color: #334155;
-    text-decoration: none;
-    font-size: 0.86rem;
-    font-weight: 600;
-    transition: all 0.18s ease;
-  }
-
-  .hero-action:hover {
-    background: #f6f8fa;
-    border-color: #d4dce6;
-    color: #1f2937;
-  }
-
-  .hero-action.primary {
-    background: #1f2937;
-    border-color: #1f2937;
-    color: #ffffff;
-  }
-
-  .hero-action.primary:hover {
-    background: #111827;
-    border-color: #111827;
-  }
-
-  .hero-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.9rem;
-  }
-
-  .stat-card {
-    padding: 1rem;
-    border-radius: 14px;
-    border: 1px solid #e7ebf0;
-    background: rgba(249, 250, 251, 0.94);
-    box-shadow: none;
-  }
-
-  .stat-value {
-    font-size: 1.7rem;
-    font-weight: 700;
-    color: #1f2937;
-    line-height: 1;
-  }
-
-  .stat-label {
-    margin-top: 0.35rem;
-    color: var(--text-main);
-    font-size: 0.85rem;
-    font-weight: 600;
-  }
-
-  .stat-note {
-    margin-top: 0.2rem;
-    color: var(--text-dim);
-    font-size: 0.76rem;
-    line-height: 1.5;
-  }
-
-  .tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.7rem;
-    margin-bottom: 1.25rem;
-  }
-
-  .tab {
-    all: unset;
-    padding: 0.72rem 1rem;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: rgba(255, 255, 255, 0.88);
-    color: var(--text-dim);
-    font-size: 0.88rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.18s ease;
-  }
-
-  .tab:hover {
-    color: #334155;
-    border-color: #d6dde6;
-    background: #f6f8fa;
-  }
-
-  .tab.active {
-    color: #1f2937;
-    background: #eef2f6;
-    border-color: #d8e0ea;
-    box-shadow: none;
-  }
-
-  .panel { display: none; }
-  .panel.active { display: block; }
-
-  .section-head {
-    display: flex;
     justify-content: space-between;
-    align-items: flex-end;
     gap: 1rem;
     margin-bottom: 1rem;
+    padding: 0.9rem 1rem;
+    border-block: 1px solid var(--line);
+    background: linear-gradient(90deg, rgba(255,255,255,.55), transparent);
   }
 
-  .section-head-side {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.45rem;
-  }
-
-  .section-head h2 {
-    margin: 0;
-    color: #111827;
-    font-size: 1.3rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-  }
-
-  .leader-strip {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.9rem;
-    margin-bottom: 1rem;
-  }
-
-  .leader-card {
-    padding: 0.95rem 1rem;
-    border: 1px solid #e5eaf0;
-    border-radius: 14px;
-    background: #fbfcfd;
-  }
-
-  .leader-label {
-    color: #6b778c;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-
-  .leader-model {
-    margin-top: 0.4rem;
-    color: #111827;
-    font-size: 0.96rem;
-    font-weight: 700;
-    line-height: 1.4;
-  }
-
-  .leader-meta {
-    margin-top: 0.2rem;
-    color: #6b7280;
-    font-size: 0.78rem;
-  }
-
-  .section-head p,
-  .section-meta {
-    margin: 0.35rem 0 0;
-    color: var(--text-dim);
-    font-size: 0.88rem;
-    line-height: 1.7;
-  }
-
-  .source-link,
-  .mini-source-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    color: #526276;
-    text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: 700;
-  }
-
-  .source-link:hover,
-  .mini-source-link:hover {
-    text-decoration: underline;
-  }
-
-  .card-grid,
-  .domestic-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .arena-grid {
-    grid-template-columns: 1fr;
-  }
-
-  @media (min-width: 960px) {
-    .arena-grid {
-      grid-template-columns: 1.2fr 1fr 1fr;
-    }
-  }
-
-  @media (min-width: 900px) {
-    .domestic-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  .card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.15rem;
-    overflow: hidden;
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 20px rgba(15, 23, 42, 0.03);
-  }
-
-  .featured-card {
-    background: rgba(255, 255, 255, 0.98);
-  }
-
-  .full-width { width: 100%; }
-
-  .card-title-row,
-  .category-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 0.8rem;
-    margin-bottom: 0.9rem;
-  }
-
-  .card-tools {
-    margin: -0.3rem 0 0.75rem;
-  }
-
-  .panel-intro {
-    margin-bottom: 0.9rem;
-    padding: 0.8rem 0.9rem;
-    border: 1px solid #e7ebf0;
-    border-radius: 12px;
-    background: #fafbfc;
-    color: #4b5563;
-    font-size: 0.82rem;
-    line-height: 1.65;
-  }
-
-  .panel-intro span {
-    display: inline-block;
-    margin-right: 0.45rem;
-    color: #1f2937;
-    font-weight: 700;
-  }
-
-  .card-title-row h3,
-  .category-head h3 {
-    margin: 0;
-    font-size: 1rem;
-    color: #0f172a;
-    font-weight: 700;
-  }
-
-  .category-head p {
-    margin: 0.3rem 0 0;
-    color: var(--text-dim);
-    font-size: 0.82rem;
-    line-height: 1.65;
-  }
-
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 3.5rem;
-    padding: 0.25rem 0.6rem;
-    border-radius: 999px;
-    background: #f3f5f7;
-    color: #526276;
-    font-size: 0.67rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-
-  .badge.soft {
-    background: #f5f7f9;
-    color: #5f6b7d;
-  }
-
-  .category-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.65rem;
-    margin-bottom: 1rem;
-  }
-
-  .category-chip {
-    display: inline-flex;
-    padding: 0.55rem 0.8rem;
-    border-radius: 999px;
-    border: 1px solid #e1e6ec;
-    background: rgba(248, 249, 251, 0.98);
-    color: #526276;
-    text-decoration: none;
-    font-size: 0.82rem;
-    font-weight: 600;
-  }
-
-  .category-chip:hover {
-    background: #f2f5f7;
-  }
-
-  .domestic-list {
-    display: grid;
-    gap: 0.75rem;
-  }
-
-  .domestic-item {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 0.9rem;
-    align-items: start;
-    padding: 0.9rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.92);
-  }
-
-  .domestic-item-top {
-    border-color: #d5dde7;
-    background: #fbfcfd;
-  }
-
-  .domestic-rank {
-    min-width: 3rem;
-    height: 3rem;
-    display: grid;
-    place-items: center;
-    border-radius: 12px;
-    background: #f3f5f7;
-    color: #334155;
-    font-weight: 800;
-    font-family: var(--mono);
-  }
-
-  .domestic-topline {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.55rem;
-    align-items: baseline;
-  }
-
-  .domestic-topline strong {
-    color: #0f172a;
-    font-size: 0.98rem;
-  }
-
-  .domestic-topline span,
-  .domestic-strengths,
-  .domestic-benchmark {
-    color: var(--text-dim);
-    font-size: 0.8rem;
-    line-height: 1.6;
-  }
-
-  .domestic-strengths {
-    margin-top: 0.25rem;
-    color: #334155;
-  }
-
-  .domestic-benchmark {
-    margin-top: 0.18rem;
-    font-family: var(--mono);
-    font-size: 0.74rem;
-  }
-
-  .score-pill {
-    padding: 0.45rem 0.7rem;
-    border-radius: 999px;
-    background: #1f2937;
-    color: white;
-    font-size: 0.84rem;
-    font-weight: 800;
-    font-family: var(--mono);
-  }
-
-  .score-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.35rem;
-  }
-
-  .score-caption {
-    color: #6b7280;
-    font-size: 0.72rem;
-    font-weight: 600;
-  }
-
-  .table-scroll { overflow-x: auto; }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.84rem;
-  }
-
-  thead th {
-    text-align: left;
-    font-weight: 700;
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #64748b;
-    padding: 0.7rem 0.65rem;
-    border-bottom: 1px solid var(--border);
-    white-space: nowrap;
-  }
-
-  tbody td {
-    padding: 0.65rem;
-    border-bottom: 1px solid rgba(226, 232, 240, 0.9);
-    vertical-align: middle;
-  }
-
-  tbody tr:hover {
-    background: #f8fafb;
-  }
-
-  .top-row {
-    background: #fafbfd;
-  }
-
-  .top-row .rank,
-  .top-row .model-name,
-  .top-row .num {
-    color: #111827;
-    font-weight: 700;
-  }
-
-  .rank {
-    width: 2.5rem;
-    text-align: center;
-    color: #475569;
-    font-weight: 800;
-    font-family: var(--mono);
-  }
-
-  .model-name {
-    font-family: var(--mono);
-    font-size: 0.79rem;
-    color: #0f172a;
-    white-space: nowrap;
-  }
-
-  .num {
-    text-align: right;
-    font-variant-numeric: tabular-nums;
-    font-family: var(--mono);
-    font-size: 0.79rem;
-    color: #1e293b;
-  }
-
-  .org {
-    color: #64748b;
-    font-size: 0.79rem;
-  }
-
-  .price {
-    font-weight: 700;
-    color: #334155;
-  }
-
-  .timeline-list {
-    position: relative;
-    padding-left: 1rem;
-  }
-
-  .timeline-list::before {
-    content: '';
-    position: absolute;
-    left: 4.5rem;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(180deg, #e1e6ec, #eef2f5);
-  }
-
-  .timeline-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 0.7rem 0;
-    position: relative;
-  }
-
-  .tl-date {
-    width: 5.5rem;
-    flex-shrink: 0;
-    font-family: var(--mono);
-    font-size: 0.74rem;
-    color: #64748b;
-    text-align: right;
-    padding-top: 0.15rem;
-  }
-
-  .tl-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #334155;
-    flex-shrink: 0;
-    margin-top: 0.35rem;
-    position: relative;
-    z-index: 1;
-    box-shadow: 0 0 0 4px rgba(245, 247, 250, 0.98);
-  }
-
-  .tl-content { flex: 1; min-width: 0; }
-
-  .tl-header {
+  .live-line {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-
-  .tl-model {
-    font-weight: 700;
-    font-size: 0.92rem;
-    color: #0f172a;
-  }
-
-  .tl-provider,
-  .tl-highlights,
-  .tl-features {
-    color: #64748b;
-  }
-
-  .tl-provider {
-    font-size: 0.76rem;
-  }
-
-  .tl-type {
-    font-size: 0.64rem;
-    font-weight: 800;
-    padding: 0.12rem 0.42rem;
-    border-radius: 999px;
-    background: #f3f5f7;
-    color: #526276;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-
-  .tl-highlights {
     font-size: 0.82rem;
-    margin-top: 0.2rem;
-    line-height: 1.65;
+    font-weight: 700;
+    letter-spacing: 0.08em;
   }
 
-  .tl-features {
-    margin: 0.35rem 0 0;
-    padding-left: 1.1rem;
-    list-style: disc;
-    font-size: 0.76rem;
-    line-height: 1.65;
+  .live-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--live);
+    box-shadow: 0 0 0 4px var(--live-soft);
   }
 
-  .tl-features li { margin: 0; }
+  .ledger-summary p {
+    margin: 0.25rem 0 0;
+    color: var(--muted);
+    font-family: var(--sl-font-mono);
+    font-size: 0.75rem;
+  }
 
-  .tl-link {
-    display: inline-block;
-    margin-top: 0.35rem;
-    font-size: 0.74rem;
-    color: var(--accent-strong);
+  .method-link,
+  .arena-note a {
+    color: #4f635b;
+    font-size: 0.82rem;
+    font-weight: 650;
     text-decoration: none;
   }
 
-  .tl-link:hover { text-decoration: underline; }
+  .method-link:hover,
+  .arena-note a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 
-  @media (max-width: 960px) {
-    .hero-panel {
-      grid-template-columns: 1fr;
-    }
-
-    .leader-strip {
-      grid-template-columns: 1fr;
-    }
+  .source-rail {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    margin-bottom: 1.4rem;
+    border: 1px solid var(--line);
+    background: var(--paper);
   }
 
-  @media (max-width: 720px) {
-    .hero-stats {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .section-head,
-    .category-head,
-    .section-head-side {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .domestic-item {
-      grid-template-columns: 1fr;
-    }
-
-    .score-wrap {
-      align-items: flex-start;
-    }
+  .source-node {
+    position: relative;
+    display: grid;
+    gap: 0.12rem;
+    min-width: 0;
+    padding: 0.8rem 0.9rem 0.75rem 1rem;
+    color: inherit;
+    text-decoration: none;
+    border-right: 1px solid var(--line);
   }
 
-  @media (max-width: 600px) {
-    .arena-dashboard { padding: 0 0 2rem; }
-    .hero-panel,
-    .card { padding: 0.95rem; }
-    .hero-stats { grid-template-columns: 1fr; }
-    table { font-size: 0.76rem; }
-    .timeline-list::before { left: 3.5rem; }
-    .tl-date { width: 4.5rem; font-size: 0.68rem; }
-    .tab { width: 100%; text-align: center; justify-content: center; }
+  .source-node:last-child { border-right: 0; }
+  .source-node::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 3px; background: var(--live); opacity: 0.75; }
+  .source-node.is-cached::before { background: #bd8b4f; }
+  .source-node.is-stale::before { background: #a3a5a2; }
+  .source-node:hover { background: rgba(255,255,255,.72); }
+  .source-node:focus-visible { outline: 2px solid var(--live); outline-offset: 2px; }
+  .source-code { color: var(--live); font-family: var(--sl-font-mono); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em; }
+  .source-name { overflow: hidden; font-size: 0.78rem; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+  .source-meta { color: var(--muted); font-family: var(--sl-font-mono); font-size: 0.64rem; }
+
+  .board-toolbar {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .board-tabs { display: flex; gap: 0.25rem; }
+  .board-tab {
+    display: grid;
+    gap: 0.1rem;
+    min-width: 7.4rem;
+    padding: 0.65rem 0.8rem;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    color: var(--muted);
+    text-align: left;
+    cursor: pointer;
+  }
+  .board-tab span { color: inherit; font-size: 0.92rem; font-weight: 700; }
+  .board-tab small { font-size: 0.67rem; white-space: nowrap; }
+  .board-tab:hover { color: var(--ink); background: rgba(255,255,255,.45); }
+  .board-tab.active { color: var(--ink); border-bottom-color: var(--warm); }
+  .board-tab:focus-visible { outline: 2px solid var(--live); outline-offset: 2px; }
+
+  .coverage-help {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin: 0 0 0.35rem;
+    color: var(--muted);
+    font-size: 0.7rem;
+  }
+  .coverage-sample { display: flex; gap: 2px; }
+  .coverage-sample i { width: 7px; height: 5px; background: var(--live); }
+  .coverage-sample i:nth-child(4), .coverage-sample i:nth-child(5) { background: #d9d8d0; }
+
+  .board-panel[hidden] { display: none; }
+  .table-wrap { overflow-x: auto; border-block: 1px solid var(--line); background: rgba(255,255,252,.52); }
+  .model-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  .model-table th {
+    padding: 0.7rem 0.75rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.67rem;
+    font-weight: 650;
+    letter-spacing: 0.06em;
+    text-align: left;
+  }
+  .model-table th:first-child { width: 5rem; }
+  .model-table th:nth-child(2) { width: 35%; }
+  .model-table th:nth-child(3) { width: 9rem; }
+  .model-table th:nth-child(4) { width: 13rem; }
+  .model-table th:last-child { width: 10rem; text-align: right; }
+  .model-table td { padding: 0.78rem 0.75rem; border-bottom: 1px solid rgba(222,221,212,.8); vertical-align: middle; }
+  .model-table tbody tr:last-child td { border-bottom: 0; }
+  .model-table tbody tr:hover { background: rgba(255,255,255,.72); }
+  .model-table tbody tr.podium { background-image: linear-gradient(90deg, rgba(182,107,72,.055), transparent 45%); }
+
+  .rank-cell span { color: #929590; font-family: var(--sl-font-mono); font-size: 0.82rem; }
+  .podium .rank-cell span { color: var(--warm); font-weight: 800; }
+  .model-cell a { display: block; overflow: hidden; color: var(--ink); font-size: 0.9rem; font-weight: 700; text-decoration: none; text-overflow: ellipsis; white-space: nowrap; }
+  .model-cell a:hover { color: #705542; text-decoration: underline; text-underline-offset: 0.18em; }
+  .model-cell small { display: block; margin-top: 0.1rem; color: var(--muted); font-size: 0.69rem; }
+  .date-cell { color: #666c69; font-family: var(--sl-font-mono); font-size: 0.72rem; }
+  .price-cell { color: #666c69; font-family: var(--sl-font-mono); font-size: 0.69rem; white-space: nowrap; }
+
+  .coverage-cell { white-space: nowrap; }
+  .coverage-track { display: inline-flex; gap: 3px; vertical-align: middle; }
+  .coverage-track span { width: 1.35rem; height: 0.38rem; background: #d9d8d0; }
+  .coverage-track span.covered { background: var(--live); }
+  .coverage-cell small { margin-left: 0.45rem; color: var(--muted); font-family: var(--sl-font-mono); font-size: 0.66rem; }
+
+  .score-cell { text-align: right; white-space: nowrap; }
+  .score-cell strong { font-family: var(--sl-font-mono); font-size: 1rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .score-cell > span { color: var(--muted); font-family: var(--sl-font-mono); font-size: 0.62rem; }
+  .score-cell a { display: block; margin-top: 0.08rem; color: #697a73; font-size: 0.67rem; text-decoration: none; }
+  .score-cell a:hover { text-decoration: underline; }
+
+  .arena-note {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 0.85rem 0.15rem;
+    color: var(--muted);
+    font-size: 0.76rem;
+  }
+  .arena-note p { margin: 0; }
+
+  :global([data-theme='dark']) .arena-shell {
+    --ink: #e8e6df;
+    --muted: #a5aaa7;
+    --line: #42443f;
+    --paper: rgba(32, 35, 33, 0.64);
+    --live-soft: rgba(71,133,118,.22);
+  }
+  :global([data-theme='dark']) .source-node:hover,
+  :global([data-theme='dark']) .model-table tbody tr:hover { background: rgba(255,255,255,.045); }
+  :global([data-theme='dark']) .table-wrap { background: rgba(25,28,26,.42); }
+  :global([data-theme='dark']) .coverage-track span,
+  :global([data-theme='dark']) .coverage-sample i:nth-child(4),
+  :global([data-theme='dark']) .coverage-sample i:nth-child(5) { background: #555750; }
+
+  @media (max-width: 52rem) {
+    .ledger-head, .board-toolbar, .arena-note { align-items: flex-start; flex-direction: column; }
+    .source-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .source-node { border-bottom: 1px solid var(--line); }
+    .board-tabs { width: 100%; overflow-x: auto; }
+    .board-tab { min-width: 6.6rem; }
+    .coverage-help { display: none; }
+    .model-table { min-width: 44rem; }
+  }
+
+  @media (max-width: 34rem) {
+    .source-rail { grid-template-columns: 1fr; }
+    .source-node { border-right: 0; }
+    .ledger-head { padding-inline: 0.6rem; }
+    .table-wrap { overflow: visible; border-top: 1px solid var(--line); }
+    .model-table, .model-table tbody { display: block; min-width: 0; }
+    .model-table thead { display: none; }
+    .model-table tr { display: grid; grid-template-columns: 3rem minmax(0, 1fr) auto; padding: 0.78rem 0.2rem; border-bottom: 1px solid var(--line); }
+    .model-table td { padding: 0.18rem 0.45rem; border: 0; }
+    .rank-cell { grid-row: 1 / 3; align-self: center; }
+    .model-cell { grid-column: 2; }
+    .date-cell { display: none; }
+    .coverage-cell { grid-column: 2; }
+    .score-cell { grid-column: 3; grid-row: 1 / 3; align-self: center; }
+    .coverage-track span { width: 0.8rem; }
+    .arena-note { gap: 0.45rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
   }
 </style>

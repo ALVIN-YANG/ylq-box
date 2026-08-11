@@ -12,7 +12,9 @@
     "news:weekly": "node scripts/fetch-ai-news.mjs --weekly",
     "news:fix-language": "node scripts/fetch-ai-news.mjs --fix-language",
     "news:check-language": "node scripts/fetch-ai-news.mjs --check-language",
-    "news:check-sources": "node scripts/fetch-ai-news.mjs --check-sources"
+    "news:check-sources": "node scripts/fetch-ai-news.mjs --check-sources",
+    "model-arena:update": "node scripts/fetch-model-arena.mjs",
+    "model-arena:check": "node scripts/fetch-model-arena.mjs --check"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.1.2",
@@ -22,6 +24,7 @@
     "@xterm/xterm": "^6.0.0",
     "astro": "^5.6.1",
     "astro-mermaid": "^2.1.0",
+    "fflate": "^0.8.2",
     "mermaid": "^11.16.0",
     "sharp": "^0.34.2",
     "xterm": "^5.3.0",

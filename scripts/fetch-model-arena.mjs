@@ -1,352 +1,771 @@
 /**
- * Model Arena 仪表盘生成脚本
+ * 实时模型榜数据生成器
  *
- * 数据源：
- *   1. lmarena.ai — Arena 排名（RSC payload 解析）
- *   2. model-pricing.json — API 定价（手动维护）
- *   3. model-domestic.json — 国内模型榜单与来源（手动维护）
- *   4. aiflashreport.com — 模型发布时间线（自动抓取）
- *
- * 用法：
- *   node scripts/fetch-model-arena.mjs [--force]
+ * 只接入能够自动更新、保留原始成绩并可追溯到公开来源的数据。
+ * 手工维护的国内榜、价格表和发布时间线不再参与生成。
  */
 
-import { writeFileSync, readFileSync, existsSync } from 'node:fs';
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { unzipSync, strFromU8 } from 'fflate';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = 'src/data/model-arena.json';
+const EPOCH_BUNDLE_URL = 'https://epoch.ai/data/benchmark_data.zip';
+const ARTIFICIAL_ANALYSIS_URL = 'https://artificialanalysis.ai/api/v2/data/llms/models';
+const MAX_BOARD_ENTRIES = 60;
+const CACHE_MAX_AGE_MS = 72 * 60 * 60 * 1000;
 
-function getTimestamp() {
-  const now = new Date();
-  return {
-    iso: now.toISOString(),
-    cn: now.toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false }),
-  };
-}
+const ARENA_URLS = [
+  'https://arena.ai/leaderboard/text',
+  'https://lmarena.ai/leaderboard',
+  'https://chat.lmarena.ai/leaderboard',
+];
 
-const BROWSER_HEADERS = {
-  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
-  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-  'Accept-Language': 'en-US,en;q=0.9',
-  'Accept-Encoding': 'gzip, deflate, br',
-  'DNT': '1',
-  'Connection': 'keep-alive',
-  'Upgrade-Insecure-Requests': '1',
-  'Sec-Fetch-Dest': 'document',
-  'Sec-Fetch-Mode': 'navigate',
-  'Sec-Fetch-Site': 'none',
-  'Sec-Fetch-User': '?1',
-  'Cache-Control': 'max-age=0',
+const EPOCH_BOARD_DEFINITIONS = [
+  {
+    id: 'epoch-eci',
+    short: 'ECI',
+    label: 'Epoch Capabilities Index',
+    operatorId: 'epoch-ai',
+    operator: 'Epoch AI',
+    category: 'general',
+    file: 'epoch_capabilities_index.csv',
+    scoreField: 'ECI Score',
+    modelField: 'Model version',
+    displayFields: ['Display name', 'Model name'],
+    organizationField: 'Organization',
+    releaseDateField: 'Release date',
+    sourceUrl: 'https://epoch.ai/eci',
+    description: '将多项公开评测拟合到同一能力尺度，适合作为通用能力基准。',
+  },
+  {
+    id: 'arena-webdev',
+    short: 'WEB',
+    label: 'Arena WebDev',
+    operatorId: 'lmarena',
+    operator: 'Arena',
+    category: 'code',
+    file: 'webdev_arena_external.csv',
+    scoreField: 'Arena Score',
+    modelField: 'Model version',
+    displayFields: ['Model version'],
+    organizationField: 'Organization',
+    releaseDateField: 'Release date',
+    sourceUrl: 'https://arena.ai/leaderboard/code/webdev',
+    description: '基于匿名两两比较的 Web 开发结果，反映页面生成与前端完成度。',
+  },
+  {
+    id: 'deepswe',
+    short: 'SWE',
+    label: 'DeepSWE v1.1',
+    operatorId: 'datacurve',
+    operator: 'DataCurve',
+    category: 'code',
+    file: 'deepswe_external.csv',
+    scoreField: 'Pass@1',
+    modelField: 'Model version',
+    displayFields: ['Name', 'Model version'],
+    organizationField: 'Organization',
+    releaseDateField: 'Release date',
+    scoreMultiplier: 100,
+    scoreSuffix: '%',
+    sourceUrl: 'https://deepswe.datacurve.ai/',
+    description: '在统一 mini-swe-agent harness 下比较代码模型，减少 Agent 外壳差异。',
+  },
+  {
+    id: 'terminal-bench',
+    short: 'TERM',
+    label: 'Terminal-Bench 2.0',
+    operatorId: 'terminal-bench',
+    operator: 'Terminal-Bench',
+    category: 'agent',
+    file: 'terminalbench_external.csv',
+    scoreField: 'Accuracy mean',
+    modelField: 'Model version',
+    displayFields: ['Name', 'Model version'],
+    organizationField: 'Organization',
+    releaseDateField: 'Release date',
+    scoreMultiplier: 100,
+    scoreSuffix: '%',
+    sourceUrl: 'https://www.tbench.ai/leaderboard/terminal-bench/2.0',
+    description: '评估模型和 Agent 在真实终端环境中完成端到端工程任务的能力。',
+  },
+  {
+    id: 'apex-agents',
+    short: 'APEX',
+    label: 'APEX-Agents',
+    operatorId: 'apex-agents',
+    operator: 'APEX-Agents',
+    category: 'agent',
+    file: 'apex_agents_external.csv',
+    scoreField: 'Pass@1 score',
+    modelField: 'Model version',
+    displayFields: ['Name', 'Model version'],
+    organizationField: 'Organization',
+    releaseDateField: 'Release date',
+    scoreMultiplier: 100,
+    scoreSuffix: '%',
+    sourceUrl: 'https://www.mercor.com/apex/apex-agents-leaderboard/',
+    description: '衡量模型在投行、咨询和法律等长链路知识工作中的 Agent 表现。',
+  },
+];
+
+const CATEGORY_LABELS = {
+  general: '通用',
+  code: '代码',
+  agent: 'Agent',
 };
 
-async function fetchWithRetry(url, options = {}, retries = 3, baseDelayMs = 2000) {
-  let lastError = new Error(`Failed after ${retries} attempts`);
-  for (let attempt = 1; attempt <= retries; attempt++) {
+const SOURCE_PRIORITY = {
+  'epoch-eci': 100,
+  'artificial-analysis': 95,
+  'arena-text': 90,
+  'arena-webdev': 80,
+  deepswe: 70,
+  'terminal-bench': 60,
+  'apex-agents': 50,
+};
+
+const BROWSER_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/131 Safari/537.36',
+  Accept: 'text/html,application/xhtml+xml,application/json,text/csv,*/*',
+  'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+};
+
+function sha(value) {
+  return createHash('sha256').update(JSON.stringify(value)).digest('hex').slice(0, 16);
+}
+
+function nowISO() {
+  return new Date().toISOString();
+}
+
+function formatChineseTime(value) {
+  return new Intl.DateTimeFormat('zh-CN', {
+    timeZone: 'Asia/Shanghai',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(new Date(value));
+}
+
+async function fetchWithRetry(url, options = {}, retries = 3) {
+  let lastError = new Error(`无法访问 ${url}`);
+  for (let attempt = 1; attempt <= retries; attempt += 1) {
     try {
-      const res = await fetch(url, {
+      const response = await fetch(url, {
         ...options,
         headers: { ...BROWSER_HEADERS, ...options.headers },
-        signal: AbortSignal.timeout(25000),
+        signal: AbortSignal.timeout(30000),
       });
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status} for ${url}`);
-      }
-      return res;
-    } catch (err) {
-      lastError = err;
-      if (attempt < retries) {
-        const delay = baseDelayMs * Math.pow(2, attempt - 1);
-        console.log(`  ⚠ Attempt ${attempt} failed (${err.message}), retrying in ${delay}ms...`);
-        await new Promise(r => setTimeout(r, delay));
-      }
+      if (!response.ok) throw new Error(`${url} 返回 HTTP ${response.status}`);
+      return response;
+    } catch (error) {
+      lastError = error;
+      if (attempt < retries) await new Promise(resolve => setTimeout(resolve, 1200 * attempt));
     }
   }
   throw lastError;
 }
 
-// ─────────────────────────────────────────────
-// 模块 1: LMArena 排行榜（RSC payload 解析）
-// ─────────────────────────────────────────────
+function parseCSV(text) {
+  const rows = [];
+  let row = [];
+  let field = '';
+  let quoted = false;
 
-function parseArenaData(html) {
-  const pushes = html.match(/self\.__next_f\.push\(\[1,"([\s\S]*?)"\]\)/g) || [];
-  let combined = '';
-  pushes.forEach(p => {
-    const inner = p.match(/self\.__next_f\.push\(\[1,"([\s\S]*?)"\]\)/)?.[1] || '';
-    combined += inner;
-  });
-  combined = combined.replace(/\\"/g, '"');
-
-  const results = { text: [], code: [], vision: [] };
-
-  const blocks = [];
-  let pos = 0;
-  while (pos < combined.length) {
-    const idx = combined.indexOf('"entries":[{"rank":', pos);
-    if (idx === -1) break;
-    blocks.push(idx);
-    pos = idx + 100;
-  }
-
-  blocks.forEach((blockStart, i) => {
-    const context = combined.slice(Math.max(0, blockStart - 300), blockStart);
-    const blockEnd = i + 1 < blocks.length ? blocks[i + 1] : combined.length;
-    const blockText = combined.slice(blockStart, Math.min(blockStart + 60000, blockEnd));
-
-    let category = 'unknown';
-    if (i === 0 && /text|overall/i.test(context)) category = 'text';
-    else if (i === 1 && /webdev|code/i.test(context)) category = 'code';
-    else if (i === 2 && /vision/i.test(context)) category = 'vision';
-    else if (i === 0) category = 'text';
-
-    if (!['text', 'code', 'vision'].includes(category)) return;
-
-    const regex = /\{"rank":(\d+),"rankUpper":\d+,"rankLower":\d+,"modelDisplayName":"([^"]+)","rating":([\d.]+),"ratingUpper":([\d.]+),"ratingLower":([\d.]+),"votes":(\d+),"modelOrganization":"([^"]*)"/g;
-    let m;
-    while ((m = regex.exec(blockText))) {
-      results[category].push({
-        rank: +m[1],
-        name: m[2],
-        rating: +m[3],
-        ci: `${(+m[4] - +m[3]).toFixed(1)} / ${(+m[3] - +m[5]).toFixed(1)}`,
-        votes: +m[6],
-        org: m[7],
-      });
-    }
-  });
-
-  for (const cat of ['text', 'code', 'vision']) {
-    const seen = new Map();
-    results[cat].forEach(e => {
-      if (!seen.has(e.name) || seen.get(e.name).rating < e.rating) seen.set(e.name, e);
-    });
-    results[cat] = [...seen.values()].sort((a, b) => b.rating - a.rating);
-  }
-
-  return results;
-}
-
-async function fetchArenaRankings(existingData = null) {
-  console.log('\n── LMArena Rankings ──');
-
-  const urls = [
-    'https://llmarena.ai/leaderboard',
-    'https://lmarena.ai/leaderboard',
-    'https://chat.lmarena.ai/leaderboard',
-  ];
-
-  let lastError = null;
-  for (const url of urls) {
-    try {
-      console.log(`  → Trying ${url}`);
-      const res = await fetchWithRetry(url, { headers: { Accept: 'text/html' } }, 2, 3000);
-      const html = await res.text();
-      const data = parseArenaData(html);
-      if (data.text.length > 0 || data.code.length > 0 || data.vision.length > 0) {
-        console.log(`  ✓ Text: ${data.text.length}, Code: ${data.code.length}, Vision: ${data.vision.length}`);
-        return data;
+  for (let index = 0; index < text.length; index += 1) {
+    const char = text[index];
+    if (quoted) {
+      if (char === '"' && text[index + 1] === '"') {
+        field += '"';
+        index += 1;
+      } else if (char === '"') {
+        quoted = false;
       } else {
-        console.warn(`  ✗ ${url}: parsed 0 entries, trying next URL`);
+        field += char;
       }
-    } catch (err) {
-      lastError = err;
-      console.warn(`  ✗ ${url}: ${err.message}`);
+      continue;
+    }
+
+    if (char === '"') {
+      quoted = true;
+    } else if (char === ',') {
+      row.push(field);
+      field = '';
+    } else if (char === '\n') {
+      row.push(field);
+      if (row.some(value => value !== '')) rows.push(row);
+      row = [];
+      field = '';
+    } else if (char !== '\r') {
+      field += char;
     }
   }
 
-  if (existingData?.arena) {
-    console.warn(`  ↩ All LMArena URLs failed, preserving existing arena data (Text: ${existingData.arena.text?.length || 0}, Code: ${existingData.arena.code?.length || 0}, Vision: ${existingData.arena.vision?.length || 0})`);
-    return existingData.arena;
+  if (field || row.length > 0) {
+    row.push(field);
+    rows.push(row);
   }
 
-  console.warn(`  ✗ All LMArena fetch attempts failed, using empty data`);
-  return { text: [], code: [], vision: [] };
+  const headers = (rows.shift() || []).map((header, index) => index === 0 ? header.replace(/^\uFEFF/, '') : header);
+  return rows.map(values => Object.fromEntries(headers.map((header, index) => [header, values[index] ?? ''])));
 }
 
-// ─────────────────────────────────────────────
-// 模块 2: JSON 配置文件读取
-// ─────────────────────────────────────────────
-
-function loadJSON(filename) {
-  const path = join(__dirname, filename);
-  if (!existsSync(path)) {
-    console.warn(`  ⚠ ${filename} not found`);
-    return [];
-  }
-  return JSON.parse(readFileSync(path, 'utf-8'));
+function normalizeOrganization(value = '') {
+  return value
+    .replace('Google DeepMind', 'Google')
+    .replace('Z.ai (Zhipu AI)', 'Z.ai')
+    .replace('Meta AI', 'Meta')
+    .replace(/^Moonshot$/, 'Moonshot AI')
+    .trim() || '未知';
 }
 
-// ─────────────────────────────────────────────
-// 模块 3: AI Flash Report 模型发布时间线抓取
-// ─────────────────────────────────────────────
+function canonicalModelKey(value = '') {
+  let key = value
+    .toLowerCase()
+    .replace(/^[^/]+\//, '')
+    .replace(/[()]/g, '-')
+    .replace(/[_.\s]+/g, '-')
+    .replace(/[^a-z0-9-]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
 
-function parseReleaseCards(html) {
-  const releases = [];
+  key = key.replace(/-prounknown$/, '-pro');
 
-  const cardSplits = html.split('<div class="release-card"');
-  for (let i = 1; i < cardSplits.length; i++) {
-    const card = cardSplits[i];
-    const endIdx = card.indexOf('<div class="release-card"');
-    const chunk = endIdx > -1 ? card.slice(0, endIdx) : card;
-
-    const company = chunk.match(/data-company="([^"]+)"/)?.[1]?.trim() || '';
-    const type = chunk.match(/data-type="([^"]+)"/)?.[1]?.trim() || '';
-    const category = chunk.match(/data-category="([^"]+)"/)?.[1]?.trim() || '';
-    const title = chunk.match(/release-title">([^<]+)/)?.[1]?.trim() || '';
-    const orgText = chunk.match(/release-company">([^<]+)/)?.[1]?.trim() || company;
-    const date = chunk.match(/<strong>Released:<\/strong>\s*(\d{4}-\d{2}-\d{2})/)?.[1] || '';
-    const description = chunk.match(/release-description">([^<]+)/)?.[1]?.trim() || '';
-
-    const features = [];
-    const featureMatches = chunk.matchAll(/<li>([^<]+)<\/li>/g);
-    for (const fm of featureMatches) features.push(fm[1].trim());
-
-    const metrics = [];
-    const metricPairs = chunk.matchAll(/<div class="metric-value">([^<]+)<\/div>\s*<div class="metric-name">([^<]+)<\/div>/g);
-    for (const mp of metricPairs) {
-      metrics.push({ name: mp[2].trim(), value: mp[1].trim() });
-    }
-
-    const announcementUrl = chunk.match(/announcement-link"\s*[^>]*href="([^"]+)"/)?.[1] || '';
-
-    if (!title || !date) continue;
-
-    const highlights = buildHighlights(description, features, metrics);
-
-    releases.push({
-      date,
-      model: title,
-      provider: orgText,
-      type,
-      category,
-      highlights,
-      features: features.slice(0, 4),
-      metrics: metrics.slice(0, 3),
-      url: announcementUrl,
-    });
+  const removableSuffix = /-(?:thinking|non-reasoning|reasoning|adaptive|none|unknown|low|medium|high|xhigh|max|promax|pro-max|codex-harness|pre-release|web-app|webapp|customtools|minimal|no-thinking|\d+k)$/;
+  let previous = '';
+  while (key !== previous) {
+    previous = key;
+    key = key
+      .replace(removableSuffix, '')
+      .replace(/-20\d{2}(?:-\d{2}){0,2}$/, '')
+      .replace(/-\d{8}$/, '')
+      .replace(/-preview$/, '');
   }
 
-  return releases.sort((a, b) => b.date.localeCompare(a.date));
+  return key
+    .replace(/^gpt-(\d+)-(\d+)(?=-|$)/, 'gpt-$1.$2')
+    .replace(/^glm-(\d+)-(\d+)(?=-|$)/, 'glm-$1.$2')
+    .replace(/^gemini-(\d+)-(\d+)(?=-|$)/, 'gemini-$1.$2')
+    .replace(/^claude-(opus|sonnet|haiku)-(\d+)-(\d+)(?=-|$)/, 'claude-$1-$2.$3')
+    .replace(/^qwen(\d+)-(\d+)(?=-|$)/, 'qwen$1.$2')
+    .replace(/^kimi-k(\d+)-(\d+)(?=-|$)/, 'kimi-k$1.$2');
 }
 
-function buildHighlights(description, features, metrics) {
-  const parts = [];
-  if (description) parts.push(description);
+function titleCaseModelKey(key) {
+  const wordMap = {
+    ai: 'AI', apex: 'APEX', claude: 'Claude', codex: 'Codex', deepseek: 'DeepSeek',
+    fable: 'Fable', flash: 'Flash', gemini: 'Gemini', glm: 'GLM', gpt: 'GPT',
+    grok: 'Grok', haiku: 'Haiku', kimi: 'Kimi', llama: 'Llama', max: 'Max',
+    minimax: 'MiniMax', opus: 'Opus', pro: 'Pro', qwen: 'Qwen', sol: 'Sol',
+    sonnet: 'Sonnet', terra: 'Terra', luna: 'Luna', muse: 'Muse', spark: 'Spark',
+  };
+  return key.split('-').map(part => wordMap[part] || (/^\d/.test(part) ? part : `${part[0]?.toUpperCase() || ''}${part.slice(1)}`)).join(' ');
+}
 
-  const metricsStr = metrics.slice(0, 2)
-    .map(m => `${m.name} ${m.value}`)
-    .join('，');
-  if (metricsStr) parts.push(metricsStr);
+function cleanDisplayName(value, key) {
+  const cleaned = String(value || '')
+    .replace(/\s*\(pro,\s*unknown thinking\)\s*$/i, ' Pro')
+    .replace(/\s*\((?:none|unknown|low|medium|high|xhigh|max|promax|thinking|non-reasoning|no thinking|\d+k thinking|web)[^)]*\)\s*$/i, '')
+    .replace(/[_-](?:none|unknown|low|medium|high|xhigh|max|promax|thinking|non-reasoning|minimal)$/i, '')
+    .trim();
+  if (!cleaned || /^[a-z0-9_.:/-]+$/.test(cleaned)) return titleCaseModelKey(key);
+  return cleaned;
+}
 
-  if (parts.length === 0 && features.length > 0) {
-    parts.push(features.slice(0, 3).join('；'));
+function getFirst(row, fields) {
+  for (const field of fields) {
+    if (row[field]) return row[field];
   }
-
-  return parts.join('。') || '';
+  return '';
 }
 
-async function fetchModelReleases() {
-  console.log('\n── AI Flash Report (Model Releases) ──');
-  try {
-    const res = await fetchWithRetry('https://aiflashreport.com/model-releases', {
-      headers: { Accept: 'text/html' },
-    }, 2, 2000);
-    const html = await res.text();
-    const releases = parseReleaseCards(html);
-    console.log(`  ✓ ${releases.length} releases parsed`);
-    return releases;
-  } catch (err) {
-    console.warn(`  ✗ AI Flash Report: ${err.message}`);
-    console.log('  ↩ Falling back to local model-releases.json');
-    return loadJSON('model-releases.json');
-  }
+function normalizeReleaseDate(value) {
+  const match = String(value || '').match(/20\d{2}-\d{2}-\d{2}/);
+  return match?.[0] || null;
 }
 
-// ─────────────────────────────────────────────
-// JSON 数据输出
-// ─────────────────────────────────────────────
+function scoreLabel(score, definition) {
+  const value = score * (definition.scoreMultiplier || 1);
+  const digits = value >= 100 ? 1 : 2;
+  return `${value.toFixed(digits).replace(/\.0+$/, '')}${definition.scoreSuffix || ''}`;
+}
 
-function buildOutput(arena, pricing, releases, timestamp) {
-  const domestic = loadJSON('model-domestic.json');
+function buildBoardFromRows(rows, definition, remoteUpdatedAt) {
+  const ranked = rows
+    .map(row => {
+      const rawScore = Number(row[definition.scoreField]);
+      const modelVersion = row[definition.modelField] || getFirst(row, definition.displayFields);
+      const modelKey = canonicalModelKey(modelVersion);
+      if (!modelKey || !Number.isFinite(rawScore)) return null;
+      return {
+        modelKey,
+        model: cleanDisplayName(getFirst(row, definition.displayFields), modelKey),
+        organization: normalizeOrganization(row[definition.organizationField]),
+        modelVersion,
+        releaseDate: normalizeReleaseDate(row[definition.releaseDateField]),
+        rawScore,
+        scoreLabel: scoreLabel(rawScore, definition),
+      };
+    })
+    .filter(Boolean)
+    .sort((left, right) => right.rawScore - left.rawScore);
 
+  ranked.forEach((entry, index) => { entry.sourceRank = index + 1; });
+  const bestByModel = new Map();
+  ranked.forEach(entry => {
+    const current = bestByModel.get(entry.modelKey);
+    if (!current || entry.rawScore > current.rawScore) bestByModel.set(entry.modelKey, entry);
+  });
+
+  const entries = [...bestByModel.values()]
+    .sort((left, right) => right.rawScore - left.rawScore)
+    .slice(0, MAX_BOARD_ENTRIES)
+    .map((entry, index, all) => ({
+      ...entry,
+      rank: index + 1,
+      normalizedScore: all.length === 1 ? 100 : Number((100 * (1 - index / (all.length - 1))).toFixed(2)),
+    }));
+
+  return stabilizeBoard({
+    ...definition,
+    updatedAt: remoteUpdatedAt,
+    status: 'live',
+    entries,
+  });
+}
+
+function stabilizeBoard(board, previousBoard = null) {
+  const contentHash = sha(board.entries.map(entry => ({
+    modelKey: entry.modelKey,
+    rank: entry.rank,
+    sourceRank: entry.sourceRank,
+    rawScore: entry.rawScore,
+    modelVersion: entry.modelVersion,
+  })));
+  const unchanged = previousBoard?.contentHash === contentHash;
   return {
-    updatedAt: timestamp.cn,
-    updatedAtISO: timestamp.iso,
-    sources: {
-      arena: {
-        label: 'LMArena Leaderboard',
-        url: 'https://lmarena.ai/leaderboard',
-      },
-      pricing: {
-        label: '站内定价数据',
-        url: 'https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-pricing.json',
-      },
-      releases: {
-        label: 'AI Flash Report',
-        url: 'https://aiflashreport.com/model-releases',
-      },
-      domestic: domestic.source || {
-        label: '站内维护数据',
-        url: 'https://github.com/ALVIN-YANG/ylqMemoryBackup/blob/main/scripts/model-domestic.json',
-      },
-    },
-    arena: {
-      text: arena.text.slice(0, 20),
-      code: arena.code.slice(0, 15),
-      vision: arena.vision.slice(0, 15),
-    },
-    domestic: {
-      updatedAt: timestamp.cn,
-      note: domestic.note || '',
-      source: domestic.source || null,
-      categories: Object.fromEntries(
-        Object.entries(domestic.categories || {}).map(([key, value]) => [
-          key,
-          {
-            source: value.source || domestic.source || null,
-            items: Array.isArray(value.items) ? value.items : [],
-          },
-        ])
-      ),
-    },
-    pricing: [...pricing].sort((a, b) => a.input - b.input),
-    releases: releases.slice(0, 40),
+    id: board.id,
+    short: board.short,
+    label: board.label,
+    operatorId: board.operatorId,
+    operator: board.operator,
+    category: board.category,
+    categoryLabel: CATEGORY_LABELS[board.category],
+    sourceUrl: board.sourceUrl,
+    description: board.description,
+    status: board.status || 'live',
+    updatedAt: unchanged ? previousBoard.updatedAt : (board.updatedAt || nowISO()),
+    contentHash,
+    entries: board.entries,
   };
 }
 
-// ─────────────────────────────────────────────
-// 入口
-// ─────────────────────────────────────────────
+async function fetchEpochBoards(previousBoards) {
+  console.log('\n── Epoch AI Benchmarking Hub ──');
+  const response = await fetchWithRetry(EPOCH_BUNDLE_URL, {}, 3);
+  const archive = unzipSync(new Uint8Array(await response.arrayBuffer()));
+  const remoteUpdatedAt = response.headers.get('last-modified') || nowISO();
+
+  return EPOCH_BOARD_DEFINITIONS.map(definition => {
+    const bytes = archive[definition.file];
+    if (!bytes) throw new Error(`Epoch 数据包缺少 ${definition.file}`);
+    const rows = parseCSV(strFromU8(bytes));
+    const board = buildBoardFromRows(rows, definition, remoteUpdatedAt);
+    const stabilized = stabilizeBoard(board, previousBoards.get(definition.id));
+    console.log(`  ✓ ${definition.label}: ${stabilized.entries.length} 个模型`);
+    return stabilized;
+  });
+}
+
+function parseArenaTextData(html) {
+  const pushes = html.match(/self\.__next_f\.push\(\[1,"([\s\S]*?)"\]\)/g) || [];
+  let combined = pushes.map(push => push.match(/self\.__next_f\.push\(\[1,"([\s\S]*?)"\]\)/)?.[1] || '').join('');
+  combined = combined.replace(/\\"/g, '"');
+
+  const blocks = [];
+  let position = 0;
+  while (position < combined.length) {
+    const index = combined.indexOf('"entries":[{"rank":', position);
+    if (index === -1) break;
+    blocks.push(index);
+    position = index + 100;
+  }
+
+  for (const blockStart of blocks) {
+    const blockText = combined.slice(blockStart, blockStart + 90000);
+    const entries = [];
+    const regex = /\{"rank":(\d+),"rankUpper":\d+,"rankLower":\d+,"modelDisplayName":"([^"]+)","rating":([\d.]+),"ratingUpper":[\d.]+,"ratingLower":[\d.]+,"votes":(\d+),"modelOrganization":"([^"]*)"/g;
+    let match;
+    while ((match = regex.exec(blockText))) {
+      const modelKey = canonicalModelKey(match[2]);
+      entries.push({
+        modelKey,
+        model: cleanDisplayName(match[2], modelKey),
+        organization: normalizeOrganization(match[5]),
+        modelVersion: match[2],
+        releaseDate: null,
+        rawScore: Number(match[3]),
+        scoreLabel: Number(match[3]).toFixed(1),
+        sourceRank: Number(match[1]),
+      });
+    }
+    if (entries.length > 0) return entries;
+  }
+  return [];
+}
+
+async function fetchArenaTextBoard(previousBoard) {
+  console.log('\n── Arena Text ──');
+  let lastError;
+  for (const url of ARENA_URLS) {
+    try {
+      const response = await fetchWithRetry(url, { headers: { Accept: 'text/html' } }, 2);
+      const parsed = parseArenaTextData(await response.text());
+      if (parsed.length === 0) throw new Error('页面中没有可识别的榜单数据');
+
+      const bestByModel = new Map();
+      parsed.sort((left, right) => right.rawScore - left.rawScore).forEach(entry => {
+        const current = bestByModel.get(entry.modelKey);
+        if (!current || entry.rawScore > current.rawScore) bestByModel.set(entry.modelKey, entry);
+      });
+      const entries = [...bestByModel.values()]
+        .sort((left, right) => right.rawScore - left.rawScore)
+        .slice(0, MAX_BOARD_ENTRIES)
+        .map((entry, index, all) => ({
+          ...entry,
+          rank: index + 1,
+          normalizedScore: all.length === 1 ? 100 : Number((100 * (1 - index / (all.length - 1))).toFixed(2)),
+        }));
+
+      const board = stabilizeBoard({
+        id: 'arena-text',
+        short: 'ARENA',
+        label: 'Arena Text',
+        operatorId: 'lmarena',
+        operator: 'Arena',
+        category: 'general',
+        categoryLabel: CATEGORY_LABELS.general,
+        sourceUrl: 'https://arena.ai/leaderboard/text',
+        description: '匿名两两盲选形成的人类偏好排名，补充客观题库难以覆盖的回答体验。',
+        status: 'live',
+        updatedAt: response.headers.get('last-modified') || nowISO(),
+        entries,
+      }, previousBoard);
+      console.log(`  ✓ ${board.label}: ${entries.length} 个模型`);
+      return board;
+    } catch (error) {
+      lastError = error;
+      console.warn(`  ✗ ${url}: ${error.message}`);
+    }
+  }
+  throw lastError || new Error('Arena Text 抓取失败');
+}
+
+async function fetchArtificialAnalysis(previousBoard) {
+  const apiKey = process.env.ARTIFICIAL_ANALYSIS_API_KEY;
+  if (!apiKey) return { board: null, pricing: {} };
+
+  console.log('\n── Artificial Analysis ──');
+  const response = await fetchWithRetry(ARTIFICIAL_ANALYSIS_URL, {
+    headers: { 'x-api-key': apiKey, Accept: 'application/json' },
+  }, 2);
+  const payload = await response.json();
+  const pricing = {};
+  const rows = (payload.data || [])
+    .map(model => {
+      const rawScore = Number(model.evaluations?.artificial_analysis_intelligence_index);
+      const modelKey = canonicalModelKey(model.slug || model.name);
+      if (!modelKey || !Number.isFinite(rawScore)) return null;
+      if (model.pricing) {
+        pricing[modelKey] = {
+          input: Number(model.pricing.price_1m_input_tokens),
+          output: Number(model.pricing.price_1m_output_tokens),
+          sourceUrl: 'https://artificialanalysis.ai/models',
+        };
+      }
+      return {
+        modelKey,
+        model: model.name,
+        organization: normalizeOrganization(model.model_creator?.name),
+        modelVersion: model.slug || model.name,
+        releaseDate: null,
+        rawScore,
+        scoreLabel: rawScore.toFixed(1),
+      };
+    })
+    .filter(Boolean)
+    .sort((left, right) => right.rawScore - left.rawScore)
+    .slice(0, MAX_BOARD_ENTRIES);
+
+  const entries = rows.map((entry, index, all) => ({
+    ...entry,
+    rank: index + 1,
+    sourceRank: index + 1,
+    normalizedScore: all.length === 1 ? 100 : Number((100 * (1 - index / (all.length - 1))).toFixed(2)),
+  }));
+  const board = stabilizeBoard({
+    id: 'artificial-analysis',
+    short: 'AA',
+    label: 'Artificial Analysis Intelligence Index',
+    operatorId: 'artificial-analysis',
+    operator: 'Artificial Analysis',
+    category: 'general',
+    sourceUrl: 'https://artificialanalysis.ai/leaderboards/models',
+    description: '独立复跑多项评测，并提供官方模型价格、速度和延迟数据。',
+    status: 'live',
+    updatedAt: nowISO(),
+    entries,
+  }, previousBoard);
+  console.log(`  ✓ ${board.label}: ${entries.length} 个模型`);
+  return { board, pricing };
+}
+
+function cachedBoard(previousBoard, error) {
+  if (!previousBoard) return null;
+  const age = Date.now() - new Date(previousBoard.updatedAt).getTime();
+  return {
+    ...previousBoard,
+    status: age > CACHE_MAX_AGE_MS ? 'stale' : 'cached',
+    error: error.message,
+  };
+}
+
+async function collectBoards(existing) {
+  const previousBoards = new Map((existing?.sourceBoards || []).map(board => [board.id, board]));
+  const boards = [];
+
+  try {
+    boards.push(...await fetchEpochBoards(previousBoards));
+  } catch (error) {
+    console.warn(`  ✗ Epoch 数据包：${error.message}`);
+    EPOCH_BOARD_DEFINITIONS.forEach(definition => {
+      const fallback = cachedBoard(previousBoards.get(definition.id), error);
+      if (fallback) boards.push(fallback);
+    });
+  }
+
+  try {
+    boards.push(await fetchArenaTextBoard(previousBoards.get('arena-text')));
+  } catch (error) {
+    const fallback = cachedBoard(previousBoards.get('arena-text'), error);
+    if (fallback) boards.push(fallback);
+  }
+
+  let pricing = {};
+  try {
+    const artificialAnalysis = await fetchArtificialAnalysis(previousBoards.get('artificial-analysis'));
+    if (artificialAnalysis.board) boards.push(artificialAnalysis.board);
+    pricing = artificialAnalysis.pricing;
+  } catch (error) {
+    console.warn(`  ✗ Artificial Analysis：${error.message}`);
+    const fallback = cachedBoard(previousBoards.get('artificial-analysis'), error);
+    if (fallback) boards.push(fallback);
+  }
+
+  return { boards, pricing };
+}
+
+function mean(values) {
+  return values.length ? values.reduce((total, value) => total + value, 0) / values.length : null;
+}
+
+function calculateScore(evidence) {
+  const byOperator = new Map();
+  evidence.forEach(item => {
+    if (!byOperator.has(item.operatorId)) byOperator.set(item.operatorId, []);
+    byOperator.get(item.operatorId).push(item.normalizedScore);
+  });
+  return mean([...byOperator.values()].map(scores => mean(scores)));
+}
+
+function chooseModelName(evidence, modelKey) {
+  return [...evidence]
+    .sort((left, right) => (SOURCE_PRIORITY[right.sourceId] || 0) - (SOURCE_PRIORITY[left.sourceId] || 0))
+    .map(item => item.model)
+    .find(Boolean) || titleCaseModelKey(modelKey);
+}
+
+function buildModelData(sourceBoards, pricing) {
+  const activeBoards = sourceBoards.filter(board => board.status !== 'stale' && board.entries.length > 0);
+  const models = new Map();
+
+  activeBoards.forEach(board => {
+    board.entries.forEach(entry => {
+      if (!models.has(entry.modelKey)) models.set(entry.modelKey, { modelKey: entry.modelKey, evidence: [] });
+      models.get(entry.modelKey).evidence.push({
+        sourceId: board.id,
+        sourceShort: board.short,
+        sourceLabel: board.label,
+        operatorId: board.operatorId,
+        operator: board.operator,
+        category: board.category,
+        categoryLabel: board.categoryLabel,
+        sourceUrl: board.sourceUrl,
+        status: board.status,
+        updatedAt: board.updatedAt,
+        rank: entry.rank,
+        sourceRank: entry.sourceRank,
+        sourceCount: board.entries.length,
+        rawScore: entry.rawScore,
+        scoreLabel: entry.scoreLabel,
+        normalizedScore: entry.normalizedScore,
+        modelVersion: entry.modelVersion,
+        model: entry.model,
+        organization: entry.organization,
+        releaseDate: entry.releaseDate,
+      });
+    });
+  });
+
+  const records = [...models.values()].map(record => {
+    const releaseDates = record.evidence.map(item => item.releaseDate).filter(Boolean).sort();
+    const organization = record.evidence
+      .sort((left, right) => (SOURCE_PRIORITY[right.sourceId] || 0) - (SOURCE_PRIORITY[left.sourceId] || 0))
+      .map(item => item.organization)
+      .find(value => value && value !== '未知') || '未知';
+    const categoryScores = Object.fromEntries(Object.keys(CATEGORY_LABELS).map(category => {
+      const categoryEvidence = record.evidence.filter(item => item.category === category);
+      const score = calculateScore(categoryEvidence);
+      return [category, score === null ? null : Number(score.toFixed(1))];
+    }));
+    const score = calculateScore(record.evidence);
+    return {
+      slug: record.modelKey,
+      name: chooseModelName(record.evidence, record.modelKey),
+      organization,
+      releaseDate: releaseDates.at(-1) || null,
+      score: score === null ? null : Number(score.toFixed(1)),
+      coverage: Number((100 * record.evidence.length / activeBoards.length).toFixed(1)),
+      sourceCount: record.evidence.length,
+      operatorCount: new Set(record.evidence.map(item => item.operatorId)).size,
+      categoryScores,
+      pricing: pricing[record.modelKey] || null,
+      evidence: record.evidence.sort((left, right) => left.rank - right.rank),
+      ranks: {},
+    };
+  });
+
+  const buildLeaderboard = (scope, minimumOperators) => records
+    .filter(model => {
+      if (scope === 'overall') return model.operatorCount >= minimumOperators && model.score !== null;
+      return model.categoryScores[scope] !== null;
+    })
+    .sort((left, right) => {
+      const leftScore = scope === 'overall' ? left.score : left.categoryScores[scope];
+      const rightScore = scope === 'overall' ? right.score : right.categoryScores[scope];
+      return rightScore - leftScore || right.coverage - left.coverage;
+    })
+    .slice(0, 30)
+    .map((model, index) => {
+      model.ranks[scope] = index + 1;
+      return model;
+    });
+
+  const leaderboards = {
+    overall: buildLeaderboard('overall', 2),
+    general: buildLeaderboard('general', 1),
+    code: buildLeaderboard('code', 1),
+    agent: buildLeaderboard('agent', 1),
+  };
+  const visibleSlugs = new Set(Object.values(leaderboards).flat().map(model => model.slug));
+
+  return {
+    activeBoards,
+    leaderboards: Object.fromEntries(Object.entries(leaderboards).map(([scope, items]) => [
+      scope,
+      items.map(model => ({
+        slug: model.slug,
+        name: model.name,
+        organization: model.organization,
+        releaseDate: model.releaseDate,
+        score: scope === 'overall' ? model.score : model.categoryScores[scope],
+        coverage: model.coverage,
+        sourceCount: model.sourceCount,
+        evidenceSources: model.evidence.map(item => item.sourceId),
+        pricing: model.pricing,
+      })),
+    ])),
+    models: records.filter(model => visibleSlugs.has(model.slug)).sort((left, right) => (right.score || 0) - (left.score || 0)),
+  };
+}
+
+function validateSourceBoards(sourceBoards) {
+  const problems = [];
+  sourceBoards.forEach(board => {
+    if (!board.entries.length) problems.push(`${board.label} 没有模型数据`);
+    if (board.entries.some(entry => !entry.modelKey || !Number.isFinite(entry.rawScore))) problems.push(`${board.label} 存在无效条目`);
+  });
+  const activeOperators = new Set(sourceBoards.filter(board => board.status !== 'stale').map(board => board.operatorId));
+  if (activeOperators.size < 3) problems.push(`只有 ${activeOperators.size} 个有效独立来源，至少需要 3 个`);
+  return problems;
+}
+
+function buildOutput(sourceBoards, pricing, existing) {
+  const { activeBoards, leaderboards, models } = buildModelData(sourceBoards, pricing);
+  const contentFingerprint = sourceBoards.map(board => ({
+    id: board.id,
+    contentHash: board.contentHash,
+    status: board.status,
+    updatedAt: board.updatedAt,
+  }));
+  const dataHash = sha(contentFingerprint);
+  const updatedAtISO = existing?.dataHash === dataHash ? existing.updatedAtISO : nowISO();
+  const operatorCount = new Set(activeBoards.map(board => board.operatorId)).size;
+
+  return {
+    schemaVersion: 2,
+    updatedAt: formatChineseTime(updatedAtISO),
+    updatedAtISO,
+    dataHash,
+    methodology: {
+      operatorCount,
+      boardCount: activeBoards.length,
+      minimumOverallSources: 2,
+      note: '各榜先按名次归一化，同一运营方的多张榜单先在组内平均，再计算跨来源共识分。缺榜不扣分，但会降低覆盖率。',
+    },
+    sourceBoards,
+    leaderboards,
+    models,
+  };
+}
+
+async function runCheck(existing) {
+  const { boards } = await collectBoards(existing);
+  const problems = validateSourceBoards(boards);
+  boards.forEach(board => console.log(`  ${board.status === 'live' ? '✓' : '↩'} ${board.label}: ${board.entries.length} 个模型 · ${board.status}`));
+  if (problems.length) throw new Error(problems.join('；'));
+  console.log(`\n✅ ${new Set(boards.map(board => board.operatorId)).size} 个独立来源、${boards.length} 张榜单均可用`);
+}
 
 async function main() {
+  const checkOnly = process.argv.includes('--check');
   const force = process.argv.includes('--force');
-  const outputPath = join(process.cwd(), OUTPUT_PATH);
+  const existing = existsSync(OUTPUT_PATH) ? JSON.parse(readFileSync(OUTPUT_PATH, 'utf-8')) : null;
 
-  console.log('🏟️ 生成 Model Arena 仪表盘...');
+  console.log('生成实时模型榜…');
+  if (checkOnly) return runCheck(existing);
 
-  const timestamp = getTimestamp();
-  const existing = existsSync(outputPath) ? JSON.parse(readFileSync(outputPath, 'utf-8')) : null;
+  const { boards, pricing } = await collectBoards(existing);
+  const problems = validateSourceBoards(boards);
+  if (problems.length) throw new Error(problems.join('；'));
 
-  console.log('\n── Loading JSON configs ──');
-  const pricing = loadJSON('model-pricing.json');
-  console.log(`  ✓ Pricing: ${pricing.length} models`);
-
-  const [arena, releases] = await Promise.all([
-    fetchArenaRankings(existing),
-    fetchModelReleases(),
-  ]);
-
-  const data = buildOutput(arena, pricing, releases, timestamp);
-
-  if (!force && existing && existing.updatedAtISO === data.updatedAtISO) {
-    console.log('\n⏭ 数据未变化，跳过写入');
+  const output = buildOutput(boards, pricing, existing);
+  if (!force && existing?.dataHash === output.dataHash && existing?.schemaVersion === output.schemaVersion) {
+    console.log('\n⏭ 榜单数据没有变化，跳过写入');
     return;
   }
 
-  writeFileSync(outputPath, JSON.stringify(data, null, 2));
+  writeFileSync(OUTPUT_PATH, `${JSON.stringify(output, null, 2)}\n`);
   console.log(`\n✅ 已生成 ${OUTPUT_PATH}`);
+  console.log(`   ${output.methodology.operatorCount} 个独立来源 · ${output.methodology.boardCount} 张榜单 · ${output.leaderboards.overall.length} 个总榜模型`);
 }
 
-main().catch(err => { console.error(err); process.exit(1); });
+main().catch(error => {
+  console.error(`\n❌ ${error.message}`);
+  process.exit(1);
+});

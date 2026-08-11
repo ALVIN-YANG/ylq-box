@@ -1,0 +1,74 @@
+{
+  "items": [
+    {
+      "slug": "human-writing",
+      "name": "Human Writing",
+      "displayName": "活人感写作",
+      "owner": "KKKKhazix",
+      "repo": "https://github.com/KKKKhazix/human-writing",
+      "category": "写作",
+      "path": "writing/human-writing",
+      "summary": "先判断材料够不够，再处理事实、段落推进和中文节奏，成稿后还有一轮硬规则检查。",
+      "reason": "它关心的不只是几个 AI 黑话，而是每段有没有新东西、现实材料能不能经得住核对。",
+      "bestFor": ["博客与公众号", "长文改稿", "中文表达"],
+      "highlights": ["材料门槛", "现实与虚构分流", "改稿检查脚本"],
+      "install": "npx skills add KKKKhazix/human-writing"
+    },
+    {
+      "slug": "ay-skills",
+      "name": "AY Skills",
+      "displayName": "AY Skills",
+      "owner": "ALVIN-YANG",
+      "repo": "https://github.com/ALVIN-YANG/ay-skills",
+      "category": "工程流程",
+      "path": "workflow/ay-skills",
+      "summary": "把开发、排错、改进、写作和审查拆成五个独立工作流，明确什么时候直接做，什么时候需要停下来确认。",
+      "reason": "边界比功能数量更重要。精确请求继续做，真正会改变产品或技术方向的选择才交还给人。",
+      "bestFor": ["日常开发", "诊断与审查", "人机协作边界"],
+      "highlights": ["五个独立 Skill", "人工批准边界", "可验证交付"],
+      "install": "npx skills@latest add ALVIN-YANG/ay-skills"
+    },
+    {
+      "slug": "waza",
+      "name": "Waza",
+      "displayName": "Waza",
+      "owner": "tw93",
+      "repo": "https://github.com/tw93/Waza",
+      "category": "工程流程",
+      "path": "workflow/waza",
+      "summary": "把 think、ui、check、hunt、write、learn、read 和 health 这些工程习惯做成可单独调用的 Skill。",
+      "reason": "每个 Skill 都有明确触发场景，组合靠人决定，不用一个巨大的总控流程替你接管项目。",
+      "bestFor": ["需求思考", "前端与排错", "研究和发布"],
+      "highlights": ["八个工程习惯", "手动组合", "多 Agent Host"],
+      "install": "npx skills add tw93/Waza"
+    },
+    {
+      "slug": "mattpocock-skills",
+      "name": "Skills for Real Engineers",
+      "displayName": "Matt Pocock Skills",
+      "owner": "mattpocock",
+      "repo": "https://github.com/mattpocock/skills",
+      "category": "工程方法",
+      "path": "engineering/mattpocock-skills",
+      "summary": "用小而可组合的 Skill 处理需求追问、领域语言、规格、测试、诊断和工程交付。",
+      "reason": "它不是一套接管开发过程的框架，更像可拆开研究和改造的工程方法样本。",
+      "bestFor": ["需求对齐", "领域建模", "测试与诊断"],
+      "highlights": ["Grilling", "Ubiquitous Language", "组合式流程"],
+      "install": "npx skills@latest add mattpocock/skills"
+    },
+    {
+      "slug": "beautify-github-readme",
+      "name": "Beautify GitHub README",
+      "displayName": "Beautify GitHub README",
+      "owner": "oil-oil",
+      "repo": "https://github.com/oil-oil/beautify-github-readme",
+      "category": "开源表达",
+      "path": "presentation/beautify-github-readme",
+      "summary": "先读懂仓库的价值和证据，再用可维护的 Markdown、SVG 和真实产出来设计 README。",
+      "reason": "它没有把美化理解成堆徽章和套模板，内容顺序、证明材料和视觉系统是一起设计的。",
+      "bestFor": ["开源项目首页", "README 重构", "GitHub SVG"],
+      "highlights": ["项目原生视觉", "真实证据", "发布前确认"],
+      "install": "npx skills add oil-oil/beautify-github-readme"
+    }
+  ]
+}

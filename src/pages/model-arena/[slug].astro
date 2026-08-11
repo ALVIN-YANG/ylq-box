@@ -1,0 +1,150 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import data from '../../data/model-arena.json';
+
+export function getStaticPaths() {
+  return data.models.map((model) => ({ params: { slug: model.slug }, props: { model } }));
+}
+
+const { model } = Astro.props;
+const activeBoards = data.sourceBoards.filter((board) => board.status !== 'stale');
+const categories = [
+  { key: 'overall', label: '总榜', score: model.score },
+  { key: 'general', label: '通用', score: model.categoryScores.general },
+  { key: 'code', label: '代码', score: model.categoryScores.code },
+  { key: 'agent', label: 'Agent', score: model.categoryScores.agent },
+].filter((item) => item.score !== null);
+
+function formatTime(value: string) {
+  return new Intl.DateTimeFormat('zh-CN', {
+    timeZone: 'Asia/Shanghai',
+    year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false,
+  }).format(new Date(value));
+}
+---
+
+<StarlightPage frontmatter={{ title: model.name, description: `${model.name} 的实时榜单名次、原始成绩与来源覆盖。`, template: 'splash' }} sidebar={[]}>
+  <main class="detail-shell">
+    <nav class="crumb" aria-label="面包屑"><a href="/model-arena/">实时模型榜</a><span>/</span><span>{model.organization}</span></nav>
+
+    <section class="model-overview">
+      <div class="model-meta">
+        <span>{model.organization}</span>
+        {model.releaseDate && <span>发布于 {model.releaseDate}</span>}
+        <span>{model.operatorCount} 个独立来源</span>
+      </div>
+      <div class="overview-grid">
+        <div class="consensus-score">
+          <span>跨来源共识分</span>
+          <strong>{model.score?.toFixed(1) ?? '—'}</strong>
+          <small>/ 100</small>
+        </div>
+        <div class="category-scores">
+          {categories.map((item) => (
+            <div>
+              <span>{item.label}{model.ranks[item.key] ? ` #${model.ranks[item.key]}` : ''}</span>
+              <strong>{item.score?.toFixed(1)}</strong>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="coverage-summary">
+        <div class="coverage-track" aria-label={`覆盖 ${model.sourceCount} / ${activeBoards.length} 张榜单`}>
+          {activeBoards.map((board) => (
+            <span class:list={{ covered: model.evidence.some((item) => item.sourceId === board.id) }} title={board.label}></span>
+          ))}
+        </div>
+        <span>覆盖 {model.sourceCount}/{activeBoards.length} 张榜单；未收录不等于得分为零</span>
+      </div>
+    </section>
+
+    <section class="evidence-section">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">EVIDENCE LEDGER</p>
+          <h2>评测证据</h2>
+        </div>
+        <a href="/model-arena/methodology/">计算方式 →</a>
+      </div>
+
+      <div class="evidence-table-wrap">
+        <table class="evidence-table">
+          <thead>
+            <tr><th>来源</th><th>分类</th><th>来源名次</th><th>原始成绩</th><th>归一分</th><th>评测版本</th><th>数据时间</th></tr>
+          </thead>
+          <tbody>
+            {model.evidence.map((item) => (
+              <tr>
+                <td><a href={item.sourceUrl} target="_blank" rel="noreferrer">{item.sourceLabel} ↗</a><small>{item.operator}</small></td>
+                <td><span class={`category is-${item.category}`}>{item.categoryLabel}</span></td>
+                <td><strong>#{item.sourceRank}</strong><small>归并后 #{item.rank}</small></td>
+                <td class="mono">{item.scoreLabel}</td>
+                <td class="mono">{item.normalizedScore.toFixed(1)}</td>
+                <td><code>{item.modelVersion}</code></td>
+                <td><span class:list={['status', `is-${item.status}`]}>{item.status === 'live' ? '实时' : '缓存'}</span><small>{formatTime(item.updatedAt)}</small></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="detail-footer"><a href="/model-arena/">← 返回实时模型榜</a></footer>
+  </main>
+</StarlightPage>
+
+<style>
+  .detail-shell {
+    --ink: #252a2d; --muted: #747a78; --line: #deddd4; --live: #478576; --warm: #b66b48;
+    width: min(100%, 76rem); margin-inline: auto; padding-bottom: 3rem; color: var(--ink);
+  }
+  .crumb { display: flex; gap: .5rem; margin-bottom: 1rem; color: var(--muted); font-size: .75rem; }
+  .crumb a, .section-heading a, .detail-footer a { color: #53665e; text-decoration: none; }
+  .crumb a:hover, .section-heading a:hover, .detail-footer a:hover { text-decoration: underline; text-underline-offset: .2em; }
+  .model-overview { padding: 1.1rem; border-block: 1px solid var(--line); background: linear-gradient(110deg, rgba(255,255,255,.65), transparent 70%); }
+  .model-meta { display: flex; flex-wrap: wrap; gap: .5rem 1rem; color: var(--muted); font-family: var(--sl-font-mono); font-size: .7rem; }
+  .overview-grid { display: grid; grid-template-columns: 15rem 1fr; gap: 1.5rem; margin-top: 1.2rem; }
+  .consensus-score { display: grid; grid-template-columns: auto auto 1fr; align-items: end; gap: .4rem; padding-right: 1.5rem; border-right: 1px solid var(--line); }
+  .consensus-score > span { grid-column: 1 / -1; color: var(--muted); font-size: .72rem; }
+  .consensus-score strong { color: var(--warm); font-family: var(--sl-font-mono); font-size: 3rem; line-height: 1; letter-spacing: -.08em; }
+  .consensus-score small { margin-bottom: .25rem; color: var(--muted); font-family: var(--sl-font-mono); }
+  .category-scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr)); gap: .65rem; }
+  .category-scores div { display: flex; flex-direction: column; justify-content: center; padding: .5rem .75rem; border-left: 2px solid var(--line); }
+  .category-scores span { color: var(--muted); font-size: .7rem; }
+  .category-scores strong { margin-top: .25rem; font-family: var(--sl-font-mono); font-size: 1.15rem; }
+  .coverage-summary { display: flex; align-items: center; gap: .7rem; margin-top: 1rem; color: var(--muted); font-size: .7rem; }
+  .coverage-track { display: flex; gap: 3px; }
+  .coverage-track span { width: 2rem; height: .4rem; background: #d8d7cf; }
+  .coverage-track span.covered { background: var(--live); }
+  .evidence-section { margin-top: 2.2rem; }
+  .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: .7rem; }
+  .kicker { margin: 0 0 .15rem; color: var(--live); font-family: var(--sl-font-mono); font-size: .65rem; font-weight: 800; letter-spacing: .12em; }
+  .section-heading h2 { margin: 0; font-family: var(--sl-font-heading); font-size: 1.25rem; }
+  .section-heading a { font-size: .75rem; font-weight: 650; }
+  .evidence-table-wrap { overflow-x: auto; border-block: 1px solid var(--line); }
+  .evidence-table { width: 100%; min-width: 62rem; border-collapse: collapse; }
+  .evidence-table th { padding: .65rem .7rem; border-bottom: 1px solid var(--line); color: var(--muted); font-size: .65rem; letter-spacing: .06em; text-align: left; }
+  .evidence-table td { padding: .8rem .7rem; border-bottom: 1px solid rgba(222,221,212,.8); font-size: .76rem; vertical-align: middle; }
+  .evidence-table tr:last-child td { border-bottom: 0; }
+  .evidence-table a { color: var(--ink); font-weight: 700; text-decoration: none; }
+  .evidence-table a:hover { text-decoration: underline; }
+  .evidence-table small { display: block; margin-top: .12rem; color: var(--muted); font-size: .64rem; }
+  .evidence-table code { display: inline-block; max-width: 15rem; overflow: hidden; color: #585e5a; font-size: .68rem; text-overflow: ellipsis; white-space: nowrap; }
+  .mono { font-family: var(--sl-font-mono); font-variant-numeric: tabular-nums; }
+  .category, .status { display: inline-flex; padding: .18rem .4rem; border-radius: 3px; background: #eeede6; color: #5e645f; font-size: .63rem; }
+  .category.is-code { background: #eee8df; color: #765d42; }
+  .category.is-agent { background: #e5ece9; color: #456b60; }
+  .status.is-live { color: var(--live); background: #e1ece7; }
+  .detail-footer { margin-top: 1.2rem; font-size: .78rem; }
+  :global([data-theme='dark']) .detail-shell { --ink: #e8e6df; --muted: #a5aaa7; --line: #42443f; }
+  :global([data-theme='dark']) .coverage-track span { background: #555750; }
+  :global([data-theme='dark']) .category, :global([data-theme='dark']) .status { background: #373a36; color: #c7cbc6; }
+  :global([data-theme='dark']) .status.is-live { background: rgba(71,133,118,.22); color: #8bc2b2; }
+  :global([data-theme='dark']) .evidence-table code { color: #c4c7c3; }
+  @media (max-width: 42rem) {
+    .overview-grid { grid-template-columns: 1fr; }
+    .consensus-score { padding: 0 0 1rem; border-right: 0; border-bottom: 1px solid var(--line); }
+    .coverage-summary { align-items: flex-start; flex-direction: column; }
+    .coverage-track span { width: 1.3rem; }
+  }
+</style>

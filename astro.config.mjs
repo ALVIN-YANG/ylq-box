@@ -17,6 +17,7 @@ export default defineConfig({
     sitemap(),
     starlight({
       title: 'Alvin Yang',
+      favicon: '/favicon.png',
       head: [
         {
           tag: 'link',
@@ -120,7 +121,7 @@ export default defineConfig({
       mode: 'production',
       base: '/',
       scope: '/',
-      includeAssets: ['favicon.svg'],
+      includeAssets: ['favicon.png'],
       registerType: 'autoUpdate',
       manifest: {
         name: 'Alvin Yang',

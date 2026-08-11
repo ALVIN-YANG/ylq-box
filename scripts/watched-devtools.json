@@ -3,5 +3,8 @@
   { "repo": "paul-gauthier/aider", "alias": "Aider" },
   { "repo": "continuedev/continue", "alias": "Continue" },
   { "repo": "block/goose", "alias": "Goose" },
-  { "repo": "openai/codex", "alias": "OpenAI Codex CLI" }
+  { "repo": "openai/codex", "alias": "OpenAI Codex CLI" },
+  { "repo": "anthropics/claude-code", "alias": "Claude Code" },
+  { "repo": "google-gemini/gemini-cli", "alias": "Gemini CLI" },
+  { "repo": "anomalyco/opencode", "alias": "OpenCode" }
 ]

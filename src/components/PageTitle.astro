@@ -1,0 +1,113 @@
+---
+const { entry } = Astro.locals.starlightRoute;
+
+const body = entry.body || '';
+const toPlainText = (value: string) => value
+  .replace(/```[\s\S]*?```/g, ' ')
+  .replace(/`[^`]*`/g, ' ')
+  .replace(/<[^>]+>/g, ' ')
+  .replace(/!?\[([^\]]*)\]\([^)]*\)/g, '$1')
+  .replace(/[#>*_|~]/g, ' ')
+  .replace(/\s+/g, ' ')
+  .trim();
+
+const plainText = toPlainText(body);
+const fallbackDescription = body
+  .split(/\n\s*\n/)
+  .map((paragraph) => paragraph.trim())
+  .filter((paragraph) => !/^(?:#{1,6}\s|```|~~~|<\w|https?:\/\/|!?\[[^\]]*\]\([^)]*\)$|import\s|export\s|[-*+]\s|\d+\.\s)/.test(paragraph))
+  .map((paragraph) => toPlainText(paragraph))
+  .find((paragraph) => paragraph.length >= 20);
+const description = entry.data.description || fallbackDescription;
+const articleDescription = description && description.length > 120
+  ? `${description.slice(0, 120).trimEnd()}…`
+  : description;
+
+const chineseCharacters = (plainText.match(/[\u3400-\u9fff]/g) || []).length;
+const latinWords = (plainText.match(/[A-Za-z][A-Za-z'-]*/g) || []).length;
+const readingMinutes = Math.max(1, Math.ceil(chineseCharacters / 400 + latinWords / 220));
+
+const updatedValue = entry.data.lastUpdated || entry.data.date;
+const updatedDate = updatedValue ? new Date(updatedValue) : undefined;
+const updatedLabel = updatedDate
+  ? new Intl.DateTimeFormat('zh-CN', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(updatedDate)
+  : '';
+---
+
+<header class="article-heading">
+  <h1 id="_top">{entry.data.title}</h1>
+  {articleDescription && <p class="article-description">{articleDescription}</p>}
+  <p class="article-meta">
+    {
+      updatedDate && (
+        <span>
+          更新于 <time datetime={updatedDate.toISOString()}>{updatedLabel}</time>
+        </span>
+      )
+    }
+    {updatedDate && <span class="meta-separator" aria-hidden="true">·</span>}
+    <span>约 {readingMinutes} 分钟阅读</span>
+  </p>
+</header>
+
+<style>
+  .article-heading {
+    max-width: 46rem;
+    padding-block: 0.35rem 0.25rem;
+  }
+
+  h1 {
+    margin: 0;
+    color: var(--sl-color-white);
+    font-family: var(--sl-font-heading);
+    font-size: clamp(1.95rem, 3.2vw, 2.55rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.28;
+    text-wrap: balance;
+  }
+
+  .article-description {
+    max-width: 42rem;
+    margin: 0.85rem 0 0;
+    color: var(--sl-color-gray-2);
+    font-size: 0.98rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+  }
+
+  .article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3rem 0.55rem;
+    margin-top: 1rem;
+    color: var(--sl-color-gray-3);
+    font-family: var(--sl-font-utility);
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+  }
+
+  .meta-separator {
+    color: var(--sl-color-gray-4);
+  }
+
+  @media (max-width: 30rem) {
+    .article-heading {
+      padding-block-start: 0.1rem;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+    }
+
+    .article-description {
+      font-size: 0.94rem;
+    }
+  }
+</style>

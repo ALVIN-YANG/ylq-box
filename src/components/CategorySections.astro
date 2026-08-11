@@ -122,11 +122,15 @@ const sections = categories.map((cat) => ({
   count: allDocs.filter((doc) => isArticle(doc) && doc.id.startsWith(`${cat.id}/`)).length,
 }));
 
+const compactDateFormatter = new Intl.DateTimeFormat('zh-CN', {
+  month: '2-digit',
+  day: '2-digit',
+});
+
 function formatDate(doc: typeof allDocs[number]) {
   const value = doc.data.lastUpdated || doc.data.date;
   if (!value) return '';
-  const date = new Date(value);
-  return `${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+  return compactDateFormatter.format(new Date(value)).replace('/', '.');
 }
 ---
 

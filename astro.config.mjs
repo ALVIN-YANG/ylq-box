@@ -18,6 +18,14 @@ export default defineConfig({
     starlight({
       title: 'Alvin Yang',
       favicon: '/favicon.png',
+      description: '关于 AI Agent、软件架构与工程实践的技术文章',
+      locales: {
+        root: { label: '简体中文', lang: 'zh-CN' },
+      },
+      tableOfContents: {
+        minHeadingLevel: 2,
+        maxHeadingLevel: 2,
+      },
       head: [
         {
           tag: 'link',
@@ -56,6 +64,7 @@ export default defineConfig({
         Footer: './src/components/Footer.astro',
         Sidebar: './src/components/Sidebar.astro',
         Hero: './src/components/Hero.astro',
+        PageTitle: './src/components/PageTitle.astro',
         ThemeSelect: './src/components/ThemeToggle.astro',
       },
       sidebar: [

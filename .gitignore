@@ -29,6 +29,7 @@ run.log
 # IDE / local tooling
 .idea/
 .opencode/
+.reasonix/
 
 # 仅忽略仓库根目录下的本地 docs/（不影响 src/content/docs 站点内容）
 /docs/

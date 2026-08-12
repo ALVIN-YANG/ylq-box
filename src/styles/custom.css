@@ -73,7 +73,7 @@ code {
 
 /* ─── Headings ─── */
 
-.sl-markdown-content h1 {
+.sl-markdown-content h1:not(:where(.not-content *)) {
 	font-family: var(--sl-font-heading);
 	font-size: 1.5rem;
 	font-weight: 600;
@@ -83,7 +83,7 @@ code {
 	text-wrap: balance;
 }
 
-.sl-markdown-content h2 {
+.sl-markdown-content h2:not(:where(.not-content *)) {
 	font-family: var(--sl-font-heading);
 	font-size: 1.32rem;
 	font-weight: 600;
@@ -95,7 +95,7 @@ code {
 	text-wrap: balance;
 }
 
-.sl-markdown-content h3 {
+.sl-markdown-content h3:not(:where(.not-content *)) {
 	font-family: var(--sl-font-heading);
 	font-size: 1.12rem;
 	font-weight: 600;
@@ -105,7 +105,7 @@ code {
 	text-wrap: balance;
 }
 
-.sl-markdown-content h4 {
+.sl-markdown-content h4:not(:where(.not-content *)) {
 	font-family: var(--sl-font-heading);
 	font-size: 0.95rem;
 	font-weight: 600;
@@ -113,7 +113,7 @@ code {
 	color: var(--sl-color-gray-2);
 }
 
-.sl-markdown-content :is(h2, h3, h4, h5, h6) {
+.sl-markdown-content :is(h2, h3, h4, h5, h6):not(:where(.not-content *)) {
 	scroll-margin-top: calc(var(--sl-nav-height) + 1.5rem);
 }
 
@@ -138,7 +138,7 @@ code {
 	line-height: 1.85;
 }
 
-.sl-markdown-content p {
+.sl-markdown-content p:not(:where(.not-content *)) {
 	margin-bottom: 1.35em;
 	text-wrap: pretty;
 }
@@ -526,7 +526,7 @@ pre {
 		line-height: 1.82;
 	}
 
-	.sl-markdown-content h2 {
+	.sl-markdown-content h2:not(:where(.not-content *)) {
 		font-size: 1.25rem;
 		margin-top: 2.2em;
 	}

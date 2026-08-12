@@ -3,10 +3,18 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import collection from '../data/skill-collection.json';
 
 const categories = ['全部', ...new Set(collection.items.map((item) => item.category))];
+const frontmatter = {
+  title: 'Skills',
+  description: '我收藏和使用的 Agent Skills。',
+  template: 'splash' as const,
+  hidePageTitle: true,
+};
 ---
 
-<StarlightPage frontmatter={{ title: '有趣的 Skills', description: '我收藏和使用的 Agent Skills。', template: 'splash' }} sidebar={[]}>
-  <main class="skills-page">
+<StarlightPage frontmatter={frontmatter} sidebar={[]}>
+  <!-- `not-content` prevents Starlight's prose rhythm from leaking into the UI grid. -->
+  <section class="skills-page not-content" aria-labelledby="skills-page-title">
+    <h1 id="skills-page-title" class="sr-only">Skills 收藏</h1>
     <nav class="filters" aria-label="按类型筛选">
       {categories.map((category, index) => (
         <button type="button" class:list={['filter', { active: index === 0 }]} data-filter={category} aria-pressed={index === 0 ? 'true' : 'false'}>{category}</button>
@@ -48,7 +56,7 @@ const categories = ['全部', ...new Set(collection.items.map((item) => item.cat
       <p>安装第三方 Skill 前，先检查 <code>SKILL.md</code>、脚本和权限范围。同类工作流不要一次装太多。</p>
       <a href="/ai-workflow/ai-coding-skills-selection-guide/">Skill 怎么选 →</a>
     </footer>
-  </main>
+  </section>
 
   <script is:inline>
     const filters = Array.from(document.querySelectorAll('[data-filter]'));
@@ -105,27 +113,17 @@ const categories = ['全部', ...new Set(collection.items.map((item) => item.cat
     --card-text: #292e31;
     --card-muted: #747a7d;
     --card-accent: #566b61;
-    width: min(100%, 68rem);
+    width: min(100%, 64rem);
     margin-inline: auto;
-    padding-bottom: 3rem;
+    padding-bottom: 2rem;
     color: var(--card-text);
-  }
-
-  :global(.article-description),
-  :global(.article-meta) { display: none; }
-
-  :global(main > .content-panel:first-of-type) { padding-block: 1rem .5rem; }
-  :global(main > .content-panel:first-of-type h1) { font-size: clamp(1.8rem, 3vw, 2.2rem); }
-  :global(main > .content-panel + .content-panel) {
-    padding-top: .5rem;
-    border-top: 0;
   }
 
   .filters {
     display: flex;
     flex-wrap: wrap;
     gap: .4rem;
-    margin-bottom: 1.1rem;
+    margin-bottom: .85rem;
   }
 
   .filter {
@@ -147,16 +145,15 @@ const categories = ['全部', ...new Set(collection.items.map((item) => item.cat
   .skill-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
+    gap: .75rem;
   }
 
   .skill-card {
     display: flex;
     flex-direction: column;
-    min-height: 20rem;
-    padding: 1.25rem;
+    padding: 1rem;
     border: 1px solid var(--card-border);
-    border-radius: 12px;
+    border-radius: 10px;
     background: var(--card-bg);
     box-shadow: 0 1px 2px rgba(30, 35, 32, .025);
     transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease;
@@ -164,8 +161,8 @@ const categories = ['全部', ...new Set(collection.items.map((item) => item.cat
 
   .skill-card:hover {
     border-color: #c6c9c2;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 24px rgba(30, 35, 32, .055);
+    transform: translateY(-1px);
+    box-shadow: 0 7px 18px rgba(30, 35, 32, .05);
   }
 
   .skill-card[hidden] { display: none; }
@@ -194,14 +191,14 @@ const categories = ['全部', ...new Set(collection.items.map((item) => item.cat
     align-items: start;
     justify-content: space-between;
     gap: 1rem;
-    margin-top: .85rem;
+    margin-top: .6rem;
   }
 
   .card-title h2 {
     margin: 0;
     color: var(--card-text);
     font-family: var(--sl-font-heading);
-    font-size: 1.18rem;
+    font-size: 1.08rem;
     font-weight: 650;
     line-height: 1.35;
   }
@@ -210,9 +207,9 @@ const categories = ['全部', ...new Set(collection.items.map((item) => item.cat
     display: grid;
     place-items: center;
     flex: none;
-    width: 2rem;
-    height: 2rem;
-    margin-top: -.25rem;
+    width: 1.8rem;
+    height: 1.8rem;
+    margin-top: -.18rem;
     border-radius: 6px;
     color: var(--card-muted);
   }
@@ -220,16 +217,16 @@ const categories = ['全部', ...new Set(collection.items.map((item) => item.cat
   .card-title a:hover { background: rgba(86,107,97,.08); color: var(--card-accent); }
 
   .summary {
-    margin: .8rem 0 0;
-    font-size: .82rem;
-    line-height: 1.75;
+    margin: .6rem 0 0;
+    font-size: .79rem;
+    line-height: 1.65;
   }
 
   .reason {
-    margin: .85rem 0 0;
+    margin: .65rem 0 0;
     color: var(--card-muted);
     font-size: .73rem;
-    line-height: 1.7;
+    line-height: 1.6;
   }
 
   .reason span {
@@ -246,7 +243,7 @@ const categories = ['全部', ...new Set(collection.items.map((item) => item.cat
     justify-content: space-between;
     gap: 1rem;
     margin-top: auto;
-    padding-top: 1rem;
+    padding-top: .75rem;
     border-top: 1px solid rgba(222,222,214,.8);
   }
 
@@ -285,8 +282,8 @@ const categories = ['全部', ...new Set(collection.items.map((item) => item.cat
     align-items: start;
     justify-content: space-between;
     gap: 1.5rem;
-    margin-top: 1.2rem;
-    padding-top: 1rem;
+    margin-top: 1rem;
+    padding-top: .8rem;
     color: var(--card-muted);
     font-size: .7rem;
   }
@@ -309,7 +306,6 @@ const categories = ['全部', ...new Set(collection.items.map((item) => item.cat
 
   @media (max-width: 46rem) {
     .skill-grid { grid-template-columns: 1fr; }
-    .skill-card { min-height: 18rem; }
   }
 
   @media (max-width: 30rem) {

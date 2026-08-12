@@ -1,5 +1,6 @@
 ---
 const { entry } = Astro.locals.starlightRoute;
+const hidePageTitle = (entry.data as typeof entry.data & { hidePageTitle?: boolean }).hidePageTitle === true;
 
 const body = entry.body || '';
 const toPlainText = (value: string) => value
@@ -38,26 +39,44 @@ const updatedLabel = updatedDate
   : '';
 ---
 
-<header class="article-heading">
-  <h1 id="_top">{entry.data.title}</h1>
-  {articleDescription && <p class="article-description">{articleDescription}</p>}
-  <p class="article-meta">
-    {
-      updatedDate && (
-        <span>
-          更新于 <time datetime={updatedDate.toISOString()}>{updatedLabel}</time>
-        </span>
-      )
-    }
-    {updatedDate && <span class="meta-separator" aria-hidden="true">·</span>}
-    <span>约 {readingMinutes} 分钟阅读</span>
-  </p>
-</header>
+{
+  hidePageTitle ? (
+    <span class="page-title-placeholder" aria-hidden="true"></span>
+  ) : (
+    <header class="article-heading">
+      <h1 id="_top">{entry.data.title}</h1>
+      {articleDescription && <p class="article-description">{articleDescription}</p>}
+      <p class="article-meta">
+        {
+          updatedDate && (
+            <span>
+              更新于 <time datetime={updatedDate.toISOString()}>{updatedLabel}</time>
+            </span>
+          )
+        }
+        {updatedDate && <span class="meta-separator" aria-hidden="true">·</span>}
+        <span>约 {readingMinutes} 分钟阅读</span>
+      </p>
+    </header>
+  )
+}
 
 <style>
   .article-heading {
     max-width: 46rem;
     padding-block: 0.35rem 0.25rem;
+  }
+
+  .page-title-placeholder {
+    display: none;
+  }
+
+  :global(.content-panel:has(.page-title-placeholder)) {
+    display: none;
+  }
+
+  :global(.content-panel:has(.page-title-placeholder) + .content-panel) {
+    border-top: 0;
   }
 
   h1 {

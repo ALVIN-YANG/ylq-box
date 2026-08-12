@@ -1,0 +1,612 @@
+---
+const path = [
+  { year: '2016', label: 'CLIENT', value: 'iOS 客户端' },
+  { year: '2019', label: 'SERVICE', value: 'Java 后端' },
+  { year: '2021', label: 'PLATFORM', value: '云端 DevOps' },
+  { year: '2023', label: 'AGENT', value: 'AI Agent 与智能硬件' },
+];
+
+const works = [
+  {
+    label: 'HOME / AGENT',
+    title: '让 Agent 控制真实设备',
+    description:
+      '给 Home Assistant 做专用 Skill，用固定脚本封装鉴权、调用和日志。人格、家庭状态与关系状态分别管理。',
+    href: '/ai-workflow/13-context-engineering-effect-cost-notes/',
+    status: 'IN PRACTICE',
+    trace: 'home',
+  },
+  {
+    label: 'MODEL / DATA',
+    title: '持续更新的模型榜',
+    description:
+      '汇总公开评测，保留来源、原始成绩和覆盖情况。数据由自动任务更新，可以继续追溯。',
+    href: '/model-arena/',
+    status: 'LIVE',
+    trace: 'model',
+  },
+  {
+    label: 'WORKFLOW / CURATION',
+    title: '我愿意装进工作流的 Skills',
+    description:
+      '记录值得研究或实际使用的 Skills，说明它们解决什么问题、怎么安装，以及为什么留下。',
+    href: '/skills/',
+    status: 'CURATED',
+    trace: 'skill',
+  },
+];
+---
+
+<div class="about-profile not-content">
+  <header class="profile-head">
+    <div class="profile-meta">
+      <span>PROFILE / SINCE 2016</span>
+      <span class="profile-place">HANGZHOU / CHINA</span>
+    </div>
+
+    <div class="hero-grid">
+      <div class="identity">
+        <div class="identity-mark">
+          <img src="/favicon.png" width="44" height="44" alt="" decoding="async" />
+          <span>杨卢青</span>
+        </div>
+        <h1>Alvin Yang</h1>
+        <p class="positioning">关注 AI Agent、系统设计，以及软件如何长期可靠地运行。</p>
+        <p class="intro">
+          2016 年开始做软件，从 iOS 到后端，再到云端 DevOps 和 AI Agent。现在主要处理 Agent、智能硬件与长期运行系统之间的工程问题。
+        </p>
+        <nav class="profile-links" aria-label="个人链接">
+          <a href="#selected-work">代表作品 <span aria-hidden="true">↓</span></a>
+          <a href="https://github.com/ALVIN-YANG" target="_blank" rel="noreferrer">
+            GitHub <span aria-hidden="true">↗</span>
+          </a>
+        </nav>
+      </div>
+
+      <aside class="status-board" aria-label="当前关注">
+        <div class="status-row">
+          <span class="status-label">NOW</span>
+          <span>AI Agent 与智能硬件</span>
+        </div>
+        <div class="status-row">
+          <span class="status-label">BUILDING</span>
+          <span>上下文、工具与评测</span>
+        </div>
+        <div class="status-row">
+          <span class="status-label">WRITING</span>
+          <span>架构与工程实践</span>
+        </div>
+      </aside>
+    </div>
+
+    <ol class="career-path" aria-label="工作方向变化">
+      {path.map((item) => (
+        <li>
+          <span class="path-year">{item.year}</span>
+          <span class="path-label">{item.label}</span>
+          <strong>{item.value}</strong>
+        </li>
+      ))}
+    </ol>
+  </header>
+
+  <section class="selected-work" id="selected-work" aria-labelledby="selected-work-title">
+    <div class="section-head">
+      <p>SELECTED WORK</p>
+      <h2 id="selected-work-title">正在做的系统</h2>
+    </div>
+
+    <div class="work-list">
+      {works.map((work) => (
+        <a class={`work-row trace-${work.trace}`} href={work.href}>
+          <span class="work-label">{work.label}</span>
+          <span class="work-copy">
+            <span class="work-title">{work.title}</span>
+            <span class="work-description">{work.description}</span>
+          </span>
+          <span class="work-status">{work.status}</span>
+          <span class="work-arrow" aria-hidden="true">↗</span>
+
+          <svg class="system-trace trace-home" viewBox="0 0 300 112" aria-hidden="true">
+            <path d="M18 56H72L96 26H160L188 56H278" />
+            <path d="M96 86H160L188 56" />
+            <circle cx="18" cy="56" r="4" />
+            <circle cx="96" cy="26" r="4" />
+            <circle cx="96" cy="86" r="4" />
+            <circle cx="188" cy="56" r="4" />
+            <circle cx="278" cy="56" r="4" />
+          </svg>
+
+          <svg class="system-trace trace-model" viewBox="0 0 300 112" aria-hidden="true">
+            <path d="M22 82L76 64L126 74L180 38L230 50L278 22" />
+            <path d="M22 92H278" />
+            <circle cx="22" cy="82" r="4" />
+            <circle cx="76" cy="64" r="4" />
+            <circle cx="126" cy="74" r="4" />
+            <circle cx="180" cy="38" r="4" />
+            <circle cx="230" cy="50" r="4" />
+            <circle cx="278" cy="22" r="4" />
+          </svg>
+
+          <svg class="system-trace trace-skill" viewBox="0 0 300 112" aria-hidden="true">
+            <path d="M20 56H88M88 56L132 24H194M88 56L132 88H194M194 24L232 56H280M194 88L232 56" />
+            <circle cx="20" cy="56" r="4" />
+            <circle cx="88" cy="56" r="4" />
+            <circle cx="132" cy="24" r="4" />
+            <circle cx="132" cy="88" r="4" />
+            <circle cx="232" cy="56" r="4" />
+            <circle cx="280" cy="56" r="4" />
+          </svg>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <footer class="profile-contact">
+    <div>
+      <span class="contact-label">CONTACT</span>
+      <p>如果你也在做 Agent、基础设施或长期运行的软件，可以在 GitHub 找到我。</p>
+    </div>
+    <a href="https://github.com/ALVIN-YANG" target="_blank" rel="noreferrer">
+      github.com/ALVIN-YANG <span aria-hidden="true">↗</span>
+    </a>
+  </footer>
+</div>
+
+<style>
+  .about-profile {
+    --profile-ink: #232823;
+    --profile-muted: #727871;
+    --profile-line: #d8d8ce;
+    --profile-accent: #b96828;
+    width: min(100%, 68rem);
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 4.5rem) 0 clamp(3.5rem, 8vw, 7rem);
+    color: var(--profile-ink);
+  }
+
+  .profile-head {
+    display: flex;
+    min-height: clamp(38rem, 76vh, 48rem);
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .profile-meta,
+  .path-label,
+  .status-label,
+  .section-head p,
+  .work-label,
+  .work-status,
+  .contact-label {
+    font-family: var(--sl-font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    line-height: 1.4;
+  }
+
+  .profile-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--profile-muted);
+  }
+
+  .profile-place::before {
+    display: inline-block;
+    width: 0.42rem;
+    height: 0.42rem;
+    margin-right: 0.55rem;
+    border-radius: 50%;
+    background: var(--profile-accent);
+    content: '';
+    vertical-align: 0.03rem;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(15rem, 0.72fr);
+    gap: clamp(3rem, 8vw, 8rem);
+    align-items: end;
+    padding: clamp(4.5rem, 9vw, 8rem) 0 clamp(4rem, 8vw, 7rem);
+  }
+
+  .identity-mark {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    margin-bottom: 1.35rem;
+    color: var(--profile-muted);
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+  }
+
+  .identity-mark img {
+    width: 2.15rem;
+    height: 2.15rem;
+    border-radius: 0.7rem;
+    opacity: 0.92;
+  }
+
+  h1,
+  h2,
+  p {
+    margin: 0;
+  }
+
+  h1 {
+    max-width: 9ch;
+    font-family: var(--sl-font-heading);
+    font-size: clamp(4.1rem, 9.8vw, 7.8rem);
+    font-weight: 650;
+    letter-spacing: -0.065em;
+    line-height: 0.88;
+  }
+
+  .positioning {
+    max-width: 27ch;
+    margin-top: 2.2rem;
+    font-family: var(--sl-font-heading);
+    font-size: clamp(1.3rem, 2vw, 1.65rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.55;
+  }
+
+  .intro {
+    max-width: 36rem;
+    margin-top: 1.15rem;
+    color: var(--profile-muted);
+    font-size: 0.98rem;
+    line-height: 1.85;
+  }
+
+  .profile-links {
+    display: flex;
+    gap: 1.65rem;
+    margin-top: 2.25rem;
+  }
+
+  .profile-links a,
+  .profile-contact a {
+    color: var(--profile-ink);
+    font-size: 0.86rem;
+    font-weight: 650;
+    text-decoration: none;
+    text-underline-offset: 0.35rem;
+  }
+
+  .profile-links a:hover,
+  .profile-contact a:hover {
+    color: var(--profile-accent);
+    text-decoration: underline;
+  }
+
+  .profile-links span,
+  .profile-contact a span {
+    margin-left: 0.3rem;
+    color: var(--profile-accent);
+  }
+
+  .status-board {
+    border-top: 1px solid var(--profile-ink);
+    border-bottom: 1px solid var(--profile-line);
+  }
+
+  .status-row {
+    display: grid;
+    grid-template-columns: 5.4rem 1fr;
+    gap: 1rem;
+    padding: 1.05rem 0;
+    border-bottom: 1px solid var(--profile-line);
+    color: var(--profile-ink);
+    font-size: 0.84rem;
+    line-height: 1.5;
+  }
+
+  .status-row:last-child {
+    border-bottom: 0;
+  }
+
+  .status-label {
+    color: var(--profile-muted);
+  }
+
+  .career-path {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--profile-ink);
+    list-style: none;
+  }
+
+  .career-path li {
+    display: grid;
+    min-width: 0;
+    gap: 0.55rem;
+    padding: 1.25rem 1.2rem 0 0;
+  }
+
+  .path-year {
+    color: var(--profile-ink);
+    font-family: var(--sl-font-mono);
+    font-size: 0.75rem;
+  }
+
+  .path-label {
+    color: var(--profile-muted);
+  }
+
+  .career-path strong {
+    font-size: 0.84rem;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+
+  .selected-work {
+    padding-top: clamp(6rem, 12vw, 10rem);
+    scroll-margin-top: calc(var(--sl-nav-height) + 2rem);
+  }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.58fr) 1.42fr;
+    gap: 2rem;
+    align-items: baseline;
+    margin-bottom: 2rem;
+  }
+
+  .section-head p {
+    color: var(--profile-muted);
+  }
+
+  .section-head h2 {
+    font-family: var(--sl-font-heading);
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 650;
+    letter-spacing: -0.04em;
+    line-height: 1.15;
+  }
+
+  .work-list {
+    border-top: 1px solid var(--profile-ink);
+  }
+
+  .work-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.58fr) minmax(0, 1.42fr) 6.5rem 1.2rem;
+    gap: 2rem;
+    align-items: start;
+    min-height: 9.5rem;
+    padding: 1.7rem 0;
+    overflow: hidden;
+    border-bottom: 1px solid var(--profile-line);
+    color: var(--profile-ink);
+    text-decoration: none;
+  }
+
+  .work-label,
+  .work-status {
+    position: relative;
+    z-index: 1;
+    padding-top: 0.4rem;
+    color: var(--profile-muted);
+  }
+
+  .work-copy {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .work-title {
+    font-family: var(--sl-font-heading);
+    font-size: clamp(1.45rem, 2.6vw, 2rem);
+    font-weight: 650;
+    letter-spacing: -0.025em;
+    line-height: 1.3;
+    transition: color 160ms ease, transform 160ms ease;
+  }
+
+  .work-description {
+    max-width: 38rem;
+    color: var(--profile-muted);
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+
+  .work-arrow {
+    position: relative;
+    z-index: 1;
+    color: var(--profile-accent);
+    font-size: 1rem;
+    transition: transform 160ms ease;
+  }
+
+  .system-trace {
+    position: absolute;
+    top: 50%;
+    right: 1.5rem;
+    width: min(28vw, 18rem);
+    height: auto;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(1rem, -50%);
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
+  .system-trace path,
+  .system-trace circle {
+    fill: none;
+    stroke: var(--profile-accent);
+    stroke-width: 1.2;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .system-trace circle {
+    fill: var(--profile-accent);
+    stroke-width: 0;
+  }
+
+  .trace-home:not(.system-trace) .system-trace:not(.trace-home),
+  .trace-model:not(.system-trace) .system-trace:not(.trace-model),
+  .trace-skill:not(.system-trace) .system-trace:not(.trace-skill) {
+    display: none;
+  }
+
+  .work-row:hover .work-title,
+  .work-row:focus-visible .work-title {
+    color: var(--profile-accent);
+    transform: translateX(0.25rem);
+  }
+
+  .work-row:hover .work-arrow,
+  .work-row:focus-visible .work-arrow {
+    transform: translate(0.18rem, -0.18rem);
+  }
+
+  .work-row:hover .system-trace,
+  .work-row:focus-visible .system-trace {
+    opacity: 0.24;
+    transform: translate(0, -50%);
+  }
+
+  .profile-contact {
+    display: grid;
+    grid-template-columns: 1.35fr auto;
+    gap: 3rem;
+    align-items: end;
+    margin-top: clamp(6rem, 12vw, 10rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--profile-ink);
+  }
+
+  .contact-label {
+    display: block;
+    margin-bottom: 1rem;
+    color: var(--profile-muted);
+  }
+
+  .profile-contact p {
+    max-width: 31rem;
+    font-family: var(--sl-font-heading);
+    font-size: clamp(1.2rem, 2.3vw, 1.55rem);
+    font-weight: 600;
+    line-height: 1.55;
+  }
+
+  .profile-links a:focus-visible,
+  .work-row:focus-visible,
+  .profile-contact a:focus-visible {
+    border-radius: 0.2rem;
+    outline: 2px solid var(--profile-accent);
+    outline-offset: 0.35rem;
+  }
+
+  :global([data-theme='dark']) .about-profile {
+    --profile-ink: #ecece4;
+    --profile-muted: #a6aaa3;
+    --profile-line: #393d38;
+    --profile-accent: #db8b48;
+  }
+
+  @media (max-width: 52rem) {
+    .profile-head {
+      min-height: auto;
+    }
+
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 3.75rem;
+    }
+
+    .career-path {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 1.5rem;
+    }
+
+    .section-head {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .work-row {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 0.7rem 1.5rem;
+      min-height: 0;
+      padding: 1.5rem 0;
+    }
+
+    .work-label,
+    .work-copy {
+      grid-column: 1;
+    }
+
+    .work-status,
+    .work-arrow {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .work-arrow {
+      grid-row: 2;
+      justify-self: end;
+    }
+
+    .system-trace {
+      right: 3rem;
+      width: 13rem;
+    }
+
+    .profile-contact {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 34rem) {
+    .about-profile {
+      padding-top: 1.25rem;
+    }
+
+    .profile-place {
+      display: none;
+    }
+
+    .hero-grid {
+      padding-top: 4rem;
+    }
+
+    h1 {
+      font-size: clamp(3.5rem, 19vw, 5.2rem);
+    }
+
+    .career-path {
+      gap: 0.75rem;
+    }
+
+    .career-path li {
+      padding-right: 0.5rem;
+    }
+
+    .work-description {
+      font-size: 0.86rem;
+    }
+
+    .work-status {
+      font-size: 0.58rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .work-title,
+    .work-arrow,
+    .system-trace {
+      transition: none;
+    }
+  }
+</style>

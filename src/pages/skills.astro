@@ -5,101 +5,66 @@ import collection from '../data/skill-collection.json';
 const categories = ['全部', ...new Set(collection.items.map((item) => item.category))];
 ---
 
-<StarlightPage frontmatter={{ title: '有趣的 Skills', description: '我愿意留下来反复看、实际用，或者拆开研究的 Agent Skills。', template: 'splash' }} sidebar={[]}>
-  <main class="skills-shell">
-    <section class="collection-intro">
-      <div class="intro-copy">
-        <p class="collection-label">ALVIN’S SKILL DRAWER</p>
-        <p class="intro-lead">这里不按 Stars 排名，也不追求装得多。只收藏那些能把模糊经验写成 Agent 可执行步骤的 Skill。</p>
-        <p class="intro-note">有些我会直接用，有些更适合拆开看它怎么定义边界、组织材料和验证结果。</p>
-      </div>
+<StarlightPage frontmatter={{ title: '有趣的 Skills', description: '我收藏和使用的 Agent Skills。', template: 'splash' }} sidebar={[]}>
+  <main class="skills-page">
+    <nav class="filters" aria-label="按类型筛选">
+      {categories.map((category, index) => (
+        <button type="button" class:list={['filter', { active: index === 0 }]} data-filter={category} aria-pressed={index === 0 ? 'true' : 'false'}>{category}</button>
+      ))}
+    </nav>
 
-      <div class="directory-tree" aria-label="Skill 收藏目录">
-        <div class="tree-root"><span>~/favorites/skills</span><small>{collection.items.length} repositories</small></div>
-        <ul>
-          {collection.items.map((item, index) => (
-            <li><span aria-hidden="true">{index === collection.items.length - 1 ? '└──' : '├──'}</span><a href={`#${item.slug}`}>{item.path}</a></li>
-          ))}
-        </ul>
-      </div>
-    </section>
-
-    <div class="collection-tools">
-      <div class="filters" aria-label="按类型筛选">
-        {categories.map((category, index) => (
-          <button type="button" class:list={['filter', { active: index === 0 }]} data-filter={category} aria-pressed={index === 0 ? 'true' : 'false'}>{category}</button>
-        ))}
-      </div>
-      <p><span data-visible-count>{collection.items.length}</span> 个收藏</p>
-    </div>
-
-    <div class="skill-index" aria-live="polite">
+    <div class="skill-grid" aria-live="polite">
       {collection.items.map((item) => (
-        <article class="skill-entry" id={item.slug} data-category={item.category}>
-          <div class="entry-path">
+        <article class="skill-card" data-category={item.category}>
+          <div class="card-topline">
             <span>{item.category}</span>
-            <code>{item.path}</code>
+            <small>{item.owner}</small>
           </div>
 
-          <div class="entry-main">
-            <div class="entry-title">
-              <div>
-                <h2>{item.displayName}</h2>
-                <p>{item.owner} / {item.name}</p>
-              </div>
-              <a class="repo-link" href={item.repo} target="_blank" rel="noreferrer" aria-label={`打开 ${item.displayName} GitHub 仓库`}>
-                GitHub <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-
-            <p class="entry-summary">{item.summary}</p>
-
-            <div class="entry-reason">
-              <span>为什么收藏</span>
-              <p>{item.reason}</p>
-            </div>
-
-            <div class="entry-tags">
-              <div><span>适合</span>{item.bestFor.map((tag) => <i>{tag}</i>)}</div>
-              <div><span>看点</span>{item.highlights.map((tag) => <i>{tag}</i>)}</div>
-            </div>
+          <div class="card-title">
+            <h2>{item.displayName}</h2>
+            <a href={item.repo} target="_blank" rel="noreferrer" aria-label={`打开 ${item.displayName} GitHub 仓库`}>
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4h5v5"/><path d="M10 14 20 4"/><path d="M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6"/></svg>
+            </a>
           </div>
 
-          <div class="entry-install">
-            <span>安装命令</span>
-            <code>{item.install}</code>
-            <button type="button" data-copy={item.install}><span class="copy-idle">复制</span><span class="copy-done">已复制</span></button>
+          <p class="summary">{item.summary}</p>
+          <p class="reason"><span>收藏理由</span>{item.reason}</p>
+
+          <div class="card-footer">
+            <div class="keywords" aria-label="适用场景">
+              {item.bestFor.map((tag) => <span>{tag}</span>)}
+            </div>
+            <button type="button" class="copy-button" data-copy={item.install} aria-label={`复制 ${item.displayName} 安装命令`}>
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M15 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h3"/></svg>
+              <span>复制安装命令</span>
+            </button>
           </div>
         </article>
       ))}
     </div>
 
-    <footer class="collection-footer">
-      <p>第三方 Skill 会改变 Agent 的行为。安装前先看一遍 <code>SKILL.md</code>、脚本和权限范围；同类工作流不要一次装太多。</p>
-      <a href="/ai-workflow/ai-coding-skills-selection-guide/">我的 Skill 选择方法 →</a>
+    <footer class="page-note">
+      <p>安装第三方 Skill 前，先检查 <code>SKILL.md</code>、脚本和权限范围。同类工作流不要一次装太多。</p>
+      <a href="/ai-workflow/ai-coding-skills-selection-guide/">Skill 怎么选 →</a>
     </footer>
   </main>
 
   <script is:inline>
-    const filterButtons = Array.from(document.querySelectorAll('[data-filter]'));
-    const entries = Array.from(document.querySelectorAll('.skill-entry'));
-    const count = document.querySelector('[data-visible-count]');
+    const filters = Array.from(document.querySelectorAll('[data-filter]'));
+    const cards = Array.from(document.querySelectorAll('.skill-card'));
 
-    filterButtons.forEach(function (button) {
+    filters.forEach(function (button) {
       button.addEventListener('click', function () {
         const category = button.getAttribute('data-filter');
-        let visible = 0;
-        filterButtons.forEach(function (item) {
+        filters.forEach(function (item) {
           const active = item === button;
           item.classList.toggle('active', active);
           item.setAttribute('aria-pressed', String(active));
         });
-        entries.forEach(function (entry) {
-          const show = category === '全部' || entry.getAttribute('data-category') === category;
-          entry.hidden = !show;
-          if (show) visible += 1;
+        cards.forEach(function (card) {
+          card.hidden = category !== '全部' && card.getAttribute('data-category') !== category;
         });
-        if (count) count.textContent = String(visible);
       });
     });
 
@@ -107,6 +72,7 @@ const categories = ['全部', ...new Set(collection.items.map((item) => item.cat
       button.addEventListener('click', function () {
         const command = button.getAttribute('data-copy');
         if (!command) return;
+        const label = button.querySelector('span');
         const textarea = document.createElement('textarea');
         textarea.value = command;
         textarea.setAttribute('readonly', '');
@@ -116,10 +82,14 @@ const categories = ['全部', ...new Set(collection.items.map((item) => item.cat
         textarea.select();
         try {
           if (!document.execCommand('copy')) throw new Error('copy failed');
+          if (label) label.textContent = '已复制';
           button.classList.add('copied');
-          window.setTimeout(function () { button.classList.remove('copied'); }, 1600);
+          window.setTimeout(function () {
+            if (label) label.textContent = '复制安装命令';
+            button.classList.remove('copied');
+          }, 1600);
         } catch (_) {
-          button.textContent = '复制失败';
+          if (label) label.textContent = '复制失败';
         } finally {
           textarea.remove();
         }
@@ -129,180 +99,227 @@ const categories = ['全部', ...new Set(collection.items.map((item) => item.cat
 </StarlightPage>
 
 <style>
-  .skills-shell {
-    --drawer-ink: #252b2e;
-    --drawer-muted: #707874;
-    --drawer-line: #d9d9d0;
-    --drawer-paper: rgba(255, 255, 252, 0.68);
-    --drawer-green: #487a69;
-    --drawer-green-soft: #e2ece6;
-    --drawer-blue: #4f6f83;
-    --drawer-coral: #ad674b;
-    width: min(100%, 72rem);
+  .skills-page {
+    --card-bg: rgba(255, 255, 252, 0.78);
+    --card-border: #deded6;
+    --card-text: #292e31;
+    --card-muted: #747a7d;
+    --card-accent: #566b61;
+    width: min(100%, 68rem);
     margin-inline: auto;
-    padding: 0 0 3rem;
-    color: var(--drawer-ink);
+    padding-bottom: 3rem;
+    color: var(--card-text);
   }
 
-  .collection-intro {
+  :global(.article-description),
+  :global(.article-meta) { display: none; }
+
+  :global(main > .content-panel:first-of-type) { padding-block: 1rem .5rem; }
+  :global(main > .content-panel:first-of-type h1) { font-size: clamp(1.8rem, 3vw, 2.2rem); }
+  :global(main > .content-panel + .content-panel) {
+    padding-top: .5rem;
+    border-top: 0;
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .filter {
+    padding: .38rem .72rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--card-muted);
+    font-size: .72rem;
+    cursor: pointer;
+  }
+
+  .filter:hover { color: var(--card-text); background: rgba(255,255,255,.5); }
+  .filter.active { border-color: var(--card-border); background: var(--card-bg); color: var(--card-text); font-weight: 650; }
+  .filter:focus-visible,
+  .card-title a:focus-visible,
+  .copy-button:focus-visible { outline: 2px solid var(--card-accent); outline-offset: 2px; }
+
+  .skill-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(24rem, .95fr);
-    gap: clamp(2rem, 6vw, 5rem);
-    align-items: center;
-    padding: 1.2rem 0 1.6rem;
-    border-block: 1px solid var(--drawer-line);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
   }
 
-  .collection-label {
-    margin: 0 0 .65rem;
-    color: var(--drawer-green);
-    font-family: var(--sl-font-mono);
-    font-size: .68rem;
-    font-weight: 800;
-    letter-spacing: .12em;
+  .skill-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 20rem;
+    padding: 1.25rem;
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    background: var(--card-bg);
+    box-shadow: 0 1px 2px rgba(30, 35, 32, .025);
+    transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease;
   }
 
-  .intro-lead {
-    max-width: 37rem;
-    margin: 0;
-    font-family: var(--sl-font-heading);
-    font-size: clamp(1.15rem, 2vw, 1.45rem);
-    font-weight: 550;
-    line-height: 1.6;
-    text-wrap: balance;
+  .skill-card:hover {
+    border-color: #c6c9c2;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(30, 35, 32, .055);
   }
 
-  .intro-note { max-width: 35rem; margin: .8rem 0 0; color: var(--drawer-muted); font-size: .8rem; line-height: 1.7; }
+  .skill-card[hidden] { display: none; }
 
-  .directory-tree {
-    position: relative;
-    padding: 1rem 1.1rem 1.05rem;
-    border: 1px solid #cfd4cf;
-    background: #f3f6f2;
-    box-shadow: 8px 8px 0 #e4e7e1;
-    font-family: var(--sl-font-mono);
-  }
-
-  .directory-tree::before {
-    content: '';
-    position: absolute;
-    inset: -.3rem 1rem auto auto;
-    width: 3.8rem;
-    height: .65rem;
-    background: #d7e5dc;
-    border: 1px solid #c5d5ca;
-    border-bottom: 0;
-  }
-
-  .tree-root { display: flex; justify-content: space-between; gap: .75rem; padding-bottom: .6rem; border-bottom: 1px dashed #cbd2cc; }
-  .tree-root span { color: #375f52; font-size: .76rem; font-weight: 800; }
-  .tree-root small { color: #7c8580; font-size: .62rem; }
-  .directory-tree ul { display: grid; gap: .38rem; margin: .65rem 0 0; padding: 0; list-style: none; }
-  .directory-tree li { display: grid; grid-template-columns: 2rem 1fr; color: #8a918d; font-size: .7rem; }
-  .directory-tree a { overflow: hidden; color: #46504b; text-decoration: none; text-overflow: ellipsis; white-space: nowrap; }
-  .directory-tree a:hover { color: var(--drawer-green); text-decoration: underline; text-underline-offset: .2em; }
-
-  .collection-tools {
+  .card-topline {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    margin-top: 1.6rem;
-    padding-bottom: .65rem;
-    border-bottom: 1px solid var(--drawer-line);
   }
 
-  .filters { display: flex; flex-wrap: wrap; gap: .25rem; }
-  .filter {
-    padding: .42rem .7rem;
-    border: 1px solid transparent;
+  .card-topline span {
+    color: var(--card-accent);
+    font-size: .68rem;
+    font-weight: 700;
+  }
+
+  .card-topline small {
+    color: var(--card-muted);
+    font-family: var(--sl-font-mono);
+    font-size: .62rem;
+  }
+
+  .card-title {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: .85rem;
+  }
+
+  .card-title h2 {
+    margin: 0;
+    color: var(--card-text);
+    font-family: var(--sl-font-heading);
+    font-size: 1.18rem;
+    font-weight: 650;
+    line-height: 1.35;
+  }
+
+  .card-title a {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 2rem;
+    height: 2rem;
+    margin-top: -.25rem;
+    border-radius: 6px;
+    color: var(--card-muted);
+  }
+
+  .card-title a:hover { background: rgba(86,107,97,.08); color: var(--card-accent); }
+
+  .summary {
+    margin: .8rem 0 0;
+    font-size: .82rem;
+    line-height: 1.75;
+  }
+
+  .reason {
+    margin: .85rem 0 0;
+    color: var(--card-muted);
+    font-size: .73rem;
+    line-height: 1.7;
+  }
+
+  .reason span {
+    display: block;
+    margin-bottom: .18rem;
+    color: var(--card-text);
+    font-size: .66rem;
+    font-weight: 650;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(222,222,214,.8);
+  }
+
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem .6rem;
+  }
+
+  .keywords span {
+    color: var(--card-muted);
+    font-size: .64rem;
+    white-space: nowrap;
+  }
+
+  .copy-button {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    flex: none;
+    padding: .42rem .55rem;
+    border: 0;
+    border-radius: 6px;
     background: transparent;
-    color: var(--drawer-muted);
-    font-size: .72rem;
+    color: var(--card-accent);
+    font-size: .66rem;
+    font-weight: 650;
     cursor: pointer;
   }
-  .filter:hover { color: var(--drawer-ink); background: rgba(255,255,255,.55); }
-  .filter.active { border-color: #becdc3; background: var(--drawer-green-soft); color: #365e50; font-weight: 700; }
-  .filter:focus-visible, .repo-link:focus-visible, .entry-install button:focus-visible { outline: 2px solid var(--drawer-green); outline-offset: 2px; }
-  .collection-tools > p { margin: 0; color: var(--drawer-muted); font-family: var(--sl-font-mono); font-size: .66rem; white-space: nowrap; }
 
-  .skill-entry {
-    display: grid;
-    grid-template-columns: 10.5rem minmax(0, 1fr) 16rem;
-    gap: clamp(1rem, 3vw, 2.2rem);
-    padding: 1.45rem .2rem 1.55rem;
-    border-bottom: 1px solid var(--drawer-line);
-    scroll-margin-top: calc(var(--sl-nav-height) + 1rem);
-  }
-  .skill-entry[hidden] { display: none; }
+  .copy-button:hover { background: rgba(86,107,97,.08); }
+  .copy-button.copied { color: #37725b; }
 
-  .entry-path { display: flex; flex-direction: column; gap: .45rem; align-items: flex-start; }
-  .entry-path > span { padding: .2rem .42rem; background: #e8edf1; color: var(--drawer-blue); font-size: .63rem; font-weight: 700; }
-  .entry-path code { color: var(--drawer-muted); font-size: .63rem; line-height: 1.55; overflow-wrap: anywhere; }
-
-  .entry-main { min-width: 0; }
-  .entry-title { display: flex; align-items: start; justify-content: space-between; gap: 1rem; }
-  .entry-title h2 { margin: 0; color: var(--drawer-ink); font-family: var(--sl-font-heading); font-size: 1.22rem; font-weight: 650; line-height: 1.3; }
-  .entry-title p { margin: .18rem 0 0; color: var(--drawer-muted); font-family: var(--sl-font-mono); font-size: .63rem; }
-  .repo-link { flex: none; color: #536860; font-family: var(--sl-font-mono); font-size: .66rem; font-weight: 700; text-decoration: none; }
-  .repo-link:hover { text-decoration: underline; text-underline-offset: .2em; }
-  .entry-summary { margin: .75rem 0 0; font-size: .84rem; line-height: 1.75; }
-
-  .entry-reason { display: grid; grid-template-columns: 5.2rem 1fr; gap: .6rem; margin-top: .8rem; padding: .65rem .75rem; border-left: 2px solid var(--drawer-coral); background: rgba(173,103,75,.055); }
-  .entry-reason span { color: var(--drawer-coral); font-size: .65rem; font-weight: 750; }
-  .entry-reason p { margin: 0; color: #5d625f; font-size: .74rem; line-height: 1.65; }
-
-  .entry-tags { display: grid; gap: .35rem; margin-top: .75rem; }
-  .entry-tags > div { display: flex; flex-wrap: wrap; gap: .3rem; align-items: center; }
-  .entry-tags span { width: 2.5rem; color: var(--drawer-muted); font-size: .62rem; }
-  .entry-tags i { padding: .12rem .35rem; border: 1px solid #d8dad4; color: #626965; font-size: .61rem; font-style: normal; }
-
-  .entry-install { display: grid; align-content: start; gap: .45rem; padding-left: 1rem; border-left: 1px dashed #ced1ca; }
-  .entry-install > span { color: var(--drawer-muted); font-size: .62rem; }
-  .entry-install code { min-height: 3.4rem; color: #505955; font-size: .64rem; line-height: 1.55; overflow-wrap: anywhere; }
-  .entry-install button { justify-self: start; min-width: 4rem; padding: .36rem .65rem; border: 1px solid #bdc9c1; background: #f7f8f4; color: #466156; font-size: .65rem; font-weight: 700; cursor: pointer; }
-  .entry-install button:hover { background: var(--drawer-green-soft); }
-  .copy-done { display: none; }
-  .entry-install button.copied .copy-idle { display: none; }
-  .entry-install button.copied .copy-done { display: inline; }
-
-  .collection-footer { display: flex; justify-content: space-between; gap: 1.5rem; margin-top: 1.2rem; padding: .9rem 0; color: var(--drawer-muted); font-size: .72rem; }
-  .collection-footer p { max-width: 45rem; margin: 0; line-height: 1.7; }
-  .collection-footer code { font-size: .66rem; }
-  .collection-footer a { flex: none; color: #536860; font-weight: 700; text-decoration: none; }
-  .collection-footer a:hover { text-decoration: underline; text-underline-offset: .2em; }
-
-  :global([data-theme='dark']) .skills-shell {
-    --drawer-ink: #e8e7df; --drawer-muted: #a5aaa6; --drawer-line: #434640; --drawer-paper: rgba(31,34,32,.62); --drawer-green-soft: rgba(72,122,105,.24);
-  }
-  :global([data-theme='dark']) .directory-tree { border-color: #475149; background: #29312d; box-shadow: 8px 8px 0 #202521; }
-  :global([data-theme='dark']) .directory-tree::before { border-color: #4d6256; background: #354b40; }
-  :global([data-theme='dark']) .tree-root span, :global([data-theme='dark']) .directory-tree a { color: #c6d7cf; }
-  :global([data-theme='dark']) .entry-path > span { background: #303d45; color: #a9c4d4; }
-  :global([data-theme='dark']) .entry-reason p { color: #c2c6c2; }
-  :global([data-theme='dark']) .entry-tags i { border-color: #4b4e48; color: #b9bdb9; }
-  :global([data-theme='dark']) .entry-install button { border-color: #53645a; background: #2a302c; color: #b9d1c7; }
-  :global([data-theme='dark']) .entry-install code { color: #c8ccc8; }
-
-  @media (max-width: 58rem) {
-    .collection-intro { grid-template-columns: 1fr; gap: 1.5rem; }
-    .skill-entry { grid-template-columns: 8rem minmax(0, 1fr); }
-    .entry-install { grid-column: 2; grid-template-columns: 5rem 1fr auto; align-items: center; padding: .7rem 0 0; border-top: 1px dashed #ced1ca; border-left: 0; }
-    .entry-install code { min-height: 0; }
+  .page-note {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-top: 1.2rem;
+    padding-top: 1rem;
+    color: var(--card-muted);
+    font-size: .7rem;
   }
 
-  @media (max-width: 38rem) {
-    .directory-tree { box-shadow: 5px 5px 0 #e4e7e1; }
-    .collection-tools, .collection-footer { align-items: flex-start; flex-direction: column; }
-    .skill-entry { grid-template-columns: 1fr; gap: .8rem; }
-    .entry-path { flex-direction: row; align-items: center; }
-    .entry-install { grid-column: 1; grid-template-columns: 1fr auto; }
-    .entry-install > span { grid-column: 1 / -1; }
-    .entry-title { gap: .5rem; }
-    .entry-reason { grid-template-columns: 1fr; }
+  .page-note p { max-width: 43rem; margin: 0; line-height: 1.7; }
+  .page-note code { font-size: .66rem; }
+  .page-note a { flex: none; color: var(--card-accent); font-weight: 650; text-decoration: none; }
+  .page-note a:hover { text-decoration: underline; text-underline-offset: .2em; }
+
+  :global([data-theme='dark']) .skills-page {
+    --card-bg: rgba(32, 35, 33, .72);
+    --card-border: #444740;
+    --card-text: #e9e7df;
+    --card-muted: #a6aba7;
+    --card-accent: #9bb5a8;
+  }
+
+  :global([data-theme='dark']) .skill-card:hover { border-color: #5b5f57; box-shadow: 0 10px 24px rgba(0,0,0,.15); }
+  :global([data-theme='dark']) .card-footer { border-color: #444740; }
+
+  @media (max-width: 46rem) {
+    .skill-grid { grid-template-columns: 1fr; }
+    .skill-card { min-height: 18rem; }
+  }
+
+  @media (max-width: 30rem) {
+    .skill-card { padding: 1rem; }
+    .card-footer { align-items: start; flex-direction: column; }
+    .copy-button { padding-left: 0; }
+    .page-note { flex-direction: column; gap: .5rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; }
+    .skill-card { transition: none; }
   }
 </style>

@@ -15,6 +15,20 @@
       "install": "npx skills add KKKKhazix/human-writing"
     },
     {
+      "slug": "gzh-design-skill",
+      "name": "GZH Design Skill",
+      "displayName": "公众号排版",
+      "owner": "isjiamu",
+      "repo": "https://github.com/isjiamu/gzh-design-skill",
+      "category": "内容发布",
+      "path": "publishing/gzh-design-skill",
+      "summary": "把 Markdown、Word、PDF 或纯文本整理成可直接粘贴到公众号编辑器的内联样式 HTML，内置六套主题和主题生成器。",
+      "reason": "它把公众号会过滤的标签和样式写进校验脚本，排版结果能检查，也方便长期维护自己的主题。",
+      "bestFor": ["公众号排版", "Markdown 转 HTML", "自定义主题"],
+      "highlights": ["六套主题", "主题生成器", "双重校验"],
+      "install": "npx skills add https://github.com/isjiamu/gzh-design-skill"
+    },
+    {
       "slug": "ay-skills",
       "name": "AY Skills",
       "displayName": "AY Skills",

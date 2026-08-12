@@ -15,11 +15,23 @@ const frontmatter = {
   <!-- `not-content` prevents Starlight's prose rhythm from leaking into the UI grid. -->
   <section class="skills-page not-content" aria-labelledby="skills-page-title">
     <h1 id="skills-page-title" class="sr-only">Skills 收藏</h1>
-    <nav class="filters" aria-label="按类型筛选">
-      {categories.map((category, index) => (
-        <button type="button" class:list={['filter', { active: index === 0 }]} data-filter={category} aria-pressed={index === 0 ? 'true' : 'false'}>{category}</button>
-      ))}
-    </nav>
+    <div class="skill-toolbar">
+      <nav class="filters" aria-label="按类型筛选">
+        {categories.map((category, index) => (
+          <button type="button" class:list={['filter', { active: index === 0 }]} data-filter={category} aria-pressed={index === 0 ? 'true' : 'false'}>{category}</button>
+        ))}
+      </nav>
+      <nav class="skill-directories" aria-label="发现更多 Skills">
+        <a href="https://www.skills.sh/" target="_blank" rel="noreferrer">
+          Skills.sh
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4h5v5"/><path d="M10 14 20 4"/><path d="M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6"/></svg>
+        </a>
+        <a href="https://claudemarketplaces.com/" target="_blank" rel="noreferrer">
+          Claude Marketplaces
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4h5v5"/><path d="M10 14 20 4"/><path d="M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6"/></svg>
+        </a>
+      </nav>
+    </div>
 
     <div class="skill-grid" aria-live="polite">
       {collection.items.map((item) => (
@@ -119,11 +131,20 @@ const frontmatter = {
     color: var(--card-text);
   }
 
-  .filters {
+  .skill-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: .55rem 1rem;
+    margin-bottom: .85rem;
+  }
+
+  .filters,
+  .skill-directories {
     display: flex;
     flex-wrap: wrap;
     gap: .4rem;
-    margin-bottom: .85rem;
   }
 
   .filter {
@@ -139,8 +160,28 @@ const frontmatter = {
   .filter:hover { color: var(--card-text); background: rgba(255,255,255,.5); }
   .filter.active { border-color: var(--card-border); background: var(--card-bg); color: var(--card-text); font-weight: 650; }
   .filter:focus-visible,
+  .skill-directories a:focus-visible,
   .card-title a:focus-visible,
   .copy-button:focus-visible { outline: 2px solid var(--card-accent); outline-offset: 2px; }
+
+  .skill-directories a {
+    display: inline-flex;
+    align-items: center;
+    gap: .28rem;
+    padding: .38rem .58rem;
+    border: 1px solid var(--card-border);
+    border-radius: 7px;
+    color: var(--card-muted);
+    font-size: .68rem;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  .skill-directories a:hover {
+    border-color: #c6c9c2;
+    color: var(--card-text);
+    background: var(--card-bg);
+  }
 
   .skill-grid {
     display: grid;

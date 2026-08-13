@@ -47,7 +47,7 @@ const works = [
     <div class="hero-grid">
       <div class="identity">
         <div class="identity-mark">
-          <img src="/favicon.png" width="44" height="44" alt="" decoding="async" />
+          <span class="identity-avatar" aria-hidden="true"></span>
           <span>杨卢青</span>
         </div>
         <h1>Alvin Yang</h1>
@@ -222,10 +222,13 @@ const works = [
     letter-spacing: 0.1em;
   }
 
-  .identity-mark img {
+  .identity-avatar {
+    display: block;
+    flex: 0 0 auto;
     width: 1.8rem;
     height: 1.8rem;
     border-radius: 0.55rem;
+    background: #f8f5eb url('/images/brand/alvin-programmer.webp') center 28% / 220% auto no-repeat;
     opacity: 0.92;
   }
 

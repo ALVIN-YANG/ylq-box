@@ -4,18 +4,6 @@ import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.ast
 import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
 
 const { sidebar } = Astro.locals.starlightRoute;
-const currentPath = Astro.url.pathname;
-
-const groupPrefixes: Record<string, string> = {
-  'AI 工作流': '/ai-workflow/',
-  'Claw 专栏': '/claw/',
-  'AI': '/ai/',
-  'Architecture': '/architecture/',
-  'AI News': '/ai-news/',
-  '安全': '/security/',
-  '古法编程': '/algorithms/',
-  'Ops': '/ops/',
-};
 
 function extractDate(href: string): string {
   const match = href.match(/(\d{4}-\d{2}-\d{2})/);
@@ -48,23 +36,18 @@ function splitAiNews(group: any): any {
   return { ...group, entries };
 }
 
-let filteredSidebar = sidebar;
-
-for (const entry of sidebar) {
-  if (entry.type === 'group') {
-    const prefix = groupPrefixes[entry.label];
-    const isGuFa = entry.label === '古法编程' && (currentPath.startsWith('/algorithms/') || currentPath.startsWith('/java/'));
-    const isOps = entry.label === 'Ops' && (currentPath.startsWith('/ops/') || currentPath.startsWith('/network/'));
-    if ((prefix && currentPath.startsWith(prefix)) || isGuFa || isOps) {
-      if (entry.label === 'AI News') {
-        filteredSidebar = [splitAiNews(entry)];
-      } else {
-        filteredSidebar = [entry];
-      }
-      break;
-    }
-  }
+function containsCurrentPage(entry: any): boolean {
+  if (entry.type === 'link') return entry.isCurrent;
+  return entry.entries.some(containsCurrentPage);
 }
+
+const currentGroup = sidebar.find(
+  (entry) => entry.type === 'group' && containsCurrentPage(entry),
+);
+
+const filteredSidebar = currentGroup
+  ? [currentGroup.label === 'AI News' ? splitAiNews(currentGroup) : currentGroup]
+  : [];
 ---
 
 <SidebarPersister>

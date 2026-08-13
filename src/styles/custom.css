@@ -25,10 +25,10 @@
 	--sl-color-gray-5: #d4d4cc;
 	--sl-color-gray-6: #e7e5dc;
 	--sl-color-black: #ffffff;
-	--sl-color-accent-low: #ecebe2;
-	--sl-color-accent: #66715f;
-	--sl-color-accent-high: #343c31;
-	--sl-color-text-accent: #596451;
+	--sl-color-accent-low: #e9ecef;
+	--sl-color-accent: #596b80;
+	--sl-color-accent-high: #2f3e50;
+	--sl-color-text-accent: #4d6075;
 	--sl-color-surface: #ffffff;
 	--sl-color-overlay: rgba(245, 244, 237, 0.96);
 	--paper-shadow: 0 1px 2px rgba(36, 41, 47, 0.03), 0 14px 36px rgba(36, 41, 47, 0.045);
@@ -263,14 +263,14 @@ starlight-link-card a:hover {
 /* ─── Links ─── */
 
 a {
-	color: #566051;
+	color: #51657a;
 	text-decoration-thickness: 1px;
 	text-underline-offset: 0.15em;
 	transition: color 0.2s ease;
 }
 
 a:hover {
-	color: #2f382d;
+	color: #2f3e50;
 }
 
 :where(a, button, summary) {

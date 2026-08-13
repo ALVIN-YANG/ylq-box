@@ -29,6 +29,20 @@
       "install": "npx skills add https://github.com/isjiamu/gzh-design-skill"
     },
     {
+      "slug": "pm-skills",
+      "name": "PM Skills Marketplace",
+      "displayName": "PM Skills",
+      "owner": "phuryn",
+      "repo": "https://github.com/phuryn/pm-skills",
+      "category": "产品管理",
+      "path": "product/pm-skills",
+      "summary": "把产品发现、战略、执行、市场研究、数据分析、发布和增长拆成九组可按需安装的插件。",
+      "reason": "从假设识别、优先级和验证一路接到 PRD、路线图与发布，适合把零散的产品任务变成可重复的工作流。",
+      "bestFor": ["产品发现", "PRD 与路线图", "发布与增长"],
+      "highlights": ["九组 PM 插件", "阶段化工作流", "Codex 原生安装"],
+      "install": "codex plugin marketplace add phuryn/pm-skills\nfor plugin in pm-toolkit pm-product-strategy pm-product-discovery pm-market-research pm-data-analytics pm-marketing-growth pm-go-to-market pm-execution pm-ai-shipping; do codex plugin add \"$plugin@pm-skills\"; done"
+    },
+    {
       "slug": "ay-skills",
       "name": "AY Skills",
       "displayName": "AY Skills",

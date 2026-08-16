@@ -1,0 +1,549 @@
+---
+import knowledgeData from '../data/agent-knowledge.json';
+
+const serializedData = JSON.stringify(knowledgeData).replace(/</g, '\\u003c');
+const domains = Object.fromEntries(knowledgeData.domains.map((domain) => [domain.id, domain]));
+---
+
+<agent-knowledge-explorer class="knowledge-explorer agent-atlas not-content">
+  <header class="atlas-header">
+    <div class="atlas-header-inner">
+      <button class="atlas-brand" type="button" data-home aria-label="返回系统运行全景">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>
+          <small>Agent Systems Atlas</small>
+          <strong>AI Agent 知识体系</strong>
+        </span>
+      </button>
+
+      <div class="atlas-controls">
+        <div class="search-shell" data-search-shell>
+          <label class="sr-only" for="knowledge-search">搜索知识点</label>
+          <div class="search-field">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.6-4.6m2.1-5.15a7.25 7.25 0 1 1-14.5 0 7.25 7.25 0 0 1 14.5 0Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <input id="knowledge-search" data-search-input type="search" placeholder="搜索 402 个知识点" autocomplete="off" aria-controls="knowledge-search-results" aria-expanded="false" />
+            <kbd>/</kbd>
+          </div>
+          <div class="search-results" id="knowledge-search-results" data-search-results hidden></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="atlas-main">
+    <section class="panorama-view" data-view="panorama" aria-label="AI Agent 系统运行全景">
+      <div class="runtime-map" aria-label="AI Agent 系统运行全景图">
+        <header class="map-header">
+          <h1>一次 Agent Run</h1>
+          <p>点击模块进入知识路线</p>
+        </header>
+
+        <div class="runtime-entry">
+          <span class="entry-caption">需求进入 / 结果反馈</span>
+          <button class="domain-node entry-node" type="button" data-open-domain="interaction-collaboration">
+            <span class="domain-code">9</span>
+            <span><strong>{domains['interaction-collaboration'].short}</strong><small>用户、Agent 与界面的沟通入口</small></span>
+          </button>
+          <span class="flow-connector vertical" aria-hidden="true"></span>
+        </div>
+
+        <div class="runtime-core">
+          <div class="process-label">决策与行动主链路</div>
+          <div class="process-rail">
+            <button class="domain-node" type="button" data-open-domain="foundations">
+              <span class="domain-code">1</span>
+              <span><strong>{domains.foundations.short}</strong><small>定义任务与控制权</small></span>
+            </button>
+            <span class="flow-connector horizontal" aria-hidden="true"></span>
+
+            <div class="context-stack">
+              <button class="domain-node context-node" type="button" data-open-domain="model-context">
+                <span class="domain-code">2</span>
+                <span><strong>{domains['model-context'].short}</strong><small>组装输入并形成判断</small></span>
+              </button>
+              <span class="support-connector" aria-hidden="true"><b>提供知识与状态</b></span>
+              <button class="domain-node feed-node" type="button" data-open-domain="knowledge-state">
+                <span class="domain-code">3</span>
+                <span><strong>{domains['knowledge-state'].short}</strong><small>证据、记忆与运行状态</small></span>
+              </button>
+            </div>
+
+            <span class="flow-connector horizontal" aria-hidden="true"></span>
+            <div class="decision-node" aria-label="模型决策">
+              <span class="decision-pulse" aria-hidden="true"></span>
+              <strong>模型决策</strong>
+              <small>选择下一步动作</small>
+            </div>
+            <span class="flow-connector horizontal" aria-hidden="true"></span>
+            <button class="domain-node" type="button" data-open-domain="tools-environment">
+              <span class="domain-code">4</span>
+              <span><strong>{domains['tools-environment'].short}</strong><small>执行动作并接收结果</small></span>
+            </button>
+          </div>
+
+          <span class="flow-connector vertical core-connector" aria-hidden="true"></span>
+
+          <button class="loop-strip" type="button" data-open-domain="runtime-orchestration">
+            <span class="domain-code">5</span>
+            <span class="loop-copy"><strong>{domains['runtime-orchestration'].short}</strong><small>观察 · 决策 · 行动 · 验证 · 更新状态</small></span>
+            <svg class="loop-mark" aria-hidden="true" viewBox="0 0 24 24"><path d="M19 8a8 8 0 1 0 .5 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="m16 5 3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+
+          <div class="evaluation-line">
+            <span class="flow-connector vertical" aria-hidden="true"></span>
+            <button class="domain-node evaluation-node" type="button" data-open-domain="evaluation-evolution">
+              <span class="domain-code">6</span>
+              <span><strong>{domains['evaluation-evolution'].short}</strong><small>用 Trace 与样本判断系统是否真的变好</small></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="runtime-foundation">
+          <button class="foundation-line safety-line" type="button" data-open-domain="safety-governance">
+            <span class="domain-code">7</span>
+            <span><strong>{domains['safety-governance'].short}</strong><small>权限、策略、审批与审计约束整条运行链路</small></span>
+            <span>全程约束</span>
+          </button>
+          <button class="foundation-line platform-line" type="button" data-open-domain="production-platform">
+            <span class="domain-code">8</span>
+            <span><strong>{domains['production-platform'].short}</strong><small>网关、队列、状态、可观测与成本承载每一次 Run</small></span>
+            <span>系统承载</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="domain-view" data-view="domain" hidden aria-labelledby="domain-view-title">
+      <header class="route-header">
+        <div class="route-heading">
+          <button class="back-button" type="button" data-home aria-label="返回系统全景"><span aria-hidden="true">←</span></button>
+          <h1 id="domain-view-title" data-domain-title></h1>
+        </div>
+        <p data-domain-summary></p>
+      </header>
+      <div class="learning-route" data-domain-groups></div>
+    </section>
+
+    <section class="point-view" data-view="point" hidden aria-labelledby="point-title">
+      <nav class="reading-toolbar" aria-label="知识点导航">
+        <button class="back-button" type="button" data-back-domain><span aria-hidden="true">←</span> 返回领域路线</button>
+        <div class="reading-crumb" data-breadcrumb></div>
+        <button class="copy-link" type="button" data-copy-link>复制链接</button>
+      </nav>
+
+      <div class="reading-layout">
+        <article class="knowledge-article">
+          <header class="article-header">
+            <p class="article-code" data-point-code></p>
+            <h1 id="point-title" data-point-title></h1>
+            <p class="article-lead" data-point-detail></p>
+          </header>
+
+          <section class="article-section visual-section" aria-labelledby="visual-title">
+            <div class="section-kicker">SYSTEM CONTEXT</div>
+            <h2 id="visual-title">它在系统里的位置</h2>
+            <div class="point-visual" data-point-visual></div>
+            <p data-group-context></p>
+          </section>
+
+          <section class="article-section failure-section">
+            <div class="section-kicker">FAILURE MODE</div>
+            <h2>忽略它时会发生什么</h2>
+            <p data-point-pitfall></p>
+          </section>
+
+          <section class="article-section verify-section">
+            <div class="section-kicker">ENGINEERING CHECK</div>
+            <h2>怎样证明自己掌握了</h2>
+            <p data-point-verify></p>
+          </section>
+
+          <details class="recall-card" data-recall-card>
+            <summary><span>闭卷回忆</span><strong data-recall-question></strong><i>查看答案</i></summary>
+            <div class="recall-answer">
+              <p data-recall-answer></p>
+              <small>判断标准</small>
+              <p data-recall-check></p>
+            </div>
+          </details>
+
+          <section class="article-section index-section">
+            <div class="section-kicker">FURTHER READING</div>
+            <h2>相关索引与书中位置</h2>
+            <div class="reference-grid">
+              <div>
+                <h3>站内文章</h3>
+                <div class="article-links" data-article-links></div>
+              </div>
+              <div>
+                <h3>参考书目</h3>
+                <div class="source-links" data-source-links></div>
+              </div>
+            </div>
+          </section>
+
+          <nav class="article-pagination" data-article-pagination aria-label="前后知识点"></nav>
+        </article>
+
+        <aside class="reading-aside" aria-label="当前知识点关系">
+          <div class="aside-block">
+            <span>当前路线</span>
+            <strong data-aside-domain></strong>
+            <p data-aside-group></p>
+          </div>
+          <div class="aside-block">
+            <span>前后与跨领域关系</span>
+            <div class="relation-list" data-relation-list></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <div class="sr-only" aria-live="polite" data-announcer></div>
+  <script type="application/json" data-knowledge-json set:html={serializedData}></script>
+</agent-knowledge-explorer>
+
+<script>
+  class AgentKnowledgeExplorer extends HTMLElement {
+    connectedCallback() {
+      if (this.dataset.ready === 'true') return;
+      this.dataset.ready = 'true';
+
+      const dataNode = this.querySelector('[data-knowledge-json]');
+      if (!dataNode?.textContent) return;
+
+      const data = JSON.parse(dataNode.textContent);
+      const pointRecords = [];
+      const pointById = new Map();
+      const domainById = new Map();
+      const relationsByPoint = new Map();
+
+      data.domains.forEach((domain, domainIndex) => {
+        domainById.set(domain.id, domain);
+        domain.groups.forEach((group, groupIndex) => {
+          group.points.forEach((point, pointIndex) => {
+            const record = { point, group, domain, pointIndex, groupIndex, domainIndex };
+            pointRecords.push(record);
+            pointById.set(point.id, record);
+          });
+        });
+      });
+
+      data.relations.forEach((relation) => {
+        const outgoing = relationsByPoint.get(relation.from) ?? [];
+        outgoing.push({ ...relation, target: relation.to, direction: 'out' });
+        relationsByPoint.set(relation.from, outgoing);
+
+        const incoming = relationsByPoint.get(relation.to) ?? [];
+        incoming.push({ ...relation, target: relation.from, direction: 'in' });
+        relationsByPoint.set(relation.to, incoming);
+      });
+
+      const views = {
+        panorama: this.querySelector('[data-view="panorama"]'),
+        domain: this.querySelector('[data-view="domain"]'),
+        point: this.querySelector('[data-view="point"]'),
+      };
+      const searchInput = this.querySelector('[data-search-input]');
+      const searchResults = this.querySelector('[data-search-results]');
+      const announcer = this.querySelector('[data-announcer]');
+      let currentDomain = data.domains[0];
+
+      const escapeHTML = (value) => String(value ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+
+      const compactCode = (value) => String(value ?? '')
+        .split('.')
+        .map((part) => String(Number.parseInt(part, 10)))
+        .join('.');
+
+      const showView = (name) => {
+        Object.entries(views).forEach(([viewName, element]) => {
+          element.hidden = viewName !== name;
+        });
+        this.dataset.currentView = name;
+      };
+
+      const setText = (selector, value) => {
+        const node = this.querySelector(selector);
+        if (node) node.textContent = value;
+      };
+
+      const domainPoints = (domain) => domain.groups.flatMap((group) => group.points.map((point) => ({ point, group, domain })));
+      const routeSummary = (domain) => {
+        const groupNames = domain.groups.map((group) => `「${group.title}」`);
+        if (groupNames.length === 1) return `围绕 ${groupNames[0]} 展开，按知识点顺序建立可落地的系统认识。`;
+        return `从${groupNames[0]}开始，依次经过${groupNames.slice(1, -1).join('、')}，最后进入${groupNames.at(-1)}。`;
+      };
+
+      const renderPanorama = () => {
+        showView('panorama');
+        document.title = 'AI Agent 知识体系';
+      };
+
+      const renderDomain = (domain) => {
+        currentDomain = domain;
+        showView('domain');
+        setText('[data-domain-title]', domain.title);
+        setText('[data-domain-summary]', routeSummary(domain));
+        document.title = `${domain.title} · AI Agent 知识体系`;
+
+        const route = this.querySelector('[data-domain-groups]');
+        route.innerHTML = domain.groups.map((group, groupIndex) => `
+          <section class="route-group" id="route-${escapeHTML(group.id)}">
+            <div class="route-group-body">
+              <header>
+                <span class="route-marker" aria-hidden="true">${groupIndex + 1}</span>
+                <div>
+                  <h2>${escapeHTML(group.title)}</h2>
+                  <p>${escapeHTML(group.guide.summary)}</p>
+                </div>
+              </header>
+              <div class="point-list">
+                ${group.points.map((point) => `
+                  <button type="button" data-open-point="${escapeHTML(point.id)}">
+                    <strong>${escapeHTML(point.title)}</strong>
+                    <i aria-hidden="true">→</i>
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+          </section>
+        `).join('');
+      };
+
+      const visualDefinitions = {
+        foundations: ['真实需求', '明确边界', '可判定结果'],
+        'model-context': ['目标与状态', '组装上下文', '结构化决策'],
+        'knowledge-state': ['可信来源', '检索与记忆', '证据进入运行'],
+        'tools-environment': ['动作意图', '校验并执行', '环境返回结果'],
+        'runtime-orchestration': ['观察当前状态', '循环与调度', '继续、恢复或停止'],
+        'evaluation-evolution': ['固定样本', '记录 Run Trace', '回归与改进'],
+        'safety-governance': ['识别风险', '策略与审批', '受控执行与审计'],
+        'production-platform': ['接收请求', '调度与承载', '状态、成本与观测'],
+        'interaction-collaboration': ['表达意图', '交接与协作', '反馈与人工介入'],
+      };
+
+      const renderPointVisual = (record) => {
+        const steps = visualDefinitions[record.domain.id] ?? ['系统输入', '系统判断', '系统结果'];
+        const visual = this.querySelector('[data-point-visual]');
+        visual.innerHTML = `
+          <div class="visual-flow">
+            <div class="visual-step"><span>输入</span><strong>${escapeHTML(steps[0])}</strong></div>
+            <i aria-hidden="true">→</i>
+            <div class="visual-step current"><span>当前知识点</span><strong>${escapeHTML(record.point.title)}</strong></div>
+            <i aria-hidden="true">→</i>
+            <div class="visual-step"><span>落点</span><strong>${escapeHTML(steps[2])}</strong></div>
+          </div>
+          <div class="visual-baseline"><span>${escapeHTML(steps[1])}</span><i></i><b>${escapeHTML(record.domain.short)}</b></div>
+        `;
+      };
+
+      const getAdjacent = (record) => {
+        const records = domainPoints(record.domain).map(({ point }) => pointById.get(point.id));
+        const index = records.findIndex(({ point }) => point.id === record.point.id);
+        return {
+          previous: index > 0 ? records[index - 1] : null,
+          next: index < records.length - 1 ? records[index + 1] : null,
+        };
+      };
+
+      const renderRelations = (record) => {
+        const { previous, next } = getAdjacent(record);
+        const related = [];
+        if (previous) related.push({ label: '前置', record: previous });
+        if (next) related.push({ label: '下一步', record: next });
+        (relationsByPoint.get(record.point.id) ?? []).forEach((relation) => {
+          const target = pointById.get(relation.target);
+          if (target && !related.some((item) => item.record.point.id === target.point.id)) {
+            related.push({ label: relation.direction === 'out' ? relation.type : `被${relation.type}`, record: target });
+          }
+        });
+        const list = this.querySelector('[data-relation-list]');
+        list.innerHTML = related.slice(0, 6).map(({ label, record: target }) => `
+          <button type="button" data-open-point="${escapeHTML(target.point.id)}">
+            <span>${escapeHTML(label)}</span>
+            <strong>${escapeHTML(target.point.title)}</strong>
+            <small>${escapeHTML(target.domain.short)} · ${escapeHTML(compactCode(target.point.code))}</small>
+          </button>
+        `).join('') || '<p class="empty-relation">当前没有额外关系</p>';
+      };
+
+      const renderReferences = (record) => {
+        const articleLinks = this.querySelector('[data-article-links]');
+        articleLinks.innerHTML = (record.domain.articles ?? []).map((article) => `
+          <a href="${escapeHTML(article.href)}"><span>${escapeHTML(article.title)}</span><i aria-hidden="true">↗</i></a>
+        `).join('') || '<p>暂无站内延伸文章</p>';
+
+        const sourceLinks = this.querySelector('[data-source-links]');
+        sourceLinks.innerHTML = record.domain.references.map((source) => `
+          <div class="source-item">
+            <strong>${escapeHTML(source.title)}</strong>
+            <span>${escapeHTML(source.location)}</span>
+            <p>${escapeHTML(source.note)}</p>
+          </div>
+        `).join('');
+      };
+
+      const renderPagination = (record) => {
+        const { previous, next } = getAdjacent(record);
+        const nav = this.querySelector('[data-article-pagination]');
+        nav.innerHTML = `
+          ${previous ? `<button type="button" data-open-point="${escapeHTML(previous.point.id)}"><span>← 上一个</span><strong>${escapeHTML(previous.point.title)}</strong></button>` : '<span></span>'}
+          ${next ? `<button type="button" data-open-point="${escapeHTML(next.point.id)}"><span>下一个 →</span><strong>${escapeHTML(next.point.title)}</strong></button>` : '<span></span>'}
+        `;
+      };
+
+      const renderPoint = (record) => {
+        currentDomain = record.domain;
+        showView('point');
+        setText('[data-breadcrumb]', `${record.domain.short} / ${record.group.title}`);
+        setText('[data-point-code]', `${compactCode(record.point.code)} · ${record.group.title}`);
+        setText('[data-point-title]', record.point.title);
+        setText('[data-point-detail]', record.point.detail);
+        setText('[data-group-context]', record.group.guide.summary);
+        setText('[data-point-pitfall]', record.point.pitfall);
+        setText('[data-point-verify]', record.point.verify);
+        setText('[data-recall-question]', `不看上文，你能说明「${record.point.title}」解决什么问题，以及系统怎样验证它吗？`);
+        setText('[data-recall-answer]', record.point.detail);
+        setText('[data-recall-check]', record.point.verify);
+        setText('[data-aside-domain]', record.domain.title);
+        setText('[data-aside-group]', record.group.title);
+        this.querySelector('[data-recall-card]').removeAttribute('open');
+        document.title = `${record.point.title} · AI Agent 知识体系`;
+        renderPointVisual(record);
+        renderRelations(record);
+        renderReferences(record);
+        renderPagination(record);
+      };
+
+      const routeForHash = () => {
+        const hash = decodeURIComponent(location.hash.slice(1));
+        if (pointById.has(hash)) return { view: 'point', value: pointById.get(hash) };
+        if (hash.startsWith('domain-')) {
+          const domain = domainById.get(hash.slice(7));
+          if (domain) return { view: 'domain', value: domain };
+        }
+        return { view: 'panorama', value: null };
+      };
+
+      const renderLocation = ({ scroll = false } = {}) => {
+        const route = routeForHash();
+        if (route.view === 'point') renderPoint(route.value);
+        else if (route.view === 'domain') renderDomain(route.value);
+        else renderPanorama();
+        if (scroll) window.scrollTo({ top: 0, behavior: 'instant' });
+      };
+
+      const navigate = (hash) => {
+        const target = `${location.pathname}${location.search}#${hash}`;
+        if (`${location.pathname}${location.search}${location.hash}` === target) {
+          renderLocation({ scroll: true });
+        } else {
+          history.pushState(null, '', target);
+          renderLocation({ scroll: true });
+        }
+        searchResults.hidden = true;
+        searchInput.setAttribute('aria-expanded', 'false');
+        searchInput.blur();
+      };
+
+      const renderSearch = () => {
+        const query = searchInput.value.trim().toLocaleLowerCase('zh-CN');
+        if (!query) {
+          searchResults.hidden = true;
+          searchInput.setAttribute('aria-expanded', 'false');
+          return;
+        }
+        const matches = pointRecords.filter(({ point, group, domain }) => {
+          const haystack = `${point.code} ${point.title} ${point.detail} ${group.title} ${domain.title}`.toLocaleLowerCase('zh-CN');
+          return haystack.includes(query);
+        }).slice(0, 10);
+        searchResults.innerHTML = matches.length ? matches.map(({ point, group, domain }) => `
+          <button type="button" data-search-point="${escapeHTML(point.id)}">
+            <span>${escapeHTML(compactCode(point.code))}</span>
+            <strong>${escapeHTML(point.title)}</strong>
+            <small>${escapeHTML(domain.short)} / ${escapeHTML(group.title)}</small>
+          </button>
+        `).join('') : '<p>没有找到匹配的知识点</p>';
+        searchResults.hidden = false;
+        searchInput.setAttribute('aria-expanded', 'true');
+      };
+
+      this.addEventListener('click', async (event) => {
+        const target = event.target instanceof Element ? event.target : null;
+        if (!target) return;
+
+        if (target.closest('[data-home]')) {
+          navigate('system');
+          return;
+        }
+
+        const domainButton = target.closest('[data-open-domain]');
+        if (domainButton) {
+          navigate(`domain-${domainButton.dataset.openDomain}`);
+          return;
+        }
+
+        const pointButton = target.closest('[data-open-point], [data-search-point]');
+        if (pointButton) {
+          navigate(pointButton.dataset.openPoint ?? pointButton.dataset.searchPoint);
+          return;
+        }
+
+        if (target.closest('[data-back-domain]')) {
+          navigate(`domain-${currentDomain.id}`);
+          return;
+        }
+
+        const copyButton = target.closest('[data-copy-link]');
+        if (copyButton) {
+          try {
+            await navigator.clipboard.writeText(location.href);
+            copyButton.textContent = '已复制';
+            announcer.textContent = '知识点链接已复制';
+            window.setTimeout(() => { copyButton.textContent = '复制链接'; }, 1400);
+          } catch {
+            copyButton.textContent = '复制失败';
+          }
+          return;
+        }
+
+        if (!target.closest('[data-search-shell]')) {
+          searchResults.hidden = true;
+          searchInput.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      searchInput.addEventListener('input', renderSearch);
+      searchInput.addEventListener('focus', renderSearch);
+      searchInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          searchResults.hidden = true;
+          searchInput.setAttribute('aria-expanded', 'false');
+          searchInput.blur();
+        }
+        if (event.key === 'Enter') {
+          const first = searchResults.querySelector('[data-search-point]');
+          if (first) navigate(first.dataset.searchPoint);
+        }
+      });
+      window.addEventListener('keydown', (event) => {
+        if (event.key === '/' && document.activeElement !== searchInput && !event.metaKey && !event.ctrlKey && !event.altKey) {
+          event.preventDefault();
+          searchInput.focus();
+        }
+      });
+      window.addEventListener('popstate', () => renderLocation({ scroll: true }));
+
+      renderLocation();
+    }
+  }
+
+  if (!customElements.get('agent-knowledge-explorer')) customElements.define('agent-knowledge-explorer', AgentKnowledgeExplorer);
+</script>

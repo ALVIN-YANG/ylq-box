@@ -1,6 +1,6 @@
-# ylq-box — Agent Guide
+# alvin-notes — Agent Guide
 
-Personal tech site of Alvin Yang, built with Astro 5 + Starlight, deployed on Vercel (https://blog.mlxb.cc). Repo: https://github.com/ALVIN-YANG/ylq-box.
+Personal tech site of Alvin Yang, built with Astro 5 + Starlight, deployed on Vercel (https://blog.mlxb.cc). Repo: https://github.com/ALVIN-YANG/alvin-notes.
 
 ## Project
 
@@ -48,4 +48,3 @@ npm run news:weekly   # node scripts/fetch-ai-news.mjs --weekly
 - **Deployment**: push to `main` on GitHub; Vercel auto-builds and deploys. `netlify.toml` also exists but is not the primary deploy target.
 
 ## Notes
-

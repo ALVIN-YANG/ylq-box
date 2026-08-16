@@ -55,7 +55,7 @@ export default defineConfig({
       social: [
         {
           label: 'GitHub',
-          href: 'https://github.com/ALVIN-YANG/ylq-box',
+          href: 'https://github.com/ALVIN-YANG/alvin-notes',
           icon: 'github'
         }
       ],

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1200" height="400" viewBox="0 0 1200 400"
+     role="img" aria-labelledby="title desc">
+  <title id="title">alvin-notes</title>
+  <desc id="desc">Alvin Yang 的个人技术站，记录 AI Agent、软件架构与工程实践。</desc>
+
+  <defs>
+    <clipPath id="frame">
+      <rect width="1200" height="400" rx="28"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect width="1200" height="400" fill="#fbf7eb"/>
+    <path d="M760 40V360" stroke="#d8d3c7" stroke-width="1"/>
+    <circle cx="760" cy="72" r="4" fill="#b96828"/>
+
+    <g id="title-block" transform="translate(64 62)">
+      <text x="0" y="0"
+            fill="#737871"
+            font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+            font-size="17" font-weight="600" letter-spacing="2.6">
+        ALVIN YANG · TECH NOTES
+      </text>
+      <text x="0" y="122"
+            fill="#252a2d"
+            font-family="-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif"
+            font-size="86" font-weight="700" letter-spacing="-4">
+        alvin-notes
+      </text>
+      <text x="2" y="186"
+            fill="#4f5552"
+            font-family="-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif"
+            font-size="28" font-weight="500">
+        AI Agent、软件架构与工程实践
+      </text>
+      <path d="M2 244H86" stroke="#b96828" stroke-width="3"/>
+    </g>
+  </g>
+
+  <rect x="0.5" y="0.5" width="1199" height="399" rx="27.5"
+        fill="none" stroke="#d8d3c7"/>
+</svg>

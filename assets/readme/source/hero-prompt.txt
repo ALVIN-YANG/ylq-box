@@ -1,0 +1,10 @@
+Use case: identity-preserve
+Asset type: character portrait for a GitHub README hero
+Input image: Image 1 is the edit target.
+Primary request: Edit the existing illustrated character to look moderately slimmer and slightly more handsome, while clearly preserving the same identity and illustration style. Narrow the torso, waist, arms, legs, cheeks, and jawline subtly; make the body proportions a little taller and more balanced; give the face a cleaner jawline and a calm, confident, friendly expression. Keep the result natural and understated, not a dramatic transformation.
+Scene/backdrop: perfectly plain, even warm ivory background matching #F7F3E8, without objects, texture, gradient, cast shadow, floor line, or vignette.
+Subject invariants: preserve the short black hairstyle, black rectangular glasses, facial identity, white T-shirt, navy shorts, white socks, tan sandals, grey closed laptop held under the right arm, left hand in pocket, forward-facing standing pose, and full-body framing.
+Style/medium: preserve the original warm hand-drawn editorial anime illustration, clean dark linework, restrained soft shading, mature rather than chibi.
+Composition/framing: full body visible with generous padding; subject centered and suitable for cropping into the right side of a wide README banner.
+Constraints: change only the requested body and facial proportions plus the flat background; no text, no letters, no logo, no watermark, no new objects.
+Avoid: muscular physique, fashion-model exaggeration, photorealism, oversized head, baby-face, different clothing, different pose, open laptop, extra limbs or fingers.

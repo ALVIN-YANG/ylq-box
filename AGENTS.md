@@ -2,6 +2,14 @@
 
 Personal tech site of Alvin Yang, built with Astro 5 + Starlight, deployed on Vercel (https://blog.mlxb.cc). Repo: https://github.com/ALVIN-YANG/alvin-notes.
 
+## 文章作者视角
+
+- 正文中的第一人称始终指作者 Alvin，不指 Codex、模型或执行任务的 Agent。Alvin 是一名 AI Native 的 AI Agent 开发工程师。
+- 作者的工作习惯是，能可靠交给 AI 或 Agent 完成的执行工作就不自己做。Agent 负责检索与整理资料，也负责写代码、运行测试和执行可授权的自动化；作者负责提出问题、定义目标、划定权限、判断取舍并验收结果。
+- 不把本次内容生产过程中的 AI 动作写成作者亲历。禁止在正文中出现“我下载了字幕”“我让 Codex 搜索”“我用 AI 整理了资料”等幕后过程，也不能把工具输出包装成作者的第一手经历。
+- 文章主题确实涉及 AI Agent 工作流时，可以写作者怎样把任务交给 Agent，但必须来自用户提供的真实习惯、项目证据或已确认的实践，不能临时编造具体经历。
+- 公开材料直接写成读者需要的事实、判断和方法，并在相关位置标明来源。除非获取过程本身会改变结论，否则不向正文泄露搜索、转写、生成、检查和构建过程。
+
 ## Project
 
 - **Framework**: Astro 5.x (`astro`, ESM, `type: "module"`).

@@ -8,6 +8,11 @@
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { unzipSync, strFromU8 } from 'fflate';
+import {
+  buildRefreshMetadata,
+  parseArenaTextEntries,
+  shouldWriteArenaOutput,
+} from './model-arena-core.mjs';
 
 const OUTPUT_PATH = 'src/data/model-arena.json';
 const EPOCH_BUNDLE_URL = 'https://epoch.ai/data/benchmark_data.zip';
@@ -138,18 +143,6 @@ function sha(value) {
 
 function nowISO() {
   return new Date().toISOString();
-}
-
-function formatChineseTime(value) {
-  return new Intl.DateTimeFormat('zh-CN', {
-    timeZone: 'Asia/Shanghai',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  }).format(new Date(value));
 }
 
 async function fetchWithRetry(url, options = {}, retries = 3) {
@@ -383,40 +376,19 @@ async function fetchEpochBoards(previousBoards) {
 }
 
 function parseArenaTextData(html) {
-  const pushes = html.match(/self\.__next_f\.push\(\[1,"([\s\S]*?)"\]\)/g) || [];
-  let combined = pushes.map(push => push.match(/self\.__next_f\.push\(\[1,"([\s\S]*?)"\]\)/)?.[1] || '').join('');
-  combined = combined.replace(/\\"/g, '"');
-
-  const blocks = [];
-  let position = 0;
-  while (position < combined.length) {
-    const index = combined.indexOf('"entries":[{"rank":', position);
-    if (index === -1) break;
-    blocks.push(index);
-    position = index + 100;
-  }
-
-  for (const blockStart of blocks) {
-    const blockText = combined.slice(blockStart, blockStart + 90000);
-    const entries = [];
-    const regex = /\{"rank":(\d+),"rankUpper":\d+,"rankLower":\d+,"modelDisplayName":"([^"]+)","rating":([\d.]+),"ratingUpper":[\d.]+,"ratingLower":[\d.]+,"votes":(\d+),"modelOrganization":"([^"]*)"/g;
-    let match;
-    while ((match = regex.exec(blockText))) {
-      const modelKey = canonicalModelKey(match[2]);
-      entries.push({
-        modelKey,
-        model: cleanDisplayName(match[2], modelKey),
-        organization: normalizeOrganization(match[5]),
-        modelVersion: match[2],
-        releaseDate: null,
-        rawScore: Number(match[3]),
-        scoreLabel: Number(match[3]).toFixed(1),
-        sourceRank: Number(match[1]),
-      });
-    }
-    if (entries.length > 0) return entries;
-  }
-  return [];
+  return parseArenaTextEntries(html).map(entry => {
+    const modelKey = canonicalModelKey(entry.modelDisplayName);
+    return {
+      modelKey,
+      model: cleanDisplayName(entry.modelDisplayName, modelKey),
+      organization: normalizeOrganization(entry.modelOrganization),
+      modelVersion: entry.modelDisplayName,
+      releaseDate: null,
+      rawScore: entry.rating,
+      scoreLabel: entry.rating.toFixed(1),
+      sourceRank: entry.rank,
+    };
+  });
 }
 
 async function fetchArenaTextBoard(previousBoard) {
@@ -714,13 +686,12 @@ function buildOutput(sourceBoards, pricing, existing) {
     updatedAt: board.updatedAt,
   }));
   const dataHash = sha(contentFingerprint);
-  const updatedAtISO = existing?.dataHash === dataHash ? existing.updatedAtISO : nowISO();
+  const refreshMetadata = buildRefreshMetadata(existing, dataHash, nowISO());
   const operatorCount = new Set(activeBoards.map(board => board.operatorId)).size;
 
   return {
     schemaVersion: 2,
-    updatedAt: formatChineseTime(updatedAtISO),
-    updatedAtISO,
+    ...refreshMetadata,
     dataHash,
     methodology: {
       operatorCount,
@@ -755,7 +726,7 @@ async function main() {
   if (problems.length) throw new Error(problems.join('；'));
 
   const output = buildOutput(boards, pricing, existing);
-  if (!force && existing?.dataHash === output.dataHash && existing?.schemaVersion === output.schemaVersion) {
+  if (!shouldWriteArenaOutput(existing, output, force)) {
     console.log('\n⏭ 榜单数据没有变化，跳过写入');
     return;
   }

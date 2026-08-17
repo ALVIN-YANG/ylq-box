@@ -1,0 +1,133 @@
+export function formatChineseTime(value) {
+  return new Intl.DateTimeFormat('zh-CN', {
+    timeZone: 'Asia/Shanghai',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(new Date(value));
+}
+
+function parseNextFlightPayloads(html) {
+  const payloads = [];
+  const pattern = /self\.__next_f\.push\((\[\s*1\s*,\s*"(?:\\[\s\S]|[^"\\])*"\s*\])\)/g;
+
+  for (const match of html.matchAll(pattern)) {
+    try {
+      const args = JSON.parse(match[1]);
+      if (args[0] === 1 && typeof args[1] === 'string') payloads.push(args[1]);
+    } catch {
+      // Ignore unrelated or incomplete Next Flight chunks.
+    }
+  }
+
+  return payloads;
+}
+
+function extractJsonArray(text, startIndex) {
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+
+  for (let index = startIndex; index < text.length; index += 1) {
+    const character = text[index];
+    if (inString) {
+      if (escaped) {
+        escaped = false;
+      } else if (character === '\\') {
+        escaped = true;
+      } else if (character === '"') {
+        inString = false;
+      }
+      continue;
+    }
+
+    if (character === '"') {
+      inString = true;
+    } else if (character === '[') {
+      depth += 1;
+    } else if (character === ']') {
+      depth -= 1;
+      if (depth === 0) return text.slice(startIndex, index + 1);
+    }
+  }
+
+  return null;
+}
+
+function normalizeArenaEntries(value) {
+  if (!Array.isArray(value)) return [];
+
+  return value.flatMap(entry => {
+    if (!entry || typeof entry !== 'object') return [];
+    const rank = Number(entry.rank);
+    const rating = Number(entry.rating);
+    const votes = Number(entry.votes);
+    if (!Number.isFinite(rank) || !Number.isFinite(rating) || !Number.isFinite(votes)) return [];
+    if (typeof entry.modelDisplayName !== 'string' || typeof entry.modelOrganization !== 'string') return [];
+
+    return [{
+      rank,
+      modelDisplayName: entry.modelDisplayName,
+      rating,
+      votes,
+      modelOrganization: entry.modelOrganization,
+    }];
+  });
+}
+
+export function parseArenaTextEntries(html) {
+  let bestEntries = [];
+
+  for (const payload of parseNextFlightPayloads(html)) {
+    const entriesPattern = /"entries"\s*:/g;
+    for (const match of payload.matchAll(entriesPattern)) {
+      const arrayStart = payload.indexOf('[', match.index + match[0].length);
+      if (arrayStart === -1) continue;
+      const arrayText = extractJsonArray(payload, arrayStart);
+      if (!arrayText) continue;
+
+      try {
+        const entries = normalizeArenaEntries(JSON.parse(arrayText));
+        if (entries.length > bestEntries.length) bestEntries = entries;
+      } catch {
+        // Keep scanning because a payload may contain several entries arrays.
+      }
+    }
+  }
+
+  return bestEntries;
+}
+
+export function buildRefreshMetadata(existing, dataHash, checkedAtISO = new Date().toISOString()) {
+  const hasStableUpdateTime = existing?.dataHash === dataHash && Number.isFinite(Date.parse(existing?.updatedAtISO || ''));
+  const updatedAtISO = hasStableUpdateTime ? existing.updatedAtISO : checkedAtISO;
+  return {
+    checkedAt: formatChineseTime(checkedAtISO),
+    checkedAtISO,
+    updatedAt: formatChineseTime(updatedAtISO),
+    updatedAtISO,
+  };
+}
+
+function shanghaiDate(value) {
+  const timestamp = Date.parse(value || '');
+  if (!Number.isFinite(timestamp)) return null;
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Shanghai',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date(timestamp));
+}
+
+export function shouldWriteArenaOutput(existing, output, force = false) {
+  if (force || !existing) return true;
+  if (existing.schemaVersion !== output.schemaVersion || existing.dataHash !== output.dataHash) return true;
+
+  const previousCheckDate = shanghaiDate(existing.checkedAtISO);
+  const currentCheckDate = shanghaiDate(output.checkedAtISO);
+  return !previousCheckDate || !currentCheckDate || previousCheckDate !== currentCheckDate;
+}

@@ -3,6 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "test": "node --test",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
@@ -14,7 +15,8 @@
     "news:check-language": "node scripts/fetch-ai-news.mjs --check-language",
     "news:check-sources": "node scripts/fetch-ai-news.mjs --check-sources",
     "model-arena:update": "node scripts/fetch-model-arena.mjs",
-    "model-arena:check": "node scripts/fetch-model-arena.mjs --check"
+    "model-arena:check": "node scripts/fetch-model-arena.mjs --check",
+    "model-arena:verify": "node scripts/verify-model-arena.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.1.2",

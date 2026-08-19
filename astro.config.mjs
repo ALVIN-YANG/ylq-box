@@ -45,7 +45,7 @@ export default defineConfig({
         },
         {
           tag: 'script',
-          attrs: { src: '/mermaid-zoom.js', defer: true },
+          attrs: { src: '/mermaid-zoom.js?v=2', defer: true },
         },
       ],
       customCss: [

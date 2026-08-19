@@ -10,27 +10,6 @@
     }
   }
 
-  function cloneSvgWithScopedStyles(svg) {
-    const clone = svg.cloneNode(true);
-    const sourceId = svg.getAttribute('id');
-
-    if (!sourceId) {
-      clone.removeAttribute('id');
-      return clone;
-    }
-
-    const cloneId = `${sourceId}-${ZOOMED_CLASS}`;
-    clone.setAttribute('id', cloneId);
-
-    clone.querySelectorAll('style').forEach((style) => {
-      style.textContent = (style.textContent || '')
-        .split(`#${sourceId}`)
-        .join(`#${cloneId}`);
-    });
-
-    return clone;
-  }
-
   function openOverlay(svg) {
     if (document.getElementById(OVERLAY_ID)) return;
 
@@ -45,7 +24,8 @@
     `;
 
     const container = overlay.querySelector('.mermaid-zoom-container');
-    const clone = cloneSvgWithScopedStyles(svg);
+    const clone = svg.cloneNode(true);
+    clone.removeAttribute('id');
     clone.style.maxWidth = '90vw';
     clone.style.maxHeight = '90vh';
     clone.style.width = 'auto';

@@ -33,7 +33,7 @@ export default defineConfig({
         },
         {
           tag: 'meta',
-          attrs: { name: 'theme-color', content: '#f5f4ed' },
+          attrs: { name: 'theme-color', content: '#f7f8fa' },
         },
         {
           tag: 'link',
@@ -137,8 +137,8 @@ export default defineConfig({
         name: 'Alvin Yang',
         short_name: 'Alvin',
         description: '技术博客 — AI、架构与实践',
-        theme_color: '#f5f4ed',
-        background_color: '#f5f4ed',
+        theme_color: '#f7f8fa',
+        background_color: '#f7f8fa',
         display: 'standalone',
         icons: [
           {

@@ -68,8 +68,23 @@ const updatedLabel = updatedDate
 
 <style>
   .article-heading {
+    position: relative;
     max-width: 46rem;
-    padding-block: 0.35rem 0.25rem;
+    margin-left: -1.2rem;
+    padding: 0.35rem 0 0.35rem 1.15rem;
+    border-left: 2px solid var(--sl-color-accent);
+  }
+
+  .article-heading::before {
+    content: '';
+    position: absolute;
+    left: -0.31rem;
+    top: 0.35rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 2px solid var(--sl-color-bg);
+    border-radius: 50%;
+    background: var(--sl-color-accent);
   }
 
   .page-title-placeholder {
@@ -89,18 +104,18 @@ const updatedLabel = updatedDate
     color: var(--sl-color-white);
     font-family: var(--sl-font-heading);
     font-size: clamp(1.95rem, 3.2vw, 2.55rem);
-    font-weight: 600;
-    letter-spacing: -0.025em;
-    line-height: 1.28;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 1.24;
     text-wrap: balance;
   }
 
   .article-description {
     max-width: 42rem;
-    margin: 0.85rem 0 0;
+    margin: 0.9rem 0 0;
     color: var(--sl-color-gray-2);
     font-size: 0.98rem;
-    line-height: 1.75;
+    line-height: 1.7;
     text-wrap: pretty;
   }
 
@@ -109,12 +124,12 @@ const updatedLabel = updatedDate
     flex-wrap: wrap;
     align-items: center;
     gap: 0.3rem 0.55rem;
-    margin-top: 1rem;
+    margin-top: 1.05rem;
     color: var(--sl-color-gray-3);
     font-family: var(--sl-font-utility);
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     font-variant-numeric: tabular-nums;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.015em;
   }
 
   .meta-separator {
@@ -123,11 +138,12 @@ const updatedLabel = updatedDate
 
   @media (max-width: 30rem) {
     .article-heading {
-      padding-block-start: 0.1rem;
+      margin-left: 0;
+      padding: 0.1rem 0 0.2rem 0.95rem;
     }
 
     h1 {
-      font-size: 1.75rem;
+      font-size: 1.9rem;
     }
 
     .article-description {

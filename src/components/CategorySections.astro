@@ -7,94 +7,79 @@ const categories = [
     title: 'AI Agent',
     desc: '从 Prompt、RAG 到生产级 Agent 系统',
     href: '/ai/prompt-engineering/',
-    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>',
   },
   {
     id: 'ai-workflow',
     title: 'AI 工作流',
     desc: 'AI Coding、Skills 与开发工具链',
     href: '/ai-workflow/ai-coding-skills-selection-guide/',
-    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
   },
   {
     id: 'architecture',
     title: 'Architecture',
     desc: '分布式系统、事件驱动与业务建模',
     href: '/architecture/distributed-transaction/',
-    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>',
   },
   {
     id: 'claw',
     title: 'OpenClaw',
     desc: '插件开发、模型接入与生产部署',
     href: '/claw/openclaw/',
-    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg>',
   },
   {
     id: 'ai-news',
     title: 'AI News',
     desc: '每周 AI 工程变化与趋势判断',
     href: '/ai-news/',
-    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-2a2 2 0 0 1 2-2h12"/><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h5"/></svg>',
   },
   {
     id: 'java',
     title: 'Java',
     desc: '并发、框架、中间件与架构实践',
     href: '/java/01-core/1-java21-virtual-threads/',
-    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="10" y1="9" x2="16" y2="9"/><line x1="10" y1="13" x2="14" y2="13"/></svg>',
   },
   {
     id: 'algorithms',
     title: '算法',
     desc: '用模式组织高频题，而不是背题解',
     href: '/algorithms/java-high-frequency-algorithm-patterns/',
-    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h10M4 19h16"/><circle cx="17" cy="12" r="3"/></svg>',
   },
   {
     id: 'ops',
     title: 'Ops',
     desc: 'Kubernetes、排障与生产运行手册',
     href: '/ops/k8s/kubernetes-practical-starter-guide/',
-    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>',
   },
   {
     id: 'network',
     title: '网络',
     desc: '网络协议与 AI Agent 通信',
     href: '/network/ai-agent-communication-protocols/',
-    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="3"/><circle cx="19" cy="6" r="3"/><circle cx="12" cy="18" r="3"/><path d="M5 9v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9"/><path d="M12 15V9"/></svg>',
   },
   {
     id: 'security',
     title: '安全',
     desc: '漏洞机制、风险判断与处置',
     href: '/security/1-zero-day-vulnerability-primer/',
-    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2l1.5 2h5L16 2"/><rect x="5" y="4" width="14" height="16" rx="7"/><path d="M2 9h3M19 9h3M2 15h3M19 15h3M9 9h6M9 13h6M12 13v5"/></svg>',
   },
 ];
 
 const allDocs = await getCollection('docs');
 
 function parseDateFromFilename(id: string): Date | null {
-  if (typeof id !== 'string') return null;
   const match = id.match(/(\d{4}-\d{2}-\d{2})/);
-  if (match) return new Date(match[1]);
-  return null;
+  return match ? new Date(match[1]) : null;
 }
 
 function getFilenameOrder(id: string): number {
-  if (typeof id !== 'string') return 0;
   const numMatch = id.match(/\/(\d{1,2})-/);
-  return numMatch ? parseInt(numMatch[1], 10) : 0;
+  return numMatch ? Number.parseInt(numMatch[1], 10) : 0;
 }
 
 function getDocDate(doc: typeof allDocs[number]): number {
   if (doc.data.lastUpdated) return new Date(doc.data.lastUpdated).getTime();
   if (doc.data.date) return new Date(doc.data.date).getTime();
-  const parsed = parseDateFromFilename(doc.id);
-  if (parsed) return parsed.getTime();
-  return 0;
+  return parseDateFromFilename(doc.id)?.getTime() ?? 0;
 }
 
 function isArticle(doc: typeof allDocs[number]) {
@@ -102,25 +87,30 @@ function isArticle(doc: typeof allDocs[number]) {
   return Boolean(id && !id.endsWith('index') && !id.includes('_category_') && id !== 'index.mdx');
 }
 
-function getCategoryDocs(categoryId: string, count = 5) {
+function getCategoryDocs(categoryId: string, count = 4) {
   return allDocs
-    .filter((doc) => {
-      if (!isArticle(doc)) return false;
-      return doc.id.startsWith(`${categoryId}/`);
-    })
+    .filter((doc) => isArticle(doc) && doc.id.startsWith(`${categoryId}/`))
     .sort((a, b) => {
       const dateDiff = getDocDate(b) - getDocDate(a);
-      if (dateDiff !== 0) return dateDiff;
-      return getFilenameOrder(b) - getFilenameOrder(a);
+      return dateDiff || getFilenameOrder(b.id) - getFilenameOrder(a.id);
     })
     .slice(0, count);
 }
 
-const sections = categories.map((cat) => ({
-  ...cat,
-  docs: getCategoryDocs(cat.id),
-  count: allDocs.filter((doc) => isArticle(doc) && doc.id.startsWith(`${cat.id}/`)).length,
+function getDocHref(id: string) {
+  return `/${id.replace(/\.mdx?$/, '').replace(/\/index$/, '/')}/`;
+}
+
+const articleDocs = allDocs.filter(isArticle);
+const sections = categories.map((category) => ({
+  ...category,
+  docs: getCategoryDocs(category.id),
+  count: articleDocs.filter((doc) => doc.id.startsWith(`${category.id}/`)).length,
 }));
+
+const recentDocs = [...articleDocs]
+  .sort((a, b) => getDocDate(b) - getDocDate(a))
+  .slice(0, 4);
 
 const compactDateFormatter = new Intl.DateTimeFormat('zh-CN', {
   month: '2-digit',
@@ -128,308 +118,514 @@ const compactDateFormatter = new Intl.DateTimeFormat('zh-CN', {
 });
 
 function formatDate(doc: typeof allDocs[number]) {
-  const value = doc.data.lastUpdated || doc.data.date;
-  if (!value) return '';
-  return compactDateFormatter.format(new Date(value)).replace('/', '.');
+  const timestamp = getDocDate(doc);
+  if (!timestamp) return '';
+  return compactDateFormatter.format(new Date(timestamp)).replace('/', '.');
+}
+
+function getCategoryTitle(id: string) {
+  const categoryId = id.split('/')[0];
+  return categories.find((category) => category.id === categoryId)?.title ?? '笔记';
 }
 ---
 
 <header class="directory-intro">
-  <h1>Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.</h1>
-  <div class="directory-note">
-    <p class="directory-author">— Antoine de Saint-Exupéry</p>
+  <div class="intro-copy">
+    <p class="directory-eyebrow"><span aria-hidden="true"></span>AI Agent Engineering Notes</p>
+    <h1>AI Agent 工程笔记</h1>
+    <p class="directory-lead">记录从 Prompt、RAG、工具调用到生产运行的判断、实现和复盘。</p>
   </div>
+
+  <dl class="directory-stats" aria-label="博客概况">
+    <div>
+      <dt>{articleDocs.length}</dt>
+      <dd>篇笔记</dd>
+    </div>
+    <div>
+      <dt>{categories.length}</dt>
+      <dd>个主题</dd>
+    </div>
+    <div>
+      <dt><span class="status-dot" aria-hidden="true"></span>持续</dt>
+      <dd>更新中</dd>
+    </div>
+  </dl>
 </header>
 
-<div class="home-sections" aria-label="文章分栏">
-  {
-    sections.map((cat, index) => (
-      <section class="section-card" aria-labelledby={`section-${cat.id}`}>
-        <span class="section-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+<section class="recent-panel" aria-labelledby="recent-title">
+  <header class="panel-heading">
+    <p>Latest</p>
+    <h2 id="recent-title">最近更新</h2>
+  </header>
 
-        <a href={cat.href} class="section-header">
+  <ol class="recent-list">
+    {recentDocs.map((doc) => (
+      <li>
+        <a href={getDocHref(doc.id)}>
+          <span class="recent-meta">
+            <span>{getCategoryTitle(doc.id)}</span>
+            {formatDate(doc) && <time datetime={new Date(getDocDate(doc)).toISOString()}>{formatDate(doc)}</time>}
+          </span>
+          <span class="recent-title">{doc.data.title}</span>
+          <span class="recent-arrow" aria-hidden="true">↗</span>
+        </a>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<section class="topic-index" aria-labelledby="topic-title">
+  <header class="topic-heading">
+    <div>
+      <p>Topics</p>
+      <h2 id="topic-title">按主题阅读</h2>
+    </div>
+    <p class="topic-note">每个主题列出最近四篇</p>
+  </header>
+
+  <div class="home-sections">
+    {sections.map((category) => (
+      <section class="section-card" aria-labelledby={`section-${category.id}`}>
+        <a href={category.href} class="section-header">
           <span class="section-title-row">
-            <span class="section-title" id={`section-${cat.id}`}>{cat.title}</span>
+            <span class="section-marker" aria-hidden="true"></span>
+            <span class="section-title" id={`section-${category.id}`}>{category.title}</span>
+            <span class="section-count">{category.count}</span>
             <span class="section-arrow" aria-hidden="true">↗</span>
           </span>
-          <span class="section-desc">{cat.desc}</span>
-          <span class="section-count">{cat.count} 篇文章</span>
+          <span class="section-desc">{category.desc}</span>
         </a>
 
-        {cat.docs.length > 0 && (
+        {category.docs.length > 0 && (
           <ul class="section-list">
-            {cat.docs.map((doc) => {
-              const href = `/${doc.id.replace(/\.mdx?$/, '').replace(/\/index$/, '/')}/`;
-              return (
-                <li class="section-item">
-                  <a href={href} class="section-link">
-                    <span class="section-link-title">{doc.data.title}</span>
-                    <time datetime={new Date(doc.data.lastUpdated || doc.data.date || 0).toISOString()}>{formatDate(doc)}</time>
-                  </a>
-                </li>
-              );
-            })}
+            {category.docs.map((doc) => (
+              <li class="section-item">
+                <a href={getDocHref(doc.id)} class="section-link">
+                  <span class="section-link-title">{doc.data.title}</span>
+                  {formatDate(doc) && <time datetime={new Date(getDocDate(doc)).toISOString()}>{formatDate(doc)}</time>}
+                </a>
+              </li>
+            ))}
           </ul>
         )}
       </section>
-    ))
-  }
-</div>
+    ))}
+  </div>
+</section>
 
 <style>
   .directory-intro {
     display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(15rem, 0.65fr);
+    grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.65fr);
     align-items: end;
-    gap: clamp(1.5rem, 4vw, 3.5rem);
-    margin: clamp(1.5rem, 3.5vw, 2.75rem) 0 0.9rem;
+    gap: clamp(2.5rem, 7vw, 7rem);
+    padding: clamp(3.5rem, 7vw, 6.25rem) 0 clamp(3rem, 5vw, 4.5rem);
+  }
+
+  .intro-copy {
+    position: relative;
+    max-width: 47rem;
+    padding-left: clamp(1.25rem, 2.6vw, 2rem);
+    border-left: 2px solid var(--sl-color-accent);
+  }
+
+  .intro-copy::before {
+    content: '';
+    position: absolute;
+    left: -0.31rem;
+    top: -0.05rem;
+    width: 0.52rem;
+    height: 0.52rem;
+    border: 2px solid var(--sl-color-bg);
+    border-radius: 50%;
+    background: var(--sl-color-accent);
+  }
+
+  .directory-eyebrow,
+  .panel-heading p,
+  .topic-heading > div > p {
+    margin: 0;
+    color: var(--sl-color-accent-high);
+    font-family: var(--sl-font-utility);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.075em;
+    text-transform: uppercase;
+  }
+
+  .directory-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .directory-eyebrow span {
+    width: 1.6rem;
+    height: 1px;
+    background: var(--sl-color-accent);
   }
 
   .directory-intro h1 {
-    margin: 0;
+    max-width: 13ch;
+    margin: 1rem 0 0;
     color: var(--sl-color-white);
     font-family: var(--sl-font-heading);
-    font-size: clamp(1.25rem, 2.25vw, 1.75rem);
-    font-weight: 500;
-    letter-spacing: -0.025em;
-    line-height: 1.35;
+    font-size: clamp(2.65rem, 5.2vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -0.065em;
+    line-height: 1.08;
     text-wrap: balance;
   }
 
-  .directory-note {
-    display: grid;
-    gap: 0.3rem;
+  .directory-lead {
+    max-width: 38rem;
+    margin: 1.25rem 0 0;
+    color: var(--sl-color-gray-2);
+    font-size: clamp(0.98rem, 1.3vw, 1.08rem);
+    line-height: 1.75;
+    text-wrap: pretty;
   }
 
-  .directory-author {
+  .directory-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     margin: 0;
-    color: var(--sl-color-accent);
-    font-family: 'Space Grotesk', system-ui, sans-serif;
+    padding: 0 0 0.25rem;
+  }
+
+  .directory-stats div {
+    min-width: 0;
+    padding-left: 1rem;
+    border-left: 1px solid var(--sl-color-gray-5);
+  }
+
+  .directory-stats dt {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--sl-color-gray-1);
+    font-family: var(--sl-font-heading);
+    font-size: 1.08rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .directory-stats dd {
+    margin: 0.28rem 0 0;
+    color: var(--sl-color-gray-3);
     font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
+  }
+
+  .status-dot {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    background: var(--sl-color-accent);
+    box-shadow: 0 0 0 4px var(--sl-color-accent-low);
+  }
+
+  .recent-panel {
+    display: grid;
+    grid-template-columns: minmax(9rem, 0.3fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    padding: clamp(1.35rem, 2.5vw, 2rem);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 10px;
+    background: var(--sl-color-surface);
+    box-shadow: 0 16px 40px rgba(23, 32, 51, 0.045);
+  }
+
+  .panel-heading h2,
+  .topic-heading h2 {
+    margin: 0.45rem 0 0;
+    color: var(--sl-color-white);
+    font-family: var(--sl-font-heading);
+    font-size: 1.24rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  .recent-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .recent-list li {
+    min-width: 0;
+    margin: 0;
+    border-top: 1px solid var(--sl-color-gray-6);
+  }
+
+  .recent-list li:nth-child(-n + 2) {
+    border-top: 0;
+  }
+
+  .recent-list a {
+    position: relative;
+    display: block;
+    min-width: 0;
+    padding: 0.72rem 1.3rem 0.72rem 0;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .recent-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.8rem;
+    color: var(--sl-color-gray-3);
+    font-family: var(--sl-font-utility);
+    font-size: 0.66rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .recent-title {
+    display: block;
+    margin-top: 0.32rem;
+    overflow: hidden;
+    color: var(--sl-color-gray-1);
+    font-size: 0.9rem;
+    line-height: 1.45;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: color 0.18s ease;
+  }
+
+  .recent-arrow {
+    position: absolute;
+    right: 0;
+    bottom: 0.78rem;
+    color: var(--sl-color-accent);
+    font-size: 0.78rem;
+    opacity: 0;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+
+  .recent-list a:hover .recent-title {
+    color: var(--sl-color-accent-high);
+  }
+
+  .recent-list a:hover .recent-arrow {
+    opacity: 1;
+    transform: translate(0.1rem, -0.1rem);
+  }
+
+  .topic-index {
+    margin: clamp(3.5rem, 6vw, 5.5rem) 0 3rem;
+  }
+
+  .topic-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-bottom: 1.15rem;
+    border-bottom: 1px solid var(--sl-color-gray-5);
+  }
+
+  .topic-note {
+    margin: 0;
+    color: var(--sl-color-gray-3);
+    font-size: 0.75rem;
   }
 
   .home-sections {
-    margin: 0 0 2.5rem;
-    border-top: 1px solid var(--sl-color-gray-5);
-  }
-
-  @media (max-width: 720px) {
-    .directory-intro {
-      grid-template-columns: 1fr;
-      gap: 0.45rem;
-      margin-top: 1.25rem;
-      margin-bottom: 0.8rem;
-      padding-bottom: 0.2rem;
-    }
-
-    .directory-intro h1 {
-      font-size: 1.2rem;
-    }
-
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(2.5rem, 6vw, 6rem);
   }
 
   .section-card {
-    display: grid;
-    grid-template-columns: 2.25rem minmax(10.5rem, 0.68fr) minmax(0, 1.7fr);
-    align-items: start;
-    gap: clamp(1rem, 2.6vw, 2.75rem);
-    margin: 0;
-    padding: 1.5rem 0 1.65rem;
+    min-width: 0;
+    padding: clamp(1.65rem, 3vw, 2.25rem) 0;
     border-bottom: 1px solid var(--sl-color-gray-5);
-    animation: sectionFadeIn 0.4s ease-out both;
-    transition: border-color 0.2s ease;
-  }
-
-  .section-card:hover {
-    border-bottom-color: color-mix(in srgb, var(--sl-color-accent) 50%, var(--sl-color-gray-5));
-  }
-
-  .section-index {
-    padding-top: 0.2rem;
-    color: var(--sl-color-gray-4);
-    font-family: 'Space Grotesk', system-ui, sans-serif;
-    font-size: 0.74rem;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0.08em;
   }
 
   .section-header {
     display: block;
-    min-width: 0;
-    text-decoration: none;
     color: inherit;
+    text-decoration: none;
   }
 
   .section-title-row {
     display: flex;
-    align-items: baseline;
-    gap: 0.45rem;
+    align-items: center;
+    gap: 0.65rem;
   }
 
-  .section-header:hover .section-title {
-    color: var(--sl-color-accent-high);
-    text-decoration: underline;
-    text-decoration-color: var(--sl-color-accent);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.3rem;
+  .section-marker {
+    width: 0.42rem;
+    height: 0.42rem;
+    flex: 0 0 auto;
+    border-radius: 1px;
+    background: var(--sl-color-accent);
   }
 
-  .section-header:hover .section-arrow {
-    opacity: 1;
-    transform: translate(0.12rem, -0.12rem);
+  .section-title {
+    color: var(--sl-color-white);
+    font-family: var(--sl-font-heading);
+    font-size: clamp(1.18rem, 1.6vw, 1.38rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.25;
+    transition: color 0.18s ease;
+  }
+
+  .section-count {
+    margin-left: auto;
+    color: var(--sl-color-gray-3);
+    font-family: var(--sl-font-utility);
+    font-size: 0.7rem;
+    font-variant-numeric: tabular-nums;
   }
 
   .section-arrow {
     color: var(--sl-color-accent);
     font-size: 0.8rem;
     opacity: 0;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition: opacity 0.18s ease, transform 0.18s ease;
   }
 
-  .section-title {
-    display: block;
-    font-family: var(--sl-font-heading);
-    font-size: clamp(1.28rem, 1.8vw, 1.5rem);
-    font-weight: 600;
-    color: var(--sl-color-white);
-    margin: 0;
-    line-height: 1.2;
-    letter-spacing: -0.025em;
-    transition: color 0.2s ease;
+  .section-header:hover .section-title {
+    color: var(--sl-color-accent-high);
+  }
+
+  .section-header:hover .section-arrow {
+    opacity: 1;
+    transform: translate(0.1rem, -0.1rem);
   }
 
   .section-desc {
     display: block;
-    max-width: 19rem;
-    margin-top: 0.45rem;
+    margin: 0.55rem 0 0 1.07rem;
     color: var(--sl-color-gray-2);
-    font-size: 0.86rem;
+    font-size: 0.82rem;
     line-height: 1.55;
-  }
-
-  .section-count {
-    display: block;
-    margin-top: 0.7rem;
-    color: var(--sl-color-gray-2);
-    font-family: 'Space Grotesk', system-ui, sans-serif;
-    font-size: 0.72rem;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0.03em;
   }
 
   .section-list {
     list-style: none;
-    margin: -0.15rem 0 0;
+    margin: 1rem 0 0;
     padding: 0;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: clamp(1.25rem, 3vw, 3rem);
   }
 
   .section-item {
     margin: 0;
-    padding: 0;
   }
 
   .section-link {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 0.7rem;
-    margin: 0 -0.45rem;
-    padding: 0.42rem 0.45rem;
-    text-decoration: none;
+    align-items: baseline;
+    gap: 0.8rem;
+    margin: 0 -0.5rem;
+    padding: 0.43rem 0.5rem;
+    border-radius: 5px;
     color: var(--sl-color-gray-1);
-    border-radius: 0.25rem;
-    border-bottom: 1px solid transparent;
-    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    text-decoration: none;
+    transition: color 0.18s ease, background-color 0.18s ease;
   }
 
   .section-link:hover {
     color: var(--sl-color-accent-high);
     background: var(--sl-color-accent-low);
-    border-bottom-color: var(--sl-color-accent);
-  }
-
-  .section-link:hover time {
-    color: var(--sl-color-accent-high);
   }
 
   .section-link-title {
     min-width: 0;
-    font-size: 0.92rem;
-    line-height: 1.45;
     overflow: hidden;
+    font-size: 0.88rem;
+    line-height: 1.5;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
   .section-link time {
-    color: var(--sl-color-gray-2);
-    font-family: 'Space Grotesk', system-ui, sans-serif;
-    font-size: 0.74rem;
+    color: var(--sl-color-gray-3);
+    font-family: var(--sl-font-utility);
+    font-size: 0.68rem;
     font-variant-numeric: tabular-nums;
   }
 
-  .section-link:focus-visible,
-  .section-header:focus-visible {
-    border-radius: 3px;
-    outline: 2px solid var(--sl-color-accent);
-    outline-offset: 3px;
-  }
-
-  @keyframes sectionFadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(0.35rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .section-card {
-      animation: none;
-    }
-  }
-
   @media (max-width: 800px) {
-    .section-card {
-      grid-template-columns: 1.75rem minmax(8.5rem, 0.72fr) minmax(0, 1.4fr);
-      gap: 0.9rem;
-    }
-
-    .section-list {
+    .directory-intro {
       grid-template-columns: 1fr;
+      gap: 2.25rem;
     }
 
-    .section-item:nth-child(n + 4) {
-      display: none;
+    .directory-stats {
+      max-width: 27rem;
+    }
+
+    .recent-panel {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .home-sections {
+      grid-template-columns: 1fr;
     }
   }
 
   @media (max-width: 560px) {
+    .directory-intro {
+      padding: 2.75rem 0 2.5rem;
+    }
+
+    .intro-copy {
+      padding-left: 1rem;
+    }
+
+    .directory-intro h1 {
+      font-size: clamp(2.45rem, 13vw, 3.25rem);
+    }
+
+    .directory-lead {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .directory-stats div {
+      padding-left: 0.7rem;
+    }
+
+    .recent-panel {
+      padding: 1.25rem;
+    }
+
+    .recent-list {
+      grid-template-columns: 1fr;
+    }
+
+    .recent-list li:nth-child(2) {
+      border-top: 1px solid var(--sl-color-gray-6);
+    }
+
+    .topic-heading {
+      align-items: start;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
     .section-card {
-      grid-template-columns: 1.6rem minmax(0, 1fr);
-      gap: 0.8rem;
-      padding: 1.25rem 0 1.35rem;
+      padding: 1.55rem 0;
     }
 
-    .section-header {
-      padding-right: 0.25rem;
+    .section-link-title {
+      white-space: normal;
     }
+  }
 
-    .section-list {
-      grid-column: 2;
-      margin-top: 0.15rem;
-    }
-
-    .section-count {
-      margin-top: 0.5rem;
+  @media (prefers-reduced-motion: reduce) {
+    .recent-arrow,
+    .section-arrow,
+    .section-title,
+    .section-link {
+      transition: none;
     }
   }
 </style>

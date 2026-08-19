@@ -8,12 +8,18 @@ import ThemeToggle from './ThemeToggle.astro';
 const knowledgeEntry = { label: 'Agent 知识体系', href: '/agent-knowledge/', match: '/agent-knowledge/' };
 
 const navLinks = [
-  { label: '文章', href: '/', match: '/' },
   { label: 'AI Agent', href: '/ai/function-call-agent/', match: '/ai/' },
   knowledgeEntry,
   { label: 'AI 工作流', href: '/ai-workflow/ai-coding-skills-selection-guide/', match: '/ai-workflow/' },
   { label: 'Skills', href: '/skills/', match: '/skills/' },
-  { label: '模型榜', href: '/model-arena/', match: '/model-arena' },
+  { label: 'Architecture', href: '/architecture/distributed-transaction/', match: '/architecture/' },
+  { label: 'OpenClaw', href: '/claw/openclaw/', match: '/claw/' },
+  { label: 'AI News', href: '/ai-news/', match: '/ai-news/' },
+  { label: '算法', href: '/algorithms/java-high-frequency-algorithm-patterns/', match: '/algorithms/' },
+  { label: '网络', href: '/network/ai-agent-communication-protocols/', match: '/network/' },
+  { label: '安全', href: '/security/1-zero-day-vulnerability-primer/', match: '/security/' },
+  { label: '模型榜', href: '/model-arena', match: '/model-arena' },
+  { label: 'Ops', href: '/ops/k8s/kubernetes-practical-starter-guide/', match: '/ops/' },
   { label: '关于', href: '/about/', match: '/about/' },
 ];
 
@@ -60,27 +66,14 @@ function isActive(match: string): boolean {
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
   .title-wrapper {
-    position: relative;
     overflow: hidden;
-    padding-left: 0.78rem;
-  }
-  .title-wrapper::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 0.34rem;
-    height: 0.34rem;
-    border-radius: 1px;
-    background: var(--sl-color-accent);
-    transform: translateY(-50%);
   }
   .right-group {
-    gap: 0.8rem;
+    gap: 1rem;
     align-items: center;
   }
   .social-icons {
@@ -90,10 +83,10 @@ function isActive(match: string): boolean {
 
   /* ── Desktop Nav ── */
   .nav-links {
-    gap: 0.18rem;
+    gap: 0.1rem;
     align-items: center;
     display: none;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: center;
   }
   @media (min-width: 50rem) {
@@ -102,13 +95,12 @@ function isActive(match: string): boolean {
     }
   }
   .nav-links a {
-    position: relative;
     text-decoration: none;
     color: var(--sl-color-gray-2);
-    font-weight: 560;
-    font-size: 0.82rem;
-    padding: 0.45rem 0.56rem;
-    border-radius: 5px;
+    font-weight: 500;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 6px;
     white-space: nowrap;
     transition: color 0.2s ease, background-color 0.2s ease;
   }
@@ -118,16 +110,16 @@ function isActive(match: string): boolean {
   }
   .nav-links a.active {
     color: var(--sl-color-accent-high);
-    background-color: transparent;
+    background-color: #e7e6dc;
   }
-  .nav-links a.active::after {
-    content: '';
-    position: absolute;
-    left: 0.56rem;
-    right: 0.56rem;
-    bottom: 0.12rem;
-    height: 2px;
-    border-radius: 99px;
+  .nav-links a[href='/agent-knowledge/'] {
+    padding-inline: 0.6rem;
+    color: var(--sl-color-black);
+    background: var(--sl-color-accent-high);
+  }
+  .nav-links a[href='/agent-knowledge/']:hover,
+  .nav-links a[href='/agent-knowledge/'].active {
+    color: var(--sl-color-black);
     background: var(--sl-color-accent);
   }
 
@@ -161,28 +153,15 @@ function isActive(match: string): boolean {
     gap: 0.5rem;
   }
   .knowledge-entry-mobile {
-    position: relative;
-    padding: 0.32rem 0.5rem 0.32rem 0.9rem;
-    border: 1px solid var(--sl-color-gray-5);
+    padding: 0.35rem 0.55rem;
     border-radius: 6px;
-    color: var(--sl-color-gray-1);
-    background: var(--sl-color-surface);
+    color: var(--sl-color-black);
+    background: var(--sl-color-accent-high);
     font-size: 0.75rem;
     font-weight: 600;
     line-height: 1;
     text-decoration: none;
     white-space: nowrap;
-  }
-  .knowledge-entry-mobile::before {
-    content: '';
-    position: absolute;
-    left: 0.42rem;
-    top: 50%;
-    width: 0.28rem;
-    height: 0.28rem;
-    border-radius: 50%;
-    background: var(--sl-color-accent);
-    transform: translateY(-50%);
   }
 </style>
 

@@ -19,6 +19,7 @@
     "model-arena:verify": "node scripts/verify-model-arena.mjs"
   },
   "dependencies": {
+    "@antv/x6": "^3.1.8",
     "@astrojs/sitemap": "^3.1.2",
     "@astrojs/starlight": "^0.37.6",
     "@vercel/analytics": "^2.0.1",
@@ -26,7 +27,8 @@
     "astro-mermaid": "^2.1.0",
     "fflate": "^0.8.2",
     "mermaid": "^11.16.0",
-    "sharp": "^0.34.2"
+    "sharp": "^0.34.2",
+    "tslib": "^2.8.1"
   },
   "devDependencies": {
     "@vite-pwa/astro": "^1.2.0"

@@ -2,18 +2,16 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import sitemap from '@astrojs/sitemap';
-import mermaid from 'astro-mermaid';
+import remarkStaticMermaid from './src/plugins/remark-static-mermaid.mjs';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://blog.mlxb.cc',
   prefetch: true,
+  markdown: {
+    remarkPlugins: [remarkStaticMermaid],
+  },
   integrations: [
-    mermaid({
-      theme: 'default',
-      autoTheme: true,
-      enableLog: false,
-    }),
     sitemap(),
     starlight({
       title: 'Alvin Yang',

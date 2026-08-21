@@ -25,12 +25,20 @@
 
     const container = overlay.querySelector('.mermaid-zoom-container');
     const clone = svg.cloneNode(true);
-    clone.removeAttribute('id');
-    clone.style.maxWidth = '90vw';
-    clone.style.maxHeight = '90vh';
-    clone.style.width = 'auto';
-    clone.style.height = 'auto';
+    const viewBox = clone.getAttribute('viewBox')?.trim().split(/\s+/).map(Number);
+    const naturalWidth = viewBox?.[2];
+    const naturalHeight = viewBox?.[3];
+    clone.style.maxWidth = 'none';
+    clone.style.maxHeight = 'none';
+    if (Number.isFinite(naturalWidth) && Number.isFinite(naturalHeight)) {
+      clone.style.width = `${naturalWidth}px`;
+      clone.style.height = `${naturalHeight}px`;
+    }
     container.appendChild(clone);
+    requestAnimationFrame(() => {
+      container.scrollLeft = Math.max(0, (container.scrollWidth - container.clientWidth) / 2);
+      container.scrollTop = 0;
+    });
 
     overlay.addEventListener('click', (e) => {
       if (e.target === overlay || e.target.closest('.mermaid-zoom-close') || e.target === container) {
@@ -50,10 +58,10 @@
   }
 
   document.addEventListener('click', (e) => {
-    const pre = e.target.closest('pre.mermaid');
-    if (!pre) return;
+    const diagram = e.target.closest('[data-mermaid-static]');
+    if (!diagram) return;
 
-    const svg = pre.querySelector('svg');
+    const svg = diagram.querySelector('svg');
     if (!svg) return;
 
     // 避免在已放大状态下重复触发

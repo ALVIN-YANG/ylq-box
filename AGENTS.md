@@ -17,8 +17,9 @@ Personal tech site of Alvin Yang, built with Astro 5 + Starlight, deployed on Ve
 - **Entry point**: `astro.config.mjs` defines site metadata, integrations, sidebar and Starlight components.
 - **Content**: Markdown/MDX in `src/content/docs/` loaded via `src/content.config.ts` (`docsLoader()` + `docsSchema()`).
 - **PWA**: Deliberately disabled. `npm run build` verifies that no Service Worker, Workbox or web manifest artifacts are emitted.
+- **Static diagrams**: Mermaid fences are rendered to inline SVG during the Astro build by `src/plugins/remark-static-mermaid.mjs`.
 - **Notable components**: `CustomHeader.astro`, `Footer.astro`, `Sidebar.astro`, `Hero.astro`, `ThemeToggle.astro`, `RecentNotes.astro`, `WebTerminal.astro`.
-- **Notable deps**: `@mlc-ai/web-llm` (Model Arena), `@xterm/xterm` + `@xterm/addon-fit` (WebTerminal), `sharp`.
+- **Notable deps**: `isomorphic-mermaid` + `jsdom` (build-time diagrams), `sharp`.
 
 ## Commands
 
@@ -52,6 +53,7 @@ npm run news:weekly   # node scripts/fetch-ai-news.mjs --weekly
 - **AI News**: do not manually edit `src/content/docs/ai-news/*`; they are overwritten by the script. Fix the script, not the output.
 - **Global styles**: only edit `src/styles/custom.css`; avoid inline styles in content.
 - **Components**: override Starlight components via `astro.config.mjs` `components` map; custom Astro files live in `src/components/`.
+- **Mermaid**: keep authoring fenced `mermaid` blocks, but compile them to static SVG at build time. Do not ship the Mermaid rendering runtime to readers; `scripts/verify-build-output.mjs` enforces this.
 - **Gitignore**: never commit `dist/`, `.astro/`, `node_modules/`, `.env*`, `.idea/`, `.opencode/`, `run.log`, `dev.log`, or `/docs/` (root-local docs only; site content is `src/content/docs/`).
 - **Deployment**: push to `main` on GitHub; Vercel auto-builds and deploys. `netlify.toml` also exists but is not the primary deploy target.
 

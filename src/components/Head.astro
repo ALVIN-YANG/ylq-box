@@ -23,7 +23,7 @@ import Analytics from '@vercel/analytics/astro';
   }
 
   const loadMermaidZoom = () => {
-    if (!document.querySelector('pre.mermaid') || document.querySelector('script[data-mermaid-zoom]')) {
+    if (!document.querySelector('[data-mermaid-static]') || document.querySelector('script[data-mermaid-zoom]')) {
       return;
     }
 

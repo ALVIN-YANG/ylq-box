@@ -145,39 +145,19 @@ docs/agents/
 一条规则：user-invoked skill 可以调用 model-invoked skill，但不会调用另一个 user-invoked skill。
 
 ```mermaid
-mindmap
-  root((Matt Pocock Skills))
-    User-invoked
-      Engineering
-        /ask-matt
-        /grill-with-docs
-        /to-spec
-        /to-tickets
-        /implement
-        /wayfinder
-        /triage
-        /improve-codebase-architecture
-        /setup-matt-pocock-skills
-      Productivity
-        /grill-me
-        /handoff
-        /teach
-        /to-questionnaire
-        /wait-what
-    Model-invoked
-      Engineering
-        /prototype
-        /tdd
-        /diagnosing-bugs
-        /code-review
-        /research
-        /domain-modeling
-        /codebase-design
-        /resolving-merge-conflicts
-        /wizard
-      Productivity
-        /grilling
-        /writing-for-agents
+flowchart TB
+  Root([Matt Pocock Skills]) --> User[User-invoked]
+  Root --> Model[Model-invoked]
+
+  User --> UserEngineering[Engineering]
+  User --> UserProductivity[Productivity]
+  UserEngineering --> UserEngineeringSkills["/ask-matt · /grill-with-docs · /to-spec<br/>/to-tickets · /implement · /wayfinder · /triage<br/>/improve-codebase-architecture · /setup-matt-pocock-skills"]
+  UserProductivity --> UserProductivitySkills["/grill-me · /handoff · /teach<br/>/to-questionnaire · /wait-what"]
+
+  Model --> ModelEngineering[Engineering]
+  Model --> ModelProductivity[Productivity]
+  ModelEngineering --> ModelEngineeringSkills["/prototype · /tdd · /diagnosing-bugs · /code-review<br/>/research · /domain-modeling · /codebase-design<br/>/resolving-merge-conflicts · /wizard"]
+  ModelProductivity --> ModelProductivitySkills["/grilling · /writing-for-agents"]
 ```
 
 注意一个关键设计：**这些 skill 是组合用的，不是单独用的。** 就像你不会只用锤子盖房子，你也不会只靠 `/tdd` 做工程。

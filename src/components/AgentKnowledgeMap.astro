@@ -4,1002 +4,398 @@ import knowledgeData from '../data/agent-knowledge.json';
 const serializedData = JSON.stringify(knowledgeData).replace(/</g, '\\u003c');
 ---
 
-<agent-knowledge-explorer class="knowledge-explorer agent-atlas not-content" data-current-view="panorama">
-  <header class="atlas-header">
-    <div class="atlas-header-inner">
-      <button class="atlas-brand" type="button" data-home aria-label="返回学习地图">
-        <span class="brand-back" aria-hidden="true">←</span>
-        <span>
-          <strong>Agent 学习地图</strong>
-          <small>402 个知识点</small>
-        </span>
+<agent-knowledge-map class="agent-map" data-level-filter="all" data-density="overview">
+  <header class="map-toolbar">
+    <a class="map-brand" href="/" aria-label="返回博客首页">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m14.5 6.5-5 5 5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>
+        <strong>Agent 学习地图</strong>
+        <small>{knowledgeData.meta.pointCount} 个知识点</small>
+      </span>
+    </a>
+
+    <div class="map-search" data-search-shell>
+      <label class="sr-only" for="agent-map-search">搜索知识点</label>
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m20 20-4.2-4.2m1.7-5.3a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      <input id="agent-map-search" data-search-input type="search" placeholder="搜索知识点" autocomplete="off" aria-controls="agent-map-results" aria-expanded="false" />
+      <div class="map-search-results" id="agent-map-results" data-search-results hidden></div>
+    </div>
+
+    <div class="map-toolbar-actions">
+      <div class="level-filter" aria-label="筛选知识层级">
+        <button type="button" data-level="all" aria-pressed="true">全部</button>
+        <button type="button" data-level="core" aria-pressed="false">核心</button>
+        <button type="button" data-level="scenario" aria-pressed="false">场景</button>
+        <button type="button" data-level="advanced" aria-pressed="false">进阶</button>
+      </div>
+      <button class="fit-map" type="button" data-fit-map>
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M8 21H3v-5m13 5h5v-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>适应画布</span>
       </button>
-
-      <div class="atlas-controls">
-        <div class="search-shell" data-search-shell>
-          <label class="sr-only" for="knowledge-search">搜索知识点</label>
-          <div class="search-field">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.6-4.6m2.1-5.15a7.25 7.25 0 1 1-14.5 0 7.25 7.25 0 0 1 14.5 0Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            <input id="knowledge-search" data-search-input type="search" placeholder="搜索知识点" autocomplete="off" aria-controls="knowledge-search-results" aria-expanded="false" />
-            <kbd>/</kbd>
-          </div>
-          <div class="search-results" id="knowledge-search-results" data-search-results hidden></div>
-        </div>
-      </div>
-
-      <div class="atlas-view-controls" data-canvas-only>
-        <div class="level-filters" aria-label="知识层级筛选">
-          <button type="button" data-level-filter="all" aria-pressed="true">全部</button>
-          <button type="button" data-level-filter="core" aria-pressed="false">核心</button>
-          <button type="button" data-level-filter="scenario" aria-pressed="false">场景</button>
-          <button type="button" data-level-filter="advanced" aria-pressed="false">进阶</button>
-        </div>
-        <button class="fit-canvas-button" type="button" data-fit-canvas>
-          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M8 21H3v-5m13 5h5v-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>适应画布</span>
-        </button>
-      </div>
     </div>
   </header>
 
-  <main class="atlas-main">
-    <section class="panorama-view" data-view="panorama" aria-label="Agent 学习地图自由画布">
-      <div class="canvas-stage">
-        <div class="canvas-hint" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M8.5 11V6.5a1.5 1.5 0 0 1 3 0V10m0-4.5a1.5 1.5 0 0 1 3 0V10m0-3.5a1.5 1.5 0 0 1 3 0v5m0-2.5a1.5 1.5 0 0 1 3 0V13c0 4.4-2.7 7.5-7.2 7.5H12c-2.1 0-3.6-.8-4.8-2.3L4 14.3a1.55 1.55 0 0 1 2.3-2.1L8.5 14V11Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>单击查看 · 拖拽浏览 · 滚轮缩放</span>
-        </div>
+  <main class="map-workspace">
+    <div class="map-canvas" data-map-canvas aria-label="可以拖动和缩放的 Agent 学习地图"></div>
 
-        <div class="knowledge-canvas" data-knowledge-canvas aria-label="可缩放的 Agent 学习地图"></div>
+    <div class="map-guide" data-map-guide>
+      <span class="guide-mark" aria-hidden="true"></span>
+      <span>拖动画布浏览，放大后查看每个知识点</span>
+    </div>
 
-        <div class="canvas-zoom" aria-label="画布缩放控制">
-          <button type="button" data-canvas-zoom="out" aria-label="缩小">−</button>
-          <span data-zoom-value>82%</span>
-          <button type="button" data-canvas-zoom="in" aria-label="放大">＋</button>
-          <button type="button" data-fit-canvas aria-label="适应画布">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M8 21H3v-5m13 5h5v-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-        </div>
+    <div class="map-zoom" aria-label="画布缩放">
+      <button type="button" data-zoom="out" aria-label="缩小">−</button>
+      <span data-zoom-value>40%</span>
+      <button type="button" data-zoom="in" aria-label="放大">＋</button>
+    </div>
 
-        <div class="canvas-minimap" data-canvas-minimap aria-label="画布缩略图"></div>
-
-        <aside class="canvas-drawer" data-canvas-drawer aria-live="polite">
-          <button class="drawer-close" type="button" data-close-drawer aria-label="关闭详情">×</button>
-          <p class="drawer-code" data-drawer-code></p>
-          <h2 data-drawer-title></h2>
-          <p class="drawer-detail" data-drawer-detail></p>
-          <div class="drawer-meta" data-drawer-meta></div>
-          <div class="drawer-scroll">
-            <section>
-              <h3 data-drawer-related-title>相关知识点</h3>
-              <div class="drawer-links" data-drawer-related></div>
-            </section>
-            <section>
-              <h3>站内文章</h3>
-              <div class="drawer-links" data-drawer-articles></div>
-            </section>
-          </div>
-          <button class="drawer-primary" type="button" data-drawer-primary>打开知识点 <span aria-hidden="true">→</span></button>
-        </aside>
+    <aside class="point-panel" data-point-panel hidden aria-label="知识点详情">
+      <div class="panel-topline">
+        <span data-panel-stage></span>
+        <button type="button" data-close-panel aria-label="关闭知识点详情">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 7 10 10M17 7 7 17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
       </div>
-    </section>
 
-    <section class="domain-view" data-view="domain" hidden aria-labelledby="domain-view-title">
-      <header class="route-header">
-        <div class="route-heading">
-          <button class="back-button" type="button" data-home aria-label="返回学习地图"><span aria-hidden="true">←</span></button>
-          <h1 id="domain-view-title" data-domain-title></h1>
-        </div>
-        <p data-domain-summary></p>
-      </header>
-      <div class="learning-route" data-domain-groups></div>
-    </section>
+      <div class="panel-heading">
+        <p data-panel-path></p>
+        <h2 data-panel-title></h2>
+        <div class="panel-tags" data-panel-tags></div>
+      </div>
 
-    <section class="point-view" data-view="point" hidden aria-labelledby="point-title">
-      <nav class="reading-toolbar" aria-label="知识点导航">
-        <button class="back-button" type="button" data-back-domain><span aria-hidden="true">←</span> 返回领域路线</button>
-        <div class="reading-crumb" data-breadcrumb></div>
-        <button class="copy-link" type="button" data-copy-link>复制链接</button>
-      </nav>
-
-      <div class="reading-layout">
-        <article class="knowledge-article">
-          <header class="article-header">
-            <p class="article-code" data-point-code></p>
-            <h1 id="point-title" data-point-title></h1>
-            <p class="article-lead" data-point-detail></p>
-          </header>
-
-          <section class="article-section visual-section" aria-labelledby="visual-title">
-            <div class="section-kicker">SYSTEM CONTEXT</div>
-            <h2 id="visual-title">它在系统里的位置</h2>
-            <div class="point-visual" data-point-visual></div>
-            <p data-group-context></p>
-          </section>
-
-          <section class="article-section failure-section">
-            <div class="section-kicker">FAILURE MODE</div>
-            <h2>忽略它时会发生什么</h2>
-            <p data-point-pitfall></p>
-          </section>
-
-          <section class="article-section verify-section">
-            <div class="section-kicker">ENGINEERING CHECK</div>
-            <h2>怎样证明自己掌握了</h2>
-            <p data-point-verify></p>
-          </section>
-
-          <details class="recall-card" data-recall-card>
-            <summary><span>闭卷回忆</span><strong data-recall-question></strong><i>查看答案</i></summary>
-            <div class="recall-answer">
-              <p data-recall-answer></p>
-              <small>判断标准</small>
-              <p data-recall-check></p>
-            </div>
-          </details>
-
-          <section class="article-section index-section">
-            <div class="section-kicker">FURTHER READING</div>
-            <h2>相关索引与书中位置</h2>
-            <div class="reference-grid">
-              <div>
-                <h3>站内文章</h3>
-                <div class="article-links" data-article-links></div>
-              </div>
-              <div>
-                <h3>参考书目</h3>
-                <div class="source-links" data-source-links></div>
-              </div>
-            </div>
-          </section>
-
-          <nav class="article-pagination" data-article-pagination aria-label="前后知识点"></nav>
+      <div class="panel-body">
+        <article class="panel-article" data-panel-content>
         </article>
 
-        <aside class="reading-aside" aria-label="当前知识点关系">
-          <div class="aside-block">
-            <span>当前路线</span>
-            <strong data-aside-domain></strong>
-            <p data-aside-group></p>
-          </div>
-          <div class="aside-block">
-            <span>前后与跨领域关系</span>
-            <div class="relation-list" data-relation-list></div>
-          </div>
-        </aside>
+        <section class="panel-sources">
+          <h3>书中位置</h3>
+          <div data-panel-sources></div>
+        </section>
+
+        <section class="panel-reading" data-panel-reading-section>
+          <h3>相关文章</h3>
+          <div data-panel-reading></div>
+        </section>
       </div>
-    </section>
+    </aside>
+
+    <div class="map-loading" data-map-loading>
+      <span></span>
+      <p>正在整理画布</p>
+    </div>
   </main>
 
   <div class="sr-only" aria-live="polite" data-announcer></div>
-  <script type="application/json" data-knowledge-json set:html={serializedData}></script>
-</agent-knowledge-explorer>
+  <script type="application/json" data-map-data set:html={serializedData}></script>
+</agent-knowledge-map>
 
 <script>
-  const createCanvasNode = (cell) => {
+  const levelNames = { core: '核心', scenario: '场景', advanced: '进阶' };
+
+  const palette = {
+    foundations: { accent: '#446fdb', tint: '#f2f5fc', wash: '#e6edfb' },
+    'model-context': { accent: '#2d8b69', tint: '#f0f7f3', wash: '#e0f0e7' },
+    'knowledge-state': { accent: '#ad7b23', tint: '#faf6ed', wash: '#f3e8cf' },
+    'tools-environment': { accent: '#356fda', tint: '#eef4ff', wash: '#dfe9fb' },
+    'runtime-orchestration': { accent: '#7a5db0', tint: '#f5f2fa', wash: '#ebe4f5' },
+    'evaluation-evolution': { accent: '#27848d', tint: '#eff7f7', wash: '#dceced' },
+    'safety-governance': { accent: '#c35f58', tint: '#fbf2f1', wash: '#f3e2df' },
+    'production-platform': { accent: '#4b88a9', tint: '#f1f6f8', wash: '#deebf0' },
+    'interaction-collaboration': { accent: '#a6782f', tint: '#f9f5ed', wash: '#efe5d2' },
+  };
+
+  const layout = [
+    { x: 80, y: 80 },
+    { x: 748, y: 80 },
+    { x: 1416, y: 80 },
+    { x: 2084, y: 80 },
+    { x: 2752, y: 80 },
+    { x: 414, y: 880 },
+    { x: 1082, y: 880 },
+    { x: 1750, y: 880 },
+    { x: 2418, y: 880 },
+  ];
+
+  const cardWidth = 620;
+
+  const estimateCardHeight = (domain) => {
+    const groupsHeight = domain.groups.reduce((total, group) => {
+      const rows = Math.ceil(group.points.length / 3);
+      return total + 42 + rows * 43;
+    }, 0);
+    return Math.max(580, 102 + groupsHeight);
+  };
+
+  const createDomainCard = (cell) => {
     const data = cell.getData();
     const size = cell.size();
-    const root = document.createElement('div');
-    root.className = `atlas-canvas-card ${data.kind === 'domain' ? 'domain-card' : 'group-card'}${data.selected ? ' is-selected' : ''}`;
-    root.style.setProperty('--node-accent', data.accent ?? '#3370ff');
+    const root = document.createElement('article');
+    root.className = 'knowledge-domain-card';
+    root.dataset.domainId = data.domain.id;
     root.style.width = `${size.width}px`;
     root.style.height = `${size.height}px`;
+    root.style.setProperty('--domain-accent', data.colors.accent);
+    root.style.setProperty('--domain-tint', data.colors.tint);
+    root.style.setProperty('--domain-wash', data.colors.wash);
 
-    if (data.kind === 'domain') {
-      const heading = document.createElement('div');
-      heading.className = 'canvas-card-heading';
-      const dot = document.createElement('span');
-      dot.className = 'canvas-card-dot';
-      const title = document.createElement('strong');
-      title.textContent = data.title;
-      heading.append(dot, title);
+    const header = document.createElement('button');
+    header.type = 'button';
+    header.className = 'domain-card-header';
+    header.dataset.focusDomain = data.domain.id;
+    header.innerHTML = `
+      <span class="domain-stage">${escapeHTML(data.domain.code)}</span>
+      <span class="domain-heading-copy">
+        <strong>${escapeHTML(data.domain.title)}</strong>
+        <small>${escapeHTML(data.domain.summary)}</small>
+      </span>
+      <span class="domain-count">${data.pointCount}</span>
+    `;
+    root.append(header);
 
-      const count = document.createElement('small');
-      count.textContent = `${data.count} 个知识点`;
+    const groups = document.createElement('div');
+    groups.className = 'domain-groups';
+    data.domain.groups.forEach((group) => {
+      const section = document.createElement('section');
+      section.className = 'map-group';
+      section.dataset.level = group.level;
+      section.dataset.groupId = group.id;
 
-      const chips = document.createElement('div');
-      chips.className = 'canvas-card-chips';
-      data.chips.forEach((label) => {
-        const chip = document.createElement('span');
-        chip.textContent = label;
-        chips.append(chip);
+      const heading = document.createElement('button');
+      heading.type = 'button';
+      heading.className = 'map-group-heading';
+      heading.dataset.focusGroup = group.id;
+      heading.innerHTML = `<strong>${escapeHTML(group.title)}</strong><span>${levelNames[group.level] ?? group.level}</span>`;
+
+      const points = document.createElement('div');
+      points.className = 'map-points';
+      group.points.forEach((point) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'map-point';
+        button.dataset.openPoint = point.id;
+        button.dataset.level = group.level;
+        button.textContent = point.title;
+        points.append(button);
       });
-      root.append(heading, count, chips);
-    } else {
-      const title = document.createElement('strong');
-      title.textContent = data.title;
-      const code = document.createElement('small');
-      code.textContent = data.code;
-      root.append(title, code);
-    }
 
-    root.setAttribute('aria-label', data.ariaLabel ?? data.title);
-    root.setAttribute('role', 'button');
+      section.append(heading, points);
+      groups.append(section);
+    });
+    root.append(groups);
     return root;
   };
 
-  let canvasCorePromise;
-  let canvasShapesRegistered = false;
+  const escapeHTML = (value) => String(value ?? '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
 
-  const loadCanvasCore = async () => {
-    if (!canvasCorePromise) {
-      canvasCorePromise = Promise.all([
+  let graphPromise;
+  let shapeReady = false;
+
+  const loadGraph = async () => {
+    if (!graphPromise) {
+      graphPromise = Promise.all([
         import('@antv/x6/es/graph/graph'),
         import('@antv/x6/es/shape/html'),
-        import('@antv/x6/es/shape/rect'),
       ]).then(([graphModule, htmlModule]) => {
-        if (!canvasShapesRegistered) {
+        if (!shapeReady) {
           htmlModule.HTML.register({
-            shape: 'atlas-domain-card',
-            width: 228,
-            height: 112,
+            shape: 'agent-domain-card',
+            width: cardWidth,
+            height: 680,
             effect: ['data'],
-            html: createCanvasNode,
+            html: createDomainCard,
           });
-          htmlModule.HTML.register({
-            shape: 'atlas-group-card',
-            width: 174,
-            height: 70,
-            effect: ['data'],
-            html: createCanvasNode,
-          });
-          canvasShapesRegistered = true;
+          shapeReady = true;
         }
-        return { Graph: graphModule.Graph };
+        return graphModule.Graph;
       });
     }
-    return canvasCorePromise;
+    return graphPromise;
   };
 
-  class AgentKnowledgeExplorer extends HTMLElement {
+  class AgentKnowledgeMap extends HTMLElement {
     connectedCallback() {
       if (this.dataset.ready === 'true') return;
       this.dataset.ready = 'true';
 
-      const dataNode = this.querySelector('[data-knowledge-json]');
+      const dataNode = this.querySelector('[data-map-data]');
       if (!dataNode?.textContent) return;
 
       const data = JSON.parse(dataNode.textContent);
-      const pointRecords = [];
       const pointById = new Map();
-      const domainById = new Map();
       const groupById = new Map();
-      const relationsByPoint = new Map();
+      const domainById = new Map();
+      const pointRecords = [];
 
       data.domains.forEach((domain, domainIndex) => {
         domainById.set(domain.id, domain);
         domain.groups.forEach((group, groupIndex) => {
           groupById.set(group.id, { group, domain });
           group.points.forEach((point, pointIndex) => {
-            const record = { point, group, domain, pointIndex, groupIndex, domainIndex };
+            const record = { point, group, domain, domainIndex, groupIndex, pointIndex };
             pointRecords.push(record);
             pointById.set(point.id, record);
           });
         });
       });
 
-      data.relations.forEach((relation) => {
-        const outgoing = relationsByPoint.get(relation.from) ?? [];
-        outgoing.push({ ...relation, target: relation.to, direction: 'out' });
-        relationsByPoint.set(relation.from, outgoing);
-
-        const incoming = relationsByPoint.get(relation.to) ?? [];
-        incoming.push({ ...relation, target: relation.from, direction: 'in' });
-        relationsByPoint.set(relation.to, incoming);
-      });
-
-      const views = {
-        panorama: this.querySelector('[data-view="panorama"]'),
-        domain: this.querySelector('[data-view="domain"]'),
-        point: this.querySelector('[data-view="point"]'),
-      };
+      const canvas = this.querySelector('[data-map-canvas]');
       const searchInput = this.querySelector('[data-search-input]');
       const searchResults = this.querySelector('[data-search-results]');
+      const panel = this.querySelector('[data-point-panel]');
       const announcer = this.querySelector('[data-announcer]');
-      let currentDomain = data.domains[0];
-      let canvasGraph;
-      let canvasScale = 0.82;
-      const requestedLevel = new URLSearchParams(location.search).get('level');
-      let activeLevel = ['core', 'scenario', 'advanced'].includes(requestedLevel) ? requestedLevel : 'all';
-      let selectedCanvasCell = 'group-tools-environment-g02';
-      const selectionByLevel = new Map([['all', selectedCanvasCell]]);
-      let canvasInitPromise;
-
-      const escapeHTML = (value) => String(value ?? '')
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#039;');
-
-      const compactCode = (value) => String(value ?? '')
-        .split('.')
-        .map((part) => String(Number.parseInt(part, 10)))
-        .join('.');
-
-      const showView = (name) => {
-        Object.entries(views).forEach(([viewName, element]) => {
-          element.hidden = viewName !== name;
-        });
-        this.dataset.currentView = name;
-      };
+      let graph;
+      let activeLevel = 'all';
+      let highlightedPoint = '';
 
       const setText = (selector, value) => {
         const node = this.querySelector(selector);
         if (node) node.textContent = value;
       };
 
-      const domainPoints = (domain) => domain.groups.flatMap((group) => group.points.map((point) => ({ point, group, domain })));
-      const routeSummary = (domain) => {
-        const groupNames = domain.groups.map((group) => `「${group.title}」`);
-        if (groupNames.length === 1) return `围绕 ${groupNames[0]} 展开，按知识点顺序建立可落地的系统认识。`;
-        return `从${groupNames[0]}开始，依次经过${groupNames.slice(1, -1).join('、')}，最后进入${groupNames.at(-1)}。`;
+      const setDensity = (scale) => {
+        this.dataset.density = scale < 0.52 ? 'overview' : scale < 0.72 ? 'groups' : 'points';
+        setText('[data-zoom-value]', `${Math.round(scale * 100)}%`);
       };
 
-      const levelLabels = {
-        core: '核心',
-        scenario: '场景',
-        advanced: '进阶',
+      const findDomainNode = (domainId) => graph?.getCellById(`domain-${domainId}`);
+
+      const clearHighlights = () => {
+        this.querySelectorAll('.map-point.is-active, .map-group.is-focused').forEach((node) => {
+          node.classList.remove('is-active', 'is-focused');
+        });
+        highlightedPoint = '';
       };
 
-      const domainAccents = {
-        foundations: '#3f73e8',
-        'model-context': '#4a9b73',
-        'knowledge-state': '#c99537',
-        'tools-environment': '#3370ff',
-        'runtime-orchestration': '#8b63c7',
-        'evaluation-evolution': '#2a9ca8',
-        'safety-governance': '#eb7467',
-        'production-platform': '#5ea7cf',
-        'interaction-collaboration': '#c59038',
+      const centerDomain = (domainId, scale = 0.82) => {
+        const node = findDomainNode(domainId);
+        if (!node || !graph) return;
+        graph.zoomTo(scale, { minScale: 0.25, maxScale: 1.25 });
+        if (window.innerWidth < 900) {
+          const bounds = node.getBBox();
+          graph.translate(18 - bounds.x * scale, 26 - bounds.y * scale);
+          return;
+        }
+        graph.centerCell(node);
+        if (!panel.hidden && window.innerWidth >= 900) graph.translateBy(-170, 0);
       };
 
-      const domainTints = {
-        foundations: '#f3f6fd',
-        'model-context': '#f2f8f4',
-        'knowledge-state': '#fbf7ef',
-        'tools-environment': '#eff4ff',
-        'runtime-orchestration': '#f5f1fb',
-        'evaluation-evolution': '#f1f8f8',
-        'safety-governance': '#fdf3f1',
-        'production-platform': '#f1f7fa',
-        'interaction-collaboration': '#faf5ec',
+      const focusGroup = (groupId) => {
+        const record = groupById.get(groupId);
+        if (!record) return;
+        closePanel();
+        centerDomain(record.domain.id, 0.86);
+        window.requestAnimationFrame(() => {
+          this.querySelector(`[data-group-id="${CSS.escape(groupId)}"]`)?.classList.add('is-focused');
+        });
       };
 
-      const domainLayouts = {
-        foundations: { x: 108, y: 72 },
-        'model-context': { x: 438, y: 42 },
-        'knowledge-state': { x: 748, y: 72 },
-        'runtime-orchestration': { x: 10, y: 284 },
-        'tools-environment': { x: 438, y: 282 },
-        'evaluation-evolution': { x: 870, y: 284 },
-        'safety-governance': { x: 108, y: 508 },
-        'production-platform': { x: 438, y: 526 },
-        'interaction-collaboration': { x: 748, y: 508 },
-      };
-
-      const highlightedGroups = [
-        { id: 'tools-environment-g02', x: 252, y: 260 },
-        { id: 'tools-environment-g03', x: 252, y: 346 },
-        { id: 'tools-environment-g05', x: 682, y: 260 },
-        { id: 'tools-environment-g04', x: 682, y: 346 },
-      ];
-
-      const domainRelations = [
-        ['foundations', 'model-context', -16],
-        ['model-context', 'tools-environment', 18],
-        ['knowledge-state', 'tools-environment', -18],
-        ['runtime-orchestration', 'tools-environment', 20],
-        ['tools-environment', 'evaluation-evolution', -14],
-        ['safety-governance', 'tools-environment', -26],
-        ['production-platform', 'runtime-orchestration', 22],
-        ['interaction-collaboration', 'tools-environment', 26],
-      ];
-
-      const setDrawerLinks = (container, items, type) => {
+      const setPanelTags = (record) => {
+        const container = this.querySelector('[data-panel-tags]');
         container.replaceChildren();
-        if (!items.length) {
-          const empty = document.createElement('p');
-          empty.className = 'drawer-empty';
-          empty.textContent = type === 'article' ? '暂无站内延伸文章' : '暂无关联知识点';
-          container.append(empty);
-          return;
-        }
-
-        items.forEach((item) => {
-          const node = type === 'article' ? document.createElement('a') : document.createElement('button');
-          if (type === 'article') node.href = item.href;
-          else if (item.pointId) node.dataset.previewPoint = item.pointId;
-          else if (item.groupId) node.dataset.canvasGroup = item.groupId;
-          node.className = 'drawer-link';
-
-          const dot = document.createElement('span');
-          dot.className = 'drawer-link-dot';
-          dot.style.setProperty('--link-accent', item.accent ?? '#7bc8ae');
-          const label = document.createElement('strong');
-          label.textContent = item.title;
-          const arrow = document.createElement('i');
-          arrow.setAttribute('aria-hidden', 'true');
-          arrow.textContent = type === 'article' ? '↗' : '›';
-          node.append(dot, label, arrow);
-          container.append(node);
+        [levelNames[record.group.level] ?? record.group.level, record.group.title].forEach((label, index) => {
+          const span = document.createElement('span');
+          if (index === 0) span.className = 'is-level';
+          span.textContent = label;
+          container.append(span);
         });
       };
 
-      const setDrawerMeta = (labels) => {
-        const meta = this.querySelector('[data-drawer-meta]');
-        meta.replaceChildren();
-        labels.forEach((label, index) => {
-          const item = document.createElement('span');
-          if (index === 0) item.className = 'is-primary';
-          item.textContent = label;
-          meta.append(item);
+      const setPanelReading = (record) => {
+        const section = this.querySelector('[data-panel-reading-section]');
+        const container = this.querySelector('[data-panel-reading]');
+        const articles = record.domain.articles ?? [];
+        section.hidden = articles.length === 0;
+        container.replaceChildren();
+        articles.forEach((article) => {
+          const link = document.createElement('a');
+          link.href = article.href;
+          link.innerHTML = `<span>${escapeHTML(article.title)}</span><i aria-hidden="true">↗</i>`;
+          container.append(link);
         });
       };
 
-      const setDrawerPrimary = (type, id, label, domainId = '') => {
-        const button = this.querySelector('[data-drawer-primary]');
-        button.dataset.drawerTarget = type;
-        button.dataset.drawerTargetId = id;
-        button.dataset.drawerDomainId = domainId;
-        button.replaceChildren(document.createTextNode(`${label} `));
-        const arrow = document.createElement('span');
-        arrow.setAttribute('aria-hidden', 'true');
-        arrow.textContent = '→';
-        button.append(arrow);
-      };
-
-      const openDrawer = () => {
-        this.querySelector('[data-canvas-drawer]').hidden = false;
-      };
-
-      const renderDrawerArticles = (domain) => {
-        setDrawerLinks(
-          this.querySelector('[data-drawer-articles]'),
-          (domain.articles ?? []).slice(0, 1),
-          'article',
-        );
-      };
-
-      const showDomainDrawer = (domain) => {
-        const count = domain.groups.reduce((total, group) => total + group.points.length, 0);
-        setText('[data-drawer-code]', compactCode(domain.code));
-        setText('[data-drawer-title]', domain.title);
-        setText('[data-drawer-detail]', routeSummary(domain));
-        setDrawerMeta([`${count} 个知识点`, `${domain.groups.length} 条学习路线`]);
-        setText('[data-drawer-related-title]', '学习路线');
-        setDrawerLinks(
-          this.querySelector('[data-drawer-related]'),
-          domain.groups.slice(0, 4).map((group) => ({
-            title: group.title,
-            groupId: group.id,
-            accent: domainAccents[domain.id],
-          })),
-          'related',
-        );
-        renderDrawerArticles(domain);
-        setDrawerPrimary('domain', domain.id, '查看领域路线');
-        openDrawer();
-      };
-
-      const showGroupDrawer = (domain, group) => {
-        setText('[data-drawer-code]', compactCode(group.code));
-        setText('[data-drawer-title]', group.title);
-        setText('[data-drawer-detail]', group.guide.summary);
-        setDrawerMeta([levelLabels[group.level] ?? group.level, `${group.points.length} 个知识点`]);
-        setText('[data-drawer-related-title]', '包含知识点');
-        setDrawerLinks(
-          this.querySelector('[data-drawer-related]'),
-          group.points.slice(0, 3).map((point) => ({
-            title: point.title,
-            pointId: point.id,
-            accent: domainAccents[domain.id],
-          })),
-          'related',
-        );
-        renderDrawerArticles(domain);
-        setDrawerPrimary('group', group.id, '查看这条路线', domain.id);
-        openDrawer();
-      };
-
-      const showPointDrawer = (record) => {
-        const { previous, next } = getAdjacent(record);
-        const related = [previous, next].filter(Boolean);
-        (relationsByPoint.get(record.point.id) ?? []).forEach((relation) => {
-          const target = pointById.get(relation.target);
-          if (target && !related.some((item) => item.point.id === target.point.id)) related.push(target);
-        });
-        setText('[data-drawer-code]', compactCode(record.point.code));
-        setText('[data-drawer-title]', record.point.title);
-        setText('[data-drawer-detail]', record.point.detail);
-        setDrawerMeta([levelLabels[record.group.level] ?? record.group.level, '约 12 分钟']);
-        setText('[data-drawer-related-title]', '相关知识点');
-        setDrawerLinks(
-          this.querySelector('[data-drawer-related]'),
-          related.slice(0, 3).map((item) => ({
-            title: item.point.title,
-            pointId: item.point.id,
-            accent: domainAccents[item.domain.id],
-          })),
-          'related',
-        );
-        renderDrawerArticles(record.domain);
-        setDrawerPrimary('point', record.point.id, '打开知识点');
-        openDrawer();
-      };
-
-      const updateCanvasSelection = (cellId) => {
-        selectedCanvasCell = cellId;
-        selectionByLevel.set(activeLevel, cellId);
-        if (!canvasGraph) return;
-        canvasGraph.getNodes().forEach((node) => {
-          const nodeData = node.getData();
-          if (nodeData?.kind === 'domain' || nodeData?.kind === 'group') {
-            node.setData({ ...nodeData, selected: node.id === cellId });
+      const setPanelContent = (record) => {
+        const container = this.querySelector('[data-panel-content]');
+        container.replaceChildren();
+        (record.point.content ?? []).forEach((block) => {
+          if (block.type === 'heading') {
+            const heading = document.createElement('h3');
+            heading.textContent = block.text;
+            container.append(heading);
+            return;
           }
-        });
-      };
-
-      const showCanvasCellDrawer = (cell) => {
-        const nodeData = cell?.getData();
-        if (nodeData?.kind === 'domain') {
-          const domain = domainById.get(nodeData.domainId);
-          if (domain) showDomainDrawer(domain);
-        } else if (nodeData?.kind === 'group') {
-          const record = groupById.get(nodeData.groupId);
-          if (record) showGroupDrawer(record.domain, record.group);
-        }
-      };
-
-      const updateZoomLabel = (scale = canvasScale) => {
-        canvasScale = scale;
-        const label = this.querySelector('[data-zoom-value]');
-        if (label) label.textContent = `${Math.round(canvasScale * 100)}%`;
-      };
-
-      const fitCanvas = () => {
-        if (!canvasGraph) return;
-        const canvas = this.querySelector('[data-knowledge-canvas]');
-        if (!canvas) return;
-        const compact = window.innerWidth < 900;
-        if (compact) {
-          const mobileScale = 0.68;
-          const selected = canvasGraph.getCellById(selectedCanvasCell);
-          canvasGraph.zoomTo(mobileScale);
-          if (selected?.isVisible()) {
-            const bounds = selected.getBBox();
-            const targetX = canvas.clientWidth / 2;
-            const targetY = Math.max(116, Math.min(canvas.clientHeight * 0.24, 184));
-            canvasGraph.translate(
-              targetX - (bounds.x + bounds.width / 2) * mobileScale,
-              targetY - (bounds.y + bounds.height / 2) * mobileScale,
-            );
+          if (block.type === 'list') {
+            const list = document.createElement('ul');
+            block.items.forEach((item) => {
+              const entry = document.createElement('li');
+              entry.textContent = item;
+              list.append(entry);
+            });
+            container.append(list);
+            return;
           }
-          return;
-        }
-        canvasGraph.zoomToFit({
-          padding: { top: 90, right: 390, bottom: 82, left: 72 },
-          minScale: 0.54,
-          maxScale: 0.92,
-        });
-        if (activeLevel === 'all') {
-          const mapBounds = { x: -16, y: 18, width: 1166 };
-          const leftInset = 28;
-          const rightInset = 368;
-          const availableWidth = canvas.clientWidth - leftInset - rightInset;
-          const translateX = leftInset + (availableWidth - mapBounds.width * canvasScale) / 2 - mapBounds.x * canvasScale;
-          const translateY = 70 - mapBounds.y * canvasScale;
-          canvasGraph.translate(translateX, translateY);
-        }
-      };
-
-      const syncLevelFilterToUrl = () => {
-        const url = new URL(location.href);
-        if (activeLevel === 'all') url.searchParams.delete('level');
-        else url.searchParams.set('level', activeLevel);
-        history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
-      };
-
-      const applyCanvasFilter = (preferredCellId = '') => {
-        if (!canvasGraph) return;
-        const visibleDomains = new Set(
-          data.domains
-            .filter((domain) => activeLevel === 'all' || domain.groups.some((group) => group.level === activeLevel))
-            .map((domain) => domain.id),
-        );
-
-        canvasGraph.getNodes().forEach((node) => {
-          const nodeData = node.getData();
-          if (!nodeData) return;
-          if (nodeData.kind === 'domain' || nodeData.kind === 'halo') {
-            node.setVisible(visibleDomains.has(nodeData.domainId));
-          } else if (nodeData.kind === 'group') {
-            node.setVisible(visibleDomains.has(nodeData.domainId) && (activeLevel === 'all' || nodeData.level === activeLevel));
-          }
-        });
-
-        canvasGraph.getEdges().forEach((edge) => {
-          const edgeData = edge.getData();
-          if (edgeData?.kind === 'domain-edge') {
-            edge.setVisible(visibleDomains.has(edgeData.sourceDomain) && visibleDomains.has(edgeData.targetDomain));
-          } else if (edgeData?.kind === 'group-edge') {
-            edge.setVisible(activeLevel === 'all' || edgeData.level === activeLevel);
-          }
-        });
-
-        this.querySelectorAll('[data-level-filter]').forEach((button) => {
-          button.setAttribute('aria-pressed', String(button.dataset.levelFilter === activeLevel));
-        });
-
-        const preferred = canvasGraph.getCellById(preferredCellId);
-        const selected = preferred?.isVisible()
-          ? preferred
-          : canvasGraph.getCellById(selectedCanvasCell);
-        if (selected?.isVisible()) {
-          updateCanvasSelection(selected.id);
-          showCanvasCellDrawer(selected);
-        } else {
-          const fallback = data.domains.find((domain) => visibleDomains.has(domain.id));
-          if (fallback) {
-            const fallbackId = `domain-${fallback.id}`;
-            updateCanvasSelection(fallbackId);
-            showDomainDrawer(fallback);
-          }
-        }
-        announcer.textContent = activeLevel === 'all'
-          ? '已显示全部知识层级'
-          : `已筛选${levelLabels[activeLevel]}知识层级`;
-        window.setTimeout(fitCanvas, 40);
-      };
-
-      const initCanvas = () => {
-        if (canvasGraph) return;
-        if (canvasInitPromise) return;
-        const container = this.querySelector('[data-knowledge-canvas]');
-        const minimapContainer = this.querySelector('[data-canvas-minimap]');
-        if (!container || !minimapContainer) return;
-
-        canvasInitPromise = (async () => {
-        const { Graph } = await loadCanvasCore();
-        canvasGraph = new Graph({
-          container,
-          autoResize: true,
-          background: { color: 'transparent' },
-          panning: { enabled: true },
-          mousewheel: {
-            enabled: true,
-            zoomAtMousePosition: true,
-            minScale: 0.38,
-            maxScale: 1.35,
-            factor: 1.08,
-          },
-          interacting: {
-            nodeMovable: false,
-            edgeMovable: false,
-            arrowheadMovable: false,
-          },
-        });
-
-        if (window.innerWidth >= 900) {
-          const { MiniMap } = await import('@antv/x6/es/plugin/minimap');
-          canvasGraph.use(new MiniMap({
-            container: minimapContainer,
-            width: 238,
-            height: 138,
-            padding: 18,
-            scalable: false,
-            graphOptions: { interacting: false },
-          }));
-        }
-
-        data.domains.forEach((domain) => {
-          const layout = domainLayouts[domain.id];
-          const count = domain.groups.reduce((total, group) => total + group.points.length, 0);
-          const isTools = domain.id === 'tools-environment';
-          const halo = isTools
-            ? { x: 228, y: 214, width: 632, height: 246, radius: 76 }
-            : { x: layout.x - 26, y: layout.y - 24, width: 280, height: 160, radius: 54 };
-
-          canvasGraph.addNode({
-            id: `halo-${domain.id}`,
-            shape: 'rect',
-            x: halo.x,
-            y: halo.y,
-            width: halo.width,
-            height: halo.height,
-            zIndex: 0,
-            data: { kind: 'halo', domainId: domain.id },
-            attrs: {
-              body: { fill: domainTints[domain.id], stroke: 'none', rx: halo.radius, ry: halo.radius, opacity: isTools ? 0.94 : 0.78 },
-              label: { text: '' },
-            },
-          });
-
-          canvasGraph.addNode({
-            id: `domain-${domain.id}`,
-            shape: 'atlas-domain-card',
-            x: layout.x,
-            y: layout.y,
-            width: 228,
-            height: 112,
-            zIndex: 10,
-            data: {
-              kind: 'domain',
-              domainId: domain.id,
-              title: domain.title,
-              count,
-              chips: domain.groups.slice(0, 3).map((group) => group.title),
-              accent: domainAccents[domain.id],
-              selected: false,
-              ariaLabel: `${domain.title}，${count} 个知识点`,
-            },
-          });
-        });
-
-        domainRelations.forEach(([sourceDomain, targetDomain, bend], index) => {
-          const source = domainLayouts[sourceDomain];
-          const target = domainLayouts[targetDomain];
-          canvasGraph.addEdge({
-            id: `domain-relation-${index}`,
-            source: { cell: `domain-${sourceDomain}`, anchor: { name: 'center' } },
-            target: { cell: `domain-${targetDomain}`, anchor: { name: 'center' } },
-            vertices: [{
-              x: (source.x + target.x + 228) / 2,
-              y: (source.y + target.y + 112) / 2 + bend,
-            }],
-            connector: { name: 'smooth' },
-            zIndex: 1,
-            data: { kind: 'domain-edge', sourceDomain, targetDomain },
-            attrs: {
-              line: {
-                stroke: '#cfd3d2',
-                strokeWidth: 1,
-                strokeOpacity: 0.42,
-                sourceMarker: null,
-                targetMarker: null,
-              },
-            },
-          });
-        });
-
-        highlightedGroups.forEach(({ id, x, y }) => {
-          const record = groupById.get(id);
-          if (!record) return;
-          canvasGraph.addNode({
-            id: `group-${id}`,
-            shape: 'atlas-group-card',
-            x,
-            y,
-            width: 174,
-            height: 70,
-            zIndex: 20,
-            data: {
-              kind: 'group',
-              domainId: record.domain.id,
-              groupId: record.group.id,
-              level: record.group.level,
-              title: record.group.title,
-              code: compactCode(record.group.code),
-              accent: domainAccents[record.domain.id],
-              selected: id === 'tools-environment-g02',
-              ariaLabel: `${record.group.title}，${record.group.points.length} 个知识点`,
-            },
-          });
-          canvasGraph.addEdge({
-            id: `group-relation-${id}`,
-            source: { cell: 'domain-tools-environment', anchor: { name: 'center' } },
-            target: { cell: `group-${id}`, anchor: { name: 'center' } },
-            connector: { name: 'smooth' },
-            zIndex: 5,
-            data: { kind: 'group-edge', level: record.group.level },
-            attrs: {
-              line: {
-                stroke: '#3370ff',
-                strokeWidth: 2,
-                strokeOpacity: 0.9,
-                sourceMarker: null,
-                targetMarker: null,
-              },
-            },
-          });
-        });
-
-        canvasGraph.on('node:click', ({ node }) => {
-          const nodeData = node.getData();
-          if (nodeData?.kind === 'domain') {
-            updateCanvasSelection(node.id);
-            showDomainDrawer(domainById.get(nodeData.domainId));
-          } else if (nodeData?.kind === 'group') {
-            updateCanvasSelection(node.id);
-            const record = groupById.get(nodeData.groupId);
-            if (record) showGroupDrawer(record.domain, record.group);
-          }
-        });
-
-        canvasGraph.on('scale', ({ sx }) => updateZoomLabel(sx));
-
-        const initialGroup = groupById.get('tools-environment-g02');
-        if (initialGroup) showGroupDrawer(initialGroup.domain, initialGroup.group);
-        applyCanvasFilter(selectionByLevel.get(activeLevel));
-        })().catch(() => {
-          canvasInitPromise = null;
-          const hint = this.querySelector('.canvas-hint span');
-          if (hint) hint.textContent = '地图加载失败，请刷新页面';
-          announcer.textContent = '学习地图加载失败，请刷新页面';
+          const paragraph = document.createElement('p');
+          paragraph.textContent = block.text;
+          container.append(paragraph);
         });
       };
 
-      const renderPanorama = () => {
-        showView('panorama');
-        document.title = 'Agent 学习地图';
-        window.requestAnimationFrame(initCanvas);
-      };
-
-      const renderDomain = (domain) => {
-        currentDomain = domain;
-        showView('domain');
-        setText('[data-domain-title]', domain.title);
-        setText('[data-domain-summary]', routeSummary(domain));
-        document.title = `${domain.title} · Agent 学习地图`;
-
-        const route = this.querySelector('[data-domain-groups]');
-        route.innerHTML = domain.groups.map((group, groupIndex) => `
-          <section class="route-group" id="route-${escapeHTML(group.id)}">
-            <div class="route-group-body">
-              <header>
-                <span class="route-marker" aria-hidden="true">${groupIndex + 1}</span>
-                <div>
-                  <h2>${escapeHTML(group.title)}</h2>
-                  <p>${escapeHTML(group.guide.summary)}</p>
-                </div>
-              </header>
-              <div class="point-list">
-                ${group.points.map((point) => `
-                  <button type="button" data-open-point="${escapeHTML(point.id)}">
-                    <strong>${escapeHTML(point.title)}</strong>
-                    <i aria-hidden="true">→</i>
-                  </button>
-                `).join('')}
-              </div>
-            </div>
-          </section>
-        `).join('');
-      };
-
-      const visualDefinitions = {
-        foundations: ['真实需求', '明确边界', '可判定结果'],
-        'model-context': ['目标与状态', '组装上下文', '结构化决策'],
-        'knowledge-state': ['可信来源', '检索与记忆', '证据进入运行'],
-        'tools-environment': ['动作意图', '校验并执行', '环境返回结果'],
-        'runtime-orchestration': ['观察当前状态', '循环与调度', '继续、恢复或停止'],
-        'evaluation-evolution': ['固定样本', '记录 Run Trace', '回归与改进'],
-        'safety-governance': ['识别风险', '策略与审批', '受控执行与审计'],
-        'production-platform': ['接收请求', '调度与承载', '状态、成本与观测'],
-        'interaction-collaboration': ['表达意图', '交接与协作', '反馈与人工介入'],
-      };
-
-      const renderPointVisual = (record) => {
-        const steps = visualDefinitions[record.domain.id] ?? ['系统输入', '系统判断', '系统结果'];
-        const visual = this.querySelector('[data-point-visual]');
-        visual.innerHTML = `
-          <div class="visual-flow">
-            <div class="visual-step"><span>输入</span><strong>${escapeHTML(steps[0])}</strong></div>
-            <i aria-hidden="true">→</i>
-            <div class="visual-step current"><span>当前知识点</span><strong>${escapeHTML(record.point.title)}</strong></div>
-            <i aria-hidden="true">→</i>
-            <div class="visual-step"><span>落点</span><strong>${escapeHTML(steps[2])}</strong></div>
-          </div>
-          <div class="visual-baseline"><span>${escapeHTML(steps[1])}</span><i></i><b>${escapeHTML(record.domain.short)}</b></div>
-        `;
-      };
-
-      const getAdjacent = (record) => {
-        const records = domainPoints(record.domain).map(({ point }) => pointById.get(point.id));
-        const index = records.findIndex(({ point }) => point.id === record.point.id);
-        return {
-          previous: index > 0 ? records[index - 1] : null,
-          next: index < records.length - 1 ? records[index + 1] : null,
-        };
-      };
-
-      const renderRelations = (record) => {
-        const { previous, next } = getAdjacent(record);
-        const related = [];
-        if (previous) related.push({ label: '前置', record: previous });
-        if (next) related.push({ label: '下一步', record: next });
-        (relationsByPoint.get(record.point.id) ?? []).forEach((relation) => {
-          const target = pointById.get(relation.target);
-          if (target && !related.some((item) => item.record.point.id === target.point.id)) {
-            related.push({ label: relation.direction === 'out' ? relation.type : `被${relation.type}`, record: target });
-          }
+      const setPanelSources = (record) => {
+        const container = this.querySelector('[data-panel-sources]');
+        container.replaceChildren();
+        (record.group.references ?? []).forEach((reference) => {
+          const item = document.createElement('div');
+          const title = document.createElement('strong');
+          const location = document.createElement('span');
+          title.textContent = reference.title;
+          location.textContent = reference.location;
+          item.append(title, location);
+          container.append(item);
         });
-        const list = this.querySelector('[data-relation-list]');
-        list.innerHTML = related.slice(0, 6).map(({ label, record: target }) => `
-          <button type="button" data-open-point="${escapeHTML(target.point.id)}">
-            <span>${escapeHTML(label)}</span>
-            <strong>${escapeHTML(target.point.title)}</strong>
-            <small>${escapeHTML(target.domain.short)} · ${escapeHTML(compactCode(target.point.code))}</small>
-          </button>
-        `).join('') || '<p class="empty-relation">当前没有额外关系</p>';
       };
 
-      const renderReferences = (record) => {
-        const articleLinks = this.querySelector('[data-article-links]');
-        articleLinks.innerHTML = (record.domain.articles ?? []).map((article) => `
-          <a href="${escapeHTML(article.href)}"><span>${escapeHTML(article.title)}</span><i aria-hidden="true">↗</i></a>
-        `).join('') || '<p>暂无站内延伸文章</p>';
+      const openPoint = (record, { updateUrl = true, focus = true } = {}) => {
+        panel.hidden = false;
+        setText('[data-panel-stage]', `阶段 ${record.domain.code}`);
+        setText('[data-panel-path]', `${record.domain.short} · ${record.group.title}`);
+        setText('[data-panel-title]', record.point.title);
+        setPanelTags(record);
+        setPanelContent(record);
+        setPanelSources(record);
+        setPanelReading(record);
 
-        const sourceLinks = this.querySelector('[data-source-links]');
-        sourceLinks.innerHTML = record.domain.references.map((source) => `
-          <div class="source-item">
-            <strong>${escapeHTML(source.title)}</strong>
-            <span>${escapeHTML(source.location)}</span>
-            <p>${escapeHTML(source.note)}</p>
-          </div>
-        `).join('');
-      };
+        clearHighlights();
+        highlightedPoint = record.point.id;
+        if (focus) centerDomain(record.domain.id, window.innerWidth < 900 ? 0.9 : 0.86);
+        window.requestAnimationFrame(() => {
+          this.querySelector(`[data-open-point="${CSS.escape(record.point.id)}"]`)?.classList.add('is-active');
+        });
 
-      const renderPagination = (record) => {
-        const { previous, next } = getAdjacent(record);
-        const nav = this.querySelector('[data-article-pagination]');
-        nav.innerHTML = `
-          ${previous ? `<button type="button" data-open-point="${escapeHTML(previous.point.id)}"><span>← 上一个</span><strong>${escapeHTML(previous.point.title)}</strong></button>` : '<span></span>'}
-          ${next ? `<button type="button" data-open-point="${escapeHTML(next.point.id)}"><span>下一个 →</span><strong>${escapeHTML(next.point.title)}</strong></button>` : '<span></span>'}
-        `;
-      };
-
-      const renderPoint = (record) => {
-        currentDomain = record.domain;
-        showView('point');
-        setText('[data-breadcrumb]', `${record.domain.short} / ${record.group.title}`);
-        setText('[data-point-code]', `${compactCode(record.point.code)} · ${record.group.title}`);
-        setText('[data-point-title]', record.point.title);
-        setText('[data-point-detail]', record.point.detail);
-        setText('[data-group-context]', record.group.guide.summary);
-        setText('[data-point-pitfall]', record.point.pitfall);
-        setText('[data-point-verify]', record.point.verify);
-        setText('[data-recall-question]', `不看上文，你能说明「${record.point.title}」解决什么问题，以及系统怎样验证它吗？`);
-        setText('[data-recall-answer]', record.point.detail);
-        setText('[data-recall-check]', record.point.verify);
-        setText('[data-aside-domain]', record.domain.title);
-        setText('[data-aside-group]', record.group.title);
-        this.querySelector('[data-recall-card]').removeAttribute('open');
+        if (updateUrl) history.pushState(null, '', `${location.pathname}${location.search}#${record.point.id}`);
         document.title = `${record.point.title} · Agent 学习地图`;
-        renderPointVisual(record);
-        renderRelations(record);
-        renderReferences(record);
-        renderPagination(record);
+        announcer.textContent = `已打开 ${record.point.title}`;
       };
 
-      const routeForHash = () => {
-        const hash = decodeURIComponent(location.hash.slice(1));
-        if (pointById.has(hash)) return { view: 'point', value: pointById.get(hash) };
-        if (hash.startsWith('domain-')) {
-          const domain = domainById.get(hash.slice(7));
-          if (domain) return { view: 'domain', value: domain };
-        }
-        return { view: 'panorama', value: null };
+      const closePanel = ({ updateUrl = true } = {}) => {
+        panel.hidden = true;
+        clearHighlights();
+        document.title = 'Agent 学习地图';
+        if (updateUrl && location.hash) history.replaceState(null, '', `${location.pathname}${location.search}`);
       };
 
-      const renderLocation = ({ scroll = false } = {}) => {
-        const route = routeForHash();
-        if (route.view === 'point') renderPoint(route.value);
-        else if (route.view === 'domain') renderDomain(route.value);
-        else renderPanorama();
-        if (scroll) window.scrollTo({ top: 0, behavior: 'instant' });
-      };
-
-      const navigate = (hash) => {
-        const target = `${location.pathname}${location.search}#${hash}`;
-        if (`${location.pathname}${location.search}${location.hash}` === target) {
-          renderLocation({ scroll: true });
-        } else {
-          history.pushState(null, '', target);
-          renderLocation({ scroll: true });
-        }
-        searchResults.hidden = true;
-        searchInput.setAttribute('aria-expanded', 'false');
-        searchInput.blur();
+      const fitMap = () => {
+        if (!graph) return;
+        graph.zoomToFit({
+          padding: window.innerWidth < 900 ? 34 : { top: 76, right: 76, bottom: 68, left: 76 },
+          minScale: 0.22,
+          maxScale: 0.5,
+        });
+        graph.centerContent();
       };
 
       const renderSearch = () => {
@@ -1010,118 +406,91 @@ const serializedData = JSON.stringify(knowledgeData).replace(/</g, '\\u003c');
           return;
         }
         const matches = pointRecords.filter(({ point, group, domain }) => {
-          const haystack = `${point.code} ${point.title} ${point.detail} ${group.title} ${domain.title}`.toLocaleLowerCase('zh-CN');
+          const explanation = (point.content ?? []).flatMap((block) => block.items ?? block.text ?? '').join(' ');
+          const haystack = `${point.title} ${explanation} ${group.title} ${domain.title}`.toLocaleLowerCase('zh-CN');
           return haystack.includes(query);
         }).slice(0, 10);
         searchResults.innerHTML = matches.length ? matches.map(({ point, group, domain }) => `
           <button type="button" data-search-point="${escapeHTML(point.id)}">
-            <span>${escapeHTML(compactCode(point.code))}</span>
             <strong>${escapeHTML(point.title)}</strong>
-            <small>${escapeHTML(domain.short)} / ${escapeHTML(group.title)}</small>
+            <small>${escapeHTML(domain.short)} · ${escapeHTML(group.title)}</small>
           </button>
         `).join('') : '<p>没有找到匹配的知识点</p>';
         searchResults.hidden = false;
         searchInput.setAttribute('aria-expanded', 'true');
       };
 
-      this.addEventListener('click', async (event) => {
+      const applyLevel = (level) => {
+        activeLevel = level;
+        this.dataset.levelFilter = level;
+        this.querySelectorAll('[data-level]').forEach((button) => {
+          if (button.closest('.level-filter')) button.setAttribute('aria-pressed', String(button.dataset.level === level));
+        });
+      };
+
+      const handleLocation = () => {
+        const id = decodeURIComponent(location.hash.slice(1));
+        const record = pointById.get(id);
+        if (record) openPoint(record, { updateUrl: false });
+        else closePanel({ updateUrl: false });
+      };
+
+      this.addEventListener('click', (event) => {
         const target = event.target instanceof Element ? event.target : null;
         if (!target) return;
 
-        if (target.closest('[data-fit-canvas]')) {
-          fitCanvas();
-          return;
-        }
-
-        const zoomButton = target.closest('[data-canvas-zoom]');
-        if (zoomButton && canvasGraph) {
-          canvasGraph.zoom(zoomButton.dataset.canvasZoom === 'in' ? 0.12 : -0.12, {
-            minScale: 0.38,
-            maxScale: 1.35,
-          });
-          return;
-        }
-
-        const filterButton = target.closest('[data-level-filter]');
-        if (filterButton) {
-          if (filterButton.dataset.levelFilter === activeLevel) return;
-          selectionByLevel.set(activeLevel, selectedCanvasCell);
-          activeLevel = filterButton.dataset.levelFilter;
-          syncLevelFilterToUrl();
-          applyCanvasFilter(selectionByLevel.get(activeLevel));
-          return;
-        }
-
-        if (target.closest('[data-close-drawer]')) {
-          this.querySelector('[data-canvas-drawer]').hidden = true;
-          return;
-        }
-
-        const canvasGroupButton = target.closest('[data-canvas-group]');
-        if (canvasGroupButton) {
-          const record = groupById.get(canvasGroupButton.dataset.canvasGroup);
-          if (record) {
-            const cellId = `group-${record.group.id}`;
-            if (canvasGraph?.getCellById(cellId)) updateCanvasSelection(cellId);
-            showGroupDrawer(record.domain, record.group);
-          }
-          return;
-        }
-
-        const previewPointButton = target.closest('[data-preview-point]');
-        if (previewPointButton) {
-          const record = pointById.get(previewPointButton.dataset.previewPoint);
-          if (record) showPointDrawer(record);
-          return;
-        }
-
-        const drawerPrimary = target.closest('[data-drawer-primary]');
-        if (drawerPrimary) {
-          const type = drawerPrimary.dataset.drawerTarget;
-          const id = drawerPrimary.dataset.drawerTargetId;
-          if (type === 'point') navigate(id);
-          else if (type === 'domain') navigate(`domain-${id}`);
-          else if (type === 'group') {
-            navigate(`domain-${drawerPrimary.dataset.drawerDomainId}`);
-            window.requestAnimationFrame(() => {
-              this.querySelector(`#route-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-          }
-          return;
-        }
-
-        if (target.closest('[data-home]')) {
-          navigate('system');
-          return;
-        }
-
-        const domainButton = target.closest('[data-open-domain]');
-        if (domainButton) {
-          navigate(`domain-${domainButton.dataset.openDomain}`);
-          return;
-        }
-
-        const pointButton = target.closest('[data-open-point], [data-search-point]');
+        const pointButton = target.closest('[data-open-point]');
         if (pointButton) {
-          navigate(pointButton.dataset.openPoint ?? pointButton.dataset.searchPoint);
+          const record = pointById.get(pointButton.dataset.openPoint);
+          if (record) openPoint(record);
           return;
         }
 
-        if (target.closest('[data-back-domain]')) {
-          navigate(`domain-${currentDomain.id}`);
-          return;
-        }
-
-        const copyButton = target.closest('[data-copy-link]');
-        if (copyButton) {
-          try {
-            await navigator.clipboard.writeText(location.href);
-            copyButton.textContent = '已复制';
-            announcer.textContent = '知识点链接已复制';
-            window.setTimeout(() => { copyButton.textContent = '复制链接'; }, 1400);
-          } catch {
-            copyButton.textContent = '复制失败';
+        const searchButton = target.closest('[data-search-point]');
+        if (searchButton) {
+          const record = pointById.get(searchButton.dataset.searchPoint);
+          if (record) {
+            applyLevel('all');
+            openPoint(record);
+            searchResults.hidden = true;
+            searchInput.setAttribute('aria-expanded', 'false');
           }
+          return;
+        }
+
+        const groupButton = target.closest('[data-focus-group]');
+        if (groupButton) {
+          focusGroup(groupButton.dataset.focusGroup);
+          return;
+        }
+
+        const domainButton = target.closest('[data-focus-domain]');
+        if (domainButton) {
+          closePanel();
+          centerDomain(domainButton.dataset.focusDomain, 0.76);
+          return;
+        }
+
+        const levelButton = target.closest('.level-filter [data-level]');
+        if (levelButton) {
+          applyLevel(levelButton.dataset.level);
+          return;
+        }
+
+        if (target.closest('[data-close-panel]')) {
+          closePanel();
+          return;
+        }
+
+        if (target.closest('[data-fit-map]')) {
+          closePanel();
+          fitMap();
+          return;
+        }
+
+        const zoomButton = target.closest('[data-zoom]');
+        if (zoomButton && graph) {
+          graph.zoom(zoomButton.dataset.zoom === 'in' ? 0.12 : -0.12, { minScale: 0.22, maxScale: 1.25 });
           return;
         }
 
@@ -1133,28 +502,48 @@ const serializedData = JSON.stringify(knowledgeData).replace(/</g, '\\u003c');
 
       searchInput.addEventListener('input', renderSearch);
       searchInput.addEventListener('focus', renderSearch);
-      searchInput.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-          searchResults.hidden = true;
-          searchInput.setAttribute('aria-expanded', 'false');
-          searchInput.blur();
-        }
-        if (event.key === 'Enter') {
-          const first = searchResults.querySelector('[data-search-point]');
-          if (first) navigate(first.dataset.searchPoint);
-        }
-      });
-      window.addEventListener('keydown', (event) => {
-        if (event.key === '/' && document.activeElement !== searchInput && !event.metaKey && !event.ctrlKey && !event.altKey) {
-          event.preventDefault();
-          searchInput.focus();
-        }
-      });
-      window.addEventListener('popstate', () => renderLocation({ scroll: true }));
+      window.addEventListener('popstate', handleLocation);
 
-      renderLocation();
+      loadGraph().then((Graph) => {
+        graph = new Graph({
+          container: canvas,
+          background: { color: 'transparent' },
+          grid: false,
+          panning: { enabled: true, eventTypes: ['leftMouseDown', 'mouseWheel'] },
+          mousewheel: { enabled: true, modifiers: [], factor: 1.08, minScale: 0.22, maxScale: 1.25 },
+          interacting: false,
+          autoResize: true,
+        });
+
+        data.domains.forEach((domain, index) => {
+          graph.addNode({
+            id: `domain-${domain.id}`,
+            shape: 'agent-domain-card',
+            x: layout[index].x,
+            y: layout[index].y,
+            width: cardWidth,
+            height: estimateCardHeight(domain),
+            zIndex: 2,
+            data: {
+              domain,
+              pointCount: domain.groups.reduce((total, group) => total + group.points.length, 0),
+              colors: palette[domain.id],
+            },
+          });
+        });
+
+        graph.on('scale', ({ sx }) => setDensity(sx));
+        this.querySelector('[data-map-loading]').hidden = true;
+        if (location.hash && pointById.has(decodeURIComponent(location.hash.slice(1)))) handleLocation();
+        else if (window.innerWidth < 900) centerDomain(data.domains[0].id, 0.56);
+        else fitMap();
+      }).catch(() => {
+        const loading = this.querySelector('[data-map-loading]');
+        loading.classList.add('is-error');
+        loading.querySelector('p').textContent = '画布加载失败，请刷新页面重试';
+      });
     }
   }
 
-  if (!customElements.get('agent-knowledge-explorer')) customElements.define('agent-knowledge-explorer', AgentKnowledgeExplorer);
+  if (!customElements.get('agent-knowledge-map')) customElements.define('agent-knowledge-map', AgentKnowledgeMap);
 </script>

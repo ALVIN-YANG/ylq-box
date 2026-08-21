@@ -5,3 +5,20 @@ import Analytics from '@vercel/analytics/astro';
 
 <StarlightHead />
 <Analytics />
+
+<!-- Remove the retired PWA from browsers that visited older deployments. -->
+<script is:inline>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistration('/').then((registration) => registration?.unregister());
+  }
+
+  if ('caches' in window) {
+    caches.keys().then((cacheNames) => {
+      const legacyPwaCaches = cacheNames.filter(
+        (cacheName) => cacheName === 'pages' || cacheName.startsWith('workbox-precache-'),
+      );
+
+      return Promise.all(legacyPwaCaches.map((cacheName) => caches.delete(cacheName)));
+    });
+  }
+</script>

@@ -14,9 +14,9 @@ Personal tech site of Alvin Yang, built with Astro 5 + Starlight, deployed on Ve
 
 - **Framework**: Astro 5.x (`astro`, ESM, `type: "module"`).
 - **Theme**: `@astrojs/starlight`.
-- **Entry point**: `astro.config.mjs` defines site, sidebar, Starlight components and PWA config.
+- **Entry point**: `astro.config.mjs` defines site metadata, integrations, sidebar and Starlight components.
 - **Content**: Markdown/MDX in `src/content/docs/` loaded via `src/content.config.ts` (`docsLoader()` + `docsSchema()`).
-- **PWA**: `@vite-pwa/astro` with 10MB cache limit for local LLM JS bundle; `manifest.webmanifest` in `public/`.
+- **PWA**: Deliberately disabled. `npm run build` verifies that no Service Worker, Workbox or web manifest artifacts are emitted.
 - **Notable components**: `CustomHeader.astro`, `Footer.astro`, `Sidebar.astro`, `Hero.astro`, `ThemeToggle.astro`, `RecentNotes.astro`, `WebTerminal.astro`.
 - **Notable deps**: `@mlc-ai/web-llm` (Model Arena), `@xterm/xterm` + `@xterm/addon-fit` (WebTerminal), `sharp`.
 
@@ -34,13 +34,13 @@ npm run news:weekly   # node scripts/fetch-ai-news.mjs --weekly
 
 ## Architecture
 
-1. **Astro config** (`astro.config.mjs`) — site metadata, integrations, Starlight options, PWA config, sidebar.
+1. **Astro config** (`astro.config.mjs`) — site metadata, integrations, Starlight options and sidebar.
 2. **Content collection** (`src/content.config.ts`) — `docs` collection via Starlight loader/schema.
 3. **Site content** (`src/content/docs/`) — all Markdown/MDX, organized by category.
 4. **Starlight overrides** (`src/components/`) — custom Header, Footer, Sidebar, Hero, ThemeSelect.
 5. **Styles** (`src/styles/custom.css`) — global theme, CJK typography, Markdown bold overrides.
 6. **AI News automation** (`scripts/fetch-ai-news.mjs`) — RSS + GitHub Trending + release watch, writes to `src/content/docs/ai-news/`.
-7. **Static assets** (`public/`) — icons, PWA manifest, article images (`public/images/<category>/`).
+7. **Static assets** (`public/`) — icons and article images (`public/images/<category>/`).
 
 ## Conventions
 

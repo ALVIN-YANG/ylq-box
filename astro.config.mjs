@@ -1,7 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import AstroPWA from '@vite-pwa/astro';
 import sitemap from '@astrojs/sitemap';
 import mermaid from 'astro-mermaid';
 
@@ -34,14 +33,6 @@ export default defineConfig({
         {
           tag: 'meta',
           attrs: { name: 'theme-color', content: '#f5f4ed' },
-        },
-        {
-          tag: 'link',
-          attrs: { rel: 'manifest', href: '/manifest.webmanifest' },
-        },
-        {
-          tag: 'script',
-          attrs: { src: '/registerSW.js', defer: true },
         },
         {
           tag: 'script',
@@ -126,56 +117,6 @@ export default defineConfig({
           collapsed: true,
         },
       ],
-    }),
-    AstroPWA({
-      mode: 'production',
-      base: '/',
-      scope: '/',
-      includeAssets: ['favicon.png'],
-      registerType: 'autoUpdate',
-      manifest: {
-        name: 'Alvin Yang',
-        short_name: 'Alvin',
-        description: '技术博客 — AI、架构与实践',
-        theme_color: '#f5f4ed',
-        background_color: '#f5f4ed',
-        display: 'standalone',
-        icons: [
-          {
-            src: 'pwa-192x192.png',
-            sizes: '192x192',
-            type: 'image/png',
-          },
-          {
-            src: 'pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-          },
-          {
-            src: 'pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any maskable',
-          },
-        ],
-      },
-      workbox: {
-        globPatterns: ['**/*.{css,js,svg,png,ico,txt,woff2}'],
-        navigateFallback: null,
-        runtimeCaching: [
-          {
-            urlPattern: ({ request }) => request.mode === 'navigate',
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'pages',
-              expiration: { maxEntries: 50, maxAgeSeconds: 60 * 60 * 24 * 7 },
-            },
-          },
-        ],
-      },
-      devOptions: {
-        enabled: false,
-      },
     }),
   ],
 });

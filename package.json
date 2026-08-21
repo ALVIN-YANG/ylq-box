@@ -6,7 +6,7 @@
     "test": "node --test",
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/verify-no-pwa.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "news:daily": "node scripts/fetch-ai-news.mjs --daily",
@@ -29,8 +29,5 @@
     "mermaid": "^11.16.0",
     "sharp": "^0.34.2",
     "tslib": "^2.8.1"
-  },
-  "devDependencies": {
-    "@vite-pwa/astro": "^1.2.0"
   }
 }

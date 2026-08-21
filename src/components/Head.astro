@@ -21,4 +21,23 @@ import Analytics from '@vercel/analytics/astro';
       return Promise.all(legacyPwaCaches.map((cacheName) => caches.delete(cacheName)));
     });
   }
+
+  const loadMermaidZoom = () => {
+    if (!document.querySelector('pre.mermaid') || document.querySelector('script[data-mermaid-zoom]')) {
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = '/mermaid-zoom.js';
+    script.defer = true;
+    script.dataset.mermaidZoom = '';
+    document.head.append(script);
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadMermaidZoom, { once: true });
+  } else {
+    loadMermaidZoom();
+  }
+  document.addEventListener('astro:after-swap', loadMermaidZoom);
 </script>

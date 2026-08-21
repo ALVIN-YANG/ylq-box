@@ -12,6 +12,7 @@ export default defineConfig({
     mermaid({
       theme: 'default',
       autoTheme: true,
+      enableLog: false,
     }),
     sitemap(),
     starlight({
@@ -33,10 +34,6 @@ export default defineConfig({
         {
           tag: 'meta',
           attrs: { name: 'theme-color', content: '#f5f4ed' },
-        },
-        {
-          tag: 'script',
-          attrs: { src: '/mermaid-zoom.js', defer: true },
         },
       ],
       customCss: [
